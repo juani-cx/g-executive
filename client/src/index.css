@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(240, 10%, 3.9%);
+  --muted: hsl(265, 9%, 96%);
+  --muted-foreground: hsl(210, 6%, 47%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(240, 10%, 3.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(240, 10%, 3.9%);
+  --border: hsl(220, 13%, 91%);
+  --input: hsl(220, 13%, 91%);
+  --primary: hsl(207, 100%, 51%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(8, 82%, 68%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(48, 96%, 69%);
+  --accent-foreground: hsl(240, 10%, 3.9%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 10%, 3.9%);
+  --radius: 0.75rem;
+  --surface: hsl(265, 9%, 98%);
+  --surface-variant: hsl(260, 5%, 91%);
+  --on-surface: hsl(240, 10%, 3.9%);
+  --on-surface-variant: hsl(210, 6%, 47%);
+  --outline: hsl(220, 8%, 55%);
+  --outline-variant: hsl(220, 13%, 80%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 100%, 51%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(8, 82%, 68%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(48, 96%, 69%);
+  --accent-foreground: hsl(240, 10%, 3.9%);
+  --destructive: hsl(0, 62%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --surface: hsl(240, 10%, 6%);
+  --surface-variant: hsl(240, 5%, 12%);
+  --on-surface: hsl(0, 0%, 98%);
+  --on-surface-variant: hsl(240, 5%, 64.9%);
+  --outline: hsl(240, 4%, 46%);
+  --outline-variant: hsl(240, 3.7%, 15.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(40px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsla(207, 100%, 51%, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 0 40px hsla(207, 100%, 51%, 0.6); 
+  }
+}
+
+@keyframes shimmer {
+  0% { 
+    background-position: -200px 0; 
+  }
+  100% { 
+    background-position: calc(200px + 100%) 0; 
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.6), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Material Design 3 inspired components */
+.surface {
+  background-color: hsl(var(--surface));
+}
+
+.surface-variant {
+  background-color: hsl(var(--surface-variant));
+}
+
+.on-surface {
+  color: hsl(var(--on-surface));
+}
+
+.on-surface-variant {
+  color: hsl(var(--on-surface-variant));
+}
+
+.outline {
+  border-color: hsl(var(--outline));
+}
+
+.outline-variant {
+  border-color: hsl(var(--outline-variant));
+}
