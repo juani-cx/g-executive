@@ -29,11 +29,11 @@ export default function ImageUpload({ onImageUpload, preview, className }: Image
       return;
     }
 
-    // Validate file size (10MB)
-    if (file.size > 10 * 1024 * 1024) {
+    // Validate file size (50MB)
+    if (file.size > 50 * 1024 * 1024) {
       toast({
         title: "File too large",
-        description: "Please upload an image smaller than 10MB",
+        description: "Please upload an image smaller than 50MB",
         variant: "destructive",
       });
       return;

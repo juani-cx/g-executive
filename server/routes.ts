@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const upload = multer({ 
   storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+  limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
