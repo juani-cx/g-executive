@@ -1,0 +1,166 @@
+Product Design Specification — Generative AI Campaign & Catalog Builder
+1. Objective
+Goal: AI-powered marketing and content generation platform. Designed for global Executive Briefing Centers (EBCs) to showcase how generative AI can convert a simple visual idea into a comprehensive suite of marketing and e-commerce assets. The experience must evoke “awe and wonder” for executive stakeholders.
+
+Type: Feature
+
+Source: (New Product Concept – no PRD yet)
+
+2. User & Context
+Persona(s):
+
+Marketing Strategist: Creates campaigns and catalogs; interfaces with AI tools and final asset review.
+
+C-Suite Executives: Non-technical audience reviewing polished output via shareable links.
+
+Key Jobs To Be Done:
+
+JTBD 1: Create compelling campaign concepts rapidly from an inspirational image.
+
+JTBD 2: Enrich e-commerce catalogs with SEO-ready metadata and brand-aligned content.
+
+JTBD 3: Significantly accelerate prototype-to-pitch lifecycle.
+
+Primary Environment: Desktop (optimized for 24" monitors); view-only experience must work across devices via shared link.
+
+3. Functional Scope
+Area	Description
+Entry Point	Homepage with two primary paths: “Campaign Generator” and “Catalog Generator.” Alternatively, user can upload/select image first and choose experience path afterward.
+Core Actions	- Upload/select inspirational image
+- Choose brand tone and target platform (e.g., TikTok, Shopify, Instagram)
+- AI previews assets in real-time
+- Edit content/images with live AI co-pilot
+- Confirm generation to produce final assets
+- Download or share outputs
+Outcomes	- Campaigns: A dedicated campaign page with downloadable images, GIFs, PDFs, and shareable link
+- Catalogs: Interactive editor for modifying, commenting, and exporting enriched product content and SEO metadata
+
+4. UI/UX Expectations
+PROVIDE A FUNCTIONAL PROTOTYPE (Optional):
+
+TBD
+
+Screens/Components Affected:
+
+Welcome screen (entry options + image-first flow)
+
+Image upload/selection interface
+
+AI Assistant (preview & real-time editing)
+
+Asset Preview Canvas
+
+Output Hub (download/share)
+
+Executive View Page
+
+State Transitions:
+
+Idle > Upload > AI Generating > Preview > Live Edit > Final Export
+
+Animated transitions, subtle effects to simulate AI “magic”
+
+Edge Cases:
+
+Missing/low-quality input
+
+Metadata generation failure
+
+Unsupported file formats
+
+SEO field limits or brand-tone conflict
+
+4b Branding and UI Foundations
+Design System or Framework: Material Design 3
+
+Brand Assets:
+
+Logo: TBD
+
+Typography: Inter
+
+Colors:
+
+Primary: #0061A5
+
+Secondary: #FF6F61
+
+Accent: #FFD166
+
+Icon Set: Material Symbols (fallback: Lucide)
+
+Figma Source of Truth: TBD
+
+5. Data & Business Rules
+Key Fields / Objects:
+
+Inspirational image, tone preset, platform target, SEO metadata fields
+
+Validations:
+
+Only supported image formats
+
+SEO field character limits
+
+Dependencies:
+
+OpenAI API for all text-based generation
+
+Image generation API (Stable Diffusion or similar)
+
+Google NLP for metadata enrichment and text analysis
+
+6. Constraints & Considerations
+Must load in < 200ms per view
+
+High visual fidelity required — not a typical enterprise UX
+
+Designed for live demos and interactive use
+
+Responsive share view needed (executive experience)
+
+7. AI & Technology Stack
+🖼️ Image Understanding & Generation
+CLIP (OpenAI / Replicate): Visual feature tagging and style matching
+
+Stable Diffusion / DeepFloyd IF / Flux: Image generation, variant creation, inpainting
+
+Automatic1111 / ComfyUI: Interface for local generation if offline mode is needed
+
+✍️ Text & Campaign Copy
+OpenAI GPT-4 / GPT-4o: Channel copywriting, metadata, product descriptions
+
+🔠 SEO & Metadata Enrichment
+Google Cloud Natural Language:
+
+Enable via Cloud Console
+
+Authenticate with service account
+
+Use Python client for entity/sentiment/classification analysis
+
+bash
+Copiar
+Editar
+pip install google-cloud-language
+python
+Copiar
+Editar
+from google.cloud import language_v1
+client = language_v1.LanguageServiceClient()
+document = {"content": seo_text, "type_": language_v1.Document.Type.PLAIN_TEXT}
+response = client.analyze_entities(document=document)
+💡 Optional Enhancements
+LangChain: For multi-step orchestration
+
+ElevenLabs: For voiceovers or narrated demos
+
+Runway / Firefly: For advanced image editing if needed
+
+8. Acceptance Criteria
+Given a user uploads an image and selects “Campaign Generator,” they should receive multi-format assets (images, copy) for multiple channels within seconds.
+
+Given a user selects “Catalog Generator,” they can edit metadata, modify content, and preview live e-commerce-style product listings.
+
+Shareable link leads to view-only experience with downloadable elements.
+
