@@ -237,6 +237,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Image proxy endpoint to handle OpenAI blob URLs
+  app.get("/api/image-proxy", async (req, res) => {
+    try {
+      const { url } = req.query;
+      if (!url || typeof url !== 'string') {
+        return res.status(400).json({ message: "URL parameter required" });
+      }
+
+      // Validate it's an OpenAI blob URL for security
+      if (!url.includes('oaidalleapiprodscus.blob.core.windows.net')) {
+        return res.status(400).json({ message: "Invalid image URL" });
+      }
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${response.status}`);
+      }
+
+      const imageBuffer = await response.arrayBuffer();
+      const contentType = response.headers.get('content-type') || 'image/png';
+      
+      res.set({
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+        'Access-Control-Allow-Origin': '*'
+      });
+      
+      res.send(Buffer.from(imageBuffer));
+    } catch (error) {
+      console.error("Image proxy error:", error);
+      res.status(500).json({ message: "Failed to proxy image" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

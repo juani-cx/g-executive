@@ -489,10 +489,32 @@ export default function CampaignGenerator() {
                     />
                   </div>
                 ) : step >= 4 ? (
-                  <AssetPreview 
-                    assets={currentCampaign?.generatedAssets || []}
-                    isLoading={generateCampaignMutation.isPending}
-                  />
+                  <div>
+                    <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                      <h4 className="font-medium text-green-900 mb-2">Final Campaign Generated!</h4>
+                      <p className="text-sm text-green-800">
+                        {currentCampaign?.generatedAssets?.length || 0} assets created with DALL-E
+                      </p>
+                      {currentCampaign?.generatedAssets?.length === 0 && (
+                        <p className="text-xs text-red-600 mt-1">
+                          Debug: No assets found. Check console for generation errors.
+                        </p>
+                      )}
+                    </div>
+                    <AssetPreview 
+                      assets={currentCampaign?.generatedAssets || []}
+                      isLoading={generateCampaignMutation.isPending}
+                    />
+                    {/* Debug Info */}
+                    <div className="mt-4 p-2 bg-gray-100 rounded text-xs">
+                      <details>
+                        <summary>Debug: Campaign Data</summary>
+                        <pre className="mt-2 overflow-auto max-h-32">
+                          {JSON.stringify(currentCampaign?.generatedAssets, null, 2)}
+                        </pre>
+                      </details>
+                    </div>
+                  </div>
                 ) : (
                   <div className="flex items-center justify-center h-64 text-on-surface-variant">
                     <div className="text-center">

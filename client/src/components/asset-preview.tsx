@@ -27,9 +27,10 @@ export default function AssetPreview({
     const filename = `${asset.platform}_${asset.type}_${asset.title.replace(/\s+/g, '_')}.${asset.type === 'image' ? 'jpg' : 'txt'}`;
     
     if (asset.type === 'image' && asset.url) {
-      // Download image from URL
+      // Download image from URL via proxy
       try {
-        const response = await fetch(asset.url);
+        const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(asset.url)}`;
+        const response = await fetch(proxyUrl);
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -40,8 +41,8 @@ export default function AssetPreview({
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       } catch (error) {
-        console.error('Failed to download image:', error);
-        // Fallback to opening in new tab
+        console.error('Failed to download image via proxy:', error);
+        // Fallback to opening direct URL in new tab
         window.open(asset.url, '_blank');
       }
     } else {
@@ -150,9 +151,35 @@ export default function AssetPreview({
                 <div className="aspect-video bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg relative overflow-hidden">
                   {platformAssets[0]?.url ? (
                     <img 
-                      src={platformAssets[0].url} 
+                      src={`/api/image-proxy?url=${encodeURIComponent(platformAssets[0].url)}`} 
                       alt={platformAssets[0].title}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error('Image load error, trying direct URL:', platformAssets[0]?.url);
+                        const target = e.target as HTMLImageElement;
+                        // Try direct URL as fallback
+                        target.src = platformAssets[0]?.url || '';
+                        target.onerror = () => {
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'w-full h-full flex flex-col items-center justify-center text-on-surface-variant text-center p-4';
+                            errorDiv.innerHTML = `
+                              <div class="text-sm font-medium mb-2">Generated Image Available</div>
+                              <div class="text-xs mb-3">Click to view full size</div>
+                              <button onclick="window.open('${platformAssets[0]?.url}', '_blank')" 
+                                      class="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                                Open Image
+                              </button>
+                            `;
+                            parent.appendChild(errorDiv);
+                          }
+                        };
+                      }}
+                      onLoad={() => {
+                        console.log('Image loaded successfully via proxy:', platformAssets[0]?.url);
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-on-surface-variant">
@@ -213,9 +240,32 @@ export default function AssetPreview({
               {previewAsset.type === 'image' && previewAsset.url ? (
                 <div className="aspect-video w-full bg-gray-100 rounded-lg overflow-hidden">
                   <img 
-                    src={previewAsset.url} 
+                    src={`/api/image-proxy?url=${encodeURIComponent(previewAsset.url)}`} 
                     alt={previewAsset.title}
                     className="w-full h-full object-contain"
+                    onError={(e) => {
+                      console.error('Preview image load error, trying direct URL:', previewAsset.url);
+                      const target = e.target as HTMLImageElement;
+                      // Try direct URL as fallback
+                      target.src = previewAsset.url || '';
+                      target.onerror = () => {
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const errorDiv = document.createElement('div');
+                          errorDiv.className = 'w-full h-full flex flex-col items-center justify-center text-gray-600 text-center p-4';
+                          errorDiv.innerHTML = `
+                            <div class="text-sm font-medium mb-2">Generated Image Available</div>
+                            <div class="text-xs mb-3">Click to view full size</div>
+                            <button onclick="window.open('${previewAsset.url}', '_blank')" 
+                                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                              Open Full Size Image
+                            </button>
+                          `;
+                          parent.appendChild(errorDiv);
+                        }
+                      };
+                    }}
                   />
                 </div>
               ) : (
