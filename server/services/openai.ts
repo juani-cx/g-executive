@@ -100,46 +100,31 @@ export async function analyzeImageForCampaign(base64Image: string): Promise<{
 
 export async function generateCampaignAssets(request: CampaignGenerationRequest): Promise<any[]> {
   try {
-    // First, generate image prompts for each platform
-    const promptResponse = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-          content: "You are a creative director. Generate detailed DALL-E prompts for marketing visuals. Respond with JSON: { \"imagePrompts\": [{ \"platform\": string, \"prompt\": string, \"dimensions\": string }] }"
-        },
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: `Create detailed image generation prompts for marketing visuals:
-              - Brand Tone: ${request.brandTone}
-              - Target Platforms: ${request.targetPlatforms.join(", ")}
-              - Campaign Focus: ${request.campaignFocus}
-              
-              Generate specific, detailed prompts for professional marketing images for each platform.`
-            },
-            {
-              type: "image_url",
-              image_url: {
-                url: `data:image/jpeg;base64,${request.imageBase64}`
-              }
-            }
-          ]
-        }
-      ],
-      response_format: { type: "json_object" },
-      max_tokens: 1000
-    });
+    console.log('Starting campaign asset generation for platforms:', request.targetPlatforms);
+    
+    // Skip the prompt generation step for now and go directly to image generation
+    // to avoid the base64 validation issue in the first API call
+    const platformDimensions: Record<string, string> = {
+      'Instagram': '1080x1080',
+      'Facebook': '1200x630', 
+      'Twitter': '1200x675',
+      'LinkedIn': '1200x627',
+      'TikTok': '1080x1920',
+      'YouTube': '1280x720'
+    };
 
-    const promptResult = JSON.parse(promptResponse.choices[0].message.content || '{}');
-    const imagePrompts = promptResult.imagePrompts || [];
+    const imagePrompts = request.targetPlatforms.map(platform => ({
+      platform,
+      prompt: `Create a professional ${request.brandTone.toLowerCase()} marketing image for ${platform} focusing on ${request.campaignFocus.toLowerCase()}. Modern, clean design with compelling visuals and marketing appeal. High quality, professional composition.`,
+      dimensions: platformDimensions[platform] || '1024x1024'
+    }));
 
     // Generate actual images using DALL-E
     const generatedAssets = [];
+    console.log(`Starting DALL-E generation for ${imagePrompts.length} prompts`);
     
     for (const promptData of imagePrompts) {
+      console.log(`Generating image for ${promptData.platform} with prompt: ${promptData.prompt?.substring(0, 100)}...`);
       try {
         const imageResponse = await openai.images.generate({
           model: "dall-e-3",
@@ -149,6 +134,7 @@ export async function generateCampaignAssets(request: CampaignGenerationRequest)
           quality: "standard",
         });
 
+        console.log(`Image generated successfully for ${promptData.platform}:`, imageResponse.data?.[0]?.url);
         if (imageResponse.data?.[0]?.url) {
           generatedAssets.push({
             type: 'image',
@@ -166,9 +152,42 @@ export async function generateCampaignAssets(request: CampaignGenerationRequest)
           type: 'copy',
           platform: promptData.platform,
           title: `${promptData.platform} Campaign Content`,
-          content: `${request.brandTone} campaign content for ${promptData.platform} focusing on ${request.campaignFocus}. Image generation in progress.`,
+          content: `${request.brandTone} campaign content for ${promptData.platform} focusing on ${request.campaignFocus}. Image generation error: ${(imageError as Error).message}`,
           dimensions: promptData.dimensions || '1024x1024'
         });
+      }
+    }
+    
+    console.log(`Generated ${generatedAssets.length} total assets, ${generatedAssets.filter(a => a.type === 'image').length} images`);
+    
+    // If no images were generated, ensure we have fallback prompts for direct generation
+    if (generatedAssets.filter(a => a.type === 'image').length === 0) {
+      console.log('No images generated via prompts, trying direct generation...');
+      for (const platform of request.targetPlatforms) {
+        try {
+          const directPrompt = `Create a professional ${request.brandTone.toLowerCase()} marketing image for ${platform} focusing on ${request.campaignFocus.toLowerCase()}. Modern, clean design with compelling visuals.`;
+          const imageResponse = await openai.images.generate({
+            model: "dall-e-3",
+            prompt: directPrompt,
+            n: 1,
+            size: "1024x1024",
+            quality: "standard",
+          });
+
+          if (imageResponse.data?.[0]?.url) {
+            generatedAssets.push({
+              type: 'image',
+              platform: platform,
+              title: `${platform} Campaign Visual`,
+              url: imageResponse.data[0].url,
+              content: directPrompt,
+              dimensions: '1024x1024'
+            });
+            console.log(`Direct generation successful for ${platform}`);
+          }
+        } catch (error) {
+          console.error(`Direct generation failed for ${platform}:`, error);
+        }
       }
     }
 

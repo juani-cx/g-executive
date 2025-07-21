@@ -189,6 +189,15 @@ export default function CampaignGenerator() {
   };
 
   const handleApproveAndGenerate = () => {
+    if (!imageAnalysis?.imageBase64) {
+      toast({
+        title: "Missing image data",
+        description: "Please re-upload your image and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     createCampaignMutation.mutate({
       name: formData.name,
       sourceImageUrl: uploadedImage?.preview || '',
