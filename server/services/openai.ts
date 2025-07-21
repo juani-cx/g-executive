@@ -226,6 +226,74 @@ Create professional, SEO-optimized content that would convert browsers into buye
   }
 }
 
+// Generate lightweight preview assets (shorter, faster generation)
+export async function generatePreviewAssets(params: CampaignGenerationRequest): Promise<any[]> {
+  try {
+    const { imageBase64, brandTone, targetPlatforms, campaignFocus } = params;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: `You are a marketing expert. Generate quick preview content for a campaign based on the provided image and parameters. Keep content short and concise for preview purposes. Respond with JSON in this format: { "assets": [{ "type": "copy", "platform": string, "title": string, "content": string }] }`
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Create preview campaign assets with these parameters:
+              - Brand Tone: ${brandTone}
+              - Target Platforms: ${targetPlatforms.join(', ')}
+              - Campaign Focus: ${campaignFocus}
+              
+              Generate short preview content for each platform. Keep headlines under 10 words and descriptions under 50 words.`
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/jpeg;base64,${imageBase64}`
+              }
+            }
+          ]
+        }
+      ],
+      response_format: { type: "json_object" },
+      max_tokens: 1000 // Reduced for faster preview generation
+    });
+
+    const result = JSON.parse(response.choices[0].message.content || '{}');
+    
+    // Add some sample preview assets if the response is empty
+    const previewAssets = result.assets || [];
+    
+    // Ensure we have at least some preview content for the specified platforms
+    targetPlatforms.forEach(platform => {
+      if (!previewAssets.find((asset: any) => asset.platform === platform)) {
+        previewAssets.push({
+          type: 'copy',
+          platform: platform,
+          title: `${platform} Preview`,
+          content: `Preview ${brandTone} content for ${platform} focusing on ${campaignFocus}. This is a quick preview - final content will be more detailed.`
+        });
+      }
+    });
+
+    return previewAssets;
+  } catch (error: any) {
+    console.error("Preview generation error:", error);
+    
+    // Return fallback preview assets
+    return params.targetPlatforms.map(platform => ({
+      type: 'copy',
+      platform: platform,
+      title: `${platform} Preview`,
+      content: `Preview content for ${platform} with ${params.brandTone} tone focusing on ${params.campaignFocus}. Full content will be generated after approval.`
+    }));
+  }
+}
+
 export async function generateImage(prompt: string): Promise<{ url: string }> {
   try {
     const response = await openai.images.generate({

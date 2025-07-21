@@ -59,6 +59,8 @@ export default function CampaignGenerator() {
     campaignFocus: ""
   });
   const [currentCampaign, setCurrentCampaign] = useState<Campaign | null>(null);
+  const [previewAssets, setPreviewAssets] = useState<any[]>([]);
+  const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
 
   // Image analysis mutation
   const analyzeImageMutation = useMutation({
@@ -85,6 +87,25 @@ export default function CampaignGenerator() {
     }
   });
 
+  // Preview generation mutation
+  const generatePreviewMutation = useMutation({
+    mutationFn: async (previewData: any) => {
+      const response = await apiRequest('POST', '/api/generate-preview', previewData);
+      return response.json();
+    },
+    onSuccess: (preview) => {
+      setPreviewAssets(preview.assets || []);
+      setStep(3);
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to generate preview",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  });
+
   // Campaign creation mutation
   const createCampaignMutation = useMutation({
     mutationFn: async (campaignData: any) => {
@@ -93,8 +114,8 @@ export default function CampaignGenerator() {
     },
     onSuccess: (campaign) => {
       setCurrentCampaign(campaign);
-      setStep(3);
-      // Start generation
+      setStep(4);
+      // Start final generation
       generateCampaignMutation.mutate({
         campaignId: campaign.id,
         imageBase64: imageAnalysis.imageBase64,
@@ -118,7 +139,7 @@ export default function CampaignGenerator() {
     },
     onSuccess: (campaign) => {
       setCurrentCampaign(campaign);
-      setStep(4);
+      setStep(5);
       toast({
         title: "Campaign generated successfully!",
         description: "Your AI-powered marketing campaign is ready.",
@@ -158,6 +179,16 @@ export default function CampaignGenerator() {
       return;
     }
 
+    // Generate preview first
+    generatePreviewMutation.mutate({
+      imageBase64: imageAnalysis.imageBase64,
+      brandTone: formData.brandTone,
+      targetPlatforms: formData.targetPlatforms,
+      campaignFocus: formData.campaignFocus
+    });
+  };
+
+  const handleApproveAndGenerate = () => {
     createCampaignMutation.mutate({
       name: formData.name,
       sourceImageUrl: uploadedImage?.preview || '',
@@ -170,10 +201,11 @@ export default function CampaignGenerator() {
 
   const getProgressValue = () => {
     switch(step) {
-      case 1: return 25;
-      case 2: return 50;
-      case 3: return 75;
-      case 4: return 100;
+      case 1: return 20;
+      case 2: return 40;
+      case 3: return 60;
+      case 4: return 80;
+      case 5: return 100;
       default: return 0;
     }
   };
@@ -220,11 +252,27 @@ export default function CampaignGenerator() {
                   </div>
                   <span>Generate</span>
                 </div>
+                <div className={`flex items-center space-x-2 ${step >= 3 ? 'text-primary' : 'text-on-surface-variant'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                    step >= 3 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
+                  } ${step === 3 ? 'animate-pulse-glow' : ''}`}>
+                    {step > 3 ? <CheckCircle className="w-4 h-4" /> : '3'}
+                  </div>
+                  <span>Preview</span>
+                </div>
                 <div className={`flex items-center space-x-2 ${step >= 4 ? 'text-primary' : 'text-on-surface-variant'}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                     step >= 4 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
+                  } ${step === 4 ? 'animate-pulse-glow' : ''}`}>
+                    {step > 4 ? <CheckCircle className="w-4 h-4" /> : '4'}
+                  </div>
+                  <span>Generate</span>
+                </div>
+                <div className={`flex items-center space-x-2 ${step >= 5 ? 'text-primary' : 'text-on-surface-variant'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                    step >= 5 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
                   }`}>
-                    {step >= 4 ? <CheckCircle className="w-4 h-4" /> : '4'}
+                    {step >= 5 ? <CheckCircle className="w-4 h-4" /> : '5'}
                   </div>
                   <span>Export</span>
                 </div>
@@ -352,18 +400,55 @@ export default function CampaignGenerator() {
 
                   <Button 
                     onClick={handleFormSubmit}
-                    disabled={createCampaignMutation.isPending || step >= 3}
+                    disabled={generatePreviewMutation.isPending || step >= 3}
                     className="w-full mt-6 bg-primary text-white hover:shadow-lg"
                   >
-                    {createCampaignMutation.isPending ? (
+                    {generatePreviewMutation.isPending ? (
                       <>
                         <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                        Creating Campaign...
+                        Generating Preview...
                       </>
                     ) : (
-                      'Generate Campaign Assets'
+                      'Generate Preview'
                     )}
                   </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Preview Approval Step */}
+            {step === 3 && (
+              <Card className="shadow-lg border border-outline-variant">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-on-surface mb-4">Preview Assets</h3>
+                  <p className="text-sm text-on-surface-variant mb-4">
+                    Review the AI-generated content preview below. You can approve to create the final campaign or go back to modify settings.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <Button 
+                      onClick={handleApproveAndGenerate}
+                      disabled={createCampaignMutation.isPending}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      {createCampaignMutation.isPending ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                          Creating Campaign...
+                        </>
+                      ) : (
+                        'Approve & Generate Final Campaign'
+                      )}
+                    </Button>
+                    
+                    <Button 
+                      onClick={() => setStep(2)}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Back to Modify Settings
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -383,7 +468,18 @@ export default function CampaignGenerator() {
                   )}
                 </div>
 
-                {step >= 3 ? (
+                {step === 3 ? (
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-medium text-blue-900 mb-2">Preview Mode</h4>
+                      <p className="text-sm text-blue-800">This is a quick preview of your campaign assets. Approve to generate the final high-quality versions.</p>
+                    </div>
+                    <AssetPreview 
+                      assets={previewAssets}
+                      isLoading={generatePreviewMutation.isPending}
+                    />
+                  </div>
+                ) : step >= 4 ? (
                   <AssetPreview 
                     assets={currentCampaign?.generatedAssets || []}
                     isLoading={generateCampaignMutation.isPending}

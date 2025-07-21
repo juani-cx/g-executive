@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertCampaignSchema, insertCatalogSchema, insertCatalogProductSchema, type GeneratedAsset } from "@shared/schema";
-import { analyzeImageForCampaign, generateCampaignAssets, enrichProductDescription, generateImage } from "./services/openai";
+import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage } from "./services/openai";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
@@ -62,6 +62,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       res.status(500).json({ message: "Failed to analyze image", error: (error as Error).message });
+    }
+  });
+
+  // Generate campaign preview (lightweight, fast preview)
+  app.post("/api/generate-preview", async (req, res) => {
+    try {
+      const { imageBase64, brandTone, targetPlatforms, campaignFocus } = req.body;
+
+      // Generate lightweight preview assets
+      const previewAssets = await generatePreviewAssets({
+        imageBase64,
+        brandTone,
+        targetPlatforms,
+        campaignFocus
+      });
+
+      res.json({ assets: previewAssets });
+    } catch (error: any) {
+      console.error("Preview generation error:", error);
+      res.status(500).json({ 
+        message: "Failed to generate preview",
+        error: error.message 
+      });
     }
   });
 
