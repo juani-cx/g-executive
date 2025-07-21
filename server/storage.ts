@@ -1,4 +1,6 @@
 import { campaigns, catalogs, catalogProducts, type Campaign, type InsertCampaign, type Catalog, type InsertCatalog, type CatalogProduct, type InsertCatalogProduct, type GeneratedAsset } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // Campaign methods
@@ -19,6 +21,91 @@ export interface IStorage {
   updateCatalogProduct(id: number, updates: Partial<CatalogProduct>): Promise<CatalogProduct | undefined>;
   getCatalogProducts(catalogId: number): Promise<CatalogProduct[]>;
   deleteCatalogProduct(id: number): Promise<boolean>;
+}
+
+export class DatabaseStorage implements IStorage {
+  async getCampaign(id: number): Promise<Campaign | undefined> {
+    const [campaign] = await db.select().from(campaigns).where(eq(campaigns.id, id));
+    return campaign || undefined;
+  }
+
+  async createCampaign(insertCampaign: InsertCampaign): Promise<Campaign> {
+    const [campaign] = await db
+      .insert(campaigns)
+      .values(insertCampaign)
+      .returning();
+    return campaign;
+  }
+
+  async updateCampaign(id: number, updates: Partial<Campaign>): Promise<Campaign | undefined> {
+    const [campaign] = await db
+      .update(campaigns)
+      .set(updates)
+      .where(eq(campaigns.id, id))
+      .returning();
+    return campaign || undefined;
+  }
+
+  async getAllCampaigns(): Promise<Campaign[]> {
+    return await db.select().from(campaigns);
+  }
+
+  async getCatalog(id: number): Promise<Catalog | undefined> {
+    const [catalog] = await db.select().from(catalogs).where(eq(catalogs.id, id));
+    return catalog || undefined;
+  }
+
+  async createCatalog(insertCatalog: InsertCatalog): Promise<Catalog> {
+    const [catalog] = await db
+      .insert(catalogs)
+      .values(insertCatalog)
+      .returning();
+    return catalog;
+  }
+
+  async updateCatalog(id: number, updates: Partial<Catalog>): Promise<Catalog | undefined> {
+    const [catalog] = await db
+      .update(catalogs)
+      .set(updates)
+      .where(eq(catalogs.id, id))
+      .returning();
+    return catalog || undefined;
+  }
+
+  async getAllCatalogs(): Promise<Catalog[]> {
+    return await db.select().from(catalogs);
+  }
+
+  async getCatalogProduct(id: number): Promise<CatalogProduct | undefined> {
+    const [product] = await db.select().from(catalogProducts).where(eq(catalogProducts.id, id));
+    return product || undefined;
+  }
+
+  async createCatalogProduct(insertProduct: InsertCatalogProduct): Promise<CatalogProduct> {
+    const [product] = await db
+      .insert(catalogProducts)
+      .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  async updateCatalogProduct(id: number, updates: Partial<CatalogProduct>): Promise<CatalogProduct | undefined> {
+    const [product] = await db
+      .update(catalogProducts)
+      .set(updates)
+      .where(eq(catalogProducts.id, id))
+      .returning();
+    return product || undefined;
+  }
+
+  async getCatalogProducts(catalogId: number): Promise<CatalogProduct[]> {
+    return await db.select().from(catalogProducts).where(eq(catalogProducts.catalogId, catalogId));
+  }
+
+  async deleteCatalogProduct(id: number): Promise<boolean> {
+    const result = await db.delete(catalogProducts).where(eq(catalogProducts.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
 }
 
 export class MemStorage implements IStorage {
@@ -141,4 +228,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
