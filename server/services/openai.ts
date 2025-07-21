@@ -49,6 +49,7 @@ export async function analyzeImageForCampaign(base64Image: string): Promise<{
   description: string;
   suggestedTones: string[];
   visualElements: string[];
+  quotaExceeded?: boolean;
 }> {
   try {
     const response = await openai.chat.completions.create({
@@ -85,6 +86,14 @@ export async function analyzeImageForCampaign(base64Image: string): Promise<{
       visualElements: result.visualElements || [],
     };
   } catch (error) {
+    // Check if it's a quota/billing error
+    if ((error as any).status === 429 || (error as Error).message?.includes('quota') || (error as Error).message?.includes('billing') || (error as Error).message?.includes('429')) {
+      return {
+        description: "Image uploaded successfully. AI analysis temporarily unavailable due to API quota limits.",
+        suggestedTones: ["Professional & Trustworthy", "Innovative & Bold", "Friendly & Approachable"],
+        visualElements: ["Image uploaded and ready for campaign creation"]
+      };
+    }
     throw new Error("Failed to analyze image: " + (error as Error).message);
   }
 }
