@@ -8,7 +8,8 @@ Campaign AI Gen is a comprehensive AI-powered marketing platform designed specif
 
 Preferred communication style: Simple, everyday language.
 Design preference: SaaS dashboard interface (Google Stitch-inspired) over marketing landing pages.
-Authentication: Dummy login system for internal usage demonstration.
+Authentication: Simple one-click sign-in without forms - just a "Sign In" button for internal access.
+Login design: 2-column layout with form on left, solid background on right for future design elements.
 
 ## System Architecture
 
@@ -18,7 +19,7 @@ Authentication: Dummy login system for internal usage demonstration.
 - **Styling**: Tailwind CSS with clean SaaS dashboard design
 - **State Management**: TanStack Query (React Query) for server state management
 - **Routing**: Wouter for lightweight client-side routing
-- **Authentication**: Dummy authentication system with localStorage persistence
+- **Authentication**: Simple one-click sign-in system with localStorage persistence (no forms required)
 - **Dashboard**: Project grid layout with search, filters, and recent projects sidebar
 
 ### Backend Architecture
