@@ -38,14 +38,14 @@ Login design: 2-column layout with form on left, solid background on right for f
 ## Key Components
 
 ### Campaign Generator
-- **Purpose**: Transform uploaded images into comprehensive marketing campaigns
-- **Features**: Brand tone selection, platform targeting, AI-powered asset generation
-- **Output**: Social media posts, ad copy, email campaigns, LinkedIn articles
+- **Purpose**: Transform uploaded images into visual marketing campaigns with AI-generated images
+- **Features**: Brand tone selection, platform targeting, DALL-E image generation, preview-first workflow
+- **Output**: Platform-specific marketing visuals, social media images, ad creatives, campaign banners
 
 ### Catalog Generator
-- **Purpose**: Enrich e-commerce product listings with AI-generated content
-- **Features**: Product image analysis, SEO optimization, metadata generation
-- **Output**: Enhanced product descriptions, titles, keywords, and features
+- **Purpose**: Enrich e-commerce product listings with AI-generated text content and metadata
+- **Features**: Product image analysis, SEO optimization, metadata generation, text enhancement
+- **Output**: Enhanced product descriptions, titles, keywords, features, and SEO-optimized content
 
 ### AI Assistant
 - **Purpose**: Real-time interaction and content refinement

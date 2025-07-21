@@ -44,6 +44,7 @@ export type GeneratedAsset = {
   url?: string;
   content?: string;
   dimensions?: string;
+  imagePrompt?: string;
 };
 
 export const insertCampaignSchema = createInsertSchema(campaigns).omit({

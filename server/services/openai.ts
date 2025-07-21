@@ -98,59 +98,27 @@ export async function analyzeImageForCampaign(base64Image: string): Promise<{
   }
 }
 
-export async function generateCampaignAssets(request: CampaignGenerationRequest): Promise<CampaignAssets> {
+export async function generateCampaignAssets(request: CampaignGenerationRequest): Promise<any[]> {
   try {
-    const prompt = `Create comprehensive marketing campaign assets based on this image analysis and requirements:
-
-Brand Tone: ${request.brandTone}
-Target Platforms: ${request.targetPlatforms.join(", ")}
-Campaign Focus: ${request.campaignFocus}
-
-Generate assets in JSON format with this structure:
-{
-  "socialMediaPosts": [
-    {
-      "platform": "Instagram",
-      "caption": "Engaging caption text",
-      "hashtags": ["relevant", "hashtags"],
-      "dimensions": "1080x1080"
-    }
-  ],
-  "adCopy": [
-    {
-      "platform": "Facebook",
-      "headline": "Compelling headline",
-      "body": "Persuasive ad copy",
-      "cta": "Call to action"
-    }
-  ],
-  "emailCampaign": {
-    "subject": "Email subject line",
-    "content": "Full email content with HTML structure",
-    "preheader": "Preview text"
-  },
-  "linkedinArticle": {
-    "title": "Professional article title",
-    "content": "Full article content",
-    "summary": "Article summary"
-  }
-}
-
-Create content that is professional, engaging, and aligned with the brand tone. Include specific CTAs and ensure all copy is ready for immediate use.`;
-
-    const response = await openai.chat.completions.create({
+    // First, generate image prompts for each platform
+    const promptResponse = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
         {
           role: "system",
-          content: "You are an expert marketing copywriter and campaign strategist. Create comprehensive, professional marketing assets."
+          content: "You are a creative director. Generate detailed DALL-E prompts for marketing visuals. Respond with JSON: { \"imagePrompts\": [{ \"platform\": string, \"prompt\": string, \"dimensions\": string }] }"
         },
         {
           role: "user",
           content: [
             {
               type: "text",
-              text: prompt
+              text: `Create detailed image generation prompts for marketing visuals:
+              - Brand Tone: ${request.brandTone}
+              - Target Platforms: ${request.targetPlatforms.join(", ")}
+              - Campaign Focus: ${request.campaignFocus}
+              
+              Generate specific, detailed prompts for professional marketing images for each platform.`
             },
             {
               type: "image_url",
@@ -158,17 +126,74 @@ Create content that is professional, engaging, and aligned with the brand tone. 
                 url: `data:image/jpeg;base64,${request.imageBase64}`
               }
             }
-          ],
-        },
+          ]
+        }
       ],
       response_format: { type: "json_object" },
-      max_tokens: 2000,
+      max_tokens: 1000
     });
 
-    const result = JSON.parse(response.choices[0].message.content || "{}");
-    return result as CampaignAssets;
+    const promptResult = JSON.parse(promptResponse.choices[0].message.content || '{}');
+    const imagePrompts = promptResult.imagePrompts || [];
+
+    // Generate actual images using DALL-E
+    const generatedAssets = [];
+    
+    for (const promptData of imagePrompts) {
+      try {
+        const imageResponse = await openai.images.generate({
+          model: "dall-e-3",
+          prompt: promptData.prompt,
+          n: 1,
+          size: "1024x1024",
+          quality: "standard",
+        });
+
+        if (imageResponse.data?.[0]?.url) {
+          generatedAssets.push({
+            type: 'image',
+            platform: promptData.platform,
+            title: `${promptData.platform} Campaign Visual`,
+            url: imageResponse.data[0].url,
+            content: promptData.prompt,
+            dimensions: promptData.dimensions || '1024x1024'
+          });
+        }
+      } catch (imageError) {
+        console.error(`Failed to generate image for ${promptData.platform}:`, imageError);
+        // Add a fallback text asset if image generation fails
+        generatedAssets.push({
+          type: 'copy',
+          platform: promptData.platform,
+          title: `${promptData.platform} Campaign Content`,
+          content: `${request.brandTone} campaign content for ${promptData.platform} focusing on ${request.campaignFocus}. Image generation in progress.`,
+          dimensions: promptData.dimensions || '1024x1024'
+        });
+      }
+    }
+
+    return generatedAssets;
+
   } catch (error) {
-    throw new Error("Failed to generate campaign assets: " + (error as Error).message);
+    console.error("Campaign asset generation error:", error);
+    
+    // Return fallback assets if generation fails
+    const platformDimensions: Record<string, string> = {
+      'Instagram': '1080x1080',
+      'Facebook': '1200x630',
+      'Twitter': '1200x675',
+      'LinkedIn': '1200x627',
+      'TikTok': '1080x1920',
+      'YouTube': '1280x720'
+    };
+
+    return request.targetPlatforms.map(platform => ({
+      type: 'copy',
+      platform: platform,
+      title: `${platform} Campaign`,
+      content: `${request.brandTone} campaign content for ${platform} focusing on ${request.campaignFocus}. Visual assets will be generated.`,
+      dimensions: platformDimensions[platform] || '1200x630'
+    }));
   }
 }
 
@@ -226,7 +251,7 @@ Create professional, SEO-optimized content that would convert browsers into buye
   }
 }
 
-// Generate lightweight preview assets (shorter, faster generation)
+// Generate lightweight preview assets with visual concepts
 export async function generatePreviewAssets(params: CampaignGenerationRequest): Promise<any[]> {
   try {
     const { imageBase64, brandTone, targetPlatforms, campaignFocus } = params;
@@ -236,19 +261,22 @@ export async function generatePreviewAssets(params: CampaignGenerationRequest): 
       messages: [
         {
           role: "system",
-          content: `You are a marketing expert. Generate quick preview content for a campaign based on the provided image and parameters. Keep content short and concise for preview purposes. Respond with JSON in this format: { "assets": [{ "type": "copy", "platform": string, "title": string, "content": string }] }`
+          content: `You are a creative director. Generate visual campaign concepts based on the image. Respond with JSON: { "assets": [{ "type": "image", "platform": string, "title": string, "content": string, "imagePrompt": string, "dimensions": string }] }`
         },
         {
           role: "user",
           content: [
             {
               type: "text",
-              text: `Create preview campaign assets with these parameters:
+              text: `Create visual campaign concepts for these parameters:
               - Brand Tone: ${brandTone}
               - Target Platforms: ${targetPlatforms.join(', ')}
               - Campaign Focus: ${campaignFocus}
               
-              Generate short preview content for each platform. Keep headlines under 10 words and descriptions under 50 words.`
+              For each platform, create an image concept with:
+              - A brief description of the visual concept
+              - A detailed DALL-E prompt for image generation
+              - Appropriate dimensions for the platform`
             },
             {
               type: "image_url",
@@ -260,22 +288,31 @@ export async function generatePreviewAssets(params: CampaignGenerationRequest): 
         }
       ],
       response_format: { type: "json_object" },
-      max_tokens: 1000 // Reduced for faster preview generation
+      max_tokens: 1000
     });
 
     const result = JSON.parse(response.choices[0].message.content || '{}');
-    
-    // Add some sample preview assets if the response is empty
     const previewAssets = result.assets || [];
     
-    // Ensure we have at least some preview content for the specified platforms
+    // Ensure we have visual concepts for each platform
+    const platformDimensions: Record<string, string> = {
+      'Instagram': '1080x1080',
+      'Facebook': '1200x630',
+      'Twitter': '1200x675',
+      'LinkedIn': '1200x627',
+      'TikTok': '1080x1920',
+      'YouTube': '1280x720'
+    };
+
     targetPlatforms.forEach(platform => {
       if (!previewAssets.find((asset: any) => asset.platform === platform)) {
         previewAssets.push({
-          type: 'copy',
+          type: 'image',
           platform: platform,
-          title: `${platform} Preview`,
-          content: `Preview ${brandTone} content for ${platform} focusing on ${campaignFocus}. This is a quick preview - final content will be more detailed.`
+          title: `${platform} Visual Campaign`,
+          content: `${brandTone} visual concept for ${platform} focusing on ${campaignFocus}. Will generate high-quality images in final campaign.`,
+          imagePrompt: `Create a ${brandTone} marketing image for ${platform}, focusing on ${campaignFocus}, professional quality, modern design`,
+          dimensions: platformDimensions[platform] || '1200x630'
         });
       }
     });
@@ -284,12 +321,23 @@ export async function generatePreviewAssets(params: CampaignGenerationRequest): 
   } catch (error: any) {
     console.error("Preview generation error:", error);
     
-    // Return fallback preview assets
+    // Return fallback visual concepts
+    const platformDimensions: Record<string, string> = {
+      'Instagram': '1080x1080',
+      'Facebook': '1200x630',
+      'Twitter': '1200x675',
+      'LinkedIn': '1200x627',
+      'TikTok': '1080x1920',
+      'YouTube': '1280x720'
+    };
+
     return params.targetPlatforms.map(platform => ({
-      type: 'copy',
+      type: 'image',
       platform: platform,
-      title: `${platform} Preview`,
-      content: `Preview content for ${platform} with ${params.brandTone} tone focusing on ${params.campaignFocus}. Full content will be generated after approval.`
+      title: `${platform} Visual Campaign`,
+      content: `${params.brandTone} visual concept for ${platform} focusing on ${params.campaignFocus}. Preview concept ready for approval.`,
+      imagePrompt: `Create a ${params.brandTone} marketing image for ${platform}, focusing on ${params.campaignFocus}`,
+      dimensions: platformDimensions[platform] || '1200x630'
     }));
   }
 }

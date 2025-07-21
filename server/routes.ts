@@ -107,45 +107,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         campaignFocus
       });
 
-      // Convert to GeneratedAsset format
-      const generatedAssets: GeneratedAsset[] = [];
-
-      // Add social media posts
-      assets.socialMediaPosts.forEach(post => {
-        generatedAssets.push({
-          type: 'copy',
-          platform: post.platform,
-          title: `${post.platform} Post`,
-          content: `${post.caption}\n\nHashtags: ${post.hashtags.join(' ')}`,
-          dimensions: post.dimensions
-        });
-      });
-
-      // Add ad copy
-      assets.adCopy.forEach(ad => {
-        generatedAssets.push({
-          type: 'copy',
-          platform: ad.platform,
-          title: `${ad.platform} Ad`,
-          content: `Headline: ${ad.headline}\n\nBody: ${ad.body}\n\nCTA: ${ad.cta}`
-        });
-      });
-
-      // Add email campaign
-      generatedAssets.push({
-        type: 'copy',
-        platform: 'Email',
-        title: 'Email Campaign',
-        content: `Subject: ${assets.emailCampaign.subject}\n\nPreheader: ${assets.emailCampaign.preheader}\n\n${assets.emailCampaign.content}`
-      });
-
-      // Add LinkedIn article
-      generatedAssets.push({
-        type: 'copy',
-        platform: 'LinkedIn',
-        title: 'LinkedIn Article',
-        content: `Title: ${assets.linkedinArticle.title}\n\nSummary: ${assets.linkedinArticle.summary}\n\n${assets.linkedinArticle.content}`
-      });
+      // Assets are already in the correct GeneratedAsset format
+      const generatedAssets: GeneratedAsset[] = assets;
 
       // Generate shareable link
       const shareableLink = `${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/executive/${uuidv4()}`;
