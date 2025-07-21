@@ -1,22 +1,25 @@
-# AI Campaign & Catalog Builder
+# Campaign AI Gen - Internal SaaS Platform
 
 ## Overview
 
-This is a comprehensive generative AI platform designed for creating marketing campaigns and e-commerce catalogs. The application allows users to upload inspirational images and generates complete marketing assets using AI, including social media content, advertisements, and SEO-optimized product descriptions. Built with a modern full-stack architecture using React, Express, and PostgreSQL.
+Campaign AI Gen is a comprehensive AI-powered marketing platform designed specifically for internal business usage. Unlike a public marketing tool, this is a SaaS dashboard that provides campaign generation, catalog building, and AI-powered content creation capabilities. The platform features a clean, dashboard-style interface inspired by Google Stitch, with project management, search functionality, and executive sharing capabilities.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Design preference: SaaS dashboard interface (Google Stitch-inspired) over marketing landing pages.
+Authentication: Dummy login system for internal usage demonstration.
 
 ## System Architecture
 
 ### Frontend Architecture
 - **Framework**: React 18 with TypeScript and Vite for fast development
 - **UI Library**: Shadcn/ui components built on Radix UI primitives
-- **Styling**: Tailwind CSS with custom design tokens and CSS variables
+- **Styling**: Tailwind CSS with clean SaaS dashboard design
 - **State Management**: TanStack Query (React Query) for server state management
 - **Routing**: Wouter for lightweight client-side routing
-- **Forms**: React Hook Form with Zod validation
+- **Authentication**: Dummy authentication system with localStorage persistence
+- **Dashboard**: Project grid layout with search, filters, and recent projects sidebar
 
 ### Backend Architecture
 - **Framework**: Express.js with TypeScript

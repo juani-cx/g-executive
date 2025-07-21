@@ -1,4 +1,4 @@
-import { campaigns, catalogs, catalogProducts, type Campaign, type InsertCampaign, type Catalog, type InsertCatalog, type CatalogProduct, type InsertCatalogProduct } from "@shared/schema";
+import { campaigns, catalogs, catalogProducts, type Campaign, type InsertCampaign, type Catalog, type InsertCatalog, type CatalogProduct, type InsertCatalogProduct, type GeneratedAsset } from "@shared/schema";
 
 export interface IStorage {
   // Campaign methods
@@ -51,7 +51,7 @@ export class MemStorage implements IStorage {
       shareableLink: null,
       createdAt: new Date(),
       status: insertCampaign.status || "draft",
-      generatedAssets: insertCampaign.generatedAssets || [],
+      generatedAssets: (insertCampaign.generatedAssets as GeneratedAsset[]) || [],
     };
     this.campaigns.set(id, campaign);
     return campaign;
