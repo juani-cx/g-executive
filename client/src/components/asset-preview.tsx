@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Download, Eye, RefreshCw, FileText, Image } from "lucide-react";
 import { type GeneratedAsset } from "@shared/schema";
 
@@ -233,6 +233,9 @@ export default function AssetPreview({
               )}
               <span>{previewAsset?.title} - {previewAsset?.platform}</span>
             </DialogTitle>
+            <DialogDescription>
+              Preview of the generated {previewAsset?.type === 'image' ? 'image' : 'content'} asset for {previewAsset?.platform}
+            </DialogDescription>
           </DialogHeader>
           
           {previewAsset && (
