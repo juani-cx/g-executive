@@ -23,19 +23,40 @@ export default function AssetPreview({
 }: AssetPreviewProps) {
   const [previewAsset, setPreviewAsset] = useState<GeneratedAsset | null>(null);
   
-  const handleDownloadAsset = (asset: GeneratedAsset) => {
-    const content = asset.content || asset.url || '';
-    const filename = `${asset.platform}_${asset.type}_${asset.title}.${asset.type === 'image' ? 'png' : 'txt'}`;
+  const handleDownloadAsset = async (asset: GeneratedAsset) => {
+    const filename = `${asset.platform}_${asset.type}_${asset.title.replace(/\s+/g, '_')}.${asset.type === 'image' ? 'jpg' : 'txt'}`;
     
-    const blob = new Blob([content], { type: asset.type === 'image' ? 'image/png' : 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    if (asset.type === 'image' && asset.url) {
+      // Download image from URL
+      try {
+        const response = await fetch(asset.url);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Failed to download image:', error);
+        // Fallback to opening in new tab
+        window.open(asset.url, '_blank');
+      }
+    } else {
+      // Download text content
+      const content = asset.content || '';
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const handleDownloadAll = () => {
