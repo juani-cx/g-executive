@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Eye, RefreshCw } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Download, Eye, RefreshCw, FileText, Image } from "lucide-react";
 import { type GeneratedAsset } from "@shared/schema";
 
 interface AssetPreviewProps {
@@ -19,6 +21,35 @@ export default function AssetPreview({
   onPreviewAsset, 
   className 
 }: AssetPreviewProps) {
+  const [previewAsset, setPreviewAsset] = useState<GeneratedAsset | null>(null);
+  
+  const handleDownloadAsset = (asset: GeneratedAsset) => {
+    const content = asset.content || asset.url || '';
+    const filename = `${asset.platform}_${asset.type}_${asset.title}.${asset.type === 'image' ? 'png' : 'txt'}`;
+    
+    const blob = new Blob([content], { type: asset.type === 'image' ? 'image/png' : 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadAll = () => {
+    assets.forEach(asset => {
+      setTimeout(() => handleDownloadAsset(asset), 100);
+    });
+  };
+
+  const handlePreview = (asset: GeneratedAsset) => {
+    setPreviewAsset(asset);
+    if (onPreviewAsset) {
+      onPreviewAsset(asset);
+    }
+  };
   
   if (isLoading) {
     return (
@@ -65,30 +96,32 @@ export default function AssetPreview({
                   <span className="text-sm font-medium">{platformAssets[0]?.title}</span>
                 </div>
                 <div className="flex space-x-1">
-                  {onPreviewAsset && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => onPreviewAsset(platformAssets[0])}
-                    >
-                      <Eye className="w-3 h-3" />
-                    </Button>
-                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handlePreview(platformAssets[0])}
+                    title="Preview asset"
+                  >
+                    <Eye className="w-3 h-3" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDownloadAsset(platformAssets[0])}
+                    title="Download asset"
+                  >
+                    <Download className="w-3 h-3" />
+                  </Button>
                   {onRegenerateAsset && (
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => onRegenerateAsset(platformAssets[0])}
+                      title="Regenerate asset"
                     >
                       <RefreshCw className="w-3 h-3" />
                     </Button>
                   )}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                  >
-                    <Download className="w-3 h-3" />
-                  </Button>
                 </div>
               </div>
 
@@ -129,6 +162,76 @@ export default function AssetPreview({
           </CardContent>
         </Card>
       ))}
+      
+      {/* Download All Button */}
+      {assets.length > 0 && (
+        <div className="col-span-full flex justify-center mt-6">
+          <Button onClick={handleDownloadAll} className="bg-primary text-white">
+            <Download className="w-4 h-4 mr-2" />
+            Download All Assets
+          </Button>
+        </div>
+      )}
+      
+      {/* Preview Dialog */}
+      <Dialog open={!!previewAsset} onOpenChange={() => setPreviewAsset(null)}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              {previewAsset?.type === 'image' ? (
+                <Image className="w-5 h-5" />
+              ) : (
+                <FileText className="w-5 h-5" />
+              )}
+              <span>{previewAsset?.title} - {previewAsset?.platform}</span>
+            </DialogTitle>
+          </DialogHeader>
+          
+          {previewAsset && (
+            <div className="space-y-4">
+              {previewAsset.type === 'image' && previewAsset.url ? (
+                <div className="aspect-video w-full bg-gray-100 rounded-lg overflow-hidden">
+                  <img 
+                    src={previewAsset.url} 
+                    alt={previewAsset.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono">
+                    {previewAsset.content}
+                  </pre>
+                </div>
+              )}
+              
+              {previewAsset.dimensions && (
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary">
+                    {previewAsset.dimensions}
+                  </Badge>
+                  <Badge variant="outline">
+                    {previewAsset.type}
+                  </Badge>
+                </div>
+              )}
+              
+              <div className="flex justify-end space-x-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleDownloadAsset(previewAsset)}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download
+                </Button>
+                <Button onClick={() => setPreviewAsset(null)}>
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
