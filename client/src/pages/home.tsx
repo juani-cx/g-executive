@@ -66,68 +66,56 @@ export default function Home() {
                 Welcome back
               </h1>
 
-              {/* Quick Actions Card */}
-              <Card className="glass-elevated border-glass-border mb-8">
-                <CardContent className="p-6">
-                  {/* Campaign Prompt Input */}
-                  <div className="mb-6">
-                    <div className="relative">
-                      <Input
-                        placeholder="Describe your campaign idea... (e.g., 'Create a summer sale campaign for athletic wear')"
-                        value={campaignPrompt}
-                        onChange={(e) => setCampaignPrompt(e.target.value)}
-                        className="glass-surface border-glass-border rounded-lg text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.5)] focus:border-transparent pr-32 py-3 text-base"
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && campaignPrompt.trim()) {
-                            handleStartCampaign();
-                          }
-                        }}
-                      />
-                      <Button 
-                        onClick={handleStartCampaign}
-                        disabled={!campaignPrompt.trim()}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-lg px-4 py-1.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <Sparkles className="w-4 h-4 mr-1" />
-                        Start
-                      </Button>
-                    </div>
+              {/* Simple Campaign Input - Framer Style */}
+              <div className="mb-8">
+                <div className="glass-elevated border-glass-border rounded-3xl p-6">
+                  {/* Centered Input Field */}
+                  <div className="max-w-2xl mx-auto mb-6">
+                    <Input
+                      placeholder="Create a landing page for..."
+                      value={campaignPrompt}
+                      onChange={(e) => setCampaignPrompt(e.target.value)}
+                      className="w-full glass-surface border-0 rounded-2xl text-center text-lg py-4 px-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md"
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter' && campaignPrompt.trim()) {
+                          handleStartCampaign();
+                        }
+                      }}
+                    />
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex items-center space-x-4">
+                  {/* Simple Action Buttons Row */}
+                  <div className="flex items-center justify-center space-x-3">
                     <Button 
                       variant="outline" 
-                      className="glass-surface border-glass-border text-glass-text-primary hover:glass-elevated rounded-lg px-4 py-2"
-                      onClick={() => setCampaignPrompt("Create a professional marketing campaign")}
+                      className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-6 py-2 text-sm"
+                      onClick={() => setCampaignPrompt("Create a marketing campaign")}
                     >
-                      <Sparkles className="w-4 h-4 mr-2" />
                       Campaign
                     </Button>
                     <Button 
                       variant="outline" 
-                      className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-lg px-4 py-2"
+                      className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-6 py-2 text-sm"
                       onClick={() => setCampaignPrompt("Build a product catalog")}
                     >
-                      <FileText className="w-4 h-4 mr-2" />
                       Catalog
                     </Button>
-                    <div className="flex-1"></div>
                     <Button 
-                      className="bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-lg px-4 py-2 text-sm"
-                      onClick={() => setCampaignPrompt("Fully automate my marketing campaign creation")}
+                      className="bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-2xl px-6 py-2 text-sm"
+                      onClick={() => setCampaignPrompt("Fully automate my marketing")}
                     >
-                      <Sparkles className="w-4 h-4 mr-2" />
                       Full automate
                     </Button>
-                    <Link href="/campaign-generator">
-                      <Button className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-lg px-4 py-2 text-sm">
-                        Generate designs
-                      </Button>
-                    </Link>
+                    <Button 
+                      className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm"
+                      onClick={handleStartCampaign}
+                      disabled={!campaignPrompt.trim()}
+                    >
+                      Generate designs
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             {/* Projects Section */}
