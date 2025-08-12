@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,8 @@ export default function Home() {
   const [filterType, setFilterType] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [campaignPrompt, setCampaignPrompt] = useState("");
+  const [, navigate] = useLocation();
 
   const { data: campaigns = [], isLoading } = useQuery<Campaign[]>({
     queryKey: ['/api/campaigns'],
@@ -38,6 +40,15 @@ export default function Home() {
     const matchesFilter = filterType === "all" || campaign.status === filterType;
     return matchesSearch && matchesFilter;
   });
+
+  const handleStartCampaign = () => {
+    if (campaignPrompt.trim()) {
+      // Store the prompt in localStorage to pass to campaign generator
+      localStorage.setItem('campaignPrompt', campaignPrompt.trim());
+      // Navigate to campaign generator
+      navigate('/campaign-generator');
+    }
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -58,10 +69,37 @@ export default function Home() {
               {/* Quick Actions Card */}
               <Card className="glass-elevated border-glass-border mb-8">
                 <CardContent className="p-6">
-                  <div className="flex items-center space-x-4 mb-4">
+                  {/* Campaign Prompt Input */}
+                  <div className="mb-6">
+                    <div className="relative">
+                      <Input
+                        placeholder="Describe your campaign idea... (e.g., 'Create a summer sale campaign for athletic wear')"
+                        value={campaignPrompt}
+                        onChange={(e) => setCampaignPrompt(e.target.value)}
+                        className="glass-surface border-glass-border rounded-lg text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.5)] focus:border-transparent pr-32 py-3 text-base"
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter' && campaignPrompt.trim()) {
+                            handleStartCampaign();
+                          }
+                        }}
+                      />
+                      <Button 
+                        onClick={handleStartCampaign}
+                        disabled={!campaignPrompt.trim()}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-lg px-4 py-1.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <Sparkles className="w-4 h-4 mr-1" />
+                        Start
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center space-x-4">
                     <Button 
                       variant="outline" 
                       className="glass-surface border-glass-border text-glass-text-primary hover:glass-elevated rounded-lg px-4 py-2"
+                      onClick={() => setCampaignPrompt("Create a professional marketing campaign")}
                     >
                       <Sparkles className="w-4 h-4 mr-2" />
                       Campaign
@@ -69,12 +107,16 @@ export default function Home() {
                     <Button 
                       variant="outline" 
                       className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-lg px-4 py-2"
+                      onClick={() => setCampaignPrompt("Build a product catalog")}
                     >
                       <FileText className="w-4 h-4 mr-2" />
                       Catalog
                     </Button>
                     <div className="flex-1"></div>
-                    <Button className="bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-lg px-4 py-2 text-sm">
+                    <Button 
+                      className="bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-lg px-4 py-2 text-sm"
+                      onClick={() => setCampaignPrompt("Fully automate my marketing campaign creation")}
+                    >
                       <Sparkles className="w-4 h-4 mr-2" />
                       Full automate
                     </Button>
