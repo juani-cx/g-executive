@@ -44,7 +44,7 @@ export default function Home() {
       <GlassBackground />
       <MaterialHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       
-      <div className="flex h-[calc(100vh-80px)]">
+      <div className="flex h-[calc(100vh-120px)]">
         <MaterialSidebar isOpen={sidebarOpen} />
         
         <main className="flex-1 overflow-auto">

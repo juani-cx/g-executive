@@ -1,0 +1,290 @@
+Implement the following design in React. Use the following files generated from a Figma design as a specification and guide:
+
+```src/styles/Depth_2Frame_0.module.css
+@import "https://fonts.googleapis.com/css?family=Work+Sans:0,700;0,500&display=swap";
+.Depth_2Frame_0_62_304 {
+  box-sizing: border-box;
+  background: #fff3;
+  border-bottom: 1px solid #e5e8eb;
+  border-radius: 24px;
+  justify-content: space-between;
+  align-items: center;
+  width: 1392px;
+  padding: 12px 40px 12px 24px;
+  display: flex;
+  position: absolute;
+  top: 32px;
+  left: 24px;
+}
+.MeteorIconsSidebar_62_351 {
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Group_62_352 {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+.Depth_3Frame_0_62_305 {
+  align-items: center;
+  gap: -8px;
+  display: flex;
+}
+.Logo_62_306 {
+  width: 114px;
+  height: 51.68px;
+  overflow: hidden;
+}
+.Frame_8_62_313 {
+  align-items: center;
+  gap: 4px;
+  display: flex;
+}
+.Depth_4Frame_1_62_314 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Marketer_62_315 {
+  color: #7166ef;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 23px;
+  display: inline-block;
+}
+.Depth_4Frame_0_62_316 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  transform: rotate(-90deg);
+}
+.Depth_5Frame_0_62_317 {
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+}
+.Vector_0_62_318,
+.Vector_1_62_319 {
+  fill: #292645;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.Depth_6Frame_0_62_320 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 12px;
+  height: 9px;
+  display: flex;
+}
+.Depth_6Frame_1_62_321 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 13px;
+  height: 13px;
+  display: flex;
+}
+.Depth_3Frame_1_62_322 {
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_0_62_323 {
+  align-items: center;
+  gap: 36px;
+  height: 40px;
+  display: flex;
+}
+.Depth_5Frame_0_62_324 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Dashboard_62_325 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_1_62_326 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Templates_62_327 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_2_62_328 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Campaigns_62_329 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_3_62_330 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Analytics_62_331 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_4_62_332 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Resources_62_333 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_1_62_334 {
+  background: #694fe8;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_5Frame_0_62_335 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.NewCampaign_62_336 {
+  -webkit-line-clamp: 1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Depth_4Frame_2_62_337 {
+  background: #d3d3d3 url(<path-to-image>) 50% / cover no-repeat;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+```
+
+---
+
+```src/components/Depth_2Frame_0.tsx
+import React from 'react';
+import styles from '../styles/Depth_2Frame_0.module.css';
+
+
+export default function Depth_2Frame_0() {
+  return (
+    <div className={styles.Depth_2Frame_0_62_304}>
+      <div className={styles.MeteorIconsSidebar_62_351}>
+        <div className={styles.Group_62_352}><svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0.839844H2C0.89543 0.839844 0 1.73527 0 2.83984V16.8398C0 17.9444 0.89543 18.8398 2 18.8398H16C17.1046 18.8398 18 17.9444 18 16.8398V2.83984C18 1.73527 17.1046 0.839844 16 0.839844Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 0.839844V18.8398" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      <div className={styles.Depth_3Frame_0_62_305}>
+        <div className={styles.Logo_62_306}><svg width="114" height="52" viewBox="0 0 114 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50.681 26.5977C50.681 30.7507 47.4321 33.811 43.4449 33.811C39.4577 33.811 36.2087 30.7507 36.2087 26.5977C36.2087 22.4153 39.4577 19.3843 43.4449 19.3843C47.4321 19.3843 50.681 22.4153 50.681 26.5977ZM47.5134 26.5977C47.5134 24.0024 45.6304 22.2267 43.4449 22.2267C41.2594 22.2267 39.3764 24.0024 39.3764 26.5977C39.3764 29.1669 41.2594 30.9686 43.4449 30.9686C45.6304 30.9686 47.5134 29.1636 47.5134 26.5977Z" fill="#292645" />
+            <path d="M66.2916 26.5977C66.2916 30.7507 63.0427 33.811 59.0555 33.811C55.0683 33.811 51.8193 30.7507 51.8193 26.5977C51.8193 22.4186 55.0683 19.3843 59.0555 19.3843C63.0427 19.3843 66.2916 22.4153 66.2916 26.5977ZM63.124 26.5977C63.124 24.0024 61.241 22.2267 59.0555 22.2267C56.87 22.2267 54.987 24.0024 54.987 26.5977C54.987 29.1669 56.87 30.9686 59.0555 30.9686C61.241 30.9686 63.124 29.1636 63.124 26.5977Z" fill="#292645" />
+            <path d="M81.2517 19.8201V32.7703C81.2517 38.0974 78.1101 40.2732 74.3961 40.2732C70.8999 40.2732 68.7958 37.9348 68.0022 36.0225L70.7601 34.8745C71.2512 36.0485 72.4545 37.434 74.3928 37.434C76.7702 37.434 78.2434 35.9672 78.2434 33.2061V32.1687H78.1328C77.4239 33.0435 76.0579 33.8078 74.3343 33.8078C70.7276 33.8078 67.4233 30.6662 67.4233 26.6237C67.4233 22.5519 70.7276 19.3843 74.3343 19.3843C76.0547 19.3843 77.4206 20.1485 78.1328 20.9974H78.2434V19.8233H81.2517V19.8201ZM78.4678 26.6237C78.4678 24.0837 76.7734 22.2267 74.6172 22.2267C72.4317 22.2267 70.6007 24.0837 70.6007 26.6237C70.6007 29.1376 72.4317 30.9686 74.6172 30.9686C76.7734 30.9686 78.4678 29.1376 78.4678 26.6237Z" fill="#292645" />
+            <path d="M86.2114 12.2295V33.3688H83.1218V12.2295H86.2114Z" fill="#292645" />
+            <path d="M98.251 28.9716L100.71 30.6107C99.9161 31.7847 98.0038 33.8076 94.6996 33.8076C90.6018 33.8076 87.5415 30.64 87.5415 26.5942C87.5415 22.3046 90.6278 19.3809 94.3451 19.3809C98.0884 19.3809 99.9194 22.3599 100.518 23.9697L100.846 24.7893L91.2035 28.783C91.9417 30.2302 93.0898 30.9684 94.6996 30.9684C96.3127 30.9684 97.4314 30.1749 98.251 28.9716ZM90.6831 26.3763L97.129 23.6998C96.7745 22.7989 95.7078 22.1712 94.4524 22.1712C92.8426 22.1712 90.6018 23.5925 90.6831 26.3763Z" fill="#292645" />
+            <path d="M24.5137 24.7212V21.6609H34.8265C34.9273 22.1943 34.9793 22.8252 34.9793 23.5082C34.9793 25.8042 34.3516 28.6434 32.3288 30.6663C30.3612 32.7152 27.8472 33.8079 24.517 33.8079C18.3443 33.8079 13.1538 28.78 13.1538 22.6073C13.1538 16.4346 18.3443 11.4067 24.517 11.4067C27.9318 11.4067 30.3644 12.7466 32.1922 14.4931L30.0327 16.6525C28.7221 15.4232 26.9464 14.4671 24.5137 14.4671C20.0062 14.4671 16.4808 18.0998 16.4808 22.6073C16.4808 27.1149 20.0062 30.7476 24.5137 30.7476C27.4375 30.7476 29.1026 29.5735 30.1693 28.5068C31.0344 27.6417 31.6035 26.4059 31.8279 24.718L24.5137 24.7212Z" fill="#292645" />
+          </svg>
+        </div>
+        <div className={styles.Frame_8_62_313}>
+          <div className={styles.Depth_4Frame_1_62_314}><span className={styles.Marketer_62_315}>Marketer</span></div>
+          <div className={styles.Depth_4Frame_0_62_316}>
+            <div className={styles.Depth_5Frame_0_62_317}>
+              <div className={styles.Vector_0_62_318}><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M10.1912 12.2311C9.96087 11.2664 9.8261 10.0984 9.8261 8.83984C9.8261 7.58131 9.96087 6.41328 10.1912 5.44854C10.4093 4.53504 10.9223 3.50761 11.2784 3.05441L2.45363 8.55698C2.24434 8.68748 2.24434 8.99221 2.45363 9.12271L11.2784 14.6253C10.9223 14.1721 10.4093 13.1446 10.1912 12.2311V12.2311Z" fill="#292645" />
+                </svg>
+              </div>
+              <div className={styles.Vector_1_62_319}><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M11.9213 3.50718C11.9154 3.50838 11.9052 3.51068 11.8902 3.51491C11.8534 3.52531 11.8086 3.54154 11.7608 3.56164C11.7468 3.56758 11.7331 3.57354 11.7201 3.57941C11.4296 4.00308 11.0202 4.84691 10.8396 5.60334C10.623 6.51068 10.4928 7.62608 10.4928 8.83984C10.4928 10.0536 10.623 11.169 10.8396 12.0763C11.0218 12.8394 11.4368 13.6915 11.7277 14.1114C11.7358 14.1152 11.7443 14.1191 11.7531 14.123C11.7917 14.1401 11.8295 14.1541 11.863 14.1633C11.8949 14.172 11.9111 14.173 11.9129 14.1732C11.913 14.1732 11.9131 14.1732 11.9129 14.1732C11.9214 14.1732 12.0256 14.1697 12.2105 13.9449C12.3915 13.7247 12.5844 13.3658 12.7591 12.8635C13.1063 11.8651 13.3333 10.4425 13.3333 8.83984C13.3333 7.23714 13.1063 5.81458 12.7591 4.81621C12.5844 4.31391 12.3915 3.95501 12.2105 3.73481C12.05 3.53964 11.9504 3.51128 11.9213 3.50718V3.50718ZM10.9229 15.1892L2.10089 9.68841C1.47303 9.29691 1.47303 8.38278 2.10089 7.99128L10.9257 2.48871C10.9351 2.48288 10.9446 2.47724 10.9543 2.47184L11.2784 3.05441C10.9543 2.47184 10.9542 2.47191 10.9543 2.47184L10.955 2.47148L10.9558 2.47101L10.958 2.46981L10.9639 2.46654C10.9687 2.46398 10.9749 2.46061 10.9824 2.45661C10.9975 2.44858 11.0182 2.43778 11.0433 2.42518C11.0931 2.40018 11.163 2.36664 11.2439 2.33261C11.3774 2.27648 11.6437 2.17318 11.913 2.17318C12.4809 2.17318 12.9258 2.50551 13.2403 2.88791C13.5586 3.27494 13.8155 3.79471 14.0184 4.37818C14.4265 5.55138 14.6667 7.12884 14.6667 8.83984C14.6667 10.5508 14.4265 12.1283 14.0184 13.3015C13.8155 13.885 13.5586 14.4047 13.2403 14.7918C12.9258 15.1742 12.4809 15.5065 11.913 15.5065C11.6242 15.5065 11.3641 15.409 11.2131 15.3421C11.1299 15.3053 11.0601 15.2687 11.0104 15.2409C10.9852 15.2268 10.9645 15.2147 10.949 15.2053C10.9413 15.2007 10.9348 15.1967 10.9296 15.1935L10.9257 15.191L10.9229 15.1892V15.1892ZM9.668 4.84424L3.25999 8.83984L9.668 12.8355C9.6203 12.6845 9.57807 12.5339 9.54273 12.3859C9.2987 11.3638 9.15943 10.1431 9.15943 8.83984C9.15943 7.53654 9.2987 6.31588 9.54273 5.29374C9.57807 5.14584 9.6203 4.99521 9.668 4.84424V4.84424Z" fill="#292645" />
+                </svg>
+              </div>
+              <div className={styles.Depth_6Frame_0_62_320}></div>
+              <div className={styles.Depth_6Frame_1_62_321}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.Depth_3Frame_1_62_322}>
+        <div className={styles.Depth_4Frame_0_62_323}>
+          <div className={styles.Depth_5Frame_0_62_324}><span className={styles.Dashboard_62_325}>Dashboard</span></div>
+          <div className={styles.Depth_5Frame_1_62_326}><span className={styles.Templates_62_327}>Templates</span></div>
+          <div className={styles.Depth_5Frame_2_62_328}><span className={styles.Campaigns_62_329}>Campaigns</span></div>
+          <div className={styles.Depth_5Frame_3_62_330}><span className={styles.Analytics_62_331}>Analytics</span></div>
+          <div className={styles.Depth_5Frame_4_62_332}><span className={styles.Resources_62_333}>Resources</span></div>
+        </div>
+        <div className={styles.Depth_4Frame_1_62_334}>
+          <div className={styles.Depth_5Frame_0_62_335}><span className={styles.NewCampaign_62_336}>New Campaign</span></div>
+        </div>
+        <div className={styles.Depth_4Frame_2_62_337}></div>
+      </div>
+    </div>
+  );
+}
+```
+
