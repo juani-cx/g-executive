@@ -73,7 +73,7 @@ export default function MaterialSidebar({ className = "" }: MaterialSidebarProps
   };
 
   return (
-    <aside className={`w-80 h-full bg-md-sys-color-surface-container-low/50 backdrop-blur-xl border-r border-md-sys-color-outline-variant ${className}`}>
+    <aside className={`w-80 h-full glass-surface border-r border-glass-border ${className}`}>
       <div className="p-6 space-y-6">
         {/* Quick Actions */}
         <Card className="surface-elevation-1 border-md-sys-color-outline-variant">

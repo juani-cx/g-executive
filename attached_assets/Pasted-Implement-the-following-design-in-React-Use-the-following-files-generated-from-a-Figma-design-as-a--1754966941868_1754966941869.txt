@@ -1,0 +1,1685 @@
+Implement the following design in React. Use the following files generated from a Figma design as a specification and guide:
+
+```src/styles/Landinbg.module.css
+@import "https://fonts.googleapis.com/css?family=Roboto:0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Work+Sans:0,400;0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto+Flex:0,600&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:0,400;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Open+Sans:0,400&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto:0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Work+Sans:0,400;0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto+Flex:0,600&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:0,400;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto:0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Work+Sans:0,400;0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto+Flex:0,600&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto:0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Work+Sans:0,400;0,700;0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto:0,700;0,500&display=swap";
+.Landinbg_14_2454 {
+  background:
+    url(<path-to-image>) lightgray -111.135px -234.176px/115.435% 159.63%
+      no-repeat,
+    var(--color-blue-85, #c4cdee);
+  border-radius: 40px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 136px 0 48px;
+  display: inline-flex;
+  position: relative;
+}
+.Depth_0Frame_0_14_2489 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 1143px;
+  min-height: 800px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_1Frame_0_14_2490 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Depth_2Frame_1_14_2491 {
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  height: 1143px;
+  padding: 0 24px 20px;
+  display: flex;
+}
+.Depth_3Frame_0_14_2492 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 320px;
+  height: 1103px;
+  display: flex;
+  overflow: hidden;
+}
+.Frame_14_14_2493 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_0_14_2494 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px 16px 12px;
+  display: flex;
+}
+.RecentCampaigns_14_2495 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  display: inline-block;
+}
+.Frame_12_14_2496 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_1_14_2497 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2498 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2499 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2500 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2501 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2502 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2503 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 155px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectAlpha_14_2504 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2505 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_2DaysAgo_14_2506 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_2_14_2507 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2508 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2509 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2510 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2511 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2512 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2513 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 155px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectBeta_14_2514 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2515 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_5DaysAgo_14_2516 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_3_14_2517 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2518 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2519 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2520 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2521 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2522 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2523 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 157px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectGamma_14_2524 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2525 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_1WeekAgo_14_2526 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Frame_15_14_2527 {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+}
+.RecentCatalogs_14_2528 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  flex: 1 0 0;
+  font-family: Roboto;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  display: inline-block;
+}
+.Frame_13_14_2529 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_1_14_2530 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2531 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2532 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2533 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2534 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2535 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2536 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 155px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectAlpha_14_2537 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2538 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_2DaysAgo_14_2539 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_2_14_2540 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2541 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2542 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2543 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2544 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2545 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2546 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 155px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectBeta_14_2547 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2548 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_5DaysAgo_14_2549 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_3_14_2550 {
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2551 {
+  background: #ffe731ab;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Depth_6Frame_0_14_2552 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.Vector_0_14_2553 {
+  fill: #111;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.Depth_7Frame_0_14_2554 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 17px;
+  height: 20px;
+  display: flex;
+}
+.Depth_5Frame_1_14_2555 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Depth_6Frame_0_14_2556 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 157px;
+  height: 24px;
+  display: flex;
+  overflow: hidden;
+}
+.ProjectGamma_14_2557 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_6Frame_1_14_2558 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LastEdited_1WeekAgo_14_2559 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_4_14_2560 {
+  align-items: flex-start;
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2561 {
+  background: #694fe8;
+  border-radius: 20px;
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 84px;
+  max-width: 480px;
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_6Frame_0_14_2562 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.NewProject_14_2563 {
+  -webkit-line-clamp: 1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Frame_11_14_2564 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  display: flex;
+}
+.Container_14_2565 {
+  max-width: var(--width-1280, 1280px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  display: flex;
+}
+.Heading_1_14_2566 {
+  max-width: var(--width-430, 430px);
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 3.25px;
+  display: flex;
+}
+.Title_14_2567 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  font-family: Roboto Flex;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(--line-height-72, 72px);
+  letter-spacing: -0.4px;
+  display: inline-block;
+}
+.BackgroundShadowOverlayBlur_14_2568 {
+  min-height: var(--height-148, 148px);
+  background: #fff3;
+  border-radius: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+}
+.Margin_14_2569 {
+  box-sizing: border-box;
+  background: #ffffff4d;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 108px;
+  padding-bottom: 8px;
+  display: flex;
+}
+.Container_14_2570 {
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Container_14_2571 {
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  overflow: hidden;
+}
+.Textbox_14_2572 {
+  min-height: var(--opacity-100, 100px);
+  max-height: var(--font-weight-400, 400px);
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+.Container_14_2573 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 660.69px;
+  height: 24px;
+  display: flex;
+}
+.Description_14_2574 {
+  color: var(--stitch-withgoogle-com-boulder, var(--color-grey-47, #777));
+  font-family: var(--font-family-Font-1, Inter);
+  font-size: 15.25px;
+  font-style: normal;
+  font-weight: var(--font-weight-400, 400);
+  line-height: var(--line-height-24, 24px);
+  display: inline-block;
+}
+.Container_14_2575 {
+  justify-content: space-between;
+  align-items: center;
+  width: 1036px;
+  padding: 8px 16px;
+  display: flex;
+}
+.Container_14_2576 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Background_14_2577 {
+  align-items: center;
+  gap: var(--item-spacing-4, 4px);
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  position: relative;
+}
+.Button_14_2578 {
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  padding: 0 16px 0 12px;
+  display: flex;
+}
+.Container_14_2579 {
+  align-items: center;
+  gap: var(--item-spacing-xs, 8px);
+  display: flex;
+}
+.Container_14_2580,
+.Container_14_2582 {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+.MobileButtonText_14_2583 {
+  color: #223887;
+  text-align: center;
+  font-family: var(--font-family-Font-1, Inter);
+  font-size: 13.781px;
+  font-style: normal;
+  font-weight: var(--font-weight-500, 500);
+  line-height: var(--line-height-21, 21px);
+  display: inline-block;
+}
+.Button_14_2584 {
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  padding: 0 23.49px 0 19.48px;
+  display: flex;
+}
+.Container_14_2585 {
+  align-items: center;
+  gap: var(--item-spacing-xs, 8px);
+  display: flex;
+}
+.Container_14_2586,
+.Container_14_2588 {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+.WebButtonText_14_2589 {
+  color: #223887;
+  text-align: center;
+  font-family: var(--font-family-Font-1, Inter);
+  font-size: 13.781px;
+  font-style: normal;
+  font-weight: var(--font-weight-500, 500);
+  line-height: var(--line-height-21, 21px);
+  display: inline-block;
+}
+.Background_14_2590 {
+  border-radius: 6px;
+  width: 96.22px;
+  height: 28px;
+  position: absolute;
+  top: -116px;
+  left: 4px;
+}
+.Container_14_2591 {
+  align-items: flex-end;
+  display: flex;
+}
+.Frame_16_14_2592 {
+  align-items: flex-end;
+  padding: 0 24px;
+  display: flex;
+}
+.Margin_14_2593 {
+  min-width: var(--width-34, 34px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  padding: 1px 0;
+  display: flex;
+}
+.Container_14_2594 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Svg_14_2595 {
+  width: 26px;
+  height: 26px;
+}
+.Depth_8Frame_1_14_2599 {
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 32px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_9Frame_0_14_2600 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.LearnMoreButtonText_14_2601 {
+  -webkit-line-clamp: 1;
+  color: #694fe8;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Button_14_2602 {
+  opacity: var(--opacity-100, 1);
+  background: #694fe8;
+  border-radius: 9999px;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px 0 8px;
+  display: flex;
+}
+.Svg_14_2603 {
+  width: 36px;
+  height: 32px;
+}
+.Container_14_2606 {
+  flex-direction: column;
+  align-items: center;
+  padding-left: 4px;
+  display: flex;
+}
+.GenerateDesignsButtonText_14_2607 {
+  color: var(--color-white-solid, #fff);
+  text-align: center;
+  font-family: var(--font-family-Font-1, Inter);
+  font-size: 13.672px;
+  font-style: normal;
+  font-weight: var(--font-weight-500, 500);
+  line-height: var(--line-height-21, 21px);
+  display: inline-block;
+}
+.Frame_20_52_107 {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 0 8px 16px;
+  display: flex;
+}
+.RecentCampaigns_52_105 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  flex: 1 0 0;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  display: inline-block;
+}
+.Container_52_115 {
+  box-sizing: border-box;
+  border: 1px solid #b6b0d5;
+  border-radius: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 505px;
+  padding: 6px 0;
+  display: flex;
+}
+.Button_52_123 {
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  padding: 0 23.49px 0 19.48px;
+  display: flex;
+}
+.Container_52_124 {
+  align-items: center;
+  gap: var(--item-spacing-xs, 8px);
+  display: flex;
+}
+.Container_52_127 {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+.WebButtonText_52_128 {
+  color: #5b699c;
+  text-align: center;
+  font-family: var(--font-family-Font-1, Inter);
+  font-size: 13.781px;
+  font-style: normal;
+  font-weight: var(--font-weight-500, 500);
+  line-height: var(--line-height-21, 21px);
+  display: inline-block;
+}
+.Frame_9_14_2614 {
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_10_14_2615 {
+  background: #fff3;
+  border-radius: 16px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  width: 100%;
+  height: 430px;
+  padding: 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_6Frame_0_14_2616 {
+  background: #d3d3d3 url(<path-to-image>) 50% / cover no-repeat;
+  border-radius: 12px;
+  width: 100%;
+  height: 242px;
+  overflow: hidden;
+}
+.Depth_6Frame_1_14_2617 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  min-width: 288px;
+  padding: 16px;
+  display: flex;
+}
+.Depth_7Frame_0_14_2618 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.ProjectName_14_2619 {
+  color: #292929;
+  font-feature-settings: "dlig" on;
+  font-family: Open Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_7Frame_1_14_2620 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.RevolutionizeYourMarketingWithAi_14_2621 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 23px;
+  display: inline-block;
+}
+.Depth_7Frame_2_14_2622 {
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  display: flex;
+}
+.Depth_8Frame_0_14_2623 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 318px;
+  display: flex;
+}
+.DiscoverHowOurAiPoweredPlatformCanTransformYourMarketingStrategiesAndDriveUnprecedentedGrowth_14_2624 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_8Frame_1_14_2625 {
+  background: #694fe8;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 32px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_9Frame_0_14_2626 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.Remix_14_2627 {
+  -webkit-line-clamp: 1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Depth_4Frame_11_14_2628 {
+  background: #fff3;
+  border-radius: 16px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  width: 100%;
+  height: 430px;
+  padding: 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_6Frame_0_14_2629 {
+  background: #d3d3d3 url(<path-to-image>) 50% / cover no-repeat;
+  border-radius: 12px;
+  width: 100%;
+  height: 242px;
+  overflow: hidden;
+}
+.Depth_6Frame_1_14_2630 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  min-width: 288px;
+  padding: 16px;
+  display: flex;
+}
+.Depth_7Frame_0_14_2631 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.ProjectName_14_2632 {
+  color: #292929;
+  font-feature-settings: "dlig" on;
+  font-family: Open Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_7Frame_1_14_2633 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.RevolutionizeYourMarketingWithAi_14_2634 {
+  color: #111;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 23px;
+  display: inline-block;
+}
+.Depth_7Frame_2_14_2635 {
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  display: flex;
+}
+.Depth_8Frame_0_14_2636 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 318px;
+  display: flex;
+}
+.DiscoverHowOurAiPoweredPlatformCanTransformYourMarketingStrategiesAndDriveUnprecedentedGrowth_14_2637 {
+  color: #121212;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  display: inline-block;
+}
+.Depth_8Frame_1_14_2638 {
+  background: #694fe8;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 32px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_9Frame_0_14_2639 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.Remix_14_2640 {
+  -webkit-line-clamp: 1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Depth_2Frame_0_14_2455 {
+  box-sizing: border-box;
+  background: #fff3;
+  border-bottom: 1px solid #e5e8eb;
+  border-radius: 24px;
+  justify-content: space-between;
+  align-items: center;
+  width: 1392px;
+  padding: 12px 40px;
+  display: flex;
+  position: absolute;
+  top: 32px;
+  left: 24px;
+}
+.Depth_3Frame_0_14_2456 {
+  align-items: center;
+  gap: -8px;
+  display: flex;
+}
+.Logo_14_2457 {
+  width: 114px;
+  height: 51.68px;
+  overflow: hidden;
+}
+.Frame_8_14_2464 {
+  align-items: center;
+  gap: 4px;
+  display: flex;
+}
+.Depth_4Frame_1_14_2465 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Marketer_14_2466 {
+  color: #7166ef;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 23px;
+  display: inline-block;
+}
+.Depth_4Frame_0_14_2467 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  transform: rotate(-90deg);
+}
+.Depth_5Frame_0_14_2468 {
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+}
+.Vector_0_14_2469,
+.Vector_1_14_2470 {
+  fill: #292645;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.Depth_6Frame_0_14_2471 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 12px;
+  height: 9px;
+  display: flex;
+}
+.Depth_6Frame_1_14_2472 {
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-start;
+  width: 13px;
+  height: 13px;
+  display: flex;
+}
+.Depth_3Frame_1_14_2473 {
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Depth_4Frame_0_14_2474 {
+  align-items: center;
+  gap: 36px;
+  height: 40px;
+  display: flex;
+}
+.Depth_5Frame_0_14_2475 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Dashboard_14_2476 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_1_14_2477 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Templates_14_2478 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_2_14_2479 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Campaigns_14_2480 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_3_14_2481 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Analytics_14_2482 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_5Frame_4_14_2483 {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+.Resources_14_2484 {
+  color: #141221;
+  font-feature-settings: "dlig" on;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  display: inline-block;
+}
+.Depth_4Frame_1_14_2485 {
+  background: #694fe8;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Depth_5Frame_0_14_2486 {
+  flex-direction: column;
+  align-items: center;
+  height: 21px;
+  display: flex;
+  overflow: hidden;
+}
+.NewCampaign_14_2487 {
+  -webkit-line-clamp: 1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: "dlig" on;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px;
+  display: inline-block;
+  overflow: hidden;
+}
+.Depth_4Frame_2_14_2488 {
+  background: #d3d3d3 url(<path-to-image>) 50% / cover no-repeat;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+```
+
+---
+
+```src/components/Landinbg.tsx
+import React from 'react';
+import styles from '../styles/Landinbg.module.css';
+
+
+export default function Landinbg() {
+  return (
+    <div className={styles.Landinbg_14_2454}>
+      <div className={styles.Depth_0Frame_0_14_2489}>
+        <div className={styles.Depth_1Frame_0_14_2490}>
+          <div className={styles.Depth_2Frame_1_14_2491}>
+            <div className={styles.Depth_3Frame_0_14_2492}>
+              <div className={styles.Frame_14_14_2493}>
+                <div className={styles.Depth_4Frame_0_14_2494}><span className={styles.RecentCampaigns_14_2495}>Recent Campaigns</span></div>
+                <div className={styles.Frame_12_14_2496}>
+                  <div className={styles.Depth_4Frame_1_14_2497}>
+                    <div className={styles.Depth_5Frame_0_14_2498}>
+                      <div className={styles.Depth_6Frame_0_14_2499}>
+                        <div className={styles.Vector_0_14_2500}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2501}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2502}>
+                      <div className={styles.Depth_6Frame_0_14_2503}><span className={styles.ProjectAlpha_14_2504}>Project Alpha</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2505}><span className={styles.LastEdited_2DaysAgo_14_2506}>Last edited 2 days ago</span></div>
+                    </div>
+                  </div>
+                  <div className={styles.Depth_4Frame_2_14_2507}>
+                    <div className={styles.Depth_5Frame_0_14_2508}>
+                      <div className={styles.Depth_6Frame_0_14_2509}>
+                        <div className={styles.Vector_0_14_2510}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2511}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2512}>
+                      <div className={styles.Depth_6Frame_0_14_2513}><span className={styles.ProjectBeta_14_2514}>Project Beta</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2515}><span className={styles.LastEdited_5DaysAgo_14_2516}>Last edited 5 days ago</span></div>
+                    </div>
+                  </div>
+                  <div className={styles.Depth_4Frame_3_14_2517}>
+                    <div className={styles.Depth_5Frame_0_14_2518}>
+                      <div className={styles.Depth_6Frame_0_14_2519}>
+                        <div className={styles.Vector_0_14_2520}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2521}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2522}>
+                      <div className={styles.Depth_6Frame_0_14_2523}><span className={styles.ProjectGamma_14_2524}>Project Gamma</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2525}><span className={styles.LastEdited_1WeekAgo_14_2526}>Last edited 1 week ago</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.Frame_15_14_2527}><span className={styles.RecentCatalogs_14_2528}>Recent Catalogs</span></div>
+                <div className={styles.Frame_13_14_2529}>
+                  <div className={styles.Depth_4Frame_1_14_2530}>
+                    <div className={styles.Depth_5Frame_0_14_2531}>
+                      <div className={styles.Depth_6Frame_0_14_2532}>
+                        <div className={styles.Vector_0_14_2533}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2534}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2535}>
+                      <div className={styles.Depth_6Frame_0_14_2536}><span className={styles.ProjectAlpha_14_2537}>Project Alpha</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2538}><span className={styles.LastEdited_2DaysAgo_14_2539}>Last edited 2 days ago</span></div>
+                    </div>
+                  </div>
+                  <div className={styles.Depth_4Frame_2_14_2540}>
+                    <div className={styles.Depth_5Frame_0_14_2541}>
+                      <div className={styles.Depth_6Frame_0_14_2542}>
+                        <div className={styles.Vector_0_14_2543}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2544}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2545}>
+                      <div className={styles.Depth_6Frame_0_14_2546}><span className={styles.ProjectBeta_14_2547}>Project Beta</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2548}><span className={styles.LastEdited_5DaysAgo_14_2549}>Last edited 5 days ago</span></div>
+                    </div>
+                  </div>
+                  <div className={styles.Depth_4Frame_3_14_2550}>
+                    <div className={styles.Depth_5Frame_0_14_2551}>
+                      <div className={styles.Depth_6Frame_0_14_2552}>
+                        <div className={styles.Vector_0_14_2553}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M20.0306 7.71938L14.7806 2.46937C14.6399 2.32876 14.449 2.24984 14.25 2.25H5.25C4.42157 2.25 3.75 2.92157 3.75 3.75V20.25C3.75 21.0784 4.42157 21.75 5.25 21.75H18.75C19.5784 21.75 20.25 21.0784 20.25 20.25V8.25C20.2502 8.05103 20.1712 7.86015 20.0306 7.71938ZM15 4.81031L17.6897 7.5H15V4.81031ZM18.75 20.25H5.25V3.75H13.5V8.25C13.5 8.66421 13.8358 9 14.25 9H18.75V20.25Z" fill="#111111" />
+                          </svg>
+                        </div>
+                        <div className={styles.Depth_7Frame_0_14_2554}></div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_5Frame_1_14_2555}>
+                      <div className={styles.Depth_6Frame_0_14_2556}><span className={styles.ProjectGamma_14_2557}>Project Gamma</span></div>
+                      <div className={styles.Depth_6Frame_1_14_2558}><span className={styles.LastEdited_1WeekAgo_14_2559}>Last edited 1 week ago</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.Depth_4Frame_4_14_2560}>
+                <div className={styles.Depth_5Frame_0_14_2561}>
+                  <div className={styles.Depth_6Frame_0_14_2562}><span className={styles.NewProject_14_2563}>New Project</span></div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.Frame_11_14_2564}>
+              <div className={styles.Container_14_2565}>
+                <div className={styles.Heading_1_14_2566}><span className={styles.Title_14_2567}>Welcome back</span></div>
+                <div className={styles.BackgroundShadowOverlayBlur_14_2568}>
+                  <div className={styles.Margin_14_2569}>
+                    <div className={styles.Container_14_2570}>
+                      <div className={styles.Container_14_2571}>
+                        <div className={styles.Textbox_14_2572}>
+                          <div className={styles.Container_14_2573}><span className={styles.Description_14_2574}>Describe&#xA0;your&#xA0;design</span></div>
+                          <div className={styles.Container_14_2575}>
+                            <div className={styles.Container_14_2576}>
+                              <div className={styles.Background_14_2577}>
+                                <div className={styles.Button_14_2578}>
+                                  <div className={styles.Container_14_2579}>
+                                    <div className={styles.Container_14_2580}><svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.5 0H1.5C1.10218 0 0.720644 0.158035 0.43934 0.43934C0.158035 0.720644 0 1.10218 0 1.5V12.5C0 12.8978 0.158035 13.2794 0.43934 13.5607C0.720644 13.842 1.10218 14 1.5 14H7.5C7.89782 14 8.27936 13.842 8.56066 13.5607C8.84196 13.2794 9 12.8978 9 12.5V1.5C9 1.10218 8.84196 0.720644 8.56066 0.43934C8.27936 0.158035 7.89782 0 7.5 0ZM8 12.5C8 12.6326 7.94732 12.7598 7.85355 12.8536C7.75979 12.9473 7.63261 13 7.5 13H1.5C1.36739 13 1.24021 12.9473 1.14645 12.8536C1.05268 12.7598 1 12.6326 1 12.5V1.5C1 1.36739 1.05268 1.24021 1.14645 1.14645C1.24021 1.05268 1.36739 1 1.5 1H7.5C7.63261 1 7.75979 1.05268 7.85355 1.14645C7.94732 1.24021 8 1.36739 8 1.5V12.5ZM7 2.5C7 2.63261 6.94732 2.75979 6.85355 2.85355C6.75979 2.94732 6.63261 3 6.5 3H2.5C2.36739 3 2.24021 2.94732 2.14645 2.85355C2.05268 2.75979 2 2.63261 2 2.5C2 2.36739 2.05268 2.24021 2.14645 2.14645C2.24021 2.05268 2.36739 2 2.5 2H6.5C6.63261 2 6.75979 2.05268 6.85355 2.14645C6.94732 2.24021 7 2.36739 7 2.5Z" fill="#223887" />
+                                      </svg>
+                                    </div>
+                                    <div className={styles.Container_14_2582}><span className={styles.MobileButtonText_14_2583}>Campaign</span></div>
+                                  </div>
+                                </div>
+                                <div className={styles.Button_14_2584}>
+                                  <div className={styles.Container_14_2585}>
+                                    <div className={styles.Container_14_2586}><svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.98 0H1.97998C1.58216 0 1.20062 0.158035 0.91932 0.43934C0.638016 0.720644 0.47998 1.10218 0.47998 1.5V8.5C0.47998 8.89782 0.638016 9.27936 0.91932 9.56066C1.20062 9.84196 1.58216 10 1.97998 10H6.47998V11H4.97998C4.84737 11 4.7202 11.0527 4.62643 11.1464C4.53266 11.2402 4.47998 11.3674 4.47998 11.5C4.47998 11.6326 4.53266 11.7598 4.62643 11.8536C4.7202 11.9473 4.84737 12 4.97998 12H8.97998C9.11259 12 9.23977 11.9473 9.33353 11.8536C9.4273 11.7598 9.47998 11.6326 9.47998 11.5C9.47998 11.3674 9.4273 11.2402 9.33353 11.1464C9.23977 11.0527 9.11259 11 8.97998 11H7.47998V10H11.98C12.3778 10 12.7593 9.84196 13.0406 9.56066C13.3219 9.27936 13.48 8.89782 13.48 8.5V1.5C13.48 1.10218 13.3219 0.720644 13.0406 0.43934C12.7593 0.158035 12.3778 0 11.98 0ZM1.97998 1H11.98C12.1126 1 12.2398 1.05268 12.3335 1.14645C12.4273 1.24021 12.48 1.36739 12.48 1.5V6.5H1.47998V1.5C1.47998 1.36739 1.53266 1.24021 1.62643 1.14645C1.7202 1.05268 1.84737 1 1.97998 1ZM11.98 9H1.97998C1.84737 9 1.7202 8.94732 1.62643 8.85355C1.53266 8.75979 1.47998 8.63261 1.47998 8.5V7.5H12.48V8.5C12.48 8.63261 12.4273 8.75979 12.3335 8.85355C12.2398 8.94732 12.1126 9 11.98 9Z" fill="#223887" />
+                                      </svg>
+                                    </div>
+                                    <div className={styles.Container_14_2588}><span className={styles.WebButtonText_14_2589}>Catalog</span></div>
+                                  </div>
+                                </div>
+                                <div className={styles.Background_14_2590}></div>
+                              </div>
+                            </div>
+                            <div className={styles.Container_14_2591}>
+                              <div className={styles.Frame_16_14_2592}>
+                                <div className={styles.Margin_14_2593}>
+                                  <div className={styles.Container_14_2594}>
+                                    <div className={styles.Svg_14_2595}><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21.125 4.0625H4.875C4.42627 4.0625 4.0625 4.42627 4.0625 4.875V21.125C4.0625 21.5737 4.42627 21.9375 4.875 21.9375H21.125C21.5737 21.9375 21.9375 21.5737 21.9375 21.125V4.875C21.9375 4.42627 21.5737 4.0625 21.125 4.0625Z" stroke="#694FE8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M21.9375 16.2499L17.6414 11.9538C17.5658 11.877 17.4757 11.8161 17.3763 11.7745C17.2769 11.7328 17.1702 11.7114 17.0625 11.7114C16.9548 11.7114 16.8481 11.7328 16.7487 11.7745C16.6493 11.8161 16.5592 11.877 16.4836 11.9538L11.9539 16.4835C11.8783 16.5603 11.7882 16.6212 11.6888 16.6628C11.5894 16.7044 11.4827 16.7259 11.375 16.7259C11.2673 16.7259 11.1606 16.7044 11.0612 16.6628C10.9618 16.6212 10.8717 16.5603 10.7961 16.4835L8.70391 14.3913C8.62834 14.3145 8.53816 14.2536 8.43879 14.212C8.33942 14.1703 8.23274 14.1489 8.125 14.1489C8.01725 14.1489 7.91058 14.1703 7.8112 14.212C7.71181 14.2536 7.6217 14.3145 7.54609 14.3913L4.0625 17.8749" stroke="#694FE8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M10.1562 10.3594C10.7172 10.3594 11.1719 9.9047 11.1719 9.34375C11.1719 8.7828 10.7172 8.32812 10.1562 8.32812C9.59531 8.32812 9.14062 8.7828 9.14062 9.34375C9.14062 9.9047 9.59531 10.3594 10.1562 10.3594Z" fill="#694FE8" />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className={styles.Depth_8Frame_1_14_2599}>
+                                  <div className={styles.Depth_9Frame_0_14_2600}><span className={styles.LearnMoreButtonText_14_2601}>Full automate</span></div>
+                                </div>
+                              </div>
+                              <div className={styles.Button_14_2602}>
+                                <div className={styles.Svg_14_2603}><svg width="36" height="32" viewBox="0 0 36 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.5 21.5H14.5625L22.375 13.6875L21.3125 12.625L13.5 20.4375V21.5ZM12 23V19.8125L22.375 9.4375C22.5278 9.28472 22.6933 9.17361 22.8717 9.10417C23.0499 9.03472 23.2374 9 23.4342 9C23.6308 9 23.8194 9.03472 24 9.10417C24.1806 9.17361 24.3472 9.28472 24.5 9.4375L25.5625 10.5C25.7153 10.6528 25.8264 10.8194 25.8958 11C25.9653 11.1806 26 11.3649 26 11.5529C26 11.7536 25.9651 11.9449 25.8954 12.1267C25.8257 12.3085 25.7147 12.4746 25.5625 12.625L15.1875 23H12ZM21.8344 13.1656L21.3125 12.625L22.375 13.6875L21.8344 13.1656ZM13.5 16C13.5 14.7454 13.0636 13.6818 12.1908 12.8092C11.3182 11.9364 10.2546 11.5 9 11.5C10.2546 11.5 11.3182 11.0636 12.1908 10.1908C13.0636 9.31819 13.5 8.25458 13.5 7C13.5 8.25458 13.9364 9.31819 14.8092 10.1908C15.6818 11.0636 16.7454 11.5 18 11.5C16.7454 11.5 15.6818 11.9364 14.8092 12.8092C13.9364 13.6818 13.5 14.7454 13.5 16Z" fill="white" />
+                                  </svg>
+                                </div>
+                                <div className={styles.Container_14_2606}><span className={styles.GenerateDesignsButtonText_14_2607}>Generate designs</span></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.Frame_20_52_107}><span className={styles.RecentCampaigns_52_105}>Recent Campaigns</span>
+                    <div className={styles.Container_52_115}>
+                      <div className={styles.Button_52_123}>
+                        <div className={styles.Container_52_124}>
+                          <div className={styles.Container_52_127}><span className={styles.WebButtonText_52_128}>Search</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.Frame_9_14_2614}>
+                    <div className={styles.Depth_4Frame_10_14_2615}>
+                      <div className={styles.Depth_6Frame_0_14_2616}></div>
+                      <div className={styles.Depth_6Frame_1_14_2617}>
+                        <div className={styles.Depth_7Frame_0_14_2618}><span className={styles.ProjectName_14_2619}>Project Name</span></div>
+                        <div className={styles.Depth_7Frame_1_14_2620}><span className={styles.RevolutionizeYourMarketingWithAi_14_2621}>Revolutionize Your Marketing with AI</span></div>
+                        <div className={styles.Depth_7Frame_2_14_2622}>
+                          <div className={styles.Depth_8Frame_0_14_2623}><span className={styles.DiscoverHowOurAiPoweredPlatformCanTransformYourMarketingStrategiesAndDriveUnprecedentedGrowth_14_2624}>Discover how our AI-powered platform can transform your marketing strategies and drive unprecedented growth.</span></div>
+                          <div className={styles.Depth_8Frame_1_14_2625}>
+                            <div className={styles.Depth_9Frame_0_14_2626}><span className={styles.Remix_14_2627}>Remix</span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.Depth_4Frame_11_14_2628}>
+                      <div className={styles.Depth_6Frame_0_14_2629}></div>
+                      <div className={styles.Depth_6Frame_1_14_2630}>
+                        <div className={styles.Depth_7Frame_0_14_2631}><span className={styles.ProjectName_14_2632}>Project Name</span></div>
+                        <div className={styles.Depth_7Frame_1_14_2633}><span className={styles.RevolutionizeYourMarketingWithAi_14_2634}>Revolutionize Your Marketing with AI</span></div>
+                        <div className={styles.Depth_7Frame_2_14_2635}>
+                          <div className={styles.Depth_8Frame_0_14_2636}><span className={styles.DiscoverHowOurAiPoweredPlatformCanTransformYourMarketingStrategiesAndDriveUnprecedentedGrowth_14_2637}>Discover how our AI-powered platform can transform your marketing strategies and drive unprecedented growth.</span></div>
+                          <div className={styles.Depth_8Frame_1_14_2638}>
+                            <div className={styles.Depth_9Frame_0_14_2639}><span className={styles.Remix_14_2640}>Remix</span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.Depth_2Frame_0_14_2455}>
+        <div className={styles.Depth_3Frame_0_14_2456}>
+          <div className={styles.Logo_14_2457}><svg width="114" height="52" viewBox="0 0 114 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50.681 26.5977C50.681 30.7507 47.4321 33.811 43.4449 33.811C39.4577 33.811 36.2087 30.7507 36.2087 26.5977C36.2087 22.4153 39.4577 19.3843 43.4449 19.3843C47.4321 19.3843 50.681 22.4153 50.681 26.5977ZM47.5134 26.5977C47.5134 24.0024 45.6304 22.2267 43.4449 22.2267C41.2594 22.2267 39.3764 24.0024 39.3764 26.5977C39.3764 29.1669 41.2594 30.9686 43.4449 30.9686C45.6304 30.9686 47.5134 29.1636 47.5134 26.5977Z" fill="#292645" />
+              <path d="M66.2916 26.5977C66.2916 30.7507 63.0427 33.811 59.0555 33.811C55.0683 33.811 51.8193 30.7507 51.8193 26.5977C51.8193 22.4186 55.0683 19.3843 59.0555 19.3843C63.0427 19.3843 66.2916 22.4153 66.2916 26.5977ZM63.124 26.5977C63.124 24.0024 61.241 22.2267 59.0555 22.2267C56.87 22.2267 54.987 24.0024 54.987 26.5977C54.987 29.1669 56.87 30.9686 59.0555 30.9686C61.241 30.9686 63.124 29.1636 63.124 26.5977Z" fill="#292645" />
+              <path d="M81.2517 19.8201V32.7703C81.2517 38.0974 78.1101 40.2732 74.3961 40.2732C70.8999 40.2732 68.7958 37.9348 68.0022 36.0225L70.7601 34.8745C71.2512 36.0485 72.4545 37.434 74.3928 37.434C76.7702 37.434 78.2434 35.9672 78.2434 33.2061V32.1687H78.1328C77.4239 33.0435 76.0579 33.8078 74.3343 33.8078C70.7276 33.8078 67.4233 30.6662 67.4233 26.6237C67.4233 22.5519 70.7276 19.3843 74.3343 19.3843C76.0547 19.3843 77.4206 20.1485 78.1328 20.9974H78.2434V19.8233H81.2517V19.8201ZM78.4678 26.6237C78.4678 24.0837 76.7734 22.2267 74.6172 22.2267C72.4317 22.2267 70.6007 24.0837 70.6007 26.6237C70.6007 29.1376 72.4317 30.9686 74.6172 30.9686C76.7734 30.9686 78.4678 29.1376 78.4678 26.6237Z" fill="#292645" />
+              <path d="M86.2113 12.2295V33.3688H83.1217V12.2295H86.2113Z" fill="#292645" />
+              <path d="M98.251 28.9716L100.71 30.6107C99.9161 31.7847 98.0038 33.8076 94.6996 33.8076C90.6018 33.8076 87.5415 30.64 87.5415 26.5942C87.5415 22.3046 90.6278 19.3809 94.3451 19.3809C98.0884 19.3809 99.9194 22.3599 100.518 23.9697L100.846 24.7893L91.2035 28.783C91.9417 30.2302 93.0898 30.9684 94.6996 30.9684C96.3127 30.9684 97.4314 30.1749 98.251 28.9716ZM90.6831 26.3763L97.129 23.6998C96.7745 22.7989 95.7078 22.1712 94.4524 22.1712C92.8426 22.1712 90.6018 23.5925 90.6831 26.3763Z" fill="#292645" />
+              <path d="M24.5139 24.7212V21.6609H34.8266C34.9274 22.1943 34.9794 22.8252 34.9794 23.5082C34.9794 25.8042 34.3518 28.6434 32.3289 30.6663C30.3613 32.7152 27.8474 33.8079 24.5171 33.8079C18.3444 33.8079 13.1539 28.78 13.1539 22.6073C13.1539 16.4346 18.3444 11.4067 24.5171 11.4067C27.9319 11.4067 30.3646 12.7466 32.1923 14.4931L30.0328 16.6525C28.7222 15.4232 26.9465 14.4671 24.5139 14.4671C20.0063 14.4671 16.4809 18.0998 16.4809 22.6073C16.4809 27.1149 20.0063 30.7476 24.5139 30.7476C27.4376 30.7476 29.1027 29.5735 30.1694 28.5068C31.0345 27.6417 31.6037 26.4059 31.8281 24.718L24.5139 24.7212Z" fill="#292645" />
+            </svg>
+          </div>
+          <div className={styles.Frame_8_14_2464}>
+            <div className={styles.Depth_4Frame_1_14_2465}><span className={styles.Marketer_14_2466}>Marketer</span></div>
+            <div className={styles.Depth_4Frame_0_14_2467}>
+              <div className={styles.Depth_5Frame_0_14_2468}>
+                <div className={styles.Vector_0_14_2469}><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M10.1912 12.2311C9.96087 11.2664 9.8261 10.0984 9.8261 8.83984C9.8261 7.58131 9.96087 6.41328 10.1912 5.44854C10.4093 4.53504 10.9223 3.50761 11.2784 3.05441L2.45363 8.55698C2.24434 8.68748 2.24434 8.99221 2.45363 9.12271L11.2784 14.6253C10.9223 14.1721 10.4093 13.1446 10.1912 12.2311Z" fill="#292645" />
+                  </svg>
+                </div>
+                <div className={styles.Vector_1_14_2470}><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M11.9213 3.50718C11.9154 3.50838 11.9052 3.51068 11.8902 3.51491C11.8534 3.52531 11.8086 3.54154 11.7608 3.56164C11.7468 3.56758 11.7331 3.57354 11.7201 3.57941C11.4296 4.00308 11.0202 4.84691 10.8396 5.60334C10.623 6.51068 10.4928 7.62608 10.4928 8.83984C10.4928 10.0536 10.623 11.169 10.8396 12.0763C11.0218 12.8394 11.4368 13.6915 11.7277 14.1114C11.7358 14.1152 11.7443 14.1191 11.7531 14.123C11.7917 14.1401 11.8295 14.1541 11.863 14.1633C11.8949 14.172 11.9111 14.173 11.9129 14.1732C11.9131 14.1732 11.913 14.1732 11.9129 14.1732C11.9214 14.1732 12.0256 14.1697 12.2105 13.9449C12.3915 13.7247 12.5844 13.3658 12.7591 12.8635C13.1063 11.8651 13.3333 10.4425 13.3333 8.83984C13.3333 7.23714 13.1063 5.81458 12.7591 4.81621C12.5844 4.31391 12.3915 3.95501 12.2105 3.73481C12.05 3.53964 11.9504 3.51128 11.9213 3.50718ZM10.9229 15.1892L2.10089 9.68841C1.47303 9.29691 1.47303 8.38278 2.10089 7.99128L10.9257 2.48871C10.9351 2.48288 10.9446 2.47724 10.9543 2.47184L11.2784 3.05441C10.9543 2.47184 10.9542 2.47191 10.9543 2.47184L10.955 2.47148L10.9558 2.47101L10.958 2.46981L10.9639 2.46654C10.9687 2.46398 10.9749 2.46061 10.9824 2.45661C10.9975 2.44858 11.0182 2.43778 11.0433 2.42518C11.0931 2.40018 11.163 2.36664 11.2439 2.33261C11.3774 2.27648 11.6437 2.17318 11.913 2.17318C12.4809 2.17318 12.9258 2.50551 13.2403 2.88791C13.5586 3.27494 13.8155 3.79471 14.0184 4.37818C14.4265 5.55138 14.6667 7.12884 14.6667 8.83984C14.6667 10.5508 14.4265 12.1283 14.0184 13.3015C13.8155 13.885 13.5586 14.4047 13.2403 14.7918C12.9258 15.1742 12.4809 15.5065 11.913 15.5065C11.6242 15.5065 11.3641 15.409 11.2131 15.3421C11.1299 15.3053 11.0601 15.2687 11.0104 15.2409C10.9852 15.2268 10.9645 15.2147 10.949 15.2053C10.9413 15.2007 10.9348 15.1967 10.9296 15.1935L10.9257 15.191L10.9229 15.1892ZM9.668 4.84424L3.25999 8.83984L9.668 12.8355C9.6203 12.6845 9.57807 12.5339 9.54273 12.3859C9.2987 11.3638 9.15943 10.1431 9.15943 8.83984C9.15943 7.53654 9.2987 6.31588 9.54273 5.29374C9.57807 5.14584 9.6203 4.99521 9.668 4.84424Z" fill="#292645" />
+                  </svg>
+                </div>
+                <div className={styles.Depth_6Frame_0_14_2471}></div>
+                <div className={styles.Depth_6Frame_1_14_2472}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.Depth_3Frame_1_14_2473}>
+          <div className={styles.Depth_4Frame_0_14_2474}>
+            <div className={styles.Depth_5Frame_0_14_2475}><span className={styles.Dashboard_14_2476}>Dashboard</span></div>
+            <div className={styles.Depth_5Frame_1_14_2477}><span className={styles.Templates_14_2478}>Templates</span></div>
+            <div className={styles.Depth_5Frame_2_14_2479}><span className={styles.Campaigns_14_2480}>Campaigns</span></div>
+            <div className={styles.Depth_5Frame_3_14_2481}><span className={styles.Analytics_14_2482}>Analytics</span></div>
+            <div className={styles.Depth_5Frame_4_14_2483}><span className={styles.Resources_14_2484}>Resources</span></div>
+          </div>
+          <div className={styles.Depth_4Frame_1_14_2485}>
+            <div className={styles.Depth_5Frame_0_14_2486}><span className={styles.NewCampaign_14_2487}>New Campaign</span></div>
+          </div>
+          <div className={styles.Depth_4Frame_2_14_2488}></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+

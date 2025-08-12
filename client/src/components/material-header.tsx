@@ -28,20 +28,20 @@ export default function MaterialHeader({
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <header className={`bg-md-sys-color-surface-container-low/80 backdrop-blur-xl border-b border-md-sys-color-outline-variant sticky top-0 z-50 ${className}`}>
+    <header className={`glass-elevated border-b border-glass-border sticky top-0 z-50 ${className}`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Title */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-md-sys-color-primary to-md-sys-color-tertiary rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-[rgba(99,102,241,0.8)] to-[rgba(236,72,153,0.8)] rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-lg border border-white/30">
                 <Sparkles className="text-white w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-md-sys-color-on-surface tracking-tight">
+                <h1 className="text-xl font-semibold text-glass-text-primary tracking-tight">
                   {title}
                 </h1>
-                <p className="text-sm text-md-sys-color-on-surface-variant">
+                <p className="text-sm text-glass-text-secondary">
                   AI-Powered Marketing Platform
                 </p>
               </div>
@@ -52,12 +52,12 @@ export default function MaterialHeader({
           {showSearch && (
             <div className="flex-1 max-w-2xl mx-8">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-glass-text-muted w-5 h-5" />
                 <Input
                   placeholder="Search campaigns, catalogs, or projects..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-md-sys-color-surface-container-highest border-md-sys-color-outline-variant rounded-2xl text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant focus:ring-2 focus:ring-md-sys-color-primary focus:border-transparent transition-all duration-200"
+                  className="w-full pl-12 pr-4 py-3 glass-surface border-glass-border rounded-2xl text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.5)] focus:border-transparent transition-all duration-200 backdrop-blur-lg"
                 />
               </div>
             </div>
@@ -75,20 +75,20 @@ export default function MaterialHeader({
 
             {/* Notifications */}
             {showNotifications && (
-              <Button variant="ghost" size="icon" className="rounded-2xl w-12 h-12 hover:bg-md-sys-color-surface-container-high">
-                <Bell className="w-5 h-5 text-md-sys-color-on-surface" />
+              <Button variant="ghost" size="icon" className="rounded-2xl w-12 h-12 glass-surface hover:glass-elevated text-glass-text-primary hover:text-glass-text-primary transition-all duration-200">
+                <Bell className="w-5 h-5" />
               </Button>
             )}
 
             {/* Settings */}
-            <Button variant="ghost" size="icon" className="rounded-2xl w-12 h-12 hover:bg-md-sys-color-surface-container-high">
-              <Settings className="w-5 h-5 text-md-sys-color-on-surface" />
+            <Button variant="ghost" size="icon" className="rounded-2xl w-12 h-12 glass-surface hover:glass-elevated text-glass-text-primary hover:text-glass-text-primary transition-all duration-200">
+              <Settings className="w-5 h-5" />
             </Button>
 
             {/* Profile Avatar */}
-            <Avatar className="w-10 h-10 ring-2 ring-md-sys-color-outline-variant ring-offset-2 ring-offset-md-sys-color-surface">
+            <Avatar className="w-10 h-10 ring-2 ring-glass-border ring-offset-2 ring-offset-transparent">
               <AvatarImage src="/api/placeholder/32/32" alt="User" />
-              <AvatarFallback className="bg-md-sys-color-primary text-md-sys-color-on-primary font-medium">
+              <AvatarFallback className="bg-gradient-to-br from-[rgba(99,102,241,0.3)] to-[rgba(236,72,153,0.3)] text-glass-text-primary backdrop-blur-lg font-medium">
                 AI
               </AvatarFallback>
             </Avatar>

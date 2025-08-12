@@ -20,6 +20,7 @@ import { type Campaign } from "@shared/schema";
 import MaterialHeader from "@/components/material-header";
 import MaterialSidebar from "@/components/material-sidebar";
 import MaterialProjectCard from "@/components/material-project-card";
+import GlassBackground from "@/components/glass-background";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +38,8 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <GlassBackground />
       <MaterialHeader />
       
       <div className="flex h-[calc(100vh-80px)]">
@@ -49,10 +51,10 @@ export default function Home() {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h1 className="text-3xl font-bold text-md-sys-color-on-surface mb-2">
+                  <h1 className="text-3xl font-bold text-glass-text-primary mb-2">
                     Welcome back
                   </h1>
-                  <p className="text-md-sys-color-on-surface-variant text-lg">
+                  <p className="text-glass-text-secondary text-lg">
                     Continue working on your marketing campaigns and catalogs
                   </p>
                 </div>
@@ -60,26 +62,26 @@ export default function Home() {
                 {/* Quick Stats */}
                 <div className="hidden md:flex items-center space-x-6">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-md-sys-color-primary">
+                    <div className="text-2xl font-bold text-[rgba(99,102,241,0.9)]">
                       {campaigns.length}
                     </div>
-                    <div className="text-sm text-md-sys-color-on-surface-variant">
+                    <div className="text-sm text-glass-text-muted">
                       Total Projects
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-md-sys-color-secondary">
+                    <div className="text-2xl font-bold text-[rgba(139,92,246,0.9)]">
                       {campaigns.filter(c => c.status === 'completed').length}
                     </div>
-                    <div className="text-sm text-md-sys-color-on-surface-variant">
+                    <div className="text-sm text-glass-text-muted">
                       Completed
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-md-sys-color-tertiary">
+                    <div className="text-2xl font-bold text-[rgba(236,72,153,0.9)]">
                       {campaigns.reduce((acc, c) => acc + (c.generatedAssets?.length || 0), 0)}
                     </div>
-                    <div className="text-sm text-md-sys-color-on-surface-variant">
+                    <div className="text-sm text-glass-text-muted">
                       Assets Created
                     </div>
                   </div>
@@ -89,17 +91,17 @@ export default function Home() {
               {/* Quick Actions */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <Link href="/campaign-generator">
-                  <Card className="surface-elevation-1 hover:surface-elevation-2 transition-all duration-200 cursor-pointer group border-md-sys-color-outline-variant">
+                  <Card className="glass-elevated hover:glass-high transition-all duration-200 cursor-pointer group border-glass-border animate-fade-in">
                     <CardContent className="p-6">
                       <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-lg">
                           <Sparkles className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-md-sys-color-on-surface">
+                          <h3 className="font-semibold text-glass-text-primary">
                             Generate Campaign
                           </h3>
-                          <p className="text-sm text-md-sys-color-on-surface-variant">
+                          <p className="text-sm text-glass-text-secondary">
                             Create visual assets
                           </p>
                         </div>

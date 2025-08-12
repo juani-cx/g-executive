@@ -1,37 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Work+Sans:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Material Design 3 Light Theme */
-  --md-sys-color-primary: hsl(258, 100%, 50%);
-  --md-sys-color-on-primary: hsl(0, 0%, 100%);
-  --md-sys-color-primary-container: hsl(258, 100%, 95%);
-  --md-sys-color-on-primary-container: hsl(258, 87%, 21%);
+  /* Glass Design System */
+  --glass-primary: rgba(99, 102, 241, 0.8);
+  --glass-primary-light: rgba(99, 102, 241, 0.15);
+  --glass-secondary: rgba(139, 92, 246, 0.8);
+  --glass-secondary-light: rgba(139, 92, 246, 0.15);
+  --glass-tertiary: rgba(236, 72, 153, 0.8);
+  --glass-tertiary-light: rgba(236, 72, 153, 0.15);
+
+  /* Glass Surface Colors */
+  --glass-surface: rgba(255, 255, 255, 0.1);
+  --glass-surface-elevated: rgba(255, 255, 255, 0.2);
+  --glass-surface-high: rgba(255, 255, 255, 0.3);
+  --glass-backdrop: rgba(255, 255, 255, 0.05);
   
-  --md-sys-color-secondary: hsl(279, 31%, 48%);
-  --md-sys-color-on-secondary: hsl(0, 0%, 100%);
-  --md-sys-color-secondary-container: hsl(279, 100%, 95%);
-  --md-sys-color-on-secondary-container: hsl(279, 36%, 25%);
+  /* Text Colors on Glass */
+  --glass-text-primary: rgba(15, 23, 42, 0.9);
+  --glass-text-secondary: rgba(15, 23, 42, 0.7);
+  --glass-text-muted: rgba(15, 23, 42, 0.5);
+  --glass-text-inverse: rgba(255, 255, 255, 0.95);
   
-  --md-sys-color-tertiary: hsl(340, 52%, 47%);
-  --md-sys-color-on-tertiary: hsl(0, 0%, 100%);
-  --md-sys-color-tertiary-container: hsl(340, 100%, 95%);
-  --md-sys-color-on-tertiary-container: hsl(340, 60%, 20%);
+  /* Border Colors */
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-strong: rgba(255, 255, 255, 0.3);
   
-  --md-sys-color-surface: hsl(330, 20%, 99%);
-  --md-sys-color-surface-dim: hsl(330, 14%, 91%);
-  --md-sys-color-surface-bright: hsl(330, 20%, 99%);
-  --md-sys-color-surface-container-lowest: hsl(0, 0%, 100%);
-  --md-sys-color-surface-container-low: hsl(330, 24%, 96%);
-  --md-sys-color-surface-container: hsl(330, 17%, 92%);
-  --md-sys-color-surface-container-high: hsl(330, 12%, 87%);
-  --md-sys-color-surface-container-highest: hsl(330, 9%, 82%);
+  /* Material Design 3 Light Theme - Adapted for Glass */
+  --md-sys-color-primary: var(--glass-primary);
+  --md-sys-color-on-primary: var(--glass-text-inverse);
+  --md-sys-color-primary-container: var(--glass-primary-light);
+  --md-sys-color-on-primary-container: var(--glass-text-primary);
   
-  --md-sys-color-on-surface: hsl(330, 9%, 6%);
-  --md-sys-color-on-surface-variant: hsl(330, 6%, 25%);
-  --md-sys-color-outline: hsl(330, 5%, 47%);
-  --md-sys-color-outline-variant: hsl(330, 7%, 78%);
+  --md-sys-color-secondary: var(--glass-secondary);
+  --md-sys-color-on-secondary: var(--glass-text-inverse);
+  --md-sys-color-secondary-container: var(--glass-secondary-light);
+  --md-sys-color-on-secondary-container: var(--glass-text-primary);
+  
+  --md-sys-color-tertiary: var(--glass-tertiary);
+  --md-sys-color-on-tertiary: var(--glass-text-inverse);
+  --md-sys-color-tertiary-container: var(--glass-tertiary-light);
+  --md-sys-color-on-tertiary-container: var(--glass-text-primary);
+  
+  --md-sys-color-surface: var(--glass-surface);
+  --md-sys-color-surface-dim: var(--glass-backdrop);
+  --md-sys-color-surface-bright: var(--glass-surface-high);
+  --md-sys-color-surface-container-lowest: var(--glass-backdrop);
+  --md-sys-color-surface-container-low: var(--glass-surface);
+  --md-sys-color-surface-container: var(--glass-surface-elevated);
+  --md-sys-color-surface-container-high: var(--glass-surface-high);
+  --md-sys-color-surface-container-highest: var(--glass-surface-high);
+  
+  --md-sys-color-on-surface: var(--glass-text-primary);
+  --md-sys-color-on-surface-variant: var(--glass-text-secondary);
+  --md-sys-color-outline: var(--glass-border);
+  --md-sys-color-outline-variant: var(--glass-border);
   
   --md-sys-color-error: hsl(0, 68%, 42%);
   --md-sys-color-on-error: hsl(0, 0%, 100%);
@@ -139,12 +165,43 @@
   body {
     @apply font-sans antialiased text-foreground;
     font-family: 'Inter', 'Roboto', system-ui, sans-serif;
-    background: linear-gradient(135deg, hsl(330, 20%, 99%) 0%, hsl(270, 100%, 98%) 50%, hsl(340, 100%, 98%) 100%);
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+      linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.9) 0%, 
+        rgba(248, 250, 252, 0.8) 50%, 
+        rgba(241, 245, 249, 0.9) 100%);
     min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 60% 120%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 120% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
   }
   
   .dark body {
-    background: linear-gradient(135deg, hsl(330, 9%, 6%) 0%, hsl(270, 15%, 8%) 50%, hsl(340, 15%, 8%) 100%);
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%),
+      linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.95) 0%, 
+        rgba(30, 41, 59, 0.9) 50%, 
+        rgba(51, 65, 85, 0.95) 100%);
   }
 }
 
@@ -169,39 +226,77 @@
     animation: bounceGentle 1s ease-in-out infinite;
   }
   
-  /* Material Design 3 specific utilities */
+  /* Glass Morphism Utilities */
+  .glass-surface {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(31, 38, 135, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-elevated {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 12px 40px rgba(31, 38, 135, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  
+  .glass-high {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 
+      0 16px 48px rgba(31, 38, 135, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* Legacy surface elevations updated for glass */
   .surface-elevation-1 {
-    background: var(--md-sys-color-surface-container-low);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    @apply glass-surface;
   }
   
   .surface-elevation-2 {
-    background: var(--md-sys-color-surface-container);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    @apply glass-elevated;
   }
   
   .surface-elevation-3 {
-    background: var(--md-sys-color-surface-container-high);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    @apply glass-high;
   }
   
   .gradient-background {
-    background: linear-gradient(135deg, 
-      var(--md-sys-color-surface) 0%, 
-      var(--md-sys-color-primary-container) 50%, 
-      var(--md-sys-color-tertiary-container) 100%);
+    background: 
+      radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+      linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(248, 250, 252, 0.05) 50%, 
+        rgba(241, 245, 249, 0.1) 100%);
   }
   
   .fab-style {
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
-    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: linear-gradient(135deg, var(--glass-primary) 0%, var(--glass-secondary) 100%);
+    color: var(--glass-text-inverse);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(99, 102, 241, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
   }
   
   .fab-style:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 12px 40px rgba(99, 102, 241, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -227,12 +322,28 @@
   }
 }
 
+@keyframes float {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg); 
+  }
+  33% { 
+    transform: translate(30px, -30px) rotate(1deg); 
+  }
+  66% { 
+    transform: translate(-20px, 20px) rotate(-1deg); 
+  }
+}
+
 @keyframes pulseGlow {
   0%, 100% { 
-    box-shadow: 0 0 20px hsla(207, 100%, 51%, 0.3); 
+    box-shadow: 
+      0 8px 32px rgba(99, 102, 241, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3); 
   }
   50% { 
-    box-shadow: 0 0 40px hsla(207, 100%, 51%, 0.6); 
+    box-shadow: 
+      0 12px 40px rgba(99, 102, 241, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5); 
   }
 }
 
@@ -242,6 +353,15 @@
   }
   100% { 
     background-position: calc(200px + 100%) 0; 
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-5px); 
   }
 }
 
