@@ -60,7 +60,7 @@ export default function Home() {
         <MaterialSidebar isOpen={sidebarOpen} />
         
         <main className="flex-1 overflow-auto">
-          <div className="p-8">
+          <div className="p-8 max-w-[1280px] mx-auto w-full">
             {/* Welcome Section */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-glass-text-primary mb-6">
