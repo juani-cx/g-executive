@@ -71,9 +71,6 @@ export default function Home() {
               {/* Google Stitch Style Input Section */}
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-semibold text-glass-text-primary mb-2" style={{ fontFamily: 'Work Sans, sans-serif' }}>
-                    Start a new design in
-                  </h2>
                   <Select defaultValue="standard" >
                     <SelectTrigger className="w-48 mx-auto glass-surface border-glass-border rounded-lg text-glass-text-primary">
                       <SelectValue />
