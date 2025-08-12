@@ -14,7 +14,8 @@ import {
   TrendingUp,
   Sparkles,
   Zap,
-  FileText
+  FileText,
+  Paperclip
 } from "lucide-react";
 import { type Campaign } from "@shared/schema";
 
@@ -66,53 +67,76 @@ export default function Home() {
                 Welcome back
               </h1>
 
-              {/* Simple Campaign Input - Framer Style */}
+              {/* Ultra-Simple Input Section */}
               <div className="mb-8">
-                <div className="glass-elevated border-glass-border rounded-3xl p-6">
-                  {/* Centered Input Field */}
-                  <div className="max-w-2xl mx-auto mb-6">
-                    <Input
-                      placeholder="Create a landing page for..."
-                      value={campaignPrompt}
-                      onChange={(e) => setCampaignPrompt(e.target.value)}
-                      className="w-full glass-surface border-0 rounded-2xl text-center text-lg py-4 px-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md"
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter' && campaignPrompt.trim()) {
-                          handleStartCampaign();
-                        }
-                      }}
-                    />
-                  </div>
+                <div className="glass-elevated border-glass-border rounded-3xl p-8">
+                  <div className="flex items-center justify-between max-w-4xl mx-auto">
+                    {/* Left: Campaign and Catalog buttons */}
+                    <div className="flex items-center space-x-3">
+                      <Button 
+                        variant="outline" 
+                        className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-4 py-2 text-sm"
+                        onClick={() => setCampaignPrompt("Create a marketing campaign")}
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        Campaign
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-4 py-2 text-sm"
+                        onClick={() => setCampaignPrompt("Build a product catalog")}
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        Catalog
+                      </Button>
+                    </div>
 
-                  {/* Simple Action Buttons Row */}
-                  <div className="flex items-center justify-center space-x-3">
-                    <Button 
-                      variant="outline" 
-                      className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-6 py-2 text-sm"
-                      onClick={() => setCampaignPrompt("Create a marketing campaign")}
-                    >
-                      Campaign
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-6 py-2 text-sm"
-                      onClick={() => setCampaignPrompt("Build a product catalog")}
-                    >
-                      Catalog
-                    </Button>
-                    <Button 
-                      className="bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)] text-white rounded-2xl px-6 py-2 text-sm"
-                      onClick={() => setCampaignPrompt("Fully automate my marketing")}
-                    >
-                      Full automate
-                    </Button>
-                    <Button 
-                      className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm"
-                      onClick={handleStartCampaign}
-                      disabled={!campaignPrompt.trim()}
-                    >
-                      Generate designs
-                    </Button>
+                    {/* Center: Main input field */}
+                    <div className="flex-1 mx-6">
+                      <div className="relative">
+                        <Input
+                          placeholder="Create a landing page for..."
+                          value={campaignPrompt}
+                          onChange={(e) => setCampaignPrompt(e.target.value)}
+                          className="w-full glass-surface border-0 rounded-2xl text-center text-base py-3 px-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md pr-12"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && campaignPrompt.trim()) {
+                              handleStartCampaign();
+                            }
+                          }}
+                        />
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 text-glass-text-muted hover:text-glass-text-primary"
+                          onClick={() => document.getElementById('file-upload')?.click()}
+                        >
+                          <Paperclip className="w-4 h-4" />
+                        </Button>
+                        <input
+                          id="file-upload"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            // Handle file upload logic here
+                            console.log('File selected:', e.target.files?.[0]);
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right: Generate designs button */}
+                    <div>
+                      <Button 
+                        className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm"
+                        onClick={handleStartCampaign}
+                        disabled={!campaignPrompt.trim()}
+                      >
+                        <Sparkles className="w-4 h-4 mr-2" />
+                        Generate designs
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
