@@ -54,9 +54,7 @@ export default function MaterialHeader({
               <Link href="/campaign-generator" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
                 Campaigns
               </Link>
-              <Link href="/analytics" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
-                Analytics
-              </Link>
+              
               <Link href="/resources" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
                 Resources
               </Link>
