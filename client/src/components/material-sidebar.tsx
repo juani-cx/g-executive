@@ -16,9 +16,10 @@ import {
 
 interface MaterialSidebarProps {
   className?: string;
+  isOpen?: boolean;
 }
 
-export default function MaterialSidebar({ className = "" }: MaterialSidebarProps) {
+export default function MaterialSidebar({ className = "", isOpen = false }: MaterialSidebarProps) {
   const [location] = useLocation();
 
   const recentProjects = [
@@ -72,8 +73,10 @@ export default function MaterialSidebar({ className = "" }: MaterialSidebarProps
     return type === 'campaign' ? Image : FileText;
   };
 
+  if (!isOpen) return null;
+
   return (
-    <aside className={`w-80 h-full glass-surface border-r border-glass-border ${className}`}>
+    <aside className={`w-80 h-full glass-surface border-r border-glass-border transition-all duration-300 ${className}`}>
       <div className="p-6 space-y-6">
         {/* Quick Actions */}
         <Card className="surface-elevation-1 border-md-sys-color-outline-variant">
