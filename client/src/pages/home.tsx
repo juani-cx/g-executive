@@ -56,7 +56,6 @@ export default function Home() {
     <div className="min-h-screen relative">
       <GlassBackground />
       <MaterialHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-      
       <div className="flex h-[calc(100vh-120px)]">
         <MaterialSidebar isOpen={sidebarOpen} />
         
@@ -64,7 +63,7 @@ export default function Home() {
           <div className="p-8 max-w-[1280px] mx-auto w-full">
             {/* Welcome Section */}
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-glass-text-primary mb-6">
+              <h1 className="font-bold text-glass-text-primary mb-6 text-center text-[24px]">
                 Welcome back
               </h1>
 
