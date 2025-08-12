@@ -30,6 +30,7 @@ export default function Home() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [campaignPrompt, setCampaignPrompt] = useState("");
+  const [activeTab, setActiveTab] = useState<"campaign" | "catalog">("campaign");
   const [, navigate] = useLocation();
 
   const { data: campaigns = [], isLoading } = useQuery<Campaign[]>({
@@ -67,71 +68,99 @@ export default function Home() {
                 Welcome back
               </h1>
 
-              {/* Ultra-Simple Input Section */}
+              {/* Google Stitch Style Input Section */}
               <div className="mb-8">
-                <div className="glass-elevated border-glass-border rounded-3xl p-8">
-                  <div className="flex items-center justify-between max-w-4xl mx-auto">
-                    {/* Left: Campaign and Catalog buttons */}
-                    <div className="flex items-center space-x-3">
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-semibold text-glass-text-primary mb-2" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+                    Start a new design in
+                  </h2>
+                  <Select defaultValue="standard" >
+                    <SelectTrigger className="w-48 mx-auto glass-surface border-glass-border rounded-lg text-glass-text-primary">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="standard">Standard Mode</SelectItem>
+                      <SelectItem value="advanced">Advanced Mode</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="glass-elevated border-glass-border rounded-3xl p-8 max-w-4xl mx-auto">
+                  {/* Main text area */}
+                  <div className="mb-6">
+                    <textarea
+                      placeholder="Describe your design"
+                      value={campaignPrompt}
+                      onChange={(e) => setCampaignPrompt(e.target.value)}
+                      className="w-full h-32 glass-surface border-0 rounded-2xl text-base p-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md resize-none"
+                      style={{ fontFamily: 'Work Sans, sans-serif' }}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter' && e.ctrlKey && campaignPrompt.trim()) {
+                          handleStartCampaign();
+                        }
+                      }}
+                    />
+                  </div>
+
+                  {/* Bottom bar with tabs and generate button */}
+                  <div className="flex items-center justify-between">
+                    {/* Left: Tab buttons */}
+                    <div className="flex items-center space-x-1">
                       <Button 
-                        variant="outline" 
-                        className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-4 py-2 text-sm"
-                        onClick={() => setCampaignPrompt("Create a marketing campaign")}
+                        variant={activeTab === "campaign" ? "default" : "ghost"}
+                        className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
+                          activeTab === "campaign" 
+                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
+                            : "text-glass-text-secondary hover:bg-[rgba(255,255,255,0.05)]"
+                        }`}
+                        onClick={() => setActiveTab("campaign")}
                       >
                         <FileText className="w-4 h-4 mr-2" />
                         Campaign
                       </Button>
                       <Button 
-                        variant="outline" 
-                        className="glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated rounded-2xl px-4 py-2 text-sm"
-                        onClick={() => setCampaignPrompt("Build a product catalog")}
+                        variant={activeTab === "catalog" ? "default" : "ghost"}
+                        className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
+                          activeTab === "catalog" 
+                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
+                            : "text-glass-text-secondary hover:bg-[rgba(255,255,255,0.05)]"
+                        }`}
+                        onClick={() => setActiveTab("catalog")}
                       >
                         <FileText className="w-4 h-4 mr-2" />
                         Catalog
                       </Button>
                     </div>
 
-                    {/* Center: Main input field */}
-                    <div className="flex-1 mx-6">
-                      <div className="relative">
-                        <Input
-                          placeholder="Create a landing page for..."
-                          value={campaignPrompt}
-                          onChange={(e) => setCampaignPrompt(e.target.value)}
-                          className="w-full glass-surface border-0 rounded-2xl text-center text-base py-3 px-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md pr-12"
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter' && campaignPrompt.trim()) {
-                              handleStartCampaign();
-                            }
-                          }}
-                        />
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 text-glass-text-muted hover:text-glass-text-primary"
-                          onClick={() => document.getElementById('file-upload')?.click()}
-                        >
-                          <Paperclip className="w-4 h-4" />
-                        </Button>
-                        <input
-                          id="file-upload"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            // Handle file upload logic here
-                            console.log('File selected:', e.target.files?.[0]);
-                          }}
-                        />
-                      </div>
+                    {/* Center: Attachment button */}
+                    <div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-10 h-10 text-glass-text-muted hover:text-glass-text-primary hover:bg-[rgba(255,255,255,0.05)] rounded-lg"
+                        onClick={() => document.getElementById('file-upload')?.click()}
+                      >
+                        <Paperclip className="w-5 h-5" />
+                      </Button>
+                      <input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          // Handle file upload logic here
+                          console.log('File selected:', e.target.files?.[0]);
+                        }}
+                      />
                     </div>
 
                     {/* Right: Generate designs button */}
                     <div>
                       <Button 
-                        className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm"
+                        className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm font-medium transition-all duration-200"
                         onClick={handleStartCampaign}
                         disabled={!campaignPrompt.trim()}
+                        style={{ fontFamily: 'Work Sans, sans-serif' }}
                       >
                         <Sparkles className="w-4 h-4 mr-2" />
                         Generate designs
