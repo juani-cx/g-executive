@@ -70,17 +70,7 @@ export default function Home() {
 
               {/* Google Stitch Style Input Section */}
               <div className="mb-8">
-                <div className="text-center mb-6">
-                  <Select defaultValue="standard" >
-                    <SelectTrigger className="w-48 mx-auto glass-surface border-glass-border rounded-lg text-glass-text-primary">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="standard">Standard Mode</SelectItem>
-                      <SelectItem value="advanced">Advanced Mode</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                
 
                 <div className="glass-elevated border-glass-border rounded-3xl p-8 max-w-4xl mx-auto">
                   {/* Main text area */}
