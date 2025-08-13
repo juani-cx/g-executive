@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   Plus, 
   Download,
@@ -27,7 +28,14 @@ import {
   FileImage,
   Youtube,
   Newspaper,
-  Sparkles
+  Sparkles,
+  Type,
+  MessageCircle,
+  Square,
+  Circle,
+  Triangle,
+  X,
+  Check
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -42,7 +50,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Textarea } from "@/components/ui/textarea";
 import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
 import { useLocation } from "wouter";
@@ -61,6 +68,31 @@ interface AssetCard {
   size: { width: number; height: number };
   version: number;
   createdAt: Date;
+}
+
+interface CanvasElement {
+  id: string;
+  type: "text" | "shape" | "image" | "comment";
+  content: {
+    text?: string;
+    fontSize?: number;
+    fontFamily?: string;
+    color?: string;
+    backgroundColor?: string;
+    shapeType?: 'rectangle' | 'circle' | 'triangle';
+    fillColor?: string;
+    strokeColor?: string;
+    strokeWidth?: number;
+    imageUrl?: string;
+    imagePrompt?: string;
+    commentText?: string;
+    author?: string;
+    resolved?: boolean;
+  };
+  position: { x: number; y: number };
+  size: { width: number; height: number };
+  rotation?: number;
+  zIndex?: number;
 }
 
 interface Project {
@@ -122,7 +154,14 @@ export default function CanvasView() {
   const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
-  const [tool, setTool] = useState<"hand" | "select">("select");
+  const [tool, setTool] = useState<"hand" | "select" | "text" | "shape" | "image" | "comment">("select");
+  const [canvasElements, setCanvasElements] = useState<CanvasElement[]>([]);
+  const [editingText, setEditingText] = useState<string | null>(null);
+  const [showShapeDropdown, setShowShapeDropdown] = useState(false);
+  const [showImageDialog, setShowImageDialog] = useState(false);
+  const [activeComment, setActiveComment] = useState<string | null>(null);
+  const [imagePrompt, setImagePrompt] = useState("");
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
   const [showMinimap, setShowMinimap] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
@@ -131,6 +170,142 @@ export default function CanvasView() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [draggedCard, setDraggedCard] = useState<string | null>(null);
   const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
+
+  // Helper function to generate unique IDs
+  const generateId = () => Math.random().toString(36).substr(2, 9);
+
+  // Add text element to canvas
+  const addTextElement = (x: number, y: number) => {
+    const newElement: CanvasElement = {
+      id: generateId(),
+      type: "text",
+      content: {
+        text: "Double-click to edit",
+        fontSize: 16,
+        fontFamily: "Arial",
+        color: "#000000",
+        backgroundColor: "transparent"
+      },
+      position: { x, y },
+      size: { width: 200, height: 40 },
+      rotation: 0,
+      zIndex: canvasElements.length
+    };
+    setCanvasElements([...canvasElements, newElement]);
+    setTool("select");
+  };
+
+  // Add shape element to canvas
+  const addShapeElement = (shapeType: 'rectangle' | 'circle' | 'triangle', x: number, y: number) => {
+    const newElement: CanvasElement = {
+      id: generateId(),
+      type: "shape",
+      content: {
+        shapeType,
+        fillColor: "#3b82f6",
+        strokeColor: "#1e40af",
+        strokeWidth: 2
+      },
+      position: { x, y },
+      size: { width: 100, height: 100 },
+      rotation: 0,
+      zIndex: canvasElements.length
+    };
+    setCanvasElements([...canvasElements, newElement]);
+    setShowShapeDropdown(false);
+    setTool("select");
+  };
+
+  // Add comment element to canvas
+  const addCommentElement = (x: number, y: number) => {
+    const newElement: CanvasElement = {
+      id: generateId(),
+      type: "comment",
+      content: {
+        commentText: "",
+        author: "Current User",
+        resolved: false
+      },
+      position: { x, y },
+      size: { width: 200, height: 100 },
+      rotation: 0,
+      zIndex: canvasElements.length
+    };
+    setCanvasElements([...canvasElements, newElement]);
+    setActiveComment(newElement.id);
+    setTool("select");
+  };
+
+  // Generate AI image
+  const generateAIImage = async (prompt: string) => {
+    setIsGeneratingImage(true);
+    try {
+      const response = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const newElement: CanvasElement = {
+          id: generateId(),
+          type: "image",
+          content: {
+            imageUrl: data.imageUrl,
+            imagePrompt: prompt
+          },
+          position: { x: 300, y: 300 },
+          size: { width: 256, height: 256 },
+          rotation: 0,
+          zIndex: canvasElements.length
+        };
+        setCanvasElements([...canvasElements, newElement]);
+      }
+    } catch (error) {
+      console.error('Error generating image:', error);
+    } finally {
+      setIsGeneratingImage(false);
+      setShowImageDialog(false);
+      setImagePrompt("");
+      setTool("select");
+    }
+  };
+
+  // Handle canvas click for adding elements
+  const handleCanvasClick = (e: React.MouseEvent) => {
+    if (tool === "select" || isDragging) return;
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const x = (e.clientX - rect.left - viewport.x) / viewport.zoom;
+    const y = (e.clientY - rect.top - viewport.y) / viewport.zoom;
+    
+    switch (tool) {
+      case "text":
+        addTextElement(x, y);
+        break;
+      case "comment":
+        addCommentElement(x, y);
+        break;
+      case "image":
+        setShowImageDialog(true);
+        break;
+    }
+  };
+
+  // Update element content
+  const updateElement = (id: string, updates: Partial<CanvasElement>) => {
+    setCanvasElements(elements => 
+      elements.map(el => el.id === id ? { ...el, ...updates } : el)
+    );
+  };
+
+  // Delete element
+  const deleteElement = (id: string) => {
+    setCanvasElements(elements => elements.filter(el => el.id !== id));
+  };
 
   // Initialize project from prompt
   useEffect(() => {
@@ -384,32 +559,59 @@ export default function CanvasView() {
             {/* Text */}
             <Button 
               size="sm" 
-              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
+              onClick={() => setTool("text")}
+              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
+                tool === "text" 
+                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
+                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
+              }`}
               title="Add Text"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="4,7 4,4 20,4 20,7"/>
-                <line x1="9" y1="20" x2="15" y2="20"/>
-                <line x1="12" y1="4" x2="12" y2="20"/>
-              </svg>
+              <Type className="w-5 h-5" />
             </Button>
 
             {/* Shape Tool */}
-            <Button 
-              size="sm" 
-              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
-              title="Add Shape"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2"/>
-              </svg>
-            </Button>
+            <DropdownMenu open={showShapeDropdown} onOpenChange={setShowShapeDropdown}>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  size="sm" 
+                  onClick={() => setTool("shape")}
+                  className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
+                    tool === "shape" 
+                      ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
+                      : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
+                  }`}
+                  title="Add Shape"
+                >
+                  <Square className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="right" align="start">
+                <DropdownMenuItem onClick={() => addShapeElement('rectangle', 300, 300)}>
+                  <Square className="w-4 h-4 mr-2" />
+                  Rectangle
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => addShapeElement('circle', 300, 300)}>
+                  <Circle className="w-4 h-4 mr-2" />
+                  Circle
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => addShapeElement('triangle', 300, 300)}>
+                  <Triangle className="w-4 h-4 mr-2" />
+                  Triangle
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Image Tool */}
             <Button 
               size="sm" 
-              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
-              title="Add Image"
+              onClick={() => setTool("image")}
+              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
+                tool === "image" 
+                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
+                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
+              }`}
+              title="Add AI Image"
             >
               <FileImage className="w-5 h-5" />
             </Button>
@@ -417,13 +619,15 @@ export default function CanvasView() {
             {/* Comments */}
             <Button 
               size="sm" 
-              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
-              title="Comments"
+              onClick={() => setTool("comment")}
+              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
+                tool === "comment" 
+                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
+                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
+              }`}
+              title="Add Comment"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/>
-                <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>
-              </svg>
+              <MessageCircle className="w-5 h-5" />
             </Button>
 
             {/* Add Section */}
@@ -482,6 +686,7 @@ export default function CanvasView() {
         onMouseMove={handleCanvasMouseMove}
         onMouseUp={handleCanvasMouseUp}
         onMouseLeave={handleCanvasMouseUp}
+        onClick={handleCanvasClick}
       >
         {/* Grid */}
         {showGrid && (
@@ -505,6 +710,150 @@ export default function CanvasView() {
             transformOrigin: "0 0",
           }}
         >
+          {/* Canvas Elements */}
+          {canvasElements.map((element) => (
+            <div
+              key={element.id}
+              className="absolute"
+              style={{
+                left: element.position.x,
+                top: element.position.y,
+                width: element.size.width,
+                height: element.size.height,
+                transform: element.rotation ? `rotate(${element.rotation}deg)` : undefined,
+                zIndex: element.zIndex || 0,
+              }}
+            >
+              {element.type === "text" && (
+                <div
+                  className="w-full h-full flex items-center justify-center cursor-pointer border border-transparent hover:border-blue-300 rounded"
+                  style={{
+                    fontSize: element.content.fontSize || 16,
+                    fontFamily: element.content.fontFamily || "Arial",
+                    color: element.content.color || "#000000",
+                    backgroundColor: element.content.backgroundColor || "transparent",
+                  }}
+                  onDoubleClick={() => setEditingText(element.id)}
+                >
+                  {editingText === element.id ? (
+                    <input
+                      type="text"
+                      value={element.content.text || ""}
+                      onChange={(e) => updateElement(element.id, {
+                        content: { ...element.content, text: e.target.value }
+                      })}
+                      onBlur={() => setEditingText(null)}
+                      onKeyPress={(e) => e.key === 'Enter' && setEditingText(null)}
+                      className="w-full h-full bg-transparent border-none outline-none text-center"
+                      autoFocus
+                    />
+                  ) : (
+                    <span>{element.content.text || "Double-click to edit"}</span>
+                  )}
+                </div>
+              )}
+
+              {element.type === "shape" && (
+                <div className="w-full h-full cursor-pointer">
+                  {element.content.shapeType === "rectangle" && (
+                    <div
+                      className="w-full h-full rounded border-2"
+                      style={{
+                        backgroundColor: element.content.fillColor || "#3b82f6",
+                        borderColor: element.content.strokeColor || "#1e40af",
+                        borderWidth: element.content.strokeWidth || 2,
+                      }}
+                    />
+                  )}
+                  {element.content.shapeType === "circle" && (
+                    <div
+                      className="w-full h-full rounded-full border-2"
+                      style={{
+                        backgroundColor: element.content.fillColor || "#3b82f6",
+                        borderColor: element.content.strokeColor || "#1e40af",
+                        borderWidth: element.content.strokeWidth || 2,
+                      }}
+                    />
+                  )}
+                  {element.content.shapeType === "triangle" && (
+                    <div
+                      className="w-full h-full flex items-center justify-center"
+                      style={{ color: element.content.fillColor || "#3b82f6" }}
+                    >
+                      <Triangle className="w-full h-full" fill="currentColor" />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {element.type === "image" && (
+                <div className="w-full h-full cursor-pointer">
+                  {element.content.imageUrl ? (
+                    <img
+                      src={element.content.imageUrl}
+                      alt={element.content.imagePrompt || "AI Generated"}
+                      className="w-full h-full object-cover rounded"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
+                      <FileImage className="w-8 h-8 text-gray-400" />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {element.type === "comment" && (
+                <div className="w-full h-full">
+                  <div className="bg-yellow-100 border-l-4 border-yellow-400 p-2 rounded shadow-sm">
+                    {activeComment === element.id ? (
+                      <div>
+                        <Textarea
+                          value={element.content.commentText || ""}
+                          onChange={(e) => updateElement(element.id, {
+                            content: { ...element.content, commentText: e.target.value }
+                          })}
+                          placeholder="Add your comment..."
+                          className="w-full text-xs"
+                          rows={3}
+                        />
+                        <div className="flex justify-end space-x-1 mt-1">
+                          <Button
+                            size="sm"
+                            onClick={() => setActiveComment(null)}
+                            className="h-6 px-2 text-xs"
+                          >
+                            <Check className="w-3 h-3" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => deleteElement(element.id)}
+                            className="h-6 px-2 text-xs"
+                          >
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div 
+                        onClick={() => setActiveComment(element.id)}
+                        className="cursor-pointer"
+                      >
+                        <div className="text-xs font-medium text-yellow-800">
+                          {element.content.author || "Comment"}
+                        </div>
+                        <div className="text-xs text-yellow-700">
+                          {element.content.commentText || "Click to add comment..."}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Asset Cards */}
           {project.assets.map((asset) => {
             const IconComponent = getCardIcon(asset.type);
             return (
@@ -797,6 +1146,56 @@ export default function CanvasView() {
           </div>
         </div>
       </div>
+
+      {/* AI Image Generation Dialog */}
+      <Sheet open={showImageDialog} onOpenChange={setShowImageDialog}>
+        <SheetContent side="right" className="w-[400px]">
+          <SheetHeader>
+            <SheetTitle>Generate AI Image</SheetTitle>
+            <SheetDescription>
+              Create an image using AI based on your description
+            </SheetDescription>
+          </SheetHeader>
+          <div className="mt-6 space-y-4">
+            <div>
+              <label className="text-sm font-medium mb-2 block">
+                Image Description
+              </label>
+              <Textarea
+                value={imagePrompt}
+                onChange={(e) => setImagePrompt(e.target.value)}
+                placeholder="Describe the image you want to create..."
+                rows={4}
+              />
+            </div>
+            <div className="flex space-x-3">
+              <Button
+                onClick={() => generateAIImage(imagePrompt)}
+                disabled={!imagePrompt.trim() || isGeneratingImage}
+                className="flex-1"
+              >
+                {isGeneratingImage ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Generate Image
+                  </>
+                )}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setShowImageDialog(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
