@@ -26,7 +26,8 @@ import {
   Mail,
   FileImage,
   Youtube,
-  Newspaper
+  Newspaper,
+  Sparkles
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -35,13 +36,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
@@ -289,89 +289,97 @@ export default function CanvasView() {
       <GlassBackground />
       <MaterialHeader onToggleSidebar={() => {}} />
       
-      {/* Canvas Toolbar */}
-      <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-40">
-        <div className="glass-elevated border-glass-border rounded-2xl p-3 flex items-center space-x-2">
-          {/* Tool Selection */}
-          <div className="flex items-center space-x-1 mr-3 border-r border-glass-border pr-3">
-            <Button
-              variant={tool === "select" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTool("select")}
-              className="w-8 h-8 p-0"
-            >
-              <Hand className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={tool === "hand" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTool("hand")}
-              className="w-8 h-8 p-0"
-            >
-              <Hand className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Add Card */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="glass-surface">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Card
+      {/* Floating Canvas Toolbar - Bottom Right */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <div className="glass-elevated border-glass-border rounded-2xl p-3">
+          {/* Vertical layout for bottom-right positioning */}
+          <div className="flex flex-col space-y-3">
+            {/* Tool Selection */}
+            <div className="flex flex-col space-y-1">
+              <Button
+                variant={tool === "select" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setTool("select")}
+                className="w-10 h-10 p-0"
+                title="Select Tool"
+              >
+                <Hand className="w-4 h-4" />
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {CARD_TEMPLATES.map((template) => {
-                const IconComponent = template.icon;
-                return (
-                  <DropdownMenuItem
-                    key={template.type}
-                    onClick={() => addCard(template.type)}
-                  >
-                    <IconComponent className="w-4 h-4 mr-2" />
-                    {template.label}
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <Button
+                variant={tool === "hand" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setTool("hand")}
+                className="w-10 h-10 p-0"
+                title="Pan Tool"
+              >
+                <Hand className="w-4 h-4" />
+              </Button>
+            </div>
 
-          {/* Zoom Controls */}
-          <div className="flex items-center space-x-1 border-l border-glass-border pl-3">
-            <Button variant="ghost" size="sm" onClick={handleZoomOut} className="w-8 h-8 p-0">
-              <ZoomOut className="w-4 h-4" />
-            </Button>
-            <span className="text-sm text-glass-text-secondary min-w-[3rem] text-center">
-              {Math.round(viewport.zoom * 100)}%
-            </span>
-            <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-8 h-8 p-0">
-              <ZoomIn className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-8 h-8 p-0">
-              <Maximize className="w-4 h-4" />
-            </Button>
+            <div className="border-t border-glass-border pt-3">
+              {/* Add Card */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="glass-surface w-full mb-2">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {CARD_TEMPLATES.map((template) => {
+                    const IconComponent = template.icon;
+                    return (
+                      <DropdownMenuItem
+                        key={template.type}
+                        onClick={() => addCard(template.type)}
+                      >
+                        <IconComponent className="w-4 h-4 mr-2" />
+                        {template.label}
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Zoom Controls */}
+              <div className="flex flex-col space-y-1 mb-2">
+                <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-10 h-10 p-0" title="Zoom In">
+                  <ZoomIn className="w-4 h-4" />
+                </Button>
+                <span className="text-xs text-glass-text-secondary text-center py-1">
+                  {Math.round(viewport.zoom * 100)}%
+                </span>
+                <Button variant="ghost" size="sm" onClick={handleZoomOut} className="w-10 h-10 p-0" title="Zoom Out">
+                  <ZoomOut className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-10 h-10 p-0" title="Fit to View">
+                  <Maximize className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* View Options */}
+              <div className="flex flex-col space-y-1 mb-2">
+                <Button
+                  variant={showGrid ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setShowGrid(!showGrid)}
+                  className="w-10 h-10 p-0"
+                  title="Toggle Grid"
+                >
+                  <Grid3X3 className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" className="w-10 h-10 p-0" title="Add Note">
+                  <StickyNote className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Share */}
+              <Button variant="outline" size="sm" className="glass-surface w-full">
+                <Share className="w-4 h-4 mr-2" />
+                Share
+              </Button>
+            </div>
           </div>
-
-          {/* View Options */}
-          <div className="flex items-center space-x-1 border-l border-glass-border pl-3">
-            <Button
-              variant={showGrid ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setShowGrid(!showGrid)}
-              className="w-8 h-8 p-0"
-            >
-              <Grid3X3 className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
-              <StickyNote className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Share */}
-          <Button variant="outline" size="sm" className="glass-surface border-l border-glass-border ml-3 pl-3">
-            <Share className="w-4 h-4 mr-2" />
-            Share
-          </Button>
         </div>
       </div>
 
@@ -421,7 +429,10 @@ export default function CanvasView() {
                   width: asset.size.width,
                   height: asset.size.height,
                 }}
-                onClick={() => setSelectedCard(asset.id)}
+                onClick={() => {
+                  setSelectedCard(asset.id);
+                  setExpandedCard(asset.id);
+                }}
               >
                 <CardContent className="p-4 h-full flex flex-col">
                   {/* Card Header */}
@@ -434,7 +445,12 @@ export default function CanvasView() {
                     </div>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-6 h-6 p-0">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="w-6 h-6 p-0"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <MoreVertical className="w-3 h-3" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -496,60 +512,120 @@ export default function CanvasView() {
         </div>
       </div>
 
-      {/* Expanded Card Dialog */}
-      <Dialog open={!!expandedCard} onOpenChange={() => setExpandedCard(null)}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-auto glass-surface">
-          <DialogHeader>
-            <DialogTitle>
+      {/* Expanded Card Drawer */}
+      <Sheet open={!!expandedCard} onOpenChange={() => setExpandedCard(null)}>
+        <SheetContent className="w-[500px] glass-surface border-glass-border" side="right">
+          <SheetHeader>
+            <SheetTitle className="text-glass-text-primary">
               Edit {project.assets.find(a => a.id === expandedCard)?.title}
-            </DialogTitle>
-            <DialogDescription>
+            </SheetTitle>
+            <SheetDescription className="text-glass-text-secondary">
               Refine your asset with AI prompts or manual editing
-            </DialogDescription>
-          </DialogHeader>
+            </SheetDescription>
+          </SheetHeader>
           
-          <div className="space-y-4">
+          <div className="space-y-6 mt-6">
+            {/* Asset Preview */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-glass-text-primary">
+                Preview
+              </label>
+              <div className="p-4 glass-elevated border-glass-border rounded-lg">
+                <div className="w-full h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg mb-3 flex items-center justify-center">
+                  {expandedCard && (() => {
+                    const asset = project.assets.find(a => a.id === expandedCard);
+                    const IconComponent = asset ? getCardIcon(asset.type) : FileText;
+                    return <IconComponent className="w-12 h-12 text-glass-text-primary opacity-50" />;
+                  })()}
+                </div>
+                <div className="space-y-1">
+                  <Badge 
+                    variant={project.assets.find(a => a.id === expandedCard)?.status === "ready" ? "default" : "secondary"}
+                    className="text-xs"
+                  >
+                    {project.assets.find(a => a.id === expandedCard)?.status}
+                  </Badge>
+                  <p className="text-xs text-glass-text-muted">
+                    Version {project.assets.find(a => a.id === expandedCard)?.version}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* AI Edit Section */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-glass-text-primary">
                 AI Edit Prompt
               </label>
-              <div className="flex space-x-2">
+              <div className="space-y-2">
                 <Textarea
                   placeholder="Describe how you want to modify this asset..."
                   value={aiPrompt}
                   onChange={(e) => setAiPrompt(e.target.value)}
-                  className="flex-1 glass-surface border-glass-border"
+                  className="glass-surface border-glass-border text-glass-text-primary placeholder:text-glass-text-muted"
+                  rows={3}
                 />
-                <Button className="px-6">Apply</Button>
+                <Button className="w-full bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)]">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Apply AI Changes
+                </Button>
               </div>
             </div>
 
-            {/* Current Content Preview */}
+            {/* Current Content */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-glass-text-primary">
                 Current Content
               </label>
-              <div className="p-4 glass-surface border-glass-border rounded-lg">
+              <div className="p-4 glass-surface border-glass-border rounded-lg max-h-32 overflow-y-auto">
                 <p className="text-sm text-glass-text-secondary">
                   {project.assets.find(a => a.id === expandedCard)?.content?.text || "No content generated yet"}
                 </p>
               </div>
             </div>
 
-            {/* Export Options */}
-            <div className="flex justify-end space-x-2 pt-4 border-t border-glass-border">
-              <Button variant="outline" className="glass-surface">
+            {/* Manual Edit Fields */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-glass-text-primary">
+                Manual Editing
+              </label>
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs text-glass-text-muted">Title</label>
+                  <Input 
+                    className="glass-surface border-glass-border text-glass-text-primary"
+                    defaultValue={project.assets.find(a => a.id === expandedCard)?.title}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-glass-text-muted">Content</label>
+                  <Textarea 
+                    className="glass-surface border-glass-border text-glass-text-primary"
+                    defaultValue={project.assets.find(a => a.id === expandedCard)?.content?.text}
+                    rows={4}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col space-y-2 pt-4 border-t border-glass-border">
+              <Button variant="outline" className="glass-surface w-full">
                 <Download className="w-4 h-4 mr-2" />
-                Export
+                Export Asset
               </Button>
-              <Button onClick={() => setExpandedCard(null)}>
-                Done
-              </Button>
+              <div className="flex space-x-2">
+                <Button variant="outline" className="glass-surface flex-1" onClick={() => setExpandedCard(null)}>
+                  Cancel
+                </Button>
+                <Button className="flex-1 bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)]">
+                  Save Changes
+                </Button>
+              </div>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </SheetContent>
+      </Sheet>
 
       {/* Project Info Panel */}
       <div className="fixed bottom-6 left-6 z-40">
