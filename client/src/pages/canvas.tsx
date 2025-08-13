@@ -129,6 +129,8 @@ export default function CanvasView() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [draggedCard, setDraggedCard] = useState<string | null>(null);
+  const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
 
   // Initialize project from prompt
   useEffect(() => {
@@ -188,17 +190,48 @@ export default function CanvasView() {
   };
 
   const handleCanvasMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) {
+    if (isDragging && !draggedCard) {
       setViewport(prev => ({
         ...prev,
         x: e.clientX - dragStart.x,
         y: e.clientY - dragStart.y,
       }));
     }
+    
+    if (draggedCard) {
+      const deltaX = (e.clientX - cardDragStart.x) / viewport.zoom;
+      const deltaY = (e.clientY - cardDragStart.y) / viewport.zoom;
+      
+      setProject(prev => prev ? {
+        ...prev,
+        assets: prev.assets.map(asset => 
+          asset.id === draggedCard 
+            ? { 
+                ...asset, 
+                position: { 
+                  x: asset.position.x + deltaX, 
+                  y: asset.position.y + deltaY 
+                }
+              }
+            : asset
+        )
+      } : null);
+      
+      setCardDragStart({ x: e.clientX, y: e.clientY });
+    }
   };
 
   const handleCanvasMouseUp = () => {
     setIsDragging(false);
+    setDraggedCard(null);
+  };
+
+  const handleCardMouseDown = (e: React.MouseEvent, cardId: string) => {
+    if (tool === "select") {
+      e.stopPropagation();
+      setDraggedCard(cardId);
+      setCardDragStart({ x: e.clientX, y: e.clientY });
+    }
   };
 
   const handleZoomIn = () => {
@@ -289,98 +322,143 @@ export default function CanvasView() {
       <GlassBackground />
       <MaterialHeader onToggleSidebar={() => {}} />
       
-      {/* Floating Canvas Toolbar - Bottom Right */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <div className="glass-elevated border-glass-border rounded-2xl p-3">
-          {/* Vertical layout for bottom-right positioning */}
-          <div className="flex flex-col space-y-3">
-            {/* Tool Selection */}
-            <div className="flex flex-col space-y-1">
-              <Button
-                variant={tool === "select" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setTool("select")}
-                className="w-10 h-10 p-0"
-                title="Select Tool"
-              >
-                <Hand className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={tool === "hand" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setTool("hand")}
-                className="w-10 h-10 p-0"
-                title="Pan Tool"
-              >
-                <Hand className="w-4 h-4" />
-              </Button>
-            </div>
+      {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
+      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
+        <div className="glass-elevated border-glass-border rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+          <div className="flex flex-col space-y-2">
+            {/* Select Tool */}
+            <Button
+              variant={tool === "select" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTool("select")}
+              className="w-12 h-12 p-0 rounded-xl"
+              title="Select & Move"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+              </svg>
+            </Button>
 
-            <div className="border-t border-glass-border pt-3">
-              {/* Add Card */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="glass-surface w-full mb-2">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {CARD_TEMPLATES.map((template) => {
-                    const IconComponent = template.icon;
-                    return (
-                      <DropdownMenuItem
-                        key={template.type}
-                        onClick={() => addCard(template.type)}
-                      >
-                        <IconComponent className="w-4 h-4 mr-2" />
-                        {template.label}
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {/* Pan Tool */}
+            <Button
+              variant={tool === "hand" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTool("hand")}
+              className="w-12 h-12 p-0 rounded-xl"
+              title="Pan Canvas"
+            >
+              <Hand className="w-5 h-5" />
+            </Button>
 
-              {/* Zoom Controls */}
-              <div className="flex flex-col space-y-1 mb-2">
-                <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-10 h-10 p-0" title="Zoom In">
-                  <ZoomIn className="w-4 h-4" />
-                </Button>
-                <span className="text-xs text-glass-text-secondary text-center py-1">
-                  {Math.round(viewport.zoom * 100)}%
-                </span>
-                <Button variant="ghost" size="sm" onClick={handleZoomOut} className="w-10 h-10 p-0" title="Zoom Out">
-                  <ZoomOut className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-10 h-10 p-0" title="Fit to View">
-                  <Maximize className="w-4 h-4" />
-                </Button>
-              </div>
+            <div className="border-t border-glass-border my-2" />
 
-              {/* View Options */}
-              <div className="flex flex-col space-y-1 mb-2">
-                <Button
-                  variant={showGrid ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setShowGrid(!showGrid)}
-                  className="w-10 h-10 p-0"
-                  title="Toggle Grid"
-                >
-                  <Grid3X3 className="w-4 h-4" />
+            {/* Rectangle/Card Tool */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Shape">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  </svg>
                 </Button>
-                <Button variant="ghost" size="sm" className="w-10 h-10 p-0" title="Add Note">
-                  <StickyNote className="w-4 h-4" />
-                </Button>
-              </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="right" className="ml-2">
+                {CARD_TEMPLATES.map((template) => {
+                  const IconComponent = template.icon;
+                  return (
+                    <DropdownMenuItem
+                      key={template.type}
+                      onClick={() => addCard(template.type)}
+                    >
+                      <IconComponent className="w-4 h-4 mr-2" />
+                      {template.label}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              {/* Share */}
-              <Button variant="outline" size="sm" className="glass-surface w-full">
-                <Share className="w-4 h-4 mr-2" />
-                Share
-              </Button>
-            </div>
+            {/* Sticky Note */}
+            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Note">
+              <StickyNote className="w-5 h-5" />
+            </Button>
+
+            {/* Text */}
+            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Text">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="4,7 4,4 20,4 20,7"/>
+                <line x1="9" y1="20" x2="15" y2="20"/>
+                <line x1="12" y1="4" x2="12" y2="20"/>
+              </svg>
+            </Button>
+
+            {/* Connect/Arrow */}
+            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Connect">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </Button>
+
+            {/* Frame */}
+            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Frame">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+              </svg>
+            </Button>
+
+            <div className="border-t border-glass-border my-2" />
+
+            {/* Zoom Controls */}
+            <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-12 h-12 p-0 rounded-xl" title="Zoom In">
+              <ZoomIn className="w-5 h-5" />
+            </Button>
+            
+            <Button variant="ghost" size="sm" onClick={handleZoomOut} className="w-12 h-12 p-0 rounded-xl" title="Zoom Out">
+              <ZoomOut className="w-5 h-5" />
+            </Button>
+
+            <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-12 h-12 p-0 rounded-xl" title="Fit to Screen">
+              <Maximize className="w-5 h-5" />
+            </Button>
+
+            {/* Grid Toggle */}
+            <Button
+              variant={showGrid ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setShowGrid(!showGrid)}
+              className="w-12 h-12 p-0 rounded-xl"
+              title="Toggle Grid"
+            >
+              <Grid3X3 className="w-5 h-5" />
+            </Button>
+
+            <div className="border-t border-glass-border my-2" />
+
+            {/* Comments */}
+            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Comments">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/>
+                <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>
+              </svg>
+            </Button>
+
+            {/* Add Section */}
+            <Button variant="default" size="sm" className="w-12 h-12 p-0 rounded-xl bg-primary" title="Add Anything">
+              <Plus className="w-5 h-5" />
+            </Button>
           </div>
         </div>
+      </div>
+
+      {/* Share Button - Top Right */}
+      <div className="fixed top-6 right-6 z-40">
+        <Button variant="outline" size="sm" className="glass-surface px-4 py-2">
+          <Share className="w-4 h-4 mr-2" />
+          Share
+        </Button>
       </div>
 
       {/* Canvas */}
@@ -420,8 +498,12 @@ export default function CanvasView() {
             return (
               <Card
                 key={asset.id}
-                className={`absolute glass-elevated border-glass-border cursor-pointer transition-all duration-200 hover:shadow-lg ${
+                className={`absolute glass-elevated border-glass-border transition-all duration-200 hover:shadow-lg ${
                   selectedCard === asset.id ? "ring-2 ring-blue-500" : ""
+                } ${
+                  tool === "select" ? "cursor-move" : "cursor-pointer"
+                } ${
+                  draggedCard === asset.id ? "shadow-2xl scale-105 z-50" : ""
                 }`}
                 style={{
                   left: asset.position.x,
@@ -429,9 +511,12 @@ export default function CanvasView() {
                   width: asset.size.width,
                   height: asset.size.height,
                 }}
+                onMouseDown={(e) => handleCardMouseDown(e, asset.id)}
                 onClick={() => {
-                  setSelectedCard(asset.id);
-                  setExpandedCard(asset.id);
+                  if (tool === "select" && !draggedCard) {
+                    setSelectedCard(asset.id);
+                    setExpandedCard(asset.id);
+                  }
                 }}
               >
                 <CardContent className="p-4 h-full flex flex-col">
@@ -628,7 +713,7 @@ export default function CanvasView() {
       </Sheet>
 
       {/* Project Info Panel */}
-      <div className="fixed bottom-6 left-6 z-40">
+      <div className="fixed bottom-6 left-24 z-40">
         <Card className="glass-elevated border-glass-border">
           <CardContent className="p-4">
             <h3 className="font-medium text-glass-text-primary mb-1">
@@ -651,6 +736,15 @@ export default function CanvasView() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Zoom Display */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <div className="glass-elevated border-glass-border rounded-lg px-3 py-2">
+          <span className="text-sm text-glass-text-secondary">
+            {Math.round(viewport.zoom * 100)}%
+          </span>
+        </div>
       </div>
     </div>
   );
