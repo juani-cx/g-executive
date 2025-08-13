@@ -320,21 +320,39 @@ export default function CanvasView() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <GlassBackground />
-      {/* Minimal Header for Canvas - Miro Style */}
-      <div className="fixed top-0 left-0 right-0 z-30 h-16 glass-surface border-b border-glass-border">
-        <div className="flex items-center justify-between h-full px-6">
+      {/* Floating Header - Miro Style */}
+      <div className="fixed top-6 left-6 z-30">
+        <div className="glass-elevated border-glass-border rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center space-x-4">
+            {/* Menu Icon */}
+            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            </Button>
+
+            {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">C</span>
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                <span className="text-white font-bold text-xs">C</span>
               </div>
-              <span className="font-semibold text-glass-text-primary">Campaign AI</span>
+              <span className="font-bold text-glass-text-primary text-lg">miro</span>
             </div>
-            <div className="text-glass-text-secondary">|</div>
+
+            {/* Status Indicator */}
+            <div className="flex items-center space-x-1">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+
+            {/* Project Title */}
             <span className="text-glass-text-primary font-medium">{project?.title || "Untitled"}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-glass-text-secondary">
+
+            {/* More Options */}
+            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="1"/>
                 <circle cx="19" cy="12" r="1"/>
@@ -346,7 +364,7 @@ export default function CanvasView() {
       </div>
       
       {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
-      <div className="fixed left-6 top-20 z-40">
+      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
         <div className="glass-elevated border-glass-border rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
           <div className="flex flex-col space-y-2">
             {/* Select Tool */}
@@ -427,7 +445,7 @@ export default function CanvasView() {
       </div>
 
       {/* Share Button - Top Right */}
-      <div className="fixed top-20 right-6 z-40">
+      <div className="fixed top-6 right-6 z-40">
         <Button variant="outline" size="sm" className="glass-surface px-4 py-2">
           <Share className="w-4 h-4 mr-2" />
           Share
@@ -437,7 +455,7 @@ export default function CanvasView() {
       {/* Canvas */}
       <div
         ref={canvasRef}
-        className="absolute inset-0 top-16 cursor-move overflow-hidden"
+        className="absolute inset-0 cursor-move overflow-hidden"
         style={{ cursor: tool === "hand" ? "grab" : "default" }}
         onMouseDown={handleCanvasMouseDown}
         onMouseMove={handleCanvasMouseMove}
@@ -686,7 +704,7 @@ export default function CanvasView() {
       </Sheet>
 
       {/* Project Info Panel */}
-      <div className="fixed bottom-6 left-24 z-40">
+      <div className="fixed bottom-6 left-6 z-40">
         <Card className="glass-elevated border-glass-border">
           <CardContent className="p-4">
             <h3 className="font-medium text-glass-text-primary mb-1">
