@@ -45,10 +45,10 @@ export default function Home() {
 
   const handleStartCampaign = () => {
     if (campaignPrompt.trim()) {
-      // Store the prompt in localStorage to pass to campaign generator
+      // Store the prompt in localStorage to pass to canvas
       localStorage.setItem('campaignPrompt', campaignPrompt.trim());
-      // Navigate to campaign generator
-      navigate('/campaign-generator');
+      // Navigate directly to canvas (instant redirect)
+      navigate('/canvas');
     }
   };
 

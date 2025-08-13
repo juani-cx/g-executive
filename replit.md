@@ -37,10 +37,18 @@ Login design: 2-column layout with form on left, solid background on right for f
 
 ## Key Components
 
-### Campaign Generator
+### Canvas-Based Creation Workspace (New - August 2025)
+- **Purpose**: Instant AI asset generation in an interactive, infinite canvas environment
+- **Features**: Auto-generates 4 default cards (Slides, Landing Page, LinkedIn, Instagram), pan/zoom navigation, drag-to-arrange, real-time editing
+- **Workflow**: Prompt → Instant redirect to canvas → Assets appear as editable cards with live generation status
+- **Tools**: Add Card templates, AI prompt editing, manual editing, export options, version control
+- **Architecture**: Replaces traditional preview-confirmation flow with immediate workspace access
+
+### Campaign Generator (Legacy)
 - **Purpose**: Transform uploaded images into visual marketing campaigns with AI-generated images
 - **Features**: Brand tone selection, platform targeting, DALL-E image generation, preview-first workflow
 - **Output**: Platform-specific marketing visuals, social media images, ad creatives, campaign banners
+- **Status**: Being phased out in favor of Canvas workflow
 
 ### Catalog Generator
 - **Purpose**: Enrich e-commerce product listings with AI-generated text content and metadata
@@ -48,9 +56,9 @@ Login design: 2-column layout with form on left, solid background on right for f
 - **Output**: Enhanced product descriptions, titles, keywords, features, and SEO-optimized content
 
 ### AI Assistant
-- **Purpose**: Real-time interaction and content refinement
-- **Features**: Live preview, content editing, suggestion system
-- **Integration**: OpenAI GPT-4o for natural language processing
+- **Purpose**: Real-time interaction and content refinement within Canvas
+- **Features**: Per-card AI editing, diff previews, version management, prompt-based refinement
+- **Integration**: OpenAI GPT-4o for natural language processing and asset generation
 
 ### Executive View
 - **Purpose**: Shareable, presentation-ready campaign results
@@ -59,6 +67,16 @@ Login design: 2-column layout with form on left, solid background on right for f
 
 ## Data Flow
 
+### Canvas-Based Workflow (Current)
+1. **Prompt Entry**: Users enter marketing prompt on homepage with optional image attachment
+2. **Instant Redirect**: Direct navigation to Canvas view (no preview confirmation)
+3. **Skeleton Generation**: Four default asset cards appear immediately (< 200ms)
+4. **Staggered AI Generation**: Cards populate with content as AI completes each asset type
+5. **Interactive Editing**: Real-time AI prompting, manual editing, and version management per card
+6. **Continuous Autosave**: All changes persist within 1s debounce to PostgreSQL
+7. **Export Options**: Per-card or bulk export in format-specific outputs
+
+### Legacy Workflow (Campaign Generator)
 1. **Image Upload**: Users upload images via drag-and-drop interface with validation
 2. **AI Analysis**: Images processed through OpenAI Vision API for content understanding
 3. **Asset Generation**: Based on brand tone and platform selection, AI generates marketing assets

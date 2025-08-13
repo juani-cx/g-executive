@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import Login from "@/pages/login";
 import Home from "@/pages/home";
+import CanvasView from "@/pages/canvas";
 import CampaignGenerator from "@/pages/campaign-generator";
 import CatalogGenerator from "@/pages/catalog-generator";
 import OutputHub from "@/pages/output-hub";
@@ -16,6 +17,7 @@ function AuthenticatedRouter() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/canvas" component={CanvasView} />
       <Route path="/campaign-generator" component={CampaignGenerator} />
       <Route path="/catalog-generator" component={CatalogGenerator} />
       <Route path="/output/:campaignId" component={OutputHub} />

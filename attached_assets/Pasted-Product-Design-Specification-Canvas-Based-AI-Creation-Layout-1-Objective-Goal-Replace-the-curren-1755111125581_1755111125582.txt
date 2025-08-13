@@ -1,0 +1,225 @@
+Product Design Specification — Canvas-Based AI Creation Layout
+1. Objective
+Goal: Replace the current post-prompt configuration + preview confirmation flow with an instant, scrollable canvas workspace where default marketing assets are auto-generated as cards and ready for separate iteration via AI prompts or manual edits. Improve speed-to-creation, reduce friction, and encourage exploratory, multi-asset workflows.
+
+Type: Feature
+
+Source: PRD reference (AI Marketing Experience — Homepage & Results)
+
+2. User & Context
+Persona(s):
+
+Creative Marketer: Ideates quickly, needs usable outputs (slides/social/landing) fast.
+
+Product Launch Manager: Requires consistent multi-format assets for launch announcements.
+
+Key Jobs To Be Done:
+
+JTBD 1: “After I write a prompt (and maybe add an image), I want assets to appear instantly so I can start editing without extra confirmations.”
+
+JTBD 2: “I want a single space to iterate, organize, and expand assets (add notes, new formats) as ideas evolve.”
+
+Primary Environment: Web app (desktop-first), responsive tablet support.
+
+3. Functional Scope
+Area	Description
+Entry Point	Homepage → User enters prompt (and optional image) → Instant redirect to Canvas View.
+Core Actions	Auto-generate default asset cards; pan/zoom canvas; drag to rearrange cards; expand a card; edit via AI prompt or manual fields; duplicate/delete; add notes; Add Card to create more assets (e.g., X/Twitter, Facebook, Email, Ads).
+Outcomes	User sees four default cards (Slides, Landing Page, LinkedIn, Instagram) positioned on an infinite canvas. Each card is editable and expandable; changes are autosaved; user can export/share or continue iterating.
+
+4. UI/UX Expectations
+** PROVIDE A FUNCTIONAL PROTOTYPE (Optional) **:
+
+Prototype reference: https://26fa8c70-3298-4598-9044-ae92431cc981-00-1sykex480mf88.riker.replit.dev/
+
+Screens/Components Affected:
+
+Canvas View (New)
+
+Infinite canvas with pan (space+drag / middle-drag) & zoom (wheel + CTRL/CMD/+/-; on-screen +/–; mini-map).
+
+Default Cards (generated instantly):
+
+Slides (Google Presentation) — title, agenda, content slides, CTA; export to Google Slides.
+
+Landing Page — hero, value props, features, CTA, form; export JSON/HTML.
+
+LinkedIn Post — text copy, hashtags, image suggestion.
+
+Instagram Post — caption, tags, square image suggestion.
+
+Card Anatomy:
+
+Thumbnail/preview
+
+Title & metadata (created at, version)
+
+Expand button
+
+Context menu (Duplicate, Delete, Export, Pin, Lock)
+
+Quick Edit prompt field (inline)
+
+Expanded Drawer/Modal (per card):
+
+AI Edit: prompt box + “Apply” → diff preview → accept/change
+
+Manual Edit: structured fields (copy, image, layout options)
+
+Versions: history & rollback
+
+Export: format-specific (Slides → Google; Landing → HTML/JSON; Social → PNG/JPG/Copy text)
+
+Notes:
+
+Sticky notes with color, @mentions (future), simple checklist
+
+Toolbar:
+
+Add Card (prebuilt templates: X/Twitter, Facebook, Email, Ads, Blog, YouTube Thumbnail, Press Release)
+
+Notes tool
+
+Select/Hand tool
+
+Zoom controls (+/–/Fit/100%)
+
+Mini-map toggle
+
+Snap/Grid toggle
+
+Share/Export (all or selected cards)
+
+Right Panel (Contextual):
+
+Selection details, alignment, z-index, lock, tag/group, quick properties (theme, color).
+
+Homepage (Affected)
+
+Post-prompt redirect behavior change to Canvas View (skip preview confirmation).
+
+State Transitions:
+
+Idle: Canvas empty until generation begins.
+
+Generating: Skeleton card placeholders appear; progress shimmer on each card.
+
+Success: Cards populated; “toast” for completion; canvas auto-focus animates to initial cluster.
+
+Partial Error: Failed card shows retry state with diagnostics (view logs).
+
+Global Error: Non-blocking banner with retry; canvas still navigable.
+
+Edge Cases (optional):
+
+Prompt yields insufficient context → create minimal card stubs + “Refine with AI” nudge.
+
+Long-running generation → show per-card loading and allow working on finished cards immediately.
+
+Asset overflow (many added cards) → auto-cluster by type and add “Auto-arrange” layout.
+
+API limits (e.g., Google export) → queue and notify; allow manual export.
+
+Unsaved changes on nav away → confirm modal or persistent draft autosave.
+
+Loss of connectivity → offline banner; queue edits; background sync when online.
+
+Large images in prompt → compress client-side; show size warning.
+
+4b Branding and UI Foundations
+Design System or Framework: Tailwind CSS + ShadCN UI (component primitives), Material Design 3 visual cues (elevations, motion), subtle glow accents for “magical” feel.
+
+Brand Assets:
+
+Logo: Existing AI Marketing Experience logo (TBD link)
+
+Typography: Inter (Google Fonts); Display: Inter Tight (optional)
+
+Colors:
+
+Primary: #7C4DFF (Iris)
+
+Secondary: #00E5FF (Cyan A400)
+
+Accent: #FF8A65 (Coral)
+
+Surface: #0B0F19 (Near-black), On-Surface: #E6EAF2
+
+Icon Set: Lucide
+
+Figma Source of Truth: Design System File (TBD)
+
+5. Data & Business Rules
+Key Fields / Objects:
+
+Project {id, title, createdAt, prompt, imageRef?, theme, ownerId, collaborators[]}
+
+Canvas {id, projectId, nodes[], edges[], viewport, grid?, clusters[]}
+
+Card (Asset) {id, canvasId, type, title, content, status, version, position, size, tags[], themeOverrides?, exportRefs?}
+
+Version {id, cardId, changeset, createdAt, author, promptApplied?}
+
+Note {id, canvasId, text, color, position, mentions[]}
+
+Validations:
+
+Prompt length 1–2,000 chars; images ≤ 10MB, supported formats (PNG/JPG/WebP).
+
+Card titles unique within canvas scope (auto-increment if collision).
+
+Only one primary landing page card defaults per canvas (others allowed but flagged).
+
+Dependencies:
+
+AI generation service (text + image suggestions).
+
+Google Slides export API (optional connection).
+
+Storage/CDN for images and exports (e.g., S3).
+
+Auth for share/export permissions.
+
+Telemetry for engagement metrics and timing.
+
+Business Rules:
+
+Default Cards Auto-Create: Slides, Landing Page, LinkedIn, Instagram on first entry after prompt.
+
+Autosave: Every action (move, edit, prompt-apply) persists within 1s debounce.
+
+Versioning: Every AI apply creates a new version; manual edits can squash or version based on setting.
+
+Export: Per-card; bulk export bundles selected cards to zip with manifest.
+
+Add Card: Opens template gallery with presets; card appears near viewport center.
+
+6. Constraints & Considerations
+Must show first usable content on canvas in < 200ms (UI skeletons), and first completed card in < 5s for p95 (network dependent).
+
+Reuse existing component library (Tailwind + ShadCN); MD3 is styling guidance only.
+
+No new routes beyond /canvas (redirect from results preview route).
+
+Accessibility: WCAG 2.1 AA (keyboard pan/zoom, focus rings, ARIA for cards and toolbar).
+
+Performance: Virtualize offscreen nodes; throttle pan/zoom; image lazy loading.
+
+Internationalization: Copy fields translatable; RTL-safe layout.
+
+7. Acceptance Criteria
+Given a user submits a prompt (with/without image), when generation starts, then the app redirects directly to Canvas View and shows four skeleton cards in under 200ms.
+
+Given generation completes for any card, when that card finishes, then it populates with content while other cards may still be loading; user can interact immediately.
+
+Given the default cards exist (Slides, Landing, LinkedIn, Instagram), when the user clicks Expand, then an editor opens with AI Edit, Manual Edit, Versions, and Export tabs.
+
+Given a user enters an AI prompt in a card, when they click Apply, then the system shows a diff preview and, upon accept, creates a new version.
+
+Given the canvas contains multiple cards, when the user pans/zooms or drags cards, then positions persist via autosave within 1s.
+
+Given a user clicks Add Card, when selecting a template (e.g., Email), then a new card is created and placed near the viewport center with generation status.
+
+Given intermittent network loss, when the user continues to edit, then edits are queued and synced automatically when connectivity returns, with a visible status banner.
+
+Given the user tries to navigate away with unsaved exports in progress, then a confirmation modal appears with options (stay/leave).
