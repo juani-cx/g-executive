@@ -335,10 +335,8 @@ export default function CanvasView() {
 
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs">C</span>
-              </div>
-              <span className="font-bold text-glass-text-primary text-lg">miro</span>
+              <span className="text-xl font-bold text-gray-800">Google</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Marketer</span>
             </div>
 
             {/* Status Indicator */}
@@ -349,7 +347,7 @@ export default function CanvasView() {
             </div>
 
             {/* Project Title */}
-            <span className="text-glass-text-primary font-medium">{project?.title || "Untitled"}</span>
+            <span className="text-glass-text-primary font-medium">{project?.prompt || project?.title || "New Campaign"}</span>
 
             {/* More Options */}
             <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
@@ -369,10 +367,13 @@ export default function CanvasView() {
           <div className="flex flex-col space-y-2">
             {/* Select Tool */}
             <Button
-              variant={tool === "select" ? "default" : "ghost"}
               size="sm"
               onClick={() => setTool("select")}
-              className="w-12 h-12 p-0 rounded-xl"
+              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
+                tool === "select" 
+                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
+                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
+              }`}
               title="Select & Move"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -381,7 +382,11 @@ export default function CanvasView() {
             </Button>
 
             {/* Text */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Text">
+            <Button 
+              size="sm" 
+              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
+              title="Add Text"
+            >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="4,7 4,4 20,4 20,7"/>
                 <line x1="9" y1="20" x2="15" y2="20"/>
@@ -390,19 +395,31 @@ export default function CanvasView() {
             </Button>
 
             {/* Shape Tool */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Shape">
+            <Button 
+              size="sm" 
+              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
+              title="Add Shape"
+            >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="3" width="18" height="18" rx="2"/>
               </svg>
             </Button>
 
             {/* Image Tool */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Add Image">
+            <Button 
+              size="sm" 
+              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
+              title="Add Image"
+            >
               <FileImage className="w-5 h-5" />
             </Button>
 
             {/* Comments */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Comments">
+            <Button 
+              size="sm" 
+              className="w-12 h-12 p-0 rounded-xl border-0 bg-transparent hover:bg-[#e8edf7] text-[#64748b] transition-colors" 
+              title="Comments"
+            >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/>
                 <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>
@@ -412,7 +429,11 @@ export default function CanvasView() {
             {/* Add Section */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="default" size="sm" className="w-12 h-12 p-0 rounded-xl bg-primary" title="Add Anything">
+                <Button 
+                  size="sm" 
+                  className="w-12 h-12 p-0 rounded-xl border-0 bg-[#6366f1] hover:bg-[#5856eb] text-white transition-colors" 
+                  title="Add Anything"
+                >
                   <Plus className="w-5 h-5" />
                 </Button>
               </DropdownMenuTrigger>
