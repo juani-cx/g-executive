@@ -320,10 +320,33 @@ export default function CanvasView() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <GlassBackground />
-      <MaterialHeader onToggleSidebar={() => {}} />
+      {/* Minimal Header for Canvas - Miro Style */}
+      <div className="fixed top-0 left-0 right-0 z-30 h-16 glass-surface border-b border-glass-border">
+        <div className="flex items-center justify-between h-full px-6">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                <span className="text-white font-bold text-sm">C</span>
+              </div>
+              <span className="font-semibold text-glass-text-primary">Campaign AI</span>
+            </div>
+            <div className="text-glass-text-secondary">|</div>
+            <span className="text-glass-text-primary font-medium">{project?.title || "Untitled"}</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="sm" className="text-glass-text-secondary">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="1"/>
+                <circle cx="19" cy="12" r="1"/>
+                <circle cx="5" cy="12" r="1"/>
+              </svg>
+            </Button>
+          </div>
+        </div>
+      </div>
       
       {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
-      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
+      <div className="fixed left-6 top-20 z-40">
         <div className="glass-elevated border-glass-border rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
           <div className="flex flex-col space-y-2">
             {/* Select Tool */}
@@ -350,7 +373,7 @@ export default function CanvasView() {
               <Hand className="w-5 h-5" />
             </Button>
 
-            <div className="border-t border-glass-border my-2" />
+            <div className="border-t border-glass-border my-1" />
 
             {/* Rectangle/Card Tool */}
             <DropdownMenu>
@@ -391,25 +414,7 @@ export default function CanvasView() {
               </svg>
             </Button>
 
-            {/* Connect/Arrow */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Connect">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14"/>
-                <path d="m12 5 7 7-7 7"/>
-              </svg>
-            </Button>
-
-            {/* Frame */}
-            <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Frame">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
-                <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
-                <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
-                <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
-              </svg>
-            </Button>
-
-            <div className="border-t border-glass-border my-2" />
+            <div className="border-t border-glass-border my-1" />
 
             {/* Zoom Controls */}
             <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-12 h-12 p-0 rounded-xl" title="Zoom In">
@@ -424,18 +429,7 @@ export default function CanvasView() {
               <Maximize className="w-5 h-5" />
             </Button>
 
-            {/* Grid Toggle */}
-            <Button
-              variant={showGrid ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setShowGrid(!showGrid)}
-              className="w-12 h-12 p-0 rounded-xl"
-              title="Toggle Grid"
-            >
-              <Grid3X3 className="w-5 h-5" />
-            </Button>
-
-            <div className="border-t border-glass-border my-2" />
+            <div className="border-t border-glass-border my-1" />
 
             {/* Comments */}
             <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-xl" title="Comments">
@@ -454,7 +448,7 @@ export default function CanvasView() {
       </div>
 
       {/* Share Button - Top Right */}
-      <div className="fixed top-6 right-6 z-40">
+      <div className="fixed top-20 right-6 z-40">
         <Button variant="outline" size="sm" className="glass-surface px-4 py-2">
           <Share className="w-4 h-4 mr-2" />
           Share
@@ -464,7 +458,7 @@ export default function CanvasView() {
       {/* Canvas */}
       <div
         ref={canvasRef}
-        className="absolute inset-0 top-24 cursor-move overflow-hidden"
+        className="absolute inset-0 top-16 cursor-move overflow-hidden"
         style={{ cursor: tool === "hand" ? "grab" : "default" }}
         onMouseDown={handleCanvasMouseDown}
         onMouseMove={handleCanvasMouseMove}
