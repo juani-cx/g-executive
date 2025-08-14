@@ -59,7 +59,8 @@ import {
 import { MainMenu } from "@/components/main-menu";
 import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
-import { useLocation } from "wouter";
+import { useLocation, useRoute } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 
 interface AssetCard {
   id: string;
@@ -157,6 +158,8 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
 
 export default function CanvasView() {
   const [, setLocation] = useLocation();
+  const [match, params] = useRoute("/canvas/:id");
+  const campaignId = params?.id;
   const [project, setProject] = useState<Project | null>(null);
   const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
@@ -181,6 +184,12 @@ export default function CanvasView() {
   const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
   const [draggedElement, setDraggedElement] = useState<string | null>(null);
   const [elementDragStart, setElementDragStart] = useState({ x: 0, y: 0 });
+
+  // Load campaign data if campaignId is provided
+  const { data: campaignData } = useQuery({
+    queryKey: ['/api/campaigns', campaignId],
+    enabled: !!campaignId,
+  });
 
   // Helper function to generate unique IDs
   const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -424,8 +433,38 @@ export default function CanvasView() {
     setElementDragStart({ x: 0, y: 0 });
   };
 
-  // Initialize project from prompt
+  // Initialize project from prompt or campaign data
   useEffect(() => {
+    // If we have campaign data, use it
+    if (campaignData) {
+      const newProject: Project = {
+        id: campaignData.id.toString(),
+        title: campaignData.name,
+        prompt: campaignData.name + ' - ' + (campaignData.campaignFocus || 'Campaign'),
+        createdAt: new Date(campaignData.createdAt),
+        assets: campaignData.generatedAssets?.length > 0 
+          ? campaignData.generatedAssets.map((asset: any) => ({
+              id: asset.id || generateId(),
+              type: asset.type,
+              title: asset.title,
+              status: asset.status || "ready",
+              content: asset.content,
+              position: asset.position || { x: Math.random() * 500, y: Math.random() * 300 },
+              size: asset.size || { width: 300, height: 400 },
+              version: 1,
+              createdAt: new Date(),
+            }))
+          : DEFAULT_CARDS.map((card, index) => ({
+              ...card,
+              id: `card-${index}`,
+              createdAt: new Date(),
+            })),
+      };
+      setProject(newProject);
+      return;
+    }
+    
+    // Fallback to prompt-based initialization
     const prompt = localStorage.getItem('campaignPrompt');
     if (prompt) {
       const newProject: Project = {
@@ -516,11 +555,11 @@ export default function CanvasView() {
       }, 500);
       
       localStorage.removeItem('campaignPrompt');
-    } else {
-      // Redirect back to home if no prompt
+    } else if (!campaignId) {
+      // Redirect back to home if no prompt and no campaign ID
       setLocation('/');
     }
-  }, [setLocation]);
+  }, [campaignData, campaignId, setLocation]);
 
   const handleCanvasMouseDown = (e: React.MouseEvent) => {
     if (isPanning || tool === "hand" || e.button === 1) { // Middle mouse button or spacebar panning
