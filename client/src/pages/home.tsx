@@ -156,19 +156,30 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Projects Section */}
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-glass-text-primary">
-                Recent Campaigns
-              </h2>
-              <div className="relative w-80">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-glass-text-muted w-4 h-4" />
-                <Input
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 glass-surface border-glass-border rounded-lg text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.5)] focus:border-transparent"
-                />
+            {/* Projects Section - Reduced opacity until hover */}
+            <div className="opacity-60 hover:opacity-100 transition-opacity duration-300 border-t border-glass-border pt-8 mt-12">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-medium text-glass-text-secondary">
+                  Recent Campaigns
+                </h2>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setViewMode("grid")}
+                    className={`w-7 h-7 ${viewMode === "grid" ? "bg-glass-elevated" : ""}`}
+                  >
+                    <Grid3X3 className="w-3.5 h-3.5" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setViewMode("list")}
+                    className={`w-7 h-7 ${viewMode === "list" ? "bg-glass-elevated" : ""}`}
+                  >
+                    <List className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
               </div>
             </div>
 
