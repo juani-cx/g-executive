@@ -64,18 +64,19 @@ import { useQuery } from "@tanstack/react-query";
 
 interface AssetCard {
   id: string;
-  type: "slides" | "landing" | "linkedin" | "instagram" | "twitter" | "facebook" | "email" | "ads" | "blog" | "youtube" | "press";
+  type: "slides" | "landing" | "linkedin" | "instagram" | "twitter" | "facebook" | "email" | "ads" | "blog" | "youtube" | "press" | "config";
   title: string;
   status: "generating" | "ready" | "error";
   content?: {
     preview?: string;
     text?: string;
     image?: string;
+    [key: string]: any;
   };
   position: { x: number; y: number };
   size: { width: number; height: number };
   version: number;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface CanvasElement {
@@ -741,6 +742,7 @@ export default function CanvasView() {
       case "blog": return FileText;
       case "youtube": return Youtube;
       case "press": return Newspaper;
+      case "config": return Settings;
       default: return FileText;
     }
   };

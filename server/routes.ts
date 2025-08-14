@@ -55,7 +55,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const campaign = await storage.createCampaign(campaignData);
 
-      // Create campaign configuration card data
+      // Create platform-specific cards based on user selections
+      const generatedAssets: any[] = [];
+
+      // Add a configuration card
       const configCard = {
         id: `config-${campaign.id}`,
         type: "config" as const,
@@ -74,19 +77,116 @@ export async function registerRoutes(app: Express): Promise<Server> {
           secondaryColor
         },
         position: { x: 100, y: 100 },
-        size: { width: 350, height: 400 }
+        size: { width: 350, height: 400 },
+        version: 1
+      };
+      generatedAssets.push(configCard);
+
+      // Create platform-specific cards
+      const platformMapping: Record<string, string> = {
+        "LinkedIn": "linkedin",
+        "Instagram": "instagram", 
+        "Facebook": "facebook",
+        "Twitter": "twitter",
+        "Email": "email",
+        "Website": "landing"
       };
 
-      // Store config as part of campaign
+      let cardIndex = 1;
+      platforms?.forEach((platform: string, index: number) => {
+        const platformType = platformMapping[platform] || platform.toLowerCase();
+        const platformCard = {
+          id: `${platformType}-${campaign.id}-${cardIndex}`,
+          type: platformType as const,
+          title: `${platform} Content`,
+          status: "generating" as const,
+          content: {
+            text: `Generating ${platform} content for ${name}...`,
+            platform: platform.toLowerCase(),
+            goal: campaignGoals?.[0] || "Brand Awareness"
+          },
+          position: { 
+            x: 500 + (index * 380), 
+            y: 100 + Math.floor(index / 3) * 450 
+          },
+          size: { width: 350, height: 400 },
+          version: 1
+        };
+        generatedAssets.push(platformCard);
+        cardIndex++;
+      });
+
+      // Store all cards as part of campaign
       const updatedCampaign = await storage.updateCampaign(campaign.id, {
         ...campaign,
-        generatedAssets: [configCard]
+        generatedAssets
+      });
+
+      // Start background generation for platform cards
+      platforms?.forEach(async (platform: string) => {
+        const platformType = platformMapping[platform] || platform.toLowerCase();
+        const prompt = `${description} - ${platform} content for ${campaignGoals?.join(', ') || 'Brand Awareness'}`;
+        
+        try {
+          console.log(`Generating ${platformType} design for prompt: ${prompt}`);
+          // Generate platform-specific content using existing generateCardDesign function
+          setTimeout(async () => {
+            try {
+              const generatedContent = await generateCardDesign(platformType, prompt);
+              console.log(`Generated ${platformType} content:`, generatedContent?.content?.substring(0, 100));
+              
+              // Update the campaign with generated content
+              const currentCampaign = await storage.getCampaign(campaign.id);
+              if (currentCampaign && currentCampaign.generatedAssets) {
+                const updatedAssets = currentCampaign.generatedAssets.map((asset: any) => {
+                  if (asset.type === platformType && asset.status === "generating") {
+                    return {
+                      ...asset,
+                      status: "ready" as const,
+                      content: {
+                        ...asset.content,
+                        text: generatedContent?.content || `Generated ${platform} content`,
+                        generatedAt: new Date().toISOString()
+                      }
+                    };
+                  }
+                  return asset;
+                });
+                
+                await storage.updateCampaign(campaign.id, {
+                  ...currentCampaign,
+                  generatedAssets: updatedAssets
+                });
+              }
+            } catch (error) {
+              console.error(`Failed to generate ${platformType} content:`, error);
+              // Update status to error
+              const currentCampaign = await storage.getCampaign(campaign.id);
+              if (currentCampaign && currentCampaign.generatedAssets) {
+                const updatedAssets = currentCampaign.generatedAssets.map((asset: any) => {
+                  if (asset.type === platformType && asset.status === "generating") {
+                    return { ...asset, status: "error" as const };
+                  }
+                  return asset;
+                });
+                
+                await storage.updateCampaign(campaign.id, {
+                  ...currentCampaign,
+                  generatedAssets: updatedAssets
+                });
+              }
+            }
+          }, 1000 * Math.random() * 3); // Random delay between 0-3 seconds to stagger generation
+        } catch (error) {
+          console.error(`Error starting generation for ${platform}:`, error);
+        }
       });
 
       res.json({ 
         id: campaign.id, 
         campaign: updatedCampaign,
-        configCard 
+        configCard,
+        platformCards: generatedAssets.filter(asset => asset.type !== 'config')
       });
     } catch (error) {
       console.error('Campaign creation error:', error);
