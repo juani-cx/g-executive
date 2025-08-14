@@ -1302,7 +1302,7 @@ export default function CanvasView() {
 
       {/* Expanded Card Drawer */}
       <Sheet open={!!expandedCard} onOpenChange={() => setExpandedCard(null)}>
-        <SheetContent className="w-[500px] glass-surface border-glass-border" side="right">
+        <SheetContent className="w-[500px] glass-surface border-glass-border overflow-y-auto" side="right">
           <SheetHeader>
             <SheetTitle className="text-glass-text-primary">
               Edit {project.assets.find(a => a.id === expandedCard)?.title}
@@ -1312,7 +1312,7 @@ export default function CanvasView() {
             </SheetDescription>
           </SheetHeader>
           
-          <div className="space-y-6 mt-6">
+          <div className="space-y-6 mt-6 pb-6">
             {/* Asset Preview */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-glass-text-primary">
@@ -1491,14 +1491,14 @@ export default function CanvasView() {
 
       {/* AI Image Generation Dialog */}
       <Sheet open={showImageDialog} onOpenChange={setShowImageDialog}>
-        <SheetContent side="right" className="w-[400px]">
+        <SheetContent side="right" className="w-[400px] overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Generate AI Image</SheetTitle>
             <SheetDescription>
               Create an image using AI based on your description
             </SheetDescription>
           </SheetHeader>
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-4 pb-6">
             <div>
               <label className="text-sm font-medium mb-2 block">
                 Image Description

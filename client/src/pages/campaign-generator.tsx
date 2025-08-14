@@ -16,7 +16,10 @@ import {
   DollarSign,
   ArrowLeft,
   Paperclip,
-  X
+  X,
+  Layers,
+  Zap,
+  Brain
 } from "lucide-react";
 import { useLocation } from "wouter";
 import MaterialHeader from "@/components/material-header";
@@ -59,7 +62,11 @@ export default function CampaignGenerator() {
 
   const createCampaignMutation = useMutation({
     mutationFn: async (campaignData: any) => {
-      const response = await apiRequest('POST', '/api/create-campaign', campaignData);
+      // Add a minimum loading time to show the animation (4 seconds)
+      const [response] = await Promise.all([
+        apiRequest('POST', '/api/create-campaign', campaignData),
+        new Promise(resolve => setTimeout(resolve, 4000))
+      ]);
       return await response.json();
     },
     onSuccess: (data) => {
@@ -426,6 +433,79 @@ export default function CampaignGenerator() {
           </div>
         </div>
       </div>
+
+      {/* Loading Overlay */}
+      {createCampaignMutation.isPending && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="text-center space-y-8">
+            {/* Isometric Animation Container */}
+            <div className="relative w-64 h-64 mx-auto">
+              {/* Main Cube */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative">
+                  {/* Base cube with glassmorphism */}
+                  <div className="w-32 h-32 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/20 backdrop-blur-md rounded-2xl transform rotate-12 animate-pulse">
+                    <div className="absolute inset-4 bg-gradient-to-br from-purple-400/30 to-blue-400/30 rounded-xl"></div>
+                  </div>
+                  
+                  {/* Floating elements around the cube */}
+                  <div className="absolute -top-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/40 to-pink-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '0s'}}></div>
+                  <div className="absolute -top-6 right-0 w-8 h-8 bg-gradient-to-br from-blue-400/40 to-cyan-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '0.5s'}}></div>
+                  <div className="absolute -bottom-4 -right-6 w-10 h-10 bg-gradient-to-br from-green-400/40 to-emerald-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '1s'}}></div>
+                  <div className="absolute bottom-0 -left-4 w-6 h-6 bg-gradient-to-br from-yellow-400/40 to-orange-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '1.5s'}}></div>
+                  
+                  {/* Orbiting particles */}
+                  <div className="absolute inset-0 animate-spin" style={{animationDuration: '4s'}}>
+                    <div className="absolute -top-16 left-1/2 w-3 h-3 bg-white/60 rounded-full"></div>
+                    <div className="absolute top-1/2 -right-16 w-2 h-2 bg-purple-400/60 rounded-full"></div>
+                    <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-blue-400/60 rounded-full"></div>
+                    <div className="absolute top-1/2 -left-16 w-2 h-2 bg-cyan-400/60 rounded-full"></div>
+                  </div>
+                  
+                  {/* Central icon that rotates */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center animate-spin" style={{animationDuration: '2s'}}>
+                      <Brain className="w-8 h-8 text-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Loading Text with Typewriter Effect */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-white">Preparing Your Canvas</h2>
+              <div className="flex items-center justify-center space-x-2">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                </div>
+              </div>
+              
+              {/* Progress Steps */}
+              <div className="space-y-3 mt-8">
+                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in">
+                  <Zap className="w-4 h-4 text-yellow-400 animate-pulse" />
+                  <span>Analyzing campaign configuration</span>
+                </div>
+                <div className="flex items-center justify-center space-x-3 text-sm text-white/60 animate-fade-in" style={{animationDelay: '1s'}}>
+                  <Layers className="w-4 h-4 text-blue-400 animate-pulse" style={{animationDelay: '1s'}} />
+                  <span>Initializing AI workspace</span>
+                </div>
+                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in" style={{animationDelay: '2s'}}>
+                  <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" style={{animationDelay: '2s'}} />
+                  <span>Setting up asset generation</span>
+                </div>
+                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in" style={{animationDelay: '3s'}}>
+                  <Brain className="w-4 h-4 text-green-400 animate-pulse" style={{animationDelay: '3s'}} />
+                  <span>Launching your canvas...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Menu */}
       <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
