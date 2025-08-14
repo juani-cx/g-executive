@@ -23,6 +23,7 @@ import MaterialHeader from "@/components/material-header";
 import MaterialSidebar from "@/components/material-sidebar";
 import MaterialProjectCard from "@/components/material-project-card";
 import GlassBackground from "@/components/glass-background";
+import { MainMenu } from "@/components/main-menu";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +32,7 @@ export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [campaignPrompt, setCampaignPrompt] = useState("");
   const [activeTab, setActiveTab] = useState<"campaign" | "catalog">("campaign");
+  const [showMainMenu, setShowMainMenu] = useState(false);
   const [, navigate] = useLocation();
 
   const { data: campaigns = [], isLoading } = useQuery<Campaign[]>({
@@ -55,7 +57,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative">
       <GlassBackground />
-      <MaterialHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+      <MaterialHeader onToggleMainMenu={() => setShowMainMenu(!showMainMenu)} />
       <div className="flex h-[calc(100vh-120px)]">
         <MaterialSidebar isOpen={sidebarOpen} />
         
@@ -223,6 +225,9 @@ export default function Home() {
           </div>
         </main>
       </div>
+      
+      {/* Main Menu */}
+      <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
     </div>
   );
 }

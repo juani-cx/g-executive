@@ -11,7 +11,7 @@ interface MaterialHeaderProps {
   showSearch?: boolean;
   showNotifications?: boolean;
   className?: string;
-  onToggleSidebar?: () => void;
+  onToggleMainMenu?: () => void;
 }
 
 export default function MaterialHeader({ 
@@ -19,7 +19,7 @@ export default function MaterialHeader({
   showSearch = true, 
   showNotifications = true,
   className = "",
-  onToggleSidebar
+  onToggleMainMenu
 }: MaterialHeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -35,7 +35,7 @@ export default function MaterialHeader({
                 variant="ghost" 
                 size="icon" 
                 className="w-6 h-6 glass-surface hover:glass-elevated rounded-lg transition-all duration-200"
-                onClick={onToggleSidebar}
+                onClick={onToggleMainMenu}
               >
                 <Menu className="w-4 h-4 text-glass-text-primary" />
               </Button>

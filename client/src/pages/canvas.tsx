@@ -56,6 +56,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { MainMenu } from "@/components/main-menu";
 import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
 import { useLocation } from "wouter";
@@ -1499,118 +1500,8 @@ export default function CanvasView() {
         </SheetContent>
       </Sheet>
 
-      {/* Main Menu Dialog */}
-      <Sheet open={showMainMenu} onOpenChange={setShowMainMenu}>
-        <SheetContent side="left" className="w-[350px] glass-surface border-glass-border">
-          <SheetHeader>
-            <SheetTitle className="text-glass-text-primary flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-800">Google</span>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Marketer</span>
-            </SheetTitle>
-            <SheetDescription className="text-glass-text-secondary">
-              Navigation and project management
-            </SheetDescription>
-          </SheetHeader>
-          
-          <div className="space-y-6 mt-6">
-            {/* Navigation */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-medium text-glass-text-primary">Navigation</h3>
-              <div className="space-y-1">
-                <Button 
-                  variant="ghost" 
-                  className="w-full justify-start"
-                  onClick={() => {
-                    setLocation('/');
-                    setShowMainMenu(false);
-                  }}
-                >
-                  <Home className="w-4 h-4 mr-3" />
-                  Home
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <FileText className="w-4 h-4 mr-3" />
-                  Campaigns
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Archive className="w-4 h-4 mr-3" />
-                  Catalogs
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Users className="w-4 h-4 mr-3" />
-                  Team Projects
-                </Button>
-              </div>
-            </div>
-
-            {/* Current Project */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-medium text-glass-text-primary">Current Project</h3>
-              <div className="p-3 glass-elevated border-glass-border rounded-lg">
-                <h4 className="font-medium text-glass-text-primary text-sm mb-1">
-                  {project?.title}
-                </h4>
-                <p className="text-xs text-glass-text-muted mb-2">
-                  {project?.assets?.length || 0} assets • Created {project?.createdAt?.toLocaleDateString()}
-                </p>
-                <div className="flex space-x-1">
-                  {project?.assets?.map(asset => (
-                    <div
-                      key={asset.id}
-                      className={`w-2 h-2 rounded-full ${
-                        asset.status === "ready" ? "bg-green-500" :
-                        asset.status === "generating" ? "bg-yellow-500" :
-                        "bg-red-500"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Canvas Tools */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-medium text-glass-text-primary">Canvas View</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => {
-                    setViewport({ x: 0, y: 0, zoom: 1 });
-                    setShowMainMenu(false);
-                  }}
-                >
-                  <Maximize className="w-4 h-4 mr-1" />
-                  Fit View
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setShowGrid(!showGrid)}
-                >
-                  <Grid3X3 className="w-4 h-4 mr-1" />
-                  Grid
-                </Button>
-              </div>
-            </div>
-
-            {/* Settings */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-medium text-glass-text-primary">Settings</h3>
-              <div className="space-y-1">
-                <Button variant="ghost" className="w-full justify-start">
-                  <Settings className="w-4 h-4 mr-3" />
-                  Preferences
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <HelpCircle className="w-4 h-4 mr-3" />
-                  Help & Support
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+      {/* Main Menu */}
+      <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
     </div>
   );
 }
