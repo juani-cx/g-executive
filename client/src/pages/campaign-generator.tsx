@@ -436,7 +436,7 @@ export default function CampaignGenerator() {
 
       {/* Loading Overlay */}
       {createCampaignMutation.isPending && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex items-center justify-center">
           <div className="text-center space-y-8">
             {/* Isometric Animation Container */}
             <div className="relative w-64 h-64 mx-auto">
@@ -462,51 +462,51 @@ export default function CampaignGenerator() {
                     <source src="/loading-animation.mp4" type="video/mp4" />
                   </video>
                   {/* Fallback animation if video doesn't load */}
-                  <div className="w-48 h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center hidden">
-                    <Brain className="w-16 h-16 text-white animate-spin" />
+                  <div className="w-48 h-48 bg-gradient-to-br from-purple-100 to-blue-100 border border-gray-200 rounded-2xl flex items-center justify-center hidden">
+                    <Brain className="w-16 h-16 text-purple-600 animate-spin" />
                   </div>
                 </div>
               </div>
               
               {/* Subtle glow effect around video */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-2xl animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-full blur-2xl animate-pulse"></div>
               
               {/* Orbiting particles around video */}
               <div className="absolute inset-0 animate-spin" style={{animationDuration: '6s'}}>
-                <div className="absolute -top-16 left-1/2 w-3 h-3 bg-white/60 rounded-full"></div>
-                <div className="absolute top-1/2 -right-16 w-2 h-2 bg-purple-400/60 rounded-full"></div>
-                <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-blue-400/60 rounded-full"></div>
-                <div className="absolute top-1/2 -left-16 w-2 h-2 bg-cyan-400/60 rounded-full"></div>
+                <div className="absolute -top-16 left-1/2 w-3 h-3 bg-purple-500/70 rounded-full"></div>
+                <div className="absolute top-1/2 -right-16 w-2 h-2 bg-blue-500/70 rounded-full"></div>
+                <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-indigo-500/70 rounded-full"></div>
+                <div className="absolute top-1/2 -left-16 w-2 h-2 bg-violet-500/70 rounded-full"></div>
               </div>
             </div>
             
             {/* Loading Text with Typewriter Effect */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white">Preparing Your Canvas</h2>
+              <h2 className="text-2xl font-bold text-gray-800">Preparing Your Canvas</h2>
               <div className="flex items-center justify-center space-x-2">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
                 </div>
               </div>
               
               {/* Progress Steps */}
               <div className="space-y-3 mt-8">
-                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in">
-                  <Zap className="w-4 h-4 text-yellow-400 animate-pulse" />
+                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in">
+                  <Zap className="w-4 h-4 text-yellow-600 animate-pulse" />
                   <span>Analyzing campaign configuration</span>
                 </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-white/60 animate-fade-in" style={{animationDelay: '1s'}}>
-                  <Layers className="w-4 h-4 text-blue-400 animate-pulse" style={{animationDelay: '1s'}} />
+                <div className="flex items-center justify-center space-x-3 text-sm text-gray-600 animate-fade-in" style={{animationDelay: '1s'}}>
+                  <Layers className="w-4 h-4 text-blue-600 animate-pulse" style={{animationDelay: '1s'}} />
                   <span>Initializing AI workspace</span>
                 </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in" style={{animationDelay: '2s'}}>
-                  <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" style={{animationDelay: '2s'}} />
+                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in" style={{animationDelay: '2s'}}>
+                  <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" style={{animationDelay: '2s'}} />
                   <span>Setting up asset generation</span>
                 </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-white/80 animate-fade-in" style={{animationDelay: '3s'}}>
-                  <Brain className="w-4 h-4 text-green-400 animate-pulse" style={{animationDelay: '3s'}} />
+                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in" style={{animationDelay: '3s'}}>
+                  <Brain className="w-4 h-4 text-green-600 animate-pulse" style={{animationDelay: '3s'}} />
                   <span>Launching your canvas...</span>
                 </div>
               </div>
