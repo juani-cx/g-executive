@@ -17,7 +17,7 @@ interface CampaignConfigCardProps {
   className?: string;
 }
 
-export default function CampaignConfigCard({ campaign, className = "" }: CampaignConfigCardProps) {
+export function CampaignConfigCard({ campaign, className = "" }: CampaignConfigCardProps) {
   return (
     <Card className={`glass-surface border-glass-border w-80 h-96 overflow-hidden ${className}`}>
       <CardHeader className="pb-3">

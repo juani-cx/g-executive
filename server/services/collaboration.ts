@@ -107,9 +107,8 @@ export class CollaborationService {
       const ephemeralId = this.generateEphemeralId(socket.id);
       const color = this.assignUserColor(ephemeralId);
       
-      // Create presence record
-      const presence: Presence = {
-        id: 0, // Will be set by database
+      // Create presence record (without ID as it's auto-generated)
+      const presenceData: InsertPresence = {
         canvasId,
         userId: userId || null,
         ephemeralId,
@@ -123,7 +122,7 @@ export class CollaborationService {
       };
 
       // Store in database
-      const savedPresence = await storage.createPresence(presence);
+      const savedPresence = await storage.createPresence(presenceData);
       
       // Add to room
       room.presences.set(ephemeralId, savedPresence);

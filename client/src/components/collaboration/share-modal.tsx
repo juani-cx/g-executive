@@ -45,7 +45,7 @@ interface ShareSettings {
   maxCollaborators: number;
 }
 
-export default function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
+export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [settings, setSettings] = useState<ShareSettings>({
