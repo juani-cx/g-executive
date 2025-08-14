@@ -828,7 +828,6 @@ export default function CanvasView() {
 
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-800">Google</span>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Marketer</span>
             </div>
 
