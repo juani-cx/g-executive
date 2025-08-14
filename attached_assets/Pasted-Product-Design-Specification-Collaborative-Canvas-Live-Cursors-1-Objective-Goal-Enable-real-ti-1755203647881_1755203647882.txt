@@ -1,0 +1,178 @@
+Product Design Specification — Collaborative Canvas & Live Cursors
+1. Objective
+Goal: Enable real-time collaboration on the Results Canvas View so users can invite others, co-edit assets, and see colored name-tag cursors live on the canvas. Provide a shareable link for access (optionally capped by a max collaborators limit) to accelerate multi-stakeholder creation and iteration.
+
+Type: Feature
+
+Source: PRD — AI Marketing Experience / Results Canvas (original brief in ES: “al acceder al canvas… invitar otros usuarios… cursor con identificador de color… cualquiera con el link puede acceder… máximo de usuarios limitado”)
+
+2. User & Context
+Persona(s):
+
+Creative Marketer (inviter/owner): needs fast collaboration on assets.
+
+Stakeholder/Reviewer (invitee): adds notes, edits or approves in real time.
+
+Key Jobs To Be Done:
+
+JTBD 1: Invite collaborators via a link and co-edit instantly, no account setup friction.
+
+JTBD 2: Understand who is doing what via visible presence (avatars, cursors, selections).
+
+Primary Environment: Web app (desktop-first); tablet responsive.
+
+3. Functional Scope
+Area	Description
+Entry Point	Canvas View (shown immediately after prompt submission). New Share entry point in the top toolbar.
+Core Actions	Invite via link; set access level; optionally set max collaborators; view live cursors with colored name tags; see selections; co-edit cards/notes; see presence list; revoke/regenerate link.
+Outcomes	Multiple users co-editing the same canvas with minimal conflict. Each user’s cursor is color-coded with a label; shared link grants access according to setting; system enforces max concurrent collaborators.
+
+4. UI/UX Expectations
+Screens/Components Affected:
+
+Canvas Toolbar (updated)
+
+Share button → opens Invite & Share modal.
+
+Presence cluster (avatar stack) with hover tooltip showing names; badge with current/maximum collaborators (e.g., “7/10”).
+
+Invite & Share Modal (new)
+
+Access: “Anyone with the link can …” Edit / View (radio).
+
+Link: Copy link, Regenerate link, optional Access Code (toggle).
+
+Max Collaborators: numeric input (default 10; min 2; max 50).
+
+Invitations: (optional) add emails (if account exists → named; else anonymous-on-join).
+
+Live Presence & Cursors (new)
+
+Each collaborator assigned a unique color (deterministic per userId or ephemeralId).
+
+Cursor shows name tag (first name or “Guest ####”).
+
+Card/Note selection outlines adopt the collaborator’s color.
+
+Typing indicators in notes and editors (“… [Name] is editing”).
+
+Conflict Handling & Locks
+
+Soft lock at card granularity while a user is editing; others see “Being edited by [Name]”.
+
+Non-blocking: viewers can still open and queue edits (merged via CRDT).
+
+Notifications/Toasts
+
+“[Name] joined/left” (throttled).
+
+“Link regenerated — old link revoked.”
+
+“Canvas is full (10/10). Ask owner to increase the limit.”
+
+State Transitions:
+
+Connecting → Online & Synced → Reconnecting (network loss) → Offline (queued) → Resynced.
+
+Presence list and cursors update in near-real time; queued actions replay after reconnection.
+
+Edge Cases:
+
+Canvas full: deny new joins with friendly UI; owner can bump limit in modal.
+
+Link revoked: existing sessions persist (configurable), new joins blocked.
+
+Downgrade to View: active editors immediately become viewers; editing UIs disabled.
+
+Anonymous floods: rate-limit new sessions per IP; optional access code gate.
+
+Name collisions: auto-suffix (e.g., “Alex (2)”).
+
+4b Branding and UI Foundations
+Design System or Framework: Tailwind + ShadCN; MD3 motion/elevation cues; subtle glow accents.
+
+Brand Assets:
+
+Logo: AI Marketing Experience (TBD)
+
+Typography: Inter; Display: Inter Tight (optional)
+
+Colors:
+
+Primary #7C4DFF, Secondary #00E5FF, Accent #FF8A65, Surface #0B0F19, On-Surface #E6EAF2
+
+Icon Set: Lucide (users, share, link, lock, cursor)
+
+Figma Source of Truth: Design System & Canvas (TBD)
+
+5. Data & Business Rules
+Key Fields / Objects:
+
+Canvas {id, projectId, share: {enabled, role: "edit"|"view", linkToken, accessCode?, maxCollaborators}, …}
+
+Presence {canvasId, userId|ephemeralId, displayName, color, cursor:{x,y}, selection?, status:"online"|"offline"|"reconnecting", lastPingAt}
+
+Session {id, canvasId, userRef?, ephemeral, joinedAt, leftAt, ipHash}
+
+Permission {canvasId, principalId|"anyone-with-link", role}
+
+Invite {id, canvasId, email?, issuedBy, createdAt, status}
+
+Validations:
+
+maxCollaborators integer in [2..50]; default 10.
+
+linkToken must be high-entropy; regenerate invalidates prior token.
+
+If accessCode enabled, must be provided on join.
+
+Enforce concurrent user cap at handshake; over-cap join rejected.
+
+Dependencies:
+
+Realtime transport (WebSocket/WS over Socket.IO or equivalent).
+
+Shared state sync (CRDT preferred; e.g., document model) to avoid edit conflicts.
+
+Auth (optional) for named users; fallback to ephemeral guests.
+
+Telemetry for presence and collaboration metrics.
+
+Business Rules:
+
+Link Access: When enabled, anyone with the link can access per selected role; default Edit.
+
+Color Assignment: Deterministic hashing to stable hues per user/guest.
+
+Cursor Frequency: Throttled to ≤ 24 updates/sec; server fanout throttled.
+
+Soft Locks: Card-level; expire after inactivity (e.g., 10s).
+
+Privacy: Display name shown; email hidden unless invited by email.
+
+6. Constraints & Considerations
+Performance: Presence connect handshake < 300ms p95; cursor latency target < 120ms RTT p95; efficient diff batching.
+
+Scalability: Fanout rooms per canvas; backpressure & rate limiting; shard by canvasId.
+
+Security: 128-bit link tokens; optional access code; IP rate-limits; log joins/leaves; DDoS protection.
+
+Accessibility: Keyboard navigation for share modal; high-contrast cursor outlines; screen-reader announcements for joins/leaves (polite).
+
+No new top-level routes beyond /canvas; share settings modal in-place.
+
+7. Acceptance criteria
+Given a user opens Share, when they toggle “Anyone with the link can Edit,” then a shareable URL is generated and copied via “Copy Link.”
+
+Given a collaborator opens the share URL, when the canvas is under the max collaborator limit, then they join in Edit mode and a colored, name-tagged cursor appears.
+
+Given the max collaborator limit is reached, when an additional user tries to join, then they see “Canvas is full” and can request the owner to increase the limit.
+
+Given multiple users edit, when two users edit different cards simultaneously, then both sets of changes apply without conflict and selections/locks are visible.
+
+Given the owner clicks Regenerate Link, when confirmed, then the old link no longer grants access and a new link is issued.
+
+Given the owner changes access from Edit → View, then current non-owners immediately lose editing controls (view-only UI).
+
+Given a user loses connection, then they enter Reconnecting state and queued local edits sync on reconnect.
+

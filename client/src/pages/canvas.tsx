@@ -4,6 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
+import ShareModal from "@/components/collaboration/share-modal";
+import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
+import { useCollaboration } from "@/hooks/useCollaboration";
 import { 
   Plus, 
   Download,
@@ -185,12 +188,72 @@ export default function CanvasView() {
   const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
   const [draggedElement, setDraggedElement] = useState<string | null>(null);
   const [elementDragStart, setElementDragStart] = useState({ x: 0, y: 0 });
+  
+  // Collaboration state
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [cardLocks, setCardLocks] = useState<Record<string, string>>({});
+  
+  // Get URL parameters for collaboration
+  const urlParams = new URLSearchParams(window.location.search);
+  const linkToken = urlParams.get('token');
+  
+  // Initialize collaboration
+  const collaboration = useCollaboration({
+    canvasId: campaignId ? parseInt(campaignId) : 0,
+    linkToken: linkToken || undefined,
+    displayName: `User ${Math.floor(Math.random() * 1000)}`, // In production, get from auth
+    enabled: !!campaignId
+  });
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
     queryKey: ['/api/campaigns', campaignId],
     enabled: !!campaignId,
   });
+
+  // Handle collaboration events
+  useEffect(() => {
+    const handleCardLocked = (event: CustomEvent) => {
+      const { cardId, lockedBy } = event.detail;
+      setCardLocks(prev => ({ ...prev, [cardId]: lockedBy }));
+    };
+
+    const handleCardUnlocked = (event: CustomEvent) => {
+      const { cardId } = event.detail;
+      setCardLocks(prev => {
+        const newLocks = { ...prev };
+        delete newLocks[cardId];
+        return newLocks;
+      });
+    };
+
+    window.addEventListener('card-locked', handleCardLocked as EventListener);
+    window.addEventListener('card-unlocked', handleCardUnlocked as EventListener);
+
+    return () => {
+      window.removeEventListener('card-locked', handleCardLocked as EventListener);
+      window.removeEventListener('card-unlocked', handleCardUnlocked as EventListener);
+    };
+  }, []);
+
+  // Handle cursor tracking
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (canvasRef.current && collaboration.isConnected) {
+        const rect = canvasRef.current.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        collaboration.updateCursor(x, y);
+      }
+    };
+
+    if (canvasRef.current) {
+      canvasRef.current.addEventListener('mousemove', handleMouseMove);
+      return () => {
+        canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
+      };
+    }
+  }, [collaboration.isConnected, collaboration.updateCursor]);
 
   // Helper function to generate unique IDs
   const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -983,10 +1046,32 @@ export default function CanvasView() {
         </div>
       </div>
 
-      {/* Share Button - Top Right */}
-      <div className="fixed top-6 right-6 z-40">
-        <Button variant="outline" size="sm" className="glass-surface px-4 py-2">
-          <Share className="w-4 h-4 mr-2" />
+      {/* Collaboration UI - Top Right */}
+      <div className="fixed top-6 right-6 z-40 flex items-center gap-3">
+        {/* Presence Indicators */}
+        <PresenceIndicators 
+          presences={collaboration.presences}
+          currentUserEphemeralId={collaboration.currentUserEphemeralId || undefined}
+        />
+
+        {/* Connection Status */}
+        {collaboration.connectionStatus !== "connected" && (
+          <Badge 
+            variant={collaboration.connectionStatus === "connecting" ? "secondary" : "destructive"}
+            className="text-xs"
+          >
+            {collaboration.connectionStatus}
+          </Badge>
+        )}
+
+        {/* Share Button */}
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="glass-surface px-4 py-2 gap-2"
+          onClick={() => setShowShareModal(true)}
+        >
+          <Users className="w-4 h-4" />
           Share
         </Button>
       </div>
@@ -1294,7 +1379,25 @@ export default function CanvasView() {
             );
           })}
         </div>
+
+        {/* Live Cursors */}
+        {Array.from(collaboration.cursors.values()).map((cursor) => (
+          <LiveCursor
+            key={cursor.ephemeralId}
+            cursor={cursor}
+            displayName={cursor.displayName}
+            color={cursor.color}
+            isVisible={true}
+          />
+        ))}
       </div>
+
+      {/* Share Modal */}
+      <ShareModal
+        open={showShareModal}
+        onOpenChange={setShowShareModal}
+        canvasId={campaignId ? parseInt(campaignId) : 0}
+      />
 
       {/* Expanded Card Drawer */}
       <Sheet open={!!expandedCard} onOpenChange={() => setExpandedCard(null)}>

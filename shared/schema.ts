@@ -11,6 +11,18 @@ export const campaigns = pgTable("campaigns", {
   campaignFocus: text("campaign_focus").notNull(),
   generatedAssets: jsonb("generated_assets").$type<GeneratedAsset[]>().default([]),
   shareableLink: text("shareable_link"),
+  shareSettings: jsonb("share_settings").$type<{
+    enabled: boolean;
+    role: "edit" | "view";
+    linkToken: string;
+    accessCode?: string;
+    maxCollaborators: number;
+  }>().default({
+    enabled: false,
+    role: "view",
+    linkToken: "",
+    maxCollaborators: 10
+  }),
   status: text("status").notNull().default("draft"), // draft, generating, completed, failed
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -37,6 +49,31 @@ export const catalogs = pgTable("catalogs", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Collaboration tables
+export const presences = pgTable("presences", {
+  id: serial("id").primaryKey(),
+  canvasId: integer("canvas_id").references(() => campaigns.id).notNull(),
+  userId: text("user_id"), // null for anonymous users
+  ephemeralId: text("ephemeral_id").notNull(),
+  displayName: text("display_name").notNull(),
+  color: text("color").notNull(),
+  cursor: jsonb("cursor").$type<{ x: number; y: number }>(),
+  selection: text("selection"), // selected card/element ID
+  status: text("status").notNull().default("online"), // online, offline, reconnecting
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
+  lastPingAt: timestamp("last_ping_at").defaultNow().notNull(),
+});
+
+export const collaborationSessions = pgTable("collaboration_sessions", {
+  id: serial("id").primaryKey(),
+  canvasId: integer("canvas_id").references(() => campaigns.id).notNull(),
+  ephemeralId: text("ephemeral_id").notNull(),
+  userId: text("user_id"), // null for anonymous users
+  ipHash: text("ip_hash").notNull(),
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
+  leftAt: timestamp("left_at"),
+});
+
 export type GeneratedAsset = {
   id?: string;
   type: 'image' | 'video' | 'copy' | 'pdf' | 'slides' | 'landing' | 'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'email' | 'ads' | 'blog' | 'youtube' | 'press' | 'config';
@@ -49,6 +86,9 @@ export type GeneratedAsset = {
   imagePrompt?: string;
   position?: { x: number; y: number };
   size?: { width: number; height: number };
+  version?: number;
+  lockedBy?: string; // ephemeralId of user editing
+  lockedAt?: string; // timestamp
 };
 
 export const insertCampaignSchema = createInsertSchema(campaigns).omit({
@@ -70,6 +110,33 @@ export const insertCatalogSchema = createInsertSchema(catalogs).omit({
   createdAt: true,
   shareableLink: true,
 });
+
+// TypeScript types for collaboration
+export type Presence = typeof presences.$inferSelect;
+export type InsertPresence = typeof presences.$inferInsert;
+export type CollaborationSession = typeof collaborationSessions.$inferSelect;
+export type InsertCollaborationSession = typeof collaborationSessions.$inferInsert;
+
+export interface LiveCursor {
+  x: number;
+  y: number;
+  ephemeralId: string;
+  displayName: string;
+  color: string;
+}
+
+export interface CollaborationState {
+  presences: Presence[];
+  currentUserCount: number;
+  maxCollaborators: number;
+  shareSettings: {
+    enabled: boolean;
+    role: "edit" | "view";
+    linkToken: string;
+    accessCode?: string;
+    maxCollaborators: number;
+  };
+}
 
 // Session storage table for authentication
 export const sessions = pgTable(

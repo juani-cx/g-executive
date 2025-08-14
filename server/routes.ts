@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertCampaignSchema, insertCatalogSchema, insertCatalogProductSchema, type GeneratedAsset } from "@shared/schema";
 import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign } from "./services/openai";
+import { CollaborationService } from "./services/collaboration";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,6 +13,9 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  const httpServer = createServer(app);
+  const collaborationService = new CollaborationService(httpServer);
   
   // Campaign routes
   app.post("/api/campaigns", async (req, res) => {
@@ -475,6 +479,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
+  // Collaboration routes
+  app.post("/api/campaigns/:id/share", async (req, res) => {
+    try {
+      const canvasId = parseInt(req.params.id);
+      const { enabled, role, maxCollaborators, accessCode } = req.body;
+      
+      let linkToken = "";
+      if (enabled) {
+        linkToken = await collaborationService.generateShareLink(canvasId);
+      }
+
+      const shareSettings = {
+        enabled,
+        role: role || "view",
+        linkToken,
+        maxCollaborators: maxCollaborators || 10,
+        ...(accessCode && { accessCode })
+      };
+
+      const campaign = await storage.updateCampaignShareSettings(canvasId, shareSettings);
+      if (!campaign) {
+        return res.status(404).json({ message: "Campaign not found" });
+      }
+
+      res.json({ 
+        success: true, 
+        shareUrl: enabled ? `${req.protocol}://${req.get('host')}/canvas/${canvasId}?token=${linkToken}` : null,
+        shareSettings 
+      });
+    } catch (error) {
+      console.error('Error updating share settings:', error);
+      res.status(500).json({ message: "Failed to update share settings" });
+    }
+  });
+
+  app.get("/api/campaigns/:id/collaboration", async (req, res) => {
+    try {
+      const canvasId = parseInt(req.params.id);
+      const state = await collaborationService.getCollaborationState(canvasId);
+      res.json(state);
+    } catch (error) {
+      console.error('Error getting collaboration state:', error);
+      res.status(500).json({ message: "Failed to get collaboration state" });
+    }
+  });
+
   return httpServer;
 }

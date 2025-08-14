@@ -1,6 +1,6 @@
-import { campaigns, catalogs, catalogProducts, type Campaign, type InsertCampaign, type Catalog, type InsertCatalog, type CatalogProduct, type InsertCatalogProduct, type GeneratedAsset } from "@shared/schema";
+import { campaigns, catalogs, catalogProducts, presences, collaborationSessions, type Campaign, type InsertCampaign, type Catalog, type InsertCatalog, type CatalogProduct, type InsertCatalogProduct, type GeneratedAsset, type Presence, type InsertPresence, type CollaborationSession, type InsertCollaborationSession } from "@shared/schema";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 export interface IStorage {
   // Campaign methods
@@ -21,6 +21,16 @@ export interface IStorage {
   updateCatalogProduct(id: number, updates: Partial<CatalogProduct>): Promise<CatalogProduct | undefined>;
   getCatalogProducts(catalogId: number): Promise<CatalogProduct[]>;
   deleteCatalogProduct(id: number): Promise<boolean>;
+
+  // Collaboration methods
+  createPresence(presence: InsertPresence): Promise<Presence>;
+  updatePresence(ephemeralId: string, updates: Partial<Presence>): Promise<Presence | undefined>;
+  removePresence(ephemeralId: string): Promise<boolean>;
+  getCanvasPresences(canvasId: number): Promise<Presence[]>;
+  createCollaborationSession(session: InsertCollaborationSession): Promise<CollaborationSession>;
+  updateCampaignShareSettings(canvasId: number, settings: Partial<any>): Promise<Campaign | undefined>;
+  lockCard(canvasId: number, cardId: string, ephemeralId: string): Promise<boolean>;
+  unlockCard(canvasId: number, cardId: string, ephemeralId: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -105,6 +115,95 @@ export class DatabaseStorage implements IStorage {
   async deleteCatalogProduct(id: number): Promise<boolean> {
     const result = await db.delete(catalogProducts).where(eq(catalogProducts.id, id));
     return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  // Collaboration methods
+  async createPresence(insertPresence: InsertPresence): Promise<Presence> {
+    const [presence] = await db
+      .insert(presences)
+      .values(insertPresence)
+      .returning();
+    return presence;
+  }
+
+  async updatePresence(ephemeralId: string, updates: Partial<Presence>): Promise<Presence | undefined> {
+    const [presence] = await db
+      .update(presences)
+      .set(updates)
+      .where(eq(presences.ephemeralId, ephemeralId))
+      .returning();
+    return presence || undefined;
+  }
+
+  async removePresence(ephemeralId: string): Promise<boolean> {
+    const result = await db.delete(presences).where(eq(presences.ephemeralId, ephemeralId));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  async getCanvasPresences(canvasId: number): Promise<Presence[]> {
+    return await db.select().from(presences).where(eq(presences.canvasId, canvasId));
+  }
+
+  async createCollaborationSession(insertSession: InsertCollaborationSession): Promise<CollaborationSession> {
+    const [session] = await db
+      .insert(collaborationSessions)
+      .values(insertSession)
+      .returning();
+    return session;
+  }
+
+  async updateCampaignShareSettings(canvasId: number, settings: Partial<any>): Promise<Campaign | undefined> {
+    const campaign = await this.getCampaign(canvasId);
+    if (!campaign) return undefined;
+
+    const updatedShareSettings = { ...campaign.shareSettings, ...settings };
+    const [updatedCampaign] = await db
+      .update(campaigns)
+      .set({ shareSettings: updatedShareSettings })
+      .where(eq(campaigns.id, canvasId))
+      .returning();
+    return updatedCampaign || undefined;
+  }
+
+  async lockCard(canvasId: number, cardId: string, ephemeralId: string): Promise<boolean> {
+    try {
+      const campaign = await this.getCampaign(canvasId);
+      if (!campaign || !campaign.generatedAssets) return false;
+
+      const updatedAssets = campaign.generatedAssets.map((asset: any) => {
+        if (asset.id === cardId) {
+          return { ...asset, lockedBy: ephemeralId, lockedAt: new Date().toISOString() };
+        }
+        return asset;
+      });
+
+      await this.updateCampaign(canvasId, { generatedAssets: updatedAssets });
+      return true;
+    } catch (error) {
+      console.error("Error locking card:", error);
+      return false;
+    }
+  }
+
+  async unlockCard(canvasId: number, cardId: string, ephemeralId: string): Promise<boolean> {
+    try {
+      const campaign = await this.getCampaign(canvasId);
+      if (!campaign || !campaign.generatedAssets) return false;
+
+      const updatedAssets = campaign.generatedAssets.map((asset: any) => {
+        if (asset.id === cardId && asset.lockedBy === ephemeralId) {
+          const { lockedBy, lockedAt, ...assetWithoutLock } = asset;
+          return assetWithoutLock;
+        }
+        return asset;
+      });
+
+      await this.updateCampaign(canvasId, { generatedAssets: updatedAssets });
+      return true;
+    } catch (error) {
+      console.error("Error unlocking card:", error);
+      return false;
+    }
   }
 }
 
