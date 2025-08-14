@@ -830,7 +830,7 @@ export default function CanvasView() {
             <img 
               src="/google-logo.png" 
               alt="Google" 
-              className="h-6 w-auto"
+              className="h-8 w-auto"
             />
 
             {/* Project Title */}
