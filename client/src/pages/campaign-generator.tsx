@@ -450,13 +450,16 @@ export default function CampaignGenerator() {
                     playsInline
                     className="w-48 h-48 object-contain opacity-90"
                     onError={(e) => {
+                      console.error('Video failed to load:', e);
                       // Hide video and show fallback if it fails to load
                       e.currentTarget.style.display = 'none';
                       const fallback = e.currentTarget.nextElementSibling as HTMLElement;
                       if (fallback) fallback.style.display = 'flex';
                     }}
+                    onLoadStart={() => console.log('Video loading started')}
+                    onCanPlay={() => console.log('Video can play')}
                   >
-                    <source src="/attached_assets/isoG_1755148542335.mp4" type="video/mp4" />
+                    <source src="/loading-animation.mp4" type="video/mp4" />
                   </video>
                   {/* Fallback animation if video doesn't load */}
                   <div className="w-48 h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center hidden">
