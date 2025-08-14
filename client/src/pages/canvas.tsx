@@ -170,6 +170,8 @@ export default function CanvasView() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [draggedCard, setDraggedCard] = useState<string | null>(null);
   const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
+  const [draggedElement, setDraggedElement] = useState<string | null>(null);
+  const [elementDragStart, setElementDragStart] = useState({ x: 0, y: 0 });
 
   // Helper function to generate unique IDs
   const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -307,6 +309,52 @@ export default function CanvasView() {
     setCanvasElements(elements => elements.filter(el => el.id !== id));
   };
 
+  // Handle element mouse down for dragging
+  const handleElementMouseDown = (e: React.MouseEvent, elementId: string) => {
+    if (tool !== "select") return;
+    
+    e.stopPropagation();
+    setDraggedElement(elementId);
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const element = canvasElements.find(el => el.id === elementId);
+    if (!element) return;
+    
+    const mouseX = (e.clientX - rect.left - viewport.x) / viewport.zoom;
+    const mouseY = (e.clientY - rect.top - viewport.y) / viewport.zoom;
+    
+    setElementDragStart({
+      x: mouseX - element.position.x,
+      y: mouseY - element.position.y
+    });
+  };
+
+  // Handle element dragging
+  const handleElementDrag = (e: React.MouseEvent) => {
+    if (!draggedElement) return;
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const mouseX = (e.clientX - rect.left - viewport.x) / viewport.zoom;
+    const mouseY = (e.clientY - rect.top - viewport.y) / viewport.zoom;
+    
+    const newX = mouseX - elementDragStart.x;
+    const newY = mouseY - elementDragStart.y;
+    
+    updateElement(draggedElement, {
+      position: { x: newX, y: newY }
+    });
+  };
+
+  // Handle element mouse up
+  const handleElementMouseUp = () => {
+    setDraggedElement(null);
+    setElementDragStart({ x: 0, y: 0 });
+  };
+
   // Initialize project from prompt
   useEffect(() => {
     const prompt = localStorage.getItem('campaignPrompt');
@@ -394,11 +442,16 @@ export default function CanvasView() {
       
       setCardDragStart({ x: e.clientX, y: e.clientY });
     }
+
+    if (draggedElement) {
+      handleElementDrag(e);
+    }
   };
 
   const handleCanvasMouseUp = () => {
     setIsDragging(false);
     setDraggedCard(null);
+    handleElementMouseUp();
   };
 
   const handleCardMouseDown = (e: React.MouseEvent, cardId: string) => {
@@ -482,11 +535,59 @@ export default function CanvasView() {
 
   if (!project) {
     return (
-      <div className="min-h-screen relative flex items-center justify-center">
+      <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
         <GlassBackground />
-        <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-glass-text-primary" />
-          <p className="text-glass-text-secondary">Loading project...</p>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Floating circles */}
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-100 rounded-full opacity-60 animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 bg-purple-100 rounded-full opacity-40 animate-bounce"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-20 h-20 bg-green-100 rounded-full opacity-50 animate-ping"></div>
+          
+          {/* Floating shapes */}
+          <div className="absolute top-1/2 left-1/6 w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-300 transform rotate-45 opacity-30 animate-pulse"></div>
+          <div className="absolute bottom-1/3 right-1/6 w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-lg opacity-40 animate-bounce"></div>
+        </div>
+
+        {/* Central Loading Content */}
+        <div className="text-center space-y-6 z-10 relative">
+          {/* Creative Loading Animation */}
+          <div className="relative">
+            <div className="w-20 h-20 mx-auto relative">
+              {/* Central dot */}
+              <div className="absolute inset-1/2 w-2 h-2 bg-blue-600 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+              
+              {/* Orbiting elements */}
+              <div className="absolute inset-0 animate-spin">
+                <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1/2"></div>
+              </div>
+              <div className="absolute inset-0 animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }}>
+                <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-purple-500 rounded-full transform -translate-x-1/2"></div>
+              </div>
+              <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2s' }}>
+                <div className="absolute top-1/2 right-0 w-1.5 h-1.5 bg-green-500 rounded-full transform -translate-y-1/2"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-xl font-semibold text-glass-text-primary">Preparing Canvas</h3>
+            <p className="text-glass-text-secondary">Setting up your creative workspace...</p>
+          </div>
+
+          {/* Loading Steps */}
+          <div className="flex items-center justify-center space-x-2">
+            <div className="flex space-x-1">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+                  style={{ animationDelay: `${i * 0.3}s` }}
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -714,7 +815,9 @@ export default function CanvasView() {
           {canvasElements.map((element) => (
             <div
               key={element.id}
-              className="absolute"
+              className={`absolute ${tool === "select" ? "cursor-move" : "cursor-pointer"} ${
+                draggedElement === element.id ? "shadow-2xl scale-105 z-50" : ""
+              }`}
               style={{
                 left: element.position.x,
                 top: element.position.y,
@@ -723,17 +826,22 @@ export default function CanvasView() {
                 transform: element.rotation ? `rotate(${element.rotation}deg)` : undefined,
                 zIndex: element.zIndex || 0,
               }}
+              onMouseDown={(e) => handleElementMouseDown(e, element.id)}
             >
               {element.type === "text" && (
                 <div
-                  className="w-full h-full flex items-center justify-center cursor-pointer border border-transparent hover:border-blue-300 rounded"
+                  className="w-full h-full flex items-center justify-center border border-transparent hover:border-blue-300 rounded transition-all duration-200"
                   style={{
                     fontSize: element.content.fontSize || 16,
                     fontFamily: element.content.fontFamily || "Arial",
                     color: element.content.color || "#000000",
                     backgroundColor: element.content.backgroundColor || "transparent",
+                    cursor: tool === "select" ? "move" : "pointer",
                   }}
-                  onDoubleClick={() => setEditingText(element.id)}
+                  onDoubleClick={(e) => {
+                    e.stopPropagation();
+                    setEditingText(element.id);
+                  }}
                 >
                   {editingText === element.id ? (
                     <input
@@ -754,7 +862,10 @@ export default function CanvasView() {
               )}
 
               {element.type === "shape" && (
-                <div className="w-full h-full cursor-pointer">
+                <div 
+                  className="w-full h-full transition-all duration-200 hover:scale-105"
+                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
+                >
                   {element.content.shapeType === "rectangle" && (
                     <div
                       className="w-full h-full rounded border-2"
@@ -787,7 +898,10 @@ export default function CanvasView() {
               )}
 
               {element.type === "image" && (
-                <div className="w-full h-full cursor-pointer">
+                <div 
+                  className="w-full h-full transition-all duration-200 hover:scale-105"
+                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
+                >
                   {element.content.imageUrl ? (
                     <img
                       src={element.content.imageUrl}
@@ -803,7 +917,10 @@ export default function CanvasView() {
               )}
 
               {element.type === "comment" && (
-                <div className="w-full h-full">
+                <div 
+                  className="w-full h-full"
+                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
+                >
                   <div className="bg-yellow-100 border-l-4 border-yellow-400 p-2 rounded shadow-sm">
                     {activeComment === element.id ? (
                       <div>
