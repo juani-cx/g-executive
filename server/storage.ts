@@ -119,6 +119,26 @@ export class DatabaseStorage implements IStorage {
 
   // Collaboration methods
   async createPresence(insertPresence: InsertPresence): Promise<Presence> {
+    // First try to find existing presence by ephemeralId
+    const [existingPresence] = await db
+      .select()
+      .from(presences)
+      .where(eq(presences.ephemeralId, insertPresence.ephemeralId));
+    
+    if (existingPresence) {
+      // Update existing presence
+      const [updatedPresence] = await db
+        .update(presences)
+        .set({
+          ...insertPresence,
+          lastPingAt: new Date(),
+        })
+        .where(eq(presences.ephemeralId, insertPresence.ephemeralId))
+        .returning();
+      return updatedPresence;
+    }
+    
+    // Create new presence
     const [presence] = await db
       .insert(presences)
       .values(insertPresence)

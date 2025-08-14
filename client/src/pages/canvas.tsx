@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import ShareModal from "@/components/collaboration/share-modal";
 import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
+import CampaignConfigCard from "@/components/canvas/campaign-config-card";
 import { useCollaboration } from "@/hooks/useCollaboration";
 import { 
   Plus, 
@@ -1379,6 +1380,20 @@ export default function CanvasView() {
               </Card>
             );
           })}
+
+          {/* Campaign Configuration Card */}
+          {campaignData && typeof campaignData === 'object' && 'id' in campaignData && (
+            <div
+              className="absolute"
+              style={{
+                left: 600,
+                top: 100,
+                zIndex: 10,
+              }}
+            >
+              <CampaignConfigCard campaign={campaignData as any} />
+            </div>
+          )}
         </div>
 
         {/* Live Cursors */}
