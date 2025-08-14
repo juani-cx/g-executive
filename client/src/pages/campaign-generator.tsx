@@ -440,35 +440,40 @@ export default function CampaignGenerator() {
           <div className="text-center space-y-8">
             {/* Isometric Animation Container */}
             <div className="relative w-64 h-64 mx-auto">
-              {/* Main Cube */}
+              {/* Video Animation */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative">
-                  {/* Base cube with glassmorphism */}
-                  <div className="w-32 h-32 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/20 backdrop-blur-md rounded-2xl transform rotate-12 animate-pulse">
-                    <div className="absolute inset-4 bg-gradient-to-br from-purple-400/30 to-blue-400/30 rounded-xl"></div>
-                  </div>
-                  
-                  {/* Floating elements around the cube */}
-                  <div className="absolute -top-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/40 to-pink-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '0s'}}></div>
-                  <div className="absolute -top-6 right-0 w-8 h-8 bg-gradient-to-br from-blue-400/40 to-cyan-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '0.5s'}}></div>
-                  <div className="absolute -bottom-4 -right-6 w-10 h-10 bg-gradient-to-br from-green-400/40 to-emerald-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '1s'}}></div>
-                  <div className="absolute bottom-0 -left-4 w-6 h-6 bg-gradient-to-br from-yellow-400/40 to-orange-400/40 border border-white/30 backdrop-blur-sm rounded-lg animate-bounce" style={{animationDelay: '1.5s'}}></div>
-                  
-                  {/* Orbiting particles */}
-                  <div className="absolute inset-0 animate-spin" style={{animationDuration: '4s'}}>
-                    <div className="absolute -top-16 left-1/2 w-3 h-3 bg-white/60 rounded-full"></div>
-                    <div className="absolute top-1/2 -right-16 w-2 h-2 bg-purple-400/60 rounded-full"></div>
-                    <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-blue-400/60 rounded-full"></div>
-                    <div className="absolute top-1/2 -left-16 w-2 h-2 bg-cyan-400/60 rounded-full"></div>
-                  </div>
-                  
-                  {/* Central icon that rotates */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center animate-spin" style={{animationDuration: '2s'}}>
-                      <Brain className="w-8 h-8 text-white" />
-                    </div>
+                  <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="w-48 h-48 object-contain opacity-90"
+                    onError={(e) => {
+                      // Hide video and show fallback if it fails to load
+                      e.currentTarget.style.display = 'none';
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  >
+                    <source src="/attached_assets/isoG_1755148542335.mp4" type="video/mp4" />
+                  </video>
+                  {/* Fallback animation if video doesn't load */}
+                  <div className="w-48 h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center hidden">
+                    <Brain className="w-16 h-16 text-white animate-spin" />
                   </div>
                 </div>
+              </div>
+              
+              {/* Subtle glow effect around video */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-2xl animate-pulse"></div>
+              
+              {/* Orbiting particles around video */}
+              <div className="absolute inset-0 animate-spin" style={{animationDuration: '6s'}}>
+                <div className="absolute -top-16 left-1/2 w-3 h-3 bg-white/60 rounded-full"></div>
+                <div className="absolute top-1/2 -right-16 w-2 h-2 bg-purple-400/60 rounded-full"></div>
+                <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-blue-400/60 rounded-full"></div>
+                <div className="absolute top-1/2 -left-16 w-2 h-2 bg-cyan-400/60 rounded-full"></div>
               </div>
             </div>
             
