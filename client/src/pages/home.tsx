@@ -120,8 +120,8 @@ export default function Home() {
                       </Button>
                     </div>
 
-                    {/* Center: Attachment button */}
-                    <div>
+                    {/* Right: Attachment button and Generate designs button */}
+                    <div className="flex items-center space-x-2">
                       <Button
                         variant="ghost"
                         size="icon"
@@ -140,10 +140,7 @@ export default function Home() {
                           console.log('File selected:', e.target.files?.[0]);
                         }}
                       />
-                    </div>
-
-                    {/* Right: Generate designs button */}
-                    <div>
+                      
                       <Button 
                         className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm font-medium transition-all duration-200"
                         onClick={handleStartCampaign}
