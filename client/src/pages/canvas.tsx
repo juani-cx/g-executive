@@ -35,7 +35,13 @@ import {
   Circle,
   Triangle,
   X,
-  Check
+  Check,
+  Trash2,
+  Home,
+  Users,
+  Settings,
+  HelpCircle,
+  Archive
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -165,6 +171,8 @@ export default function CanvasView() {
   const [showGrid, setShowGrid] = useState(false);
   const [showMinimap, setShowMinimap] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
+  const [showMainMenu, setShowMainMenu] = useState(false);
+  const [isPanning, setIsPanning] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -312,6 +320,63 @@ export default function CanvasView() {
     setCanvasElements(elements => elements.filter(el => el.id !== id));
   };
 
+  // Delete card
+  const deleteCard = (cardId: string) => {
+    setProject(prev => prev ? {
+      ...prev,
+      assets: prev.assets.filter(asset => asset.id !== cardId)
+    } : null);
+  };
+
+  // Handle mouse wheel zoom
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    const newZoom = Math.min(Math.max(viewport.zoom * delta, 0.1), 5);
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    setViewport(prev => ({
+      ...prev,
+      zoom: newZoom,
+      x: centerX - (centerX - prev.x) * (newZoom / prev.zoom),
+      y: centerY - (centerY - prev.y) * (newZoom / prev.zoom)
+    }));
+  };
+
+  // Handle keyboard events for panning
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.code === 'Space' && !isPanning) {
+      e.preventDefault();
+      setIsPanning(true);
+      document.body.style.cursor = 'grab';
+    }
+  };
+
+  const handleKeyUp = (e: KeyboardEvent) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      setIsPanning(false);
+      document.body.style.cursor = 'default';
+    }
+  };
+
+  // Setup keyboard listeners
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+      document.body.style.cursor = 'default';
+    };
+  }, [isPanning]);
+
   // Handle element mouse down for dragging
   const handleElementMouseDown = (e: React.MouseEvent, elementId: string) => {
     if (tool !== "select") return;
@@ -457,12 +522,14 @@ export default function CanvasView() {
   }, [setLocation]);
 
   const handleCanvasMouseDown = (e: React.MouseEvent) => {
-    if (tool === "hand" || e.button === 1) { // Middle mouse button
+    if (isPanning || tool === "hand" || e.button === 1) { // Middle mouse button or spacebar panning
       setIsDragging(true);
       setDragStart({ 
         x: e.clientX - viewport.x, 
         y: e.clientY - viewport.y 
       });
+      document.body.style.cursor = 'grabbing';
+      return;
     }
   };
 
@@ -706,7 +773,12 @@ export default function CanvasView() {
         <div className="glass-elevated border-glass-border rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center space-x-4">
             {/* Menu Icon */}
-            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="w-8 h-8 p-0"
+              onClick={() => setShowMainMenu(true)}
+            >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="3" y1="6" x2="21" y2="6"/>
                 <line x1="3" y1="12" x2="21" y2="12"/>
@@ -887,11 +959,12 @@ export default function CanvasView() {
       <div
         ref={canvasRef}
         className="absolute inset-0 cursor-move overflow-hidden"
-        style={{ cursor: tool === "hand" ? "grab" : "default" }}
+        style={{ cursor: isPanning ? "grab" : tool === "hand" ? "grab" : "default" }}
         onMouseDown={handleCanvasMouseDown}
         onMouseMove={handleCanvasMouseMove}
         onMouseUp={handleCanvasMouseUp}
         onMouseLeave={handleCanvasMouseUp}
+        onWheel={handleWheel}
         onClick={handleCanvasClick}
       >
         {/* Grid */}
@@ -1130,6 +1203,13 @@ export default function CanvasView() {
                         <DropdownMenuItem>
                           <Download className="w-4 h-4 mr-2" />
                           Export
+                        </DropdownMenuItem>
+                        <DropdownMenuItem 
+                          onClick={() => deleteCard(asset.id)}
+                          className="text-red-600 hover:text-red-700"
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -1414,6 +1494,119 @@ export default function CanvasView() {
               >
                 Cancel
               </Button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Main Menu Dialog */}
+      <Sheet open={showMainMenu} onOpenChange={setShowMainMenu}>
+        <SheetContent side="left" className="w-[350px] glass-surface border-glass-border">
+          <SheetHeader>
+            <SheetTitle className="text-glass-text-primary flex items-center space-x-2">
+              <span className="text-xl font-bold text-gray-800">Google</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Marketer</span>
+            </SheetTitle>
+            <SheetDescription className="text-glass-text-secondary">
+              Navigation and project management
+            </SheetDescription>
+          </SheetHeader>
+          
+          <div className="space-y-6 mt-6">
+            {/* Navigation */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-glass-text-primary">Navigation</h3>
+              <div className="space-y-1">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => {
+                    setLocation('/');
+                    setShowMainMenu(false);
+                  }}
+                >
+                  <Home className="w-4 h-4 mr-3" />
+                  Home
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <FileText className="w-4 h-4 mr-3" />
+                  Campaigns
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Archive className="w-4 h-4 mr-3" />
+                  Catalogs
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Users className="w-4 h-4 mr-3" />
+                  Team Projects
+                </Button>
+              </div>
+            </div>
+
+            {/* Current Project */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-glass-text-primary">Current Project</h3>
+              <div className="p-3 glass-elevated border-glass-border rounded-lg">
+                <h4 className="font-medium text-glass-text-primary text-sm mb-1">
+                  {project?.title}
+                </h4>
+                <p className="text-xs text-glass-text-muted mb-2">
+                  {project?.assets?.length || 0} assets • Created {project?.createdAt?.toLocaleDateString()}
+                </p>
+                <div className="flex space-x-1">
+                  {project?.assets?.map(asset => (
+                    <div
+                      key={asset.id}
+                      className={`w-2 h-2 rounded-full ${
+                        asset.status === "ready" ? "bg-green-500" :
+                        asset.status === "generating" ? "bg-yellow-500" :
+                        "bg-red-500"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Canvas Tools */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-glass-text-primary">Canvas View</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    setViewport({ x: 0, y: 0, zoom: 1 });
+                    setShowMainMenu(false);
+                  }}
+                >
+                  <Maximize className="w-4 h-4 mr-1" />
+                  Fit View
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowGrid(!showGrid)}
+                >
+                  <Grid3X3 className="w-4 h-4 mr-1" />
+                  Grid
+                </Button>
+              </div>
+            </div>
+
+            {/* Settings */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-glass-text-primary">Settings</h3>
+              <div className="space-y-1">
+                <Button variant="ghost" className="w-full justify-start">
+                  <Settings className="w-4 h-4 mr-3" />
+                  Preferences
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <HelpCircle className="w-4 h-4 mr-3" />
+                  Help & Support
+                </Button>
+              </div>
             </div>
           </div>
         </SheetContent>
