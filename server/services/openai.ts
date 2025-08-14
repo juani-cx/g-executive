@@ -376,3 +376,88 @@ export async function generateImage(prompt: string): Promise<{ url: string }> {
     throw new Error("Failed to generate image: " + (error as Error).message);
   }
 }
+
+export async function generateCardDesign(cardType: string, prompt: string): Promise<{ content: string; imageUrl?: string }> {
+  console.log(`Generating ${cardType} design for prompt:`, prompt);
+  
+  try {
+    let designPrompt = "";
+    let shouldGenerateImage = false;
+
+    switch (cardType) {
+      case "slides":
+        designPrompt = `Create slide content for: ${prompt}. Include title, bullet points, and key messaging.`;
+        break;
+      case "landing":
+        designPrompt = `Create landing page content for: ${prompt}. Include headline, subheadline, key benefits, and call-to-action.`;
+        shouldGenerateImage = true;
+        break;
+      case "linkedin":
+        designPrompt = `Create LinkedIn post content for: ${prompt}. Include engaging copy, hashtags, and professional tone.`;
+        break;
+      case "instagram":
+        designPrompt = `Create Instagram post content for: ${prompt}. Include caption, hashtags, and visual description.`;
+        shouldGenerateImage = true;
+        break;
+      case "twitter":
+        designPrompt = `Create Twitter/X post content for: ${prompt}. Include engaging tweet under 280 characters and relevant hashtags.`;
+        break;
+      case "facebook":
+        designPrompt = `Create Facebook post content for: ${prompt}. Include engaging copy and call-to-action.`;
+        shouldGenerateImage = true;
+        break;
+      case "email":
+        designPrompt = `Create email campaign content for: ${prompt}. Include subject line, header, body content, and call-to-action.`;
+        break;
+      case "ads":
+        designPrompt = `Create ad copy and visual concept for: ${prompt}. Include headline, description, and visual elements.`;
+        shouldGenerateImage = true;
+        break;
+      case "blog":
+        designPrompt = `Create blog post outline and introduction for: ${prompt}. Include title, key points, and engaging introduction.`;
+        break;
+      case "youtube":
+        designPrompt = `Create YouTube video content for: ${prompt}. Include title, description, key points, and thumbnail concept.`;
+        shouldGenerateImage = true;
+        break;
+      default:
+        designPrompt = `Create marketing content for: ${prompt}`;
+    }
+
+    // Generate text content
+    const textResponse = await openai.chat.completions.create({
+      model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+      messages: [
+        {
+          role: "system",
+          content: "You are a creative marketing expert. Generate compelling, professional marketing content that is engaging and conversion-focused."
+        },
+        {
+          role: "user",
+          content: designPrompt
+        }
+      ],
+      max_tokens: 500,
+    });
+
+    const content = textResponse.choices[0].message.content || "";
+
+    // Generate image if needed
+    let imageUrl: string | undefined;
+    if (shouldGenerateImage) {
+      try {
+        const imagePrompt = `Professional marketing visual for ${cardType}: ${prompt}. Modern, clean design, high quality, brand-focused.`;
+        const imageResult = await generateImage(imagePrompt);
+        imageUrl = imageResult.url;
+      } catch (imageError) {
+        console.error("Error generating image for card:", imageError);
+        // Continue without image if generation fails
+      }
+    }
+
+    return { content, imageUrl };
+  } catch (error) {
+    console.error("Error generating card design:", error);
+    throw new Error(`Failed to generate ${cardType} design: ${(error as Error).message}`);
+  }
+}

@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertCampaignSchema, insertCatalogSchema, insertCatalogProductSchema, type GeneratedAsset } from "@shared/schema";
-import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage } from "./services/openai";
+import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign } from "./services/openai";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
@@ -268,6 +268,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Image proxy error:", error);
       res.status(500).json({ message: "Failed to proxy image" });
+    }
+  });
+
+  // Image generation endpoint for canvas tool
+  app.post("/api/generate-image", async (req, res) => {
+    try {
+      const { prompt } = req.body;
+      
+      if (!prompt) {
+        return res.status(400).json({ message: "Prompt is required" });
+      }
+
+      const result = await generateImage(prompt);
+      res.json(result);
+    } catch (error) {
+      console.error("Image generation error:", error);
+      res.status(500).json({ message: "Failed to generate image", error: (error as Error).message });
+    }
+  });
+
+  // Card design generation endpoint
+  app.post("/api/generate-card-design", async (req, res) => {
+    try {
+      const { cardType, prompt } = req.body;
+      
+      if (!cardType || !prompt) {
+        return res.status(400).json({ message: "Card type and prompt are required" });
+      }
+
+      const result = await generateCardDesign(cardType, prompt);
+      res.json(result);
+    } catch (error) {
+      console.error("Card design generation error:", error);
+      res.status(500).json({ message: "Failed to generate card design", error: (error as Error).message });
     }
   });
 

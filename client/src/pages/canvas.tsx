@@ -254,11 +254,14 @@ export default function CanvasView() {
           id: generateId(),
           type: "image",
           content: {
-            imageUrl: data.imageUrl,
-            imagePrompt: prompt
+            imageUrl: data.url, // The API returns { url: "..." }
+            altText: prompt
           },
-          position: { x: 300, y: 300 },
-          size: { width: 256, height: 256 },
+          position: { 
+            x: -viewport.x / viewport.zoom + 200, 
+            y: -viewport.y / viewport.zoom + 200 
+          },
+          size: { width: 300, height: 300 },
           rotation: 0,
           zIndex: canvasElements.length
         };
@@ -372,26 +375,77 @@ export default function CanvasView() {
       };
       setProject(newProject);
       
-      // Simulate card generation with staggered completion
+      // Generate actual designs for each card using OpenAI
       setTimeout(() => {
-        DEFAULT_CARDS.forEach((_, index) => {
-          setTimeout(() => {
-            setProject(prev => prev ? {
-              ...prev,
-              assets: prev.assets.map(asset => 
-                asset.id === `card-${index}` 
-                  ? { 
-                      ...asset, 
-                      status: "ready" as const,
-                      content: {
-                        preview: `Generated ${asset.type} content`,
-                        text: `AI-generated content for ${asset.title} based on: "${prompt}"`,
+        DEFAULT_CARDS.forEach((cardTemplate, index) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch('/api/generate-card-design', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  cardType: cardTemplate.type, 
+                  prompt: prompt 
+                })
+              });
+              
+              if (response.ok) {
+                const { content, imageUrl } = await response.json();
+                
+                setProject(prev => prev ? {
+                  ...prev,
+                  assets: prev.assets.map(asset => 
+                    asset.id === `card-${index}` 
+                      ? { 
+                          ...asset, 
+                          status: "ready" as const,
+                          content: {
+                            preview: content.substring(0, 100) + '...',
+                            text: content,
+                            imageUrl: imageUrl
+                          }
+                        }
+                      : asset
+                  )
+                } : null);
+              } else {
+                // Fallback if generation fails
+                setProject(prev => prev ? {
+                  ...prev,
+                  assets: prev.assets.map(asset => 
+                    asset.id === `card-${index}` 
+                      ? { 
+                          ...asset, 
+                          status: "ready" as const,
+                          content: {
+                            preview: `Generated ${asset.type} content`,
+                            text: `AI-generated content for ${asset.title} based on: "${prompt}"`,
+                          }
+                        }
+                      : asset
+                  )
+                } : null);
+              }
+            } catch (error) {
+              console.error(`Error generating ${cardTemplate.type} design:`, error);
+              // Fallback content
+              setProject(prev => prev ? {
+                ...prev,
+                assets: prev.assets.map(asset => 
+                  asset.id === `card-${index}` 
+                    ? { 
+                        ...asset, 
+                        status: "ready" as const,
+                        content: {
+                          preview: `Generated ${asset.type} content`,
+                          text: `AI-generated content for ${asset.title} based on: "${prompt}"`,
+                        }
                       }
-                    }
-                  : asset
-              )
-            } : null);
-          }, (index + 1) * 2000);
+                    : asset
+                )
+              } : null);
+            }
+          }, (index + 1) * 3000); // Stagger by 3 seconds to avoid rate limits
         });
       }, 500);
       
@@ -496,24 +550,75 @@ export default function CanvasView() {
       assets: [...prev.assets, newCard]
     } : null);
 
-    // Simulate generation
-    setTimeout(() => {
-      setProject(prev => prev ? {
-        ...prev,
-        assets: prev.assets.map(asset => 
-          asset.id === newCard.id 
-            ? { 
-                ...asset, 
-                status: "ready" as const,
-                content: {
-                  preview: `Generated ${type} content`,
-                  text: `AI-generated ${type} content based on: "${prev.prompt}"`,
+    // Generate actual design content
+    setTimeout(async () => {
+      try {
+        const response = await fetch('/api/generate-card-design', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            cardType: type, 
+            prompt: project?.prompt || "marketing campaign" 
+          })
+        });
+        
+        if (response.ok) {
+          const { content, imageUrl } = await response.json();
+          
+          setProject(prev => prev ? {
+            ...prev,
+            assets: prev.assets.map(asset => 
+              asset.id === newCard.id 
+                ? { 
+                    ...asset, 
+                    status: "ready" as const,
+                    content: {
+                      preview: content.substring(0, 100) + '...',
+                      text: content,
+                      imageUrl: imageUrl
+                    }
+                  }
+                : asset
+            )
+          } : null);
+        } else {
+          // Fallback
+          setProject(prev => prev ? {
+            ...prev,
+            assets: prev.assets.map(asset => 
+              asset.id === newCard.id 
+                ? { 
+                    ...asset, 
+                    status: "ready" as const,
+                    content: {
+                      preview: `Generated ${type} content`,
+                      text: `AI-generated ${type} content based on: "${prev?.prompt || "marketing campaign"}"`,
+                    }
+                  }
+                : asset
+            )
+          } : null);
+        }
+      } catch (error) {
+        console.error(`Error generating ${type} design:`, error);
+        // Fallback
+        setProject(prev => prev ? {
+          ...prev,
+          assets: prev.assets.map(asset => 
+            asset.id === newCard.id 
+              ? { 
+                  ...asset, 
+                  status: "ready" as const,
+                  content: {
+                    preview: `Generated ${type} content`,
+                    text: `AI-generated ${type} content`,
+                  }
                 }
-              }
-            : asset
-        )
-      } : null);
-    }, 3000);
+              : asset
+          )
+        } : null);
+      }
+    }, 2000);
   };
 
   const getCardIcon = (type: AssetCard['type']) => {
