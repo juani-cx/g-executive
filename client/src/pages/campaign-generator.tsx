@@ -109,8 +109,7 @@ export default function CampaignGenerator() {
   const handleCreateCampaign = () => {
     const campaignData = {
       ...config,
-      sourceImage: uploadedImage ? imagePreview : null,
-      createdAt: new Date().toISOString()
+      sourceImage: uploadedImage ? imagePreview : null
     };
     createCampaignMutation.mutate(campaignData);
   };
