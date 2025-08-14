@@ -75,7 +75,7 @@ export default function MaterialHeader({
             {/* Right side - Action Button and Profile */}
             <div className="flex items-center space-x-4">
               <Link href="/campaign-generator">
-                <Button className="bg-[#694FE8] hover:bg-[#5A42C7] text-white rounded-full px-4 py-2 text-sm font-bold transition-all duration-200 shadow-lg" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+                <Button className="bg-[#694FE8] hover:bg-[#5A42C7] text-white rounded-full px-4 py-2 text-sm transition-all duration-200 shadow-lg font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>
                   New Campaign
                 </Button>
               </Link>
