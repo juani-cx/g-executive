@@ -38,11 +38,12 @@ Login design: 2-column layout with form on left, solid background on right for f
 ## Key Components
 
 ### Canvas-Based Creation Workspace (Primary - August 2025)
-- **Purpose**: Instant AI asset generation in an interactive, infinite canvas environment
-- **Features**: Auto-generates 4 default cards (Slides, Landing Page, LinkedIn, Instagram), pan/zoom navigation, drag-to-arrange, real-time editing
+- **Purpose**: Instant AI asset generation in an interactive, infinite canvas environment with real-time collaboration
+- **Features**: Auto-generates 4 default cards (Slides, Landing Page, LinkedIn, Instagram), pan/zoom navigation, drag-to-arrange, real-time editing, live cursors, presence indicators
 - **Workflow**: Prompt → Instant redirect to canvas → Assets appear as editable cards with live generation status
-- **Tools**: Add Card templates, AI prompt editing, manual editing, export options, version control
-- **Architecture**: Unified workflow for both quick creation and campaign generation
+- **Tools**: Add Card templates, AI prompt editing, manual editing, export options, version control, share & collaborate
+- **Architecture**: Unified workflow for both quick creation and campaign generation with WebSocket-based collaboration
+- **Collaboration**: Real-time presence awareness, live cursors, sharing with access control, card locking system
 
 ### Campaign Generator (Redesigned - August 2025)
 - **Purpose**: Comprehensive campaign configuration with direct canvas creation

@@ -337,7 +337,7 @@ export default function CanvasView() {
           type: "image",
           content: {
             imageUrl: data.url, // The API returns { url: "..." }
-            altText: prompt
+            imagePrompt: prompt
           },
           position: { 
             x: -viewport.x / viewport.zoom + 200, 
@@ -500,14 +500,15 @@ export default function CanvasView() {
   // Initialize project from prompt or campaign data
   useEffect(() => {
     // If we have campaign data, use it
-    if (campaignData) {
+    if (campaignData && typeof campaignData === 'object' && 'id' in campaignData) {
+      const campaign = campaignData as any; // Type assertion for campaign data
       const newProject: Project = {
-        id: campaignData.id.toString(),
-        title: campaignData.name,
-        prompt: campaignData.name + ' - ' + (campaignData.campaignFocus || 'Campaign'),
-        createdAt: new Date(campaignData.createdAt),
-        assets: campaignData.generatedAssets?.length > 0 
-          ? campaignData.generatedAssets.map((asset: any) => ({
+        id: campaign.id.toString(),
+        title: campaign.name,
+        prompt: campaign.name + ' - ' + (campaign.campaignFocus || 'Campaign'),
+        createdAt: new Date(campaign.createdAt),
+        assets: campaign.generatedAssets?.length > 0 
+          ? campaign.generatedAssets.map((asset: any) => ({
               id: asset.id || generateId(),
               type: asset.type,
               title: asset.title,
