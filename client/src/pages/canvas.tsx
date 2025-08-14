@@ -827,21 +827,11 @@ export default function CanvasView() {
             </Button>
 
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <img 
-                src="/google-logo.png" 
-                alt="Google" 
-                className="h-6 w-auto"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Campaign AI</span>
-            </div>
-
-            {/* Status Indicator */}
-            <div className="flex items-center space-x-1">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
+            <img 
+              src="/google-logo.png" 
+              alt="Google" 
+              className="h-6 w-auto"
+            />
 
             {/* Project Title */}
             <span className="text-glass-text-primary font-medium">{project?.prompt || project?.title || "New Campaign"}</span>
