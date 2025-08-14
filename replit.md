@@ -37,18 +37,19 @@ Login design: 2-column layout with form on left, solid background on right for f
 
 ## Key Components
 
-### Canvas-Based Creation Workspace (New - August 2025)
+### Canvas-Based Creation Workspace (Primary - August 2025)
 - **Purpose**: Instant AI asset generation in an interactive, infinite canvas environment
 - **Features**: Auto-generates 4 default cards (Slides, Landing Page, LinkedIn, Instagram), pan/zoom navigation, drag-to-arrange, real-time editing
 - **Workflow**: Prompt → Instant redirect to canvas → Assets appear as editable cards with live generation status
 - **Tools**: Add Card templates, AI prompt editing, manual editing, export options, version control
-- **Architecture**: Replaces traditional preview-confirmation flow with immediate workspace access
+- **Architecture**: Unified workflow for both quick creation and campaign generation
 
-### Campaign Generator (Legacy)
-- **Purpose**: Transform uploaded images into visual marketing campaigns with AI-generated images
-- **Features**: Brand tone selection, platform targeting, DALL-E image generation, preview-first workflow
-- **Output**: Platform-specific marketing visuals, social media images, ad creatives, campaign banners
-- **Status**: Being phased out in favor of Canvas workflow
+### Campaign Generator (Redesigned - August 2025)
+- **Purpose**: Comprehensive campaign configuration with direct canvas creation
+- **Features**: Full campaign setup (brand tone, audience, goals, platforms, colors, budget, timeline), optional image upload, configuration card generation
+- **Workflow**: Configure campaign details → Create Campaign → Direct navigation to canvas with extra configuration card
+- **Output**: Canvas workspace with campaign assets plus dedicated configuration card for reference
+- **Status**: No more step-based workflow - direct canvas creation with enriched configuration
 
 ### Catalog Generator
 - **Purpose**: Enrich e-commerce product listings with AI-generated text content and metadata
@@ -67,7 +68,7 @@ Login design: 2-column layout with form on left, solid background on right for f
 
 ## Data Flow
 
-### Canvas-Based Workflow (Current)
+### Quick Creation Workflow (Homepage)
 1. **Prompt Entry**: Users enter marketing prompt on homepage with optional image attachment
 2. **Instant Redirect**: Direct navigation to Canvas view (no preview confirmation)
 3. **Skeleton Generation**: Four default asset cards appear immediately (< 200ms)
@@ -76,13 +77,13 @@ Login design: 2-column layout with form on left, solid background on right for f
 6. **Continuous Autosave**: All changes persist within 1s debounce to PostgreSQL
 7. **Export Options**: Per-card or bulk export in format-specific outputs
 
-### Legacy Workflow (Campaign Generator)
-1. **Image Upload**: Users upload images via drag-and-drop interface with validation
-2. **AI Analysis**: Images processed through OpenAI Vision API for content understanding
-3. **Asset Generation**: Based on brand tone and platform selection, AI generates marketing assets
-4. **Real-time Preview**: Generated content displayed with live editing capabilities
-5. **Finalization**: Assets compiled into downloadable formats and shareable links
-6. **Storage**: Campaign data persisted in PostgreSQL with JSON asset storage
+### Campaign Creation Workflow (Campaign Generator)
+1. **Configuration**: Comprehensive campaign setup including brand details, audience, goals, platforms, colors, and budget
+2. **Optional Upload**: Image attachment for campaign visual reference
+3. **Direct Creation**: "Create Campaign" button immediately creates campaign and navigates to canvas
+4. **Canvas Launch**: Opens canvas with 4 default asset cards + additional campaign configuration card
+5. **Enhanced Context**: Configuration card provides AI with rich context for better asset generation
+6. **Unified Management**: All campaigns and quick creations saved as cards on homepage for easy access
 
 ## External Dependencies
 

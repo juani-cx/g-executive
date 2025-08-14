@@ -18,6 +18,7 @@ function AuthenticatedRouter() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/canvas" component={CanvasView} />
+      <Route path="/canvas/:id" component={CanvasView} />
       <Route path="/campaign-generator" component={CampaignGenerator} />
       <Route path="/catalog-generator" component={CatalogGenerator} />
       <Route path="/output/:campaignId" component={OutputHub} />

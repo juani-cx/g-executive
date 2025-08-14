@@ -24,6 +24,77 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create campaign with direct canvas navigation
+  app.post("/api/create-campaign", async (req, res) => {
+    try {
+      const {
+        name,
+        description,
+        brandTone,
+        targetAudience,
+        campaignGoals,
+        budget,
+        timeline,
+        platforms,
+        primaryColor,
+        secondaryColor,
+        sourceImage,
+        createdAt
+      } = req.body;
+
+      // Create campaign record
+      const campaignData = {
+        name,
+        sourceImageUrl: sourceImage || null,
+        brandTone,
+        targetPlatforms: platforms || [],
+        campaignFocus: campaignGoals?.[0] || "Brand Awareness",
+        generatedAssets: [],
+        status: "active",
+        createdAt
+      };
+
+      const campaign = await storage.createCampaign(campaignData);
+
+      // Create campaign configuration card data
+      const configCard = {
+        id: `config-${campaign.id}`,
+        type: "config" as const,
+        title: "Campaign Configuration",
+        status: "ready" as const,
+        content: {
+          name,
+          description,
+          brandTone,
+          targetAudience,
+          campaignGoals,
+          budget,
+          timeline,
+          platforms,
+          primaryColor,
+          secondaryColor
+        },
+        position: { x: 100, y: 100 },
+        size: { width: 350, height: 400 }
+      };
+
+      // Store config as part of campaign
+      const updatedCampaign = await storage.updateCampaign(campaign.id, {
+        ...campaign,
+        generatedAssets: [configCard]
+      });
+
+      res.json({ 
+        id: campaign.id, 
+        campaign: updatedCampaign,
+        configCard 
+      });
+    } catch (error) {
+      console.error('Campaign creation error:', error);
+      res.status(500).json({ message: "Failed to create campaign", error: (error as Error).message });
+    }
+  });
+
   app.get("/api/campaigns", async (req, res) => {
     try {
       const campaigns = await storage.getAllCampaigns();

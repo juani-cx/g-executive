@@ -5,7 +5,7 @@ import { z } from "zod";
 export const campaigns = pgTable("campaigns", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
-  sourceImageUrl: text("source_image_url").notNull(),
+  sourceImageUrl: text("source_image_url"),
   brandTone: text("brand_tone").notNull(),
   targetPlatforms: jsonb("target_platforms").$type<string[]>().notNull(),
   campaignFocus: text("campaign_focus").notNull(),
@@ -38,13 +38,17 @@ export const catalogs = pgTable("catalogs", {
 });
 
 export type GeneratedAsset = {
-  type: 'image' | 'video' | 'copy' | 'pdf';
-  platform: string;
+  id?: string;
+  type: 'image' | 'video' | 'copy' | 'pdf' | 'slides' | 'landing' | 'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'email' | 'ads' | 'blog' | 'youtube' | 'press' | 'config';
+  platform?: string;
   title: string;
+  status?: 'generating' | 'ready' | 'error';
   url?: string;
-  content?: string;
+  content?: any;
   dimensions?: string;
   imagePrompt?: string;
+  position?: { x: number; y: number };
+  size?: { width: number; height: number };
 };
 
 export const insertCampaignSchema = createInsertSchema(campaigns).omit({

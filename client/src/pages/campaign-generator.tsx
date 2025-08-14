@@ -1,547 +1,435 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import ImageUpload from "@/components/image-upload";
-import AssetPreview from "@/components/asset-preview";
-import AIAssistant from "@/components/ai-assistant";
-import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
+import { 
+  Upload, 
+  Sparkles, 
+  FileText,
+  Target,
+  Palette,
+  Users,
+  Calendar,
+  DollarSign,
+  ArrowLeft,
+  Paperclip,
+  X
+} from "lucide-react";
+import { useLocation } from "wouter";
+import MaterialHeader from "@/components/material-header";
+import GlassBackground from "@/components/glass-background";
+import { MainMenu } from "@/components/main-menu";
+import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { CheckCircle, Sparkles, RefreshCw } from "lucide-react";
-import { type Campaign } from "@shared/schema";
 
-const BRAND_TONES = [
-  "Professional & Trustworthy",
-  "Innovative & Bold", 
-  "Friendly & Approachable",
-  "Luxury & Premium",
-  "Energetic & Dynamic"
-];
-
-const PLATFORMS = [
-  "Instagram",
-  "TikTok", 
-  "Facebook",
-  "LinkedIn"
-];
-
-const CAMPAIGN_FOCUS = [
-  "Brand Awareness",
-  "Lead Generation", 
-  "Product Launch"
-];
-
-interface CampaignFormData {
+interface CampaignConfig {
   name: string;
+  description: string;
   brandTone: string;
-  targetPlatforms: string[];
-  campaignFocus: string;
+  targetAudience: string;
+  campaignGoals: string[];
+  budget: string;
+  timeline: string;
+  platforms: string[];
+  primaryColor: string;
+  secondaryColor: string;
+  sourceImage?: File;
 }
 
 export default function CampaignGenerator() {
-  const [, setLocation] = useLocation();
-  const { toast } = useToast();
-  const [step, setStep] = useState(1);
-  const [uploadedImage, setUploadedImage] = useState<{ file: File; preview: string } | null>(null);
-  const [imageAnalysis, setImageAnalysis] = useState<any>(null);
-  const [formData, setFormData] = useState<CampaignFormData>({
+  const [, navigate] = useLocation();
+  const [showMainMenu, setShowMainMenu] = useState(false);
+  const [config, setConfig] = useState<CampaignConfig>({
     name: "",
+    description: "",
     brandTone: "",
-    targetPlatforms: [],
-    campaignFocus: ""
+    targetAudience: "",
+    campaignGoals: [],
+    budget: "",
+    timeline: "",
+    platforms: [],
+    primaryColor: "#6366f1",
+    secondaryColor: "#8b5cf6"
   });
-  const [currentCampaign, setCurrentCampaign] = useState<Campaign | null>(null);
-  const [previewAssets, setPreviewAssets] = useState<any[]>([]);
-  const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
 
-  // Image analysis mutation
-  const analyzeImageMutation = useMutation({
-    mutationFn: async (file: File) => {
-      const formDataObj = new FormData();
-      formDataObj.append('image', file);
-      
-      const response = await apiRequest('POST', '/api/analyze-image', formDataObj);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      setImageAnalysis(data);
-      if (data.suggestedTones?.length > 0) {
-        setFormData(prev => ({ ...prev, brandTone: data.suggestedTones[0] }));
-      }
-      setStep(2);
-    },
-    onError: (error) => {
-      toast({
-        title: "Analysis failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  });
-
-  // Preview generation mutation
-  const generatePreviewMutation = useMutation({
-    mutationFn: async (previewData: any) => {
-      const response = await apiRequest('POST', '/api/generate-preview', previewData);
-      return response.json();
-    },
-    onSuccess: (preview) => {
-      setPreviewAssets(preview.assets || []);
-      setStep(3);
-    },
-    onError: (error) => {
-      toast({
-        title: "Failed to generate preview",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  });
-
-  // Campaign creation mutation
   const createCampaignMutation = useMutation({
     mutationFn: async (campaignData: any) => {
-      const response = await apiRequest('POST', '/api/campaigns', campaignData);
-      return response.json();
+      const response = await apiRequest('POST', '/api/create-campaign', campaignData);
+      return await response.json();
     },
-    onSuccess: (campaign) => {
-      setCurrentCampaign(campaign);
-      setStep(4);
-      // Start final generation
-      generateCampaignMutation.mutate({
-        campaignId: campaign.id,
-        imageBase64: imageAnalysis.imageBase64,
-        ...formData
-      });
+    onSuccess: (data) => {
+      // Navigate to canvas with campaign ID
+      navigate(`/canvas/${data.id}`);
     },
     onError: (error) => {
-      toast({
-        title: "Failed to create campaign",
-        description: error.message,
-        variant: "destructive",
-      });
+      console.error('Failed to create campaign:', error);
     }
   });
 
-  // Campaign generation mutation
-  const generateCampaignMutation = useMutation({
-    mutationFn: async (generationData: any) => {
-      const response = await apiRequest('POST', '/api/generate-campaign', generationData);
-      return response.json();
-    },
-    onSuccess: (campaign) => {
-      setCurrentCampaign(campaign);
-      setStep(5);
-      toast({
-        title: "Campaign generated successfully!",
-        description: "Your AI-powered marketing campaign is ready.",
-      });
-      // Redirect to output hub
-      setTimeout(() => {
-        setLocation(`/output/${campaign.id}`);
-      }, 2000);
-    },
-    onError: (error) => {
-      toast({
-        title: "Generation failed", 
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  });
-
-  const handleImageUpload = (file: File, preview: string) => {
-    if (file && preview) {
-      setUploadedImage({ file, preview });
-      analyzeImageMutation.mutate(file);
-    } else {
-      setUploadedImage(null);
-      setImageAnalysis(null);
-      setStep(1);
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedImage(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImagePreview(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleFormSubmit = () => {
-    if (!formData.name || !formData.brandTone || !formData.campaignFocus || formData.targetPlatforms.length === 0) {
-      toast({
-        title: "Missing required fields",
-        description: "Please fill in all campaign configuration fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Generate preview first
-    generatePreviewMutation.mutate({
-      imageBase64: imageAnalysis.imageBase64,
-      brandTone: formData.brandTone,
-      targetPlatforms: formData.targetPlatforms,
-      campaignFocus: formData.campaignFocus
-    });
+  const removeImage = () => {
+    setUploadedImage(null);
+    setImagePreview("");
   };
 
-  const handleApproveAndGenerate = () => {
-    if (!imageAnalysis?.imageBase64) {
-      toast({
-        title: "Missing image data",
-        description: "Please re-upload your image and try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    createCampaignMutation.mutate({
-      name: formData.name,
-      sourceImageUrl: uploadedImage?.preview || '',
-      brandTone: formData.brandTone,
-      targetPlatforms: formData.targetPlatforms,
-      campaignFocus: formData.campaignFocus,
-      status: "draft"
-    });
+  const handleGoalToggle = (goal: string) => {
+    setConfig(prev => ({
+      ...prev,
+      campaignGoals: prev.campaignGoals.includes(goal)
+        ? prev.campaignGoals.filter(g => g !== goal)
+        : [...prev.campaignGoals, goal]
+    }));
   };
 
-  const getProgressValue = () => {
-    switch(step) {
-      case 1: return 20;
-      case 2: return 40;
-      case 3: return 60;
-      case 4: return 80;
-      case 5: return 100;
-      default: return 0;
-    }
+  const handlePlatformToggle = (platform: string) => {
+    setConfig(prev => ({
+      ...prev,
+      platforms: prev.platforms.includes(platform)
+        ? prev.platforms.filter(p => p !== platform)
+        : [...prev.platforms, platform]
+    }));
   };
+
+  const handleCreateCampaign = () => {
+    const campaignData = {
+      ...config,
+      sourceImage: uploadedImage ? imagePreview : null,
+      createdAt: new Date().toISOString()
+    };
+    createCampaignMutation.mutate(campaignData);
+  };
+
+  const isFormValid = config.name && config.description && config.brandTone && config.targetAudience;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-surface to-secondary/5">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        
-        {/* Progress Header */}
-        <Card className="shadow-lg border border-outline-variant mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-on-surface">Campaign Generation</h2>
-              <div className="flex items-center space-x-2 text-sm text-on-surface-variant">
-                <Sparkles className="text-primary w-4 h-4" />
-                <span>AI Assistant Active</span>
+    <div className="min-h-screen relative">
+      <GlassBackground />
+      <MaterialHeader onToggleMainMenu={() => setShowMainMenu(!showMainMenu)} />
+      
+      <div className="pt-24 pb-12">
+        <div className="max-w-4xl mx-auto px-6">
+          {/* Header */}
+          <div className="mb-8 flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => navigate("/")}
+                className="glass-surface hover:glass-elevated rounded-lg"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <div>
+                <h1 className="text-2xl font-bold text-glass-text-primary">New Campaign</h1>
+                <p className="text-glass-text-secondary">Configure your campaign and go directly to canvas</p>
               </div>
             </div>
-            
-            <div className="space-y-4">
-              <Progress value={getProgressValue()} className="w-full" />
-              <div className="flex items-center justify-between text-sm">
-                <div className={`flex items-center space-x-2 ${step >= 1 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 1 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  }`}>
-                    {step > 1 ? <CheckCircle className="w-4 h-4" /> : '1'}
-                  </div>
-                  <span>Upload</span>
-                </div>
-                <div className={`flex items-center space-x-2 ${step >= 2 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 2 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  } ${step === 2 ? 'animate-pulse-glow' : ''}`}>
-                    {step > 2 ? <CheckCircle className="w-4 h-4" /> : '2'}
-                  </div>
-                  <span>Configure</span>
-                </div>
-                <div className={`flex items-center space-x-2 ${step >= 3 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 3 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  } ${step === 3 ? 'animate-pulse-glow' : ''}`}>
-                    {step > 3 ? <CheckCircle className="w-4 h-4" /> : '3'}
-                  </div>
-                  <span>Generate</span>
-                </div>
-                <div className={`flex items-center space-x-2 ${step >= 3 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 3 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  } ${step === 3 ? 'animate-pulse-glow' : ''}`}>
-                    {step > 3 ? <CheckCircle className="w-4 h-4" /> : '3'}
-                  </div>
-                  <span>Preview</span>
-                </div>
-                <div className={`flex items-center space-x-2 ${step >= 4 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 4 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  } ${step === 4 ? 'animate-pulse-glow' : ''}`}>
-                    {step > 4 ? <CheckCircle className="w-4 h-4" /> : '4'}
-                  </div>
-                  <span>Generate</span>
-                </div>
-                <div className={`flex items-center space-x-2 ${step >= 5 ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= 5 ? 'bg-primary text-white' : 'bg-outline-variant text-on-surface-variant'
-                  }`}>
-                    {step >= 5 ? <CheckCircle className="w-4 h-4" /> : '5'}
-                  </div>
-                  <span>Export</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          
-          {/* Configuration Panel */}
-          <div className="lg:col-span-1 space-y-6">
-            
-            {/* Image Upload/Preview */}
-            <Card className="shadow-lg border border-outline-variant">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-on-surface mb-4">Source Image</h3>
-                <ImageUpload 
-                  onImageUpload={handleImageUpload}
-                  preview={uploadedImage?.preview}
-                />
-                {analyzeImageMutation.isPending && (
-                  <div className="mt-4 flex items-center space-x-2 text-sm text-on-surface-variant">
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Analyzing image...</span>
-                  </div>
-                )}
-                {imageAnalysis && (
-                  <div className="mt-4 p-3 bg-surface rounded-lg">
-                    <p className="text-sm text-on-surface-variant">{imageAnalysis.description}</p>
-                    {imageAnalysis.suggestedTones?.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs font-medium text-on-surface mb-1">Suggested tones:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {imageAnalysis.suggestedTones.map((tone: string, index: number) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              {tone}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Campaign Configuration */}
-            {step >= 2 && (
-              <Card className="shadow-lg border border-outline-variant">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-on-surface mb-4">Campaign Configuration</h3>
-                  
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="campaign-name" className="text-sm font-medium text-on-surface">Campaign Name</Label>
-                      <Input
-                        id="campaign-name"
-                        placeholder="Enter campaign name..."
-                        value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label className="text-sm font-medium text-on-surface">Brand Tone</Label>
-                      <Select 
-                        value={formData.brandTone} 
-                        onValueChange={(value) => setFormData(prev => ({ ...prev, brandTone: value }))}
-                      >
-                        <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Select brand tone" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {BRAND_TONES.map((tone) => (
-                            <SelectItem key={tone} value={tone}>{tone}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div>
-                      <Label className="text-sm font-medium text-on-surface mb-2 block">Target Platforms</Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {PLATFORMS.map((platform) => (
-                          <label key={platform} className="flex items-center space-x-2 p-3 border border-outline-variant rounded-xl cursor-pointer hover:bg-surface/50">
-                            <Checkbox 
-                              checked={formData.targetPlatforms.includes(platform)}
-                              onCheckedChange={(checked) => {
-                                if (checked) {
-                                  setFormData(prev => ({ 
-                                    ...prev, 
-                                    targetPlatforms: [...prev.targetPlatforms, platform] 
-                                  }));
-                                } else {
-                                  setFormData(prev => ({ 
-                                    ...prev, 
-                                    targetPlatforms: prev.targetPlatforms.filter(p => p !== platform) 
-                                  }));
-                                }
-                              }}
-                            />
-                            <span className="text-sm">{platform}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label className="text-sm font-medium text-on-surface mb-2 block">Campaign Focus</Label>
-                      <RadioGroup 
-                        value={formData.campaignFocus} 
-                        onValueChange={(value) => setFormData(prev => ({ ...prev, campaignFocus: value }))}
-                      >
-                        {CAMPAIGN_FOCUS.map((focus) => (
-                          <div key={focus} className="flex items-center space-x-2">
-                            <RadioGroupItem value={focus} id={focus} />
-                            <Label htmlFor={focus} className="text-sm">{focus}</Label>
-                          </div>
-                        ))}
-                      </RadioGroup>
-                    </div>
-                  </div>
-
-                  <Button 
-                    onClick={handleFormSubmit}
-                    disabled={generatePreviewMutation.isPending || step >= 3}
-                    className="w-full mt-6 bg-primary text-white hover:shadow-lg"
-                  >
-                    {generatePreviewMutation.isPending ? (
-                      <>
-                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                        Generating Preview...
-                      </>
-                    ) : (
-                      'Generate Preview'
-                    )}
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Preview Approval Step */}
-            {step === 3 && (
-              <Card className="shadow-lg border border-outline-variant">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-on-surface mb-4">Preview Assets</h3>
-                  <p className="text-sm text-on-surface-variant mb-4">
-                    Review the AI-generated content preview below. You can approve to create the final campaign or go back to modify settings.
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <Button 
-                      onClick={handleApproveAndGenerate}
-                      disabled={createCampaignMutation.isPending}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      {createCampaignMutation.isPending ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                          Creating Campaign...
-                        </>
-                      ) : (
-                        'Approve & Generate Final Campaign'
-                      )}
-                    </Button>
-                    
-                    <Button 
-                      onClick={() => setStep(2)}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      Back to Modify Settings
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
-          {/* AI Preview Canvas */}
-          <div className="lg:col-span-2">
-            <Card className="shadow-lg border border-outline-variant h-full">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-on-surface">AI Asset Preview</h3>
-                  {step === 3 && generateCampaignMutation.isPending && (
-                    <div className="flex items-center space-x-2">
-                      <RefreshCw className="text-primary w-4 h-4 animate-spin" />
-                      <span className="text-sm text-on-surface-variant">Generating...</span>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Configuration */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Basic Info */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <FileText className="w-5 h-5 mr-2" />
+                    Campaign Details
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label htmlFor="name" className="text-glass-text-primary">Campaign Name</Label>
+                    <Input
+                      id="name"
+                      value={config.name}
+                      onChange={(e) => setConfig(prev => ({...prev, name: e.target.value}))}
+                      placeholder="Enter campaign name"
+                      className="glass-surface border-glass-border text-glass-text-primary"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="description" className="text-glass-text-primary">Description</Label>
+                    <Textarea
+                      id="description"
+                      value={config.description}
+                      onChange={(e) => setConfig(prev => ({...prev, description: e.target.value}))}
+                      placeholder="Describe your campaign objectives and key messages"
+                      className="glass-surface border-glass-border text-glass-text-primary min-h-[100px]"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Brand & Audience */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Users className="w-5 h-5 mr-2" />
+                    Brand & Audience
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label className="text-glass-text-primary">Brand Tone</Label>
+                    <Select value={config.brandTone} onValueChange={(value) => setConfig(prev => ({...prev, brandTone: value}))}>
+                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
+                        <SelectValue placeholder="Select brand tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="professional">Professional</SelectItem>
+                        <SelectItem value="friendly">Friendly</SelectItem>
+                        <SelectItem value="bold">Bold</SelectItem>
+                        <SelectItem value="elegant">Elegant</SelectItem>
+                        <SelectItem value="playful">Playful</SelectItem>
+                        <SelectItem value="minimalist">Minimalist</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-glass-text-primary">Target Audience</Label>
+                    <Input
+                      value={config.targetAudience}
+                      onChange={(e) => setConfig(prev => ({...prev, targetAudience: e.target.value}))}
+                      placeholder="e.g., Tech professionals, 25-40 years old"
+                      className="glass-surface border-glass-border text-glass-text-primary"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Campaign Goals */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Target className="w-5 h-5 mr-2" />
+                    Campaign Goals
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    {["Brand Awareness", "Lead Generation", "Sales", "Engagement", "Traffic", "Conversions"].map((goal) => (
+                      <Button
+                        key={goal}
+                        variant={config.campaignGoals.includes(goal) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleGoalToggle(goal)}
+                        className={`justify-start ${
+                          config.campaignGoals.includes(goal) 
+                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border-[rgba(99,102,241,0.3)]" 
+                            : "glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated"
+                        }`}
+                      >
+                        {goal}
+                      </Button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Platforms */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    Target Platforms
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-3">
+                    {["LinkedIn", "Instagram", "Facebook", "Twitter", "Email", "Website"].map((platform) => (
+                      <Button
+                        key={platform}
+                        variant={config.platforms.includes(platform) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handlePlatformToggle(platform)}
+                        className={`justify-start ${
+                          config.platforms.includes(platform) 
+                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border-[rgba(99,102,241,0.3)]" 
+                            : "glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated"
+                        }`}
+                      >
+                        {platform}
+                      </Button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Image Upload */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Upload className="w-5 h-5 mr-2" />
+                    Source Image
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {imagePreview ? (
+                    <div className="relative">
+                      <img 
+                        src={imagePreview} 
+                        alt="Campaign source" 
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        onClick={removeImage}
+                        className="absolute top-2 right-2 w-6 h-6"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed border-glass-border rounded-lg p-6 text-center cursor-pointer hover:border-[rgba(99,102,241,0.3)] transition-colors"
+                      onClick={() => document.getElementById('file-upload')?.click()}
+                    >
+                      <Paperclip className="w-8 h-8 mx-auto mb-2 text-glass-text-muted" />
+                      <p className="text-sm text-glass-text-muted">Click to upload image</p>
                     </div>
                   )}
-                </div>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </CardContent>
+              </Card>
 
-                {step === 3 ? (
-                  <div className="space-y-4">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-medium text-blue-900 mb-2">Preview Mode</h4>
-                      <p className="text-sm text-blue-800">This is a quick preview of your campaign assets. Approve to generate the final high-quality versions.</p>
-                    </div>
-                    <AssetPreview 
-                      assets={previewAssets}
-                      isLoading={generatePreviewMutation.isPending}
-                    />
-                  </div>
-                ) : step >= 4 ? (
+              {/* Brand Colors */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Palette className="w-5 h-5 mr-2" />
+                    Brand Colors
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   <div>
-                    <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <h4 className="font-medium text-green-900 mb-2">Final Campaign Generated!</h4>
-                      <p className="text-sm text-green-800">
-                        {currentCampaign?.generatedAssets?.length || 0} assets created with DALL-E
-                      </p>
-                      {currentCampaign?.generatedAssets?.length === 0 && (
-                        <p className="text-xs text-red-600 mt-1">
-                          Debug: No assets found. Check console for generation errors.
-                        </p>
-                      )}
-                    </div>
-                    <AssetPreview 
-                      assets={currentCampaign?.generatedAssets || []}
-                      isLoading={generateCampaignMutation.isPending}
-                    />
-                    {/* Debug Info */}
-                    <div className="mt-4 p-2 bg-gray-100 rounded text-xs">
-                      <details>
-                        <summary>Debug: Campaign Data</summary>
-                        <pre className="mt-2 overflow-auto max-h-32">
-                          {JSON.stringify(currentCampaign?.generatedAssets, null, 2)}
-                        </pre>
-                      </details>
+                    <Label className="text-glass-text-primary">Primary Color</Label>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="color"
+                        value={config.primaryColor}
+                        onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
+                        className="w-10 h-10 rounded border border-glass-border"
+                      />
+                      <Input
+                        value={config.primaryColor}
+                        onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
+                        className="glass-surface border-glass-border text-glass-text-primary"
+                      />
                     </div>
                   </div>
-                ) : (
-                  <div className="flex items-center justify-center h-64 text-on-surface-variant">
-                    <div className="text-center">
-                      <Sparkles className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                      <p>Configure your campaign to see AI-generated preview</p>
+                  <div>
+                    <Label className="text-glass-text-primary">Secondary Color</Label>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="color"
+                        value={config.secondaryColor}
+                        onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
+                        className="w-10 h-10 rounded border border-glass-border"
+                      />
+                      <Input
+                        value={config.secondaryColor}
+                        onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
+                        className="glass-surface border-glass-border text-glass-text-primary"
+                      />
                     </div>
                   </div>
-                )}
+                </CardContent>
+              </Card>
 
-                {/* AI Assistant */}
-                {step >= 2 && (
-                  <div className="mt-8 border-t border-outline-variant pt-6">
-                    <AIAssistant 
-                      suggestions={[
-                        "Make the copy more energetic",
-                        "Focus on B2B messaging", 
-                        "Add urgency to the CTA",
-                        "Create more visual variants"
-                      ]}
-                    />
+              {/* Timeline & Budget */}
+              <Card className="glass-surface border-glass-border">
+                <CardHeader>
+                  <CardTitle className="text-glass-text-primary flex items-center">
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Planning
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label className="text-glass-text-primary">Timeline</Label>
+                    <Select value={config.timeline} onValueChange={(value) => setConfig(prev => ({...prev, timeline: value}))}>
+                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
+                        <SelectValue placeholder="Select timeline" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1-week">1 Week</SelectItem>
+                        <SelectItem value="2-weeks">2 Weeks</SelectItem>
+                        <SelectItem value="1-month">1 Month</SelectItem>
+                        <SelectItem value="3-months">3 Months</SelectItem>
+                        <SelectItem value="6-months">6 Months</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
+                  <div>
+                    <Label className="text-glass-text-primary">Budget Range</Label>
+                    <Select value={config.budget} onValueChange={(value) => setConfig(prev => ({...prev, budget: value}))}>
+                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
+                        <SelectValue placeholder="Select budget" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="under-1k">Under $1,000</SelectItem>
+                        <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
+                        <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                        <SelectItem value="over-25k">Over $25,000</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Create Campaign Button */}
+              <Button 
+                onClick={handleCreateCampaign}
+                disabled={!isFormValid || createCampaignMutation.isPending}
+                className="w-full bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl py-3 text-sm font-medium transition-all duration-200"
+              >
+                {createCampaignMutation.isPending ? (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2 animate-spin" />
+                    Creating Campaign...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Create Campaign
+                  </>
                 )}
-              </CardContent>
-            </Card>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Main Menu */}
+      <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
     </div>
   );
 }
