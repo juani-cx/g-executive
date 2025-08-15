@@ -54,7 +54,7 @@ export const presences = pgTable("presences", {
   id: serial("id").primaryKey(),
   canvasId: integer("canvas_id").references(() => campaigns.id).notNull(),
   userId: text("user_id"), // null for anonymous users
-  ephemeralId: text("ephemeral_id").notNull().unique(),
+  ephemeralId: text("ephemeral_id").notNull(),
   displayName: text("display_name").notNull(),
   color: text("color").notNull(),
   cursor: jsonb("cursor").$type<{ x: number; y: number }>(),

@@ -50,15 +50,18 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
             <img 
               src={campaign.sourceImageUrl} 
               alt={campaign.name}
-              className="w-full h-full object-cover transition-all duration-300 grayscale"
+              className="w-full h-full object-cover transition-all duration-300"
             />
-            {/* Completely grey by default - no overlay needed since using CSS grayscale filter */}
+            {/* Gray overlay that disappears on hover */}
+            <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
           </div>
         ) : (
-          <div className="w-full h-full flex items-center justify-center relative bg-gray-400">
+          <div className="w-full h-full flex items-center justify-center relative">
             <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300">
               <Image className="w-6 h-6 text-white" />
             </div>
+            {/* Gray overlay that disappears on hover */}
+            <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
           </div>
         )}
 

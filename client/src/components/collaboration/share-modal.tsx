@@ -45,7 +45,7 @@ interface ShareSettings {
   maxCollaborators: number;
 }
 
-export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
+export default function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [settings, setSettings] = useState<ShareSettings>({
@@ -124,13 +124,13 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white/95 backdrop-blur-md border border-white/20 shadow-xl max-w-lg">
+      <DialogContent className="glass-surface border-glass-border max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-gray-900 flex items-center gap-2">
+          <DialogTitle className="text-glass-text-primary flex items-center gap-2">
             <Users className="w-5 h-5" />
             Share & Collaborate
           </DialogTitle>
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="text-glass-text-secondary">
             Invite others to collaborate on this canvas in real-time
           </DialogDescription>
         </DialogHeader>
@@ -139,10 +139,10 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
           {/* Enable Sharing Toggle */}
           <div className="flex items-center justify-between">
             <div>
-              <Label className="text-gray-900 font-medium">
+              <Label className="text-glass-text-primary font-medium">
                 Enable Collaboration
               </Label>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-glass-text-muted">
                 Allow others to join this canvas
               </p>
             </div>
@@ -157,9 +157,9 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
             <>
               {/* Access Level */}
               <div className="space-y-2">
-                <Label className="text-gray-900">Access Level</Label>
+                <Label className="text-glass-text-primary">Access Level</Label>
                 <Select value={settings.role} onValueChange={handleRoleChange}>
-                  <SelectTrigger className="bg-white/90 border border-gray-300">
+                  <SelectTrigger className="glass-surface border-glass-border">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -177,7 +177,7 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
                     </SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs text-glass-text-muted">
                   {settings.role === "edit" 
                     ? "Collaborators can edit cards and elements" 
                     : "Collaborators can only view the canvas"
@@ -187,12 +187,12 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
 
               {/* Share Link */}
               <div className="space-y-2">
-                <Label className="text-gray-900">Share Link</Label>
+                <Label className="text-glass-text-primary">Share Link</Label>
                 <div className="flex gap-2">
                   <Input
                     value={shareUrl}
                     readOnly
-                    className="bg-white/90 border border-gray-300 flex-1"
+                    className="glass-surface border-glass-border flex-1"
                     placeholder="Generate link to share..."
                   />
                   <Button
@@ -200,7 +200,7 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
                     size="icon"
                     onClick={copyToClipboard}
                     disabled={!shareUrl}
-                    className="bg-white/90 border border-gray-300"
+                    className="glass-surface border-glass-border"
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
@@ -209,7 +209,7 @@ export function ShareModal({ open, onOpenChange, canvasId }: ShareModalProps) {
                     size="icon"
                     onClick={handleRegenerateLink}
                     disabled={updateShareMutation.isPending}
-                    className="bg-white/90 border border-gray-300"
+                    className="glass-surface border-glass-border"
                   >
                     <RefreshCw className="w-4 h-4" />
                   </Button>
