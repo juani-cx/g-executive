@@ -46,12 +46,6 @@ export default function MaterialHeader({
                   alt="Google" 
                   className="h-8 w-auto"
                 />
-                
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M10.19 12.23C9.96 11.27 9.83 10.1 9.83 8.84C9.83 7.58 9.96 6.41 10.19 5.45C10.41 4.54 10.92 3.51 11.28 3.05L2.45 8.56C2.24 8.69 2.24 8.99 2.45 9.12L11.28 14.63C10.92 14.17 10.41 13.14 10.19 12.23Z" fill="#292645"/>
-                  </svg>
-                </div>
               </div>
             </div>
 
