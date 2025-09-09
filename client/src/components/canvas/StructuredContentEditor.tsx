@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -50,9 +51,43 @@ const getDefaultSections = (cardType: CardType): ContentSection[] => {
   }
 };
 
+// Helper function to extract sections from AI-generated content
+function extractSection(text: string, sectionName: string): string | null {
+  const regex = new RegExp(`\\*\\*${sectionName}[^:]*:\\*\\*\\s*([^*]+)`, 'i');
+  const match = text.match(regex);
+  return match ? match[1].trim() : null;
+}
+
 export default function StructuredContentEditor({ card, onSave }: StructuredContentEditorProps) {
   const [sections, setSections] = useState<ContentSection[]>(() => getDefaultSections(card.type));
   const [title, setTitle] = useState(card.title);
+
+  // Update sections when card changes or has new content
+  React.useEffect(() => {
+    if ((card as any).content?.text) {
+      const text = (card as any).content.text;
+      if (card.type === "landing") {
+        setSections([
+          { id: "hero", type: "hero", title: "Hero Section", content: extractSection(text, "Hero") || "Compelling headline with value prop" },
+          { id: "features", type: "features", title: "Features", content: extractSection(text, "Features") || "3-column benefits layout" },
+          { id: "cta", type: "cta", title: "Call to Action", content: extractSection(text, "CTA") || "Get Started Free button" }
+        ]);
+      } else if (card.type === "slides") {
+        setSections([
+          { id: "slide1", type: "slide", title: "Slide 1", content: extractSection(text, "Slide 1") || text.split('\n')[0] || "Title slide" },
+          { id: "slide2", type: "slide", title: "Slide 2", content: extractSection(text, "Slide 2") || text.split('\n')[1] || "Content slide" },
+          { id: "slide3", type: "slide", title: "Slide 3", content: extractSection(text, "Slide 3") || text.split('\n')[2] || "Closing slide" }
+        ]);
+      } else {
+        setSections([
+          { id: "content", type: "content", title: "Content", content: text }
+        ]);
+      }
+    } else {
+      setSections(getDefaultSections(card.type));
+    }
+    setTitle(card.title);
+  }, [card]);
 
   const updateSection = (id: string, field: 'title' | 'content', value: string) => {
     setSections(prev => prev.map(section => 
@@ -133,6 +168,10 @@ export default function StructuredContentEditor({ card, onSave }: StructuredCont
                   onChange={(e) => updateSection(section.id, 'title', e.target.value)}
                   className="flex-1 mr-2 bg-white border-gray-300 text-gray-900 font-medium"
                   placeholder="Section title..."
+                  spellCheck={false}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
                 />
                 <div className="flex items-center space-x-1">
                   <Button
@@ -181,6 +220,10 @@ export default function StructuredContentEditor({ card, onSave }: StructuredCont
                   "Enter section content..."
                 }
                 rows={3}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
             </div>
           </Card>
