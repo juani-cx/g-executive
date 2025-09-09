@@ -625,8 +625,15 @@ export default function CanvasView() {
       
       localStorage.removeItem('campaignPrompt');
     } else if (!campaignId) {
-      // Redirect back to home if no prompt and no campaign ID
-      setLocation('/');
+      // If no campaign data and no prompt, create default project
+      const newProject: Project = {
+        id: Date.now().toString(),
+        title: 'New Canvas Project',
+        prompt: 'Create marketing assets',
+        createdAt: new Date(),
+        assets: [],
+      };
+      setProject(newProject);
     }
   }, [campaignData, campaignId, setLocation]);
 
