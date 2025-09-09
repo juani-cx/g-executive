@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { CanvasCard } from "@/types/canvas";
 import { formatDistanceToNow } from "date-fns";
-import StructuredContentEditor from "./StructuredContentEditor";
+import UnifiedContentEditor from "./UnifiedContentEditor";
 
 interface AssetDrawerProps {
   card: CanvasCard | null;
@@ -65,7 +65,7 @@ export default function AssetDrawer({
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent className="w-[600px] sm:w-[600px] overflow-y-auto bg-white/80 backdrop-blur border-gray-200">
-        <SheetHeader className="sticky top-0 bg-white/80 backdrop-blur pb-4 border-b border-gray-200">
+        <SheetHeader className="pb-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <SheetTitle className="text-gray-900 text-lg">
@@ -79,11 +79,8 @@ export default function AssetDrawer({
               } text-white`}>
                 {card.status}
               </Badge>
-              <span className="text-sm text-slate-400">v{card.version}</span>
+              <span className="text-sm text-gray-600">v{card.version}</span>
             </div>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
-            </Button>
           </div>
           
           <div className="flex items-center justify-between">
@@ -103,7 +100,7 @@ export default function AssetDrawer({
                       title={`${collaborator.name} (active)`}
                     >
                       <AvatarImage src={collaborator.avatarUrl} alt={collaborator.name} />
-                      <AvatarFallback className="text-xs bg-slate-700">
+                      <AvatarFallback className="text-xs bg-gray-200 text-gray-700">
                         {collaborator.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
@@ -114,13 +111,10 @@ export default function AssetDrawer({
           </div>
         </SheetHeader>
 
-        <Tabs defaultValue="ai-edit" className="mt-6">
-          <TabsList className="grid w-full grid-cols-5 bg-gray-100 text-gray-700">
-            <TabsTrigger value="ai-edit" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
-              AI Edit
-            </TabsTrigger>
-            <TabsTrigger value="manual" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
-              Manual
+        <Tabs defaultValue="edit" className="mt-6">
+          <TabsList className="grid w-full grid-cols-4 bg-gray-100 text-gray-700">
+            <TabsTrigger value="edit" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              Edit
             </TabsTrigger>
             <TabsTrigger value="versions" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
               Versions
@@ -133,45 +127,11 @@ export default function AssetDrawer({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="ai-edit" className="space-y-4 mt-6">
-            <div className="space-y-3">
-              <label className="text-sm font-medium text-gray-700">
-                AI Edit Prompt
-              </label>
-              <Textarea
-                placeholder="Describe how you want to modify this asset..."
-                value={aiPrompt}
-                onChange={(e) => setAiPrompt(e.target.value)}
-                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500 min-h-[120px]"
-                rows={4}
-              />
-              <Button 
-                onClick={handleApplyAI}
-                disabled={!aiPrompt.trim()}
-                className="w-full bg-violet-600 hover:bg-violet-700 text-white"
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                Apply AI Changes
-              </Button>
-            </div>
-
-            {/* Current Content Preview */}
-            <div className="space-y-3">
-              <label className="text-sm font-medium text-gray-700">
-                Current Content
-              </label>
-              <div className="p-4 bg-gray-50 border border-gray-300 rounded-lg max-h-48 overflow-y-auto">
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">
-                  {card.summary || "No content generated yet"}
-                </p>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="manual" className="space-y-4 mt-6">
-            <StructuredContentEditor 
+          <TabsContent value="edit" className="space-y-4 mt-6">
+            <UnifiedContentEditor 
               card={card}
               onSave={onSaveManual}
+              onApplyAI={onApplyAI}
             />
           </TabsContent>
 
