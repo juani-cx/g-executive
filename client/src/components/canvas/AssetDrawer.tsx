@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { CanvasCard } from "@/types/canvas";
 import { formatDistanceToNow } from "date-fns";
+import StructuredContentEditor from "./StructuredContentEditor";
 
 interface AssetDrawerProps {
   card: CanvasCard | null;
@@ -63,11 +64,11 @@ export default function AssetDrawer({
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className="w-[600px] sm:w-[600px] overflow-y-auto bg-slate-900/95 backdrop-blur border-slate-700">
-        <SheetHeader className="sticky top-0 bg-slate-900/95 backdrop-blur pb-4 border-b border-slate-700">
+      <SheetContent className="w-[600px] sm:w-[600px] overflow-y-auto bg-white/80 backdrop-blur border-gray-200">
+        <SheetHeader className="sticky top-0 bg-white/80 backdrop-blur pb-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <SheetTitle className="text-slate-100 text-lg">
+              <SheetTitle className="text-gray-900 text-lg">
                 {card.title}
               </SheetTitle>
               <Badge className={`${
@@ -86,14 +87,14 @@ export default function AssetDrawer({
           </div>
           
           <div className="flex items-center justify-between">
-            <SheetDescription className="text-slate-400">
+            <SheetDescription className="text-gray-600">
               Last edited {formatDistanceToNow(new Date(card.lastEditedAt), { addSuffix: true })} by {card.lastEditedBy}
             </SheetDescription>
             
             {/* Active Collaborators */}
             {activeCollaborators.length > 0 && (
               <div className="flex items-center space-x-2">
-                <Users className="w-4 h-4 text-slate-400" />
+                <Users className="w-4 h-4 text-gray-600" />
                 <div className="flex items-center -space-x-1">
                   {activeCollaborators.map((collaborator) => (
                     <Avatar 
@@ -114,7 +115,7 @@ export default function AssetDrawer({
         </SheetHeader>
 
         <Tabs defaultValue="ai-edit" className="mt-6">
-          <TabsList className="grid w-full grid-cols-5 bg-slate-800 text-slate-300">
+          <TabsList className="grid w-full grid-cols-5 bg-gray-100 text-gray-700">
             <TabsTrigger value="ai-edit" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
               AI Edit
             </TabsTrigger>
@@ -134,14 +135,14 @@ export default function AssetDrawer({
 
           <TabsContent value="ai-edit" className="space-y-4 mt-6">
             <div className="space-y-3">
-              <label className="text-sm font-medium text-slate-200">
+              <label className="text-sm font-medium text-gray-700">
                 AI Edit Prompt
               </label>
               <Textarea
                 placeholder="Describe how you want to modify this asset..."
                 value={aiPrompt}
                 onChange={(e) => setAiPrompt(e.target.value)}
-                className="bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400 min-h-[120px]"
+                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500 min-h-[120px]"
                 rows={4}
               />
               <Button 
@@ -156,11 +157,11 @@ export default function AssetDrawer({
 
             {/* Current Content Preview */}
             <div className="space-y-3">
-              <label className="text-sm font-medium text-slate-200">
+              <label className="text-sm font-medium text-gray-700">
                 Current Content
               </label>
-              <div className="p-4 bg-slate-800 border border-slate-600 rounded-lg max-h-48 overflow-y-auto">
-                <p className="text-sm text-slate-300 whitespace-pre-wrap">
+              <div className="p-4 bg-gray-50 border border-gray-300 rounded-lg max-h-48 overflow-y-auto">
+                <p className="text-sm text-gray-700 whitespace-pre-wrap">
                   {card.summary || "No content generated yet"}
                 </p>
               </div>
@@ -168,43 +169,10 @@ export default function AssetDrawer({
           </TabsContent>
 
           <TabsContent value="manual" className="space-y-4 mt-6">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Title</label>
-                <Input 
-                  value={title || card.title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-slate-100"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-200">Content</label>
-                <Textarea 
-                  value={content || card.summary}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-slate-100 min-h-[200px]"
-                  rows={8}
-                />
-              </div>
-
-              <div className="flex space-x-2 pt-4">
-                <Button 
-                  onClick={handleSave}
-                  className="flex-1 bg-violet-600 hover:bg-violet-700 text-white"
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Changes
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={onClose}
-                  className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
+            <StructuredContentEditor 
+              card={card}
+              onSave={onSaveManual}
+            />
           </TabsContent>
 
           <TabsContent value="versions" className="space-y-4 mt-6">

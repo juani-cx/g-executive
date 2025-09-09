@@ -105,7 +105,7 @@ export default function RichAssetCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="w-80 h-64 rounded-2xl shadow-xl bg-gradient-to-br from-white/6 to-white/2 backdrop-blur border border-white/10 text-slate-100 p-4 cursor-pointer transition-all duration-200"
+        className="w-80 h-64 rounded-2xl shadow-xl bg-gradient-to-br from-white/90 to-white/80 backdrop-blur border border-gray-200 text-gray-900 p-4 cursor-pointer transition-all duration-200"
         onClick={onExpand}
         onKeyDown={handleKeyDown}
         role="button"
@@ -115,14 +115,14 @@ export default function RichAssetCard({
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <IconComponent className="w-4 h-4 text-violet-400" />
+            <IconComponent className="w-4 h-4 text-violet-600" />
             <span className="font-medium text-sm truncate">{card.title}</span>
           </div>
           <div className="flex items-center space-x-2">
             <Badge className={`${getStatusColor(card.status)} text-white text-xs px-2 py-1`}>
               {card.status}
             </Badge>
-            <span className="text-xs text-slate-400">v{card.version}</span>
+            <span className="text-xs text-gray-600">v{card.version}</span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -182,7 +182,7 @@ export default function RichAssetCard({
                   className="w-full h-full object-cover rounded-lg"
                 />
               ) : (
-                <IconComponent className="w-8 h-8 text-slate-400" />
+                <IconComponent className="w-8 h-8 text-gray-600" />
               )}
             </div>
           )}
@@ -191,30 +191,30 @@ export default function RichAssetCard({
         {/* Summary */}
         <div className="mb-3">
           <p 
-            className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+            className="text-xs text-gray-700 line-clamp-2 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: formatSummary(card.summary) }}
           />
         </div>
 
         {/* Badges Row */}
         <div className="flex items-center space-x-3 mb-3 text-xs">
-          <div className="flex items-center space-x-1 text-slate-400">
+          <div className="flex items-center space-x-1 text-gray-600">
             <Image className="w-3 h-3" />
             <span>{card.counts.images}</span>
           </div>
-          <div className="flex items-center space-x-1 text-slate-400">
+          <div className="flex items-center space-x-1 text-gray-600">
             <Layers className="w-3 h-3" />
             <span>{card.counts.sections}</span>
           </div>
-          <div className="flex items-center space-x-1 text-slate-400">
+          <div className="flex items-center space-x-1 text-gray-600">
             <Type className="w-3 h-3" />
             <span>{formatCount(card.counts.words)}</span>
           </div>
-          <div className="flex items-center space-x-1 text-slate-400">
+          <div className="flex items-center space-x-1 text-gray-600">
             <GitBranch className="w-3 h-3" />
             <span>{card.counts.variants}</span>
           </div>
-          <div className="flex items-center space-x-1 text-slate-400">
+          <div className="flex items-center space-x-1 text-gray-600">
             <Sparkles className="w-3 h-3" />
             <span>{card.counts.aiEdits}</span>
           </div>
@@ -228,7 +228,7 @@ export default function RichAssetCard({
                 </Badge>
               ))}
               {card.hashtags.length > 2 && (
-                <span className="text-xs text-slate-500">+{card.hashtags.length - 2}</span>
+                <span className="text-xs text-gray-500">+{card.hashtags.length - 2}</span>
               )}
             </div>
           )}
@@ -251,25 +251,25 @@ export default function RichAssetCard({
                   className={`w-6 h-6 border-2 ${
                     collaborator.active 
                       ? 'border-violet-400 ring-2 ring-violet-400/30' 
-                      : 'border-slate-600'
+                      : 'border-gray-400'
                   } transition-all duration-200`}
                 >
                   <AvatarImage src={collaborator.avatarUrl} alt={collaborator.name} />
-                  <AvatarFallback className="text-xs bg-slate-700">
+                  <AvatarFallback className="text-xs bg-gray-200 text-gray-700">
                     {collaborator.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
               ))}
               {overflowCount > 0 && (
-                <div className="w-6 h-6 rounded-full bg-slate-700 border-2 border-slate-600 flex items-center justify-center">
-                  <span className="text-xs text-slate-300">+{overflowCount}</span>
+                <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
+                  <span className="text-xs text-gray-600">+{overflowCount}</span>
                 </div>
               )}
             </div>
 
             {/* Comments */}
             {card.counts.comments > 0 && (
-              <div className="flex items-center space-x-1 text-slate-400">
+              <div className="flex items-center space-x-1 text-gray-600">
                 <MessageCircle className="w-3 h-3" />
                 <span className="text-xs">{card.counts.comments}</span>
               </div>
@@ -277,7 +277,7 @@ export default function RichAssetCard({
           </div>
 
           {/* Last Edited */}
-          <div className="flex items-center space-x-1 text-slate-500">
+          <div className="flex items-center space-x-1 text-gray-500">
             <Clock className="w-3 h-3" />
             <span className="text-xs">
               {formatDistanceToNow(new Date(card.lastEditedAt), { addSuffix: true })}
