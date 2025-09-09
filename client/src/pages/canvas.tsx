@@ -718,6 +718,7 @@ export default function CanvasView() {
       id: `card-${Date.now()}`,
       type,
       title: CARD_TEMPLATES.find(t => t.type === type)?.label || type,
+      summary: "Generating content...",
       status: "generating",
       position: { 
         x: -viewport.x / viewport.zoom + 300, 
@@ -725,6 +726,10 @@ export default function CanvasView() {
       },
       size: { width: 320, height: 240 },
       version: 1,
+      counts: { images: 0, sections: 0, words: 0, variants: 1, aiEdits: 0, comments: 0 },
+      collaborators: [],
+      lastEditedAt: new Date().toISOString(),
+      lastEditedBy: "Current User",
       createdAt: new Date(),
     };
 
@@ -755,10 +760,16 @@ export default function CanvasView() {
                 ? { 
                     ...asset, 
                     status: "ready" as const,
+                    summary: content.substring(0, 100) + '...',
                     content: {
                       preview: content.substring(0, 100) + '...',
                       text: content,
                       imageUrl: imageUrl
+                    },
+                    counts: {
+                      ...asset.counts,
+                      words: content.split(' ').length,
+                      sections: content.split('**').length / 2
                     }
                   }
                 : asset
@@ -773,6 +784,7 @@ export default function CanvasView() {
                 ? { 
                     ...asset, 
                     status: "ready" as const,
+                    summary: `Generated ${type} content`,
                     content: {
                       preview: `Generated ${type} content`,
                       text: `AI-generated ${type} content based on: "${prev?.prompt || "marketing campaign"}"`,
@@ -1282,25 +1294,16 @@ export default function CanvasView() {
           ))}
 
           {/* Rich Asset Cards */}
-          {mockCanvasCards.map((card, index) => {
-            const positions = [
-              { x: 200, y: 150 },
-              { x: 600, y: 150 },
-              { x: 200, y: 450 },
-              { x: 600, y: 450 }
-            ];
-            const position = positions[index] || { x: 200 + (index * 100), y: 150 };
-            
+          {project?.assets.map((card, index) => {
             return (
               <div
                 key={card.id}
                 className="absolute"
                 style={{
-                  left: position.x,
-                  top: position.y,
-                  transform: `scale(${viewport.zoom}) translate(${viewport.x / viewport.zoom}px, ${viewport.y / viewport.zoom}px)`,
-                  transformOrigin: '0 0'
+                  left: card.position?.x || (200 + (index * 100)),
+                  top: card.position?.y || (150 + Math.floor(index / 2) * 300),
                 }}
+                onMouseDown={(e) => handleCardMouseDown(e, card.id)}
               >
                 <RichAssetCard
                   card={card}
@@ -1336,7 +1339,7 @@ export default function CanvasView() {
 
       {/* Rich Asset Drawer */}
       <AssetDrawer
-        card={mockCanvasCards.find(c => c.id === expandedCard) || null}
+        card={project?.assets.find(c => c.id === expandedCard) || null}
         open={!!expandedCard}
         onClose={() => setExpandedCard(null)}
         onApplyAI={(prompt) => console.log('Apply AI:', prompt)}
