@@ -7,6 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import ShareModal from "@/components/collaboration/share-modal";
 import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
 import { useCollaboration } from "@/hooks/useCollaboration";
+import RichAssetCard from "@/components/canvas/RichAssetCard";
+import AssetDrawer from "@/components/canvas/AssetDrawer";
+import { mockCanvasCards } from "@/lib/mockData";
+import { CanvasCard } from "@/types/canvas";
 import { 
   Plus, 
   Download,
@@ -1270,113 +1274,36 @@ export default function CanvasView() {
             </div>
           ))}
 
-          {/* Asset Cards */}
-          {project.assets.map((asset) => {
-            const IconComponent = getCardIcon(asset.type);
+          {/* Rich Asset Cards */}
+          {mockCanvasCards.map((card, index) => {
+            const positions = [
+              { x: 200, y: 150 },
+              { x: 600, y: 150 },
+              { x: 200, y: 450 },
+              { x: 600, y: 450 }
+            ];
+            const position = positions[index] || { x: 200 + (index * 100), y: 150 };
+            
             return (
-              <Card
-                key={asset.id}
-                className={`absolute glass-elevated border-glass-border transition-all duration-200 hover:shadow-lg ${
-                  selectedCard === asset.id ? "ring-2 ring-blue-500" : ""
-                } ${
-                  tool === "select" ? "cursor-move" : "cursor-pointer"
-                } ${
-                  draggedCard === asset.id ? "shadow-2xl scale-105 z-50" : ""
-                }`}
+              <div
+                key={card.id}
+                className="absolute"
                 style={{
-                  left: asset.position.x,
-                  top: asset.position.y,
-                  width: asset.size.width,
-                  height: asset.size.height,
-                }}
-                onMouseDown={(e) => handleCardMouseDown(e, asset.id)}
-                onClick={() => {
-                  if (tool === "select" && !draggedCard) {
-                    setSelectedCard(asset.id);
-                    setExpandedCard(asset.id);
-                  }
+                  left: position.x,
+                  top: position.y,
+                  transform: `scale(${viewport.zoom}) translate(${viewport.x / viewport.zoom}px, ${viewport.y / viewport.zoom}px)`,
+                  transformOrigin: '0 0'
                 }}
               >
-                <CardContent className="p-4 h-full flex flex-col">
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <IconComponent className="w-4 h-4 text-glass-text-primary" />
-                      <span className="text-sm font-medium text-glass-text-primary">
-                        {asset.title}
-                      </span>
-                    </div>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="w-6 h-6 p-0"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <MoreVertical className="w-3 h-3" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => setExpandedCard(asset.id)}>
-                          <Edit3 className="w-4 h-4 mr-2" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Download className="w-4 h-4 mr-2" />
-                          Export
-                        </DropdownMenuItem>
-                        <DropdownMenuItem 
-                          onClick={() => deleteCard(asset.id)}
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="flex-1 flex items-center justify-center">
-                    {asset.status === "generating" ? (
-                      <div className="text-center">
-                        <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-glass-text-secondary" />
-                        <p className="text-xs text-glass-text-muted">Generating...</p>
-                      </div>
-                    ) : asset.status === "ready" ? (
-                      <div className="text-center">
-                        <div className="w-full h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg mb-2 flex items-center justify-center">
-                          <IconComponent className="w-8 h-8 text-glass-text-primary opacity-50" />
-                        </div>
-                        <p className="text-xs text-glass-text-secondary line-clamp-2">
-                          {asset.content?.text}
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="text-center">
-                        <p className="text-xs text-red-400">Error generating</p>
-                        <Button variant="ghost" size="sm" className="mt-1">
-                          Retry
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Status Badge */}
-                  <div className="flex items-center justify-between mt-2">
-                    <Badge 
-                      variant={asset.status === "ready" ? "default" : "secondary"}
-                      className="text-xs"
-                    >
-                      {asset.status}
-                    </Badge>
-                    <span className="text-xs text-glass-text-muted">
-                      v{asset.version}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                <RichAssetCard
+                  card={card}
+                  onExpand={() => setExpandedCard(card.id)}
+                  onDuplicate={() => console.log('Duplicate', card.id)}
+                  onExport={() => console.log('Export', card.id)}
+                  onDelete={() => console.log('Delete', card.id)}
+                  onRetry={() => console.log('Retry', card.id)}
+                />
+              </div>
             );
           })}
         </div>
@@ -1400,120 +1327,15 @@ export default function CanvasView() {
         canvasId={campaignId ? parseInt(campaignId) : 0}
       />
 
-      {/* Expanded Card Drawer */}
-      <Sheet open={!!expandedCard} onOpenChange={() => setExpandedCard(null)}>
-        <SheetContent className="w-[500px] glass-surface border-glass-border overflow-y-auto" side="right">
-          <SheetHeader>
-            <SheetTitle className="text-glass-text-primary">
-              Edit {project.assets.find(a => a.id === expandedCard)?.title}
-            </SheetTitle>
-            <SheetDescription className="text-glass-text-secondary">
-              Refine your asset with AI prompts or manual editing
-            </SheetDescription>
-          </SheetHeader>
-          
-          <div className="space-y-6 mt-6 pb-6">
-            {/* Asset Preview */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-glass-text-primary">
-                Preview
-              </label>
-              <div className="p-4 glass-elevated border-glass-border rounded-lg">
-                <div className="w-full h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg mb-3 flex items-center justify-center">
-                  {expandedCard && (() => {
-                    const asset = project.assets.find(a => a.id === expandedCard);
-                    const IconComponent = asset ? getCardIcon(asset.type) : FileText;
-                    return <IconComponent className="w-12 h-12 text-glass-text-primary opacity-50" />;
-                  })()}
-                </div>
-                <div className="space-y-1">
-                  <Badge 
-                    variant={project.assets.find(a => a.id === expandedCard)?.status === "ready" ? "default" : "secondary"}
-                    className="text-xs"
-                  >
-                    {project.assets.find(a => a.id === expandedCard)?.status}
-                  </Badge>
-                  <p className="text-xs text-glass-text-muted">
-                    Version {project.assets.find(a => a.id === expandedCard)?.version}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Edit Section */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-glass-text-primary">
-                AI Edit Prompt
-              </label>
-              <div className="space-y-2">
-                <Textarea
-                  placeholder="Describe how you want to modify this asset..."
-                  value={aiPrompt}
-                  onChange={(e) => setAiPrompt(e.target.value)}
-                  className="glass-surface border-glass-border text-glass-text-primary placeholder:text-glass-text-muted"
-                  rows={3}
-                />
-                <Button className="w-full bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)]">
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  Apply AI Changes
-                </Button>
-              </div>
-            </div>
-
-            {/* Current Content */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-glass-text-primary">
-                Current Content
-              </label>
-              <div className="p-4 glass-surface border-glass-border rounded-lg max-h-32 overflow-y-auto">
-                <p className="text-sm text-glass-text-secondary">
-                  {project.assets.find(a => a.id === expandedCard)?.content?.text || "No content generated yet"}
-                </p>
-              </div>
-            </div>
-
-            {/* Manual Edit Fields */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-glass-text-primary">
-                Manual Editing
-              </label>
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs text-glass-text-muted">Title</label>
-                  <Input 
-                    className="glass-surface border-glass-border text-glass-text-primary"
-                    defaultValue={project.assets.find(a => a.id === expandedCard)?.title}
-                  />
-                </div>
-                <div>
-                  <label className="text-xs text-glass-text-muted">Content</label>
-                  <Textarea 
-                    className="glass-surface border-glass-border text-glass-text-primary"
-                    defaultValue={project.assets.find(a => a.id === expandedCard)?.content?.text}
-                    rows={4}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex flex-col space-y-2 pt-4 border-t border-glass-border">
-              <Button variant="outline" className="glass-surface w-full">
-                <Download className="w-4 h-4 mr-2" />
-                Export Asset
-              </Button>
-              <div className="flex space-x-2">
-                <Button variant="outline" className="glass-surface flex-1" onClick={() => setExpandedCard(null)}>
-                  Cancel
-                </Button>
-                <Button className="flex-1 bg-[rgba(99,102,241,0.9)] hover:bg-[rgba(99,102,241,1)]">
-                  Save Changes
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+      {/* Rich Asset Drawer */}
+      <AssetDrawer
+        card={mockCanvasCards.find(c => c.id === expandedCard) || null}
+        open={!!expandedCard}
+        onClose={() => setExpandedCard(null)}
+        onApplyAI={(prompt) => console.log('Apply AI:', prompt)}
+        onSaveManual={(data) => console.log('Save manual:', data)}
+        onExport={() => console.log('Export')}
+      />
 
       {/* Project Info Panel */}
       <div className="fixed bottom-6 left-6 z-40">

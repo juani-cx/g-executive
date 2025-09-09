@@ -1,0 +1,154 @@
+Product Design Specification — Rich Canvas Cards (Closed State → Drawer)
+1. Objective
+
+Goal: Upgrade canvas cards to display high-signal, readable info at a glance (summary, counts, presence, comments) and open a right-side drawer for deep editing.
+
+Type: Enhancement
+
+Source: Canvas results view (current prototype + Trello-like rich cards reference)
+
+2. User & Context
+
+Personas: Creative Marketer, Product Launch Manager, Reviewer/Stakeholder
+
+JTBD:
+
+Instantly scan what each asset contains (sections/images/state/version/comments/collab).
+
+Click to expand and edit without losing canvas context.
+
+Primary Environment: Web (desktop-first), canvas workspace.
+
+3. Functional Scope
+Area	Description
+Entry Point	Canvas auto-generated assets (Slides, Landing, LinkedIn, Instagram).
+Core Actions	Read key info on closed card; hover quick actions; click to open drawer; comment; see collaborators; duplicate/delete/export.
+Outcomes	Faster triage and prioritization on canvas; minimal clicks to meaningful edit.
+4. UI/UX Expectations
+
+Closed Card (Compact/Rich)
+
+Header: Type icon + label (e.g., Presentation Slides), overflow menu (⋯), status pill (Draft/Generating/Ready/Error), version tag (v1).
+
+Preview strip: thumbnail or skeleton (image, layout, or first slide).
+
+Summary: 1–2 lines (line-clamp) with bolded key phrase; show first bullets for Slides/Landing.
+
+Badges row (icons + counts):
+
+Images (#)
+
+Sections/#slides (#)
+
+Words (# ~estimate)
+
+Variants (#)
+
+AI Edits (# versions)
+
+Social cards: also show Hashtags (up to 2, truncated) and Aspect (1:1 / 4:5 / 16:9).
+
+Footer:
+
+Collaborators: avatar stack (max 3 + “+N”), live presence glow on active.
+
+Comments: bubble icon with count.
+
+Last edited: relative time + author initial.
+
+Hover affordances: ghost buttons (Expand, Duplicate, Export).
+
+Density: 320–380px width, 220–260px height; glassy gradient card (MD3 elevation).
+
+Expanded Drawer
+
+Opens from right, 480–720px width. Tabs: AI Edit, Manual, Versions, Comments, Export.
+
+Sticky header with type/title/status; presence pills for active editors; comment input docked bottom.
+
+Close with Esc or overlay click.
+
+States
+
+Generating: skeleton lines + spinner on status pill; badge placeholders.
+
+Ready: counts populated; preview image visible.
+
+Error: red pill + Retry action.
+
+Empty summary: show “Add brief with AI” CTA.
+
+Edge Cases
+
+Long titles → truncate with tooltip.
+
+Large counts → compact format (1.2K).
+
+No collaborators → show add-collaborator hint on hover.
+
+4b Branding & UI Foundations
+
+Design System: Tailwind + ShadCN; MD3 motion/elevation; subtle glow accents.
+
+Typography: Inter; on-surface text #E6EAF2 on dark #0B0F19.
+
+Icons: Lucide (image, layers, type, copy, message-circle, users, clock, more-vertical).
+
+5. Data & Business Rules
+
+Card Core
+
+type CardType = "slides"|"landing"|"linkedin"|"instagram";
+type CardStatus = "generating"|"ready"|"draft"|"error";
+
+interface Collaborator { id:string; name:string; avatarUrl?:string; active?:boolean; }
+interface Counts { images:number; sections:number; words:number; variants:number; aiEdits:number; comments:number; }
+
+interface CanvasCard {
+  id:string;
+  type:CardType;
+  title:string;
+  summary:string;         // first bullets or headline+subtext
+  status:CardStatus;
+  version:number;
+  thumbnailUrl?:string;
+  counts:Counts;
+  hashtags?:string[];     // social only (limit show to 2)
+  aspect?: "1:1"|"4:5"|"16:9"; // social
+  collaborators:Collaborator[];
+  lastEditedAt:string;    // ISO
+  lastEditedBy?:string;
+}
+
+
+Rules
+
+Show status pill always; version always.
+
+Counts must include comments for the bubble.
+
+Summary max 160 chars on closed card, ellipsis with full text in drawer.
+
+Avatar stack shows at most 3; overflow → +N.
+
+Live presence highlights avatar ring & faint cursor color border on card.
+
+6. Constraints & Considerations
+
+Performance: closed card loads in <150ms with skeletons; lazy-load thumbnails; virtualize when off-viewport.
+
+A11y: Entire card is a button (role=button) with visible focus; keyboard shortcuts: Enter to open, D duplicate, E export, C comment.
+
+No new routes: drawer within current canvas route.
+
+7. Acceptance Criteria
+
+Closed card displays title, status, version, summary (truncated), badges (images/sections/words/variants/AI edits), collaborators, comments count, last edited.
+
+Clicking card (or Expand) opens the drawer with tabbed editor.
+
+Hover shows quick actions; keyboard navigation works; screen readers announce title + status + counts.
+
+Social cards show hashtags (≤2) and aspect badge.
+
+Presence updates reflect active collaborators (avatar glow) within 200ms p95.

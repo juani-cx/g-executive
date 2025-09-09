@@ -1,0 +1,92 @@
+Prompt g
+
+Goal: Implement RichAssetCard components for the canvas with closed-state high-signal info and a right-side drawer for editing.
+Stack & Setup
+* React + TypeScript + Vite
+* TailwindCSS + ShadCN UI
+* framer-motion (subtle hover/expand)
+* lucide-react icons
+* dayjs for relative time
+Deliverables
+1. components/RichAssetCard.tsx
+    * Props: matches CanvasCard interface below.
+    * Layout:
+        * Header: type icon+label, status pill (color-coded), version tag, kebab menu.
+        * Preview strip: thumbnail (16:9 rounded) or skeleton.
+        * Summary: 1–2 lines, line-clamp-2, bold first phrase if wrapped in **.
+        * Badges row (icons+counts): images, sections, words, variants, aiEdits.
+        * Social extras: hashtags (max 2 + “+N”), aspect badge.
+        * Footer: avatar stack (max 3 + “+N”) with active glow, comments bubble with count, “last edited” time.
+        * Hover: quick actions (Expand, Duplicate, Export) appear as ghost buttons.
+    * States: generating (skeleton), ready, draft, error (red pill + Retry).
+    * A11y: role=button, aria-label summarizing title/status/counts, focus ring, keyboard support (Enter=expand).
+2. components/AssetDrawer.tsx
+    * Right-side drawer (Sheet) with tabs: AI Edit, Manual, Versions, Comments, Export.
+    * Sticky header: title + status + version + presence pills.
+    * Emits onClose, onApplyAI, onSaveManual.
+3. canvas/CanvasBoard.tsx
+    * Shows 4 sample cards (slides, landing, linkedin, instagram) positioned in a grid; clicking opens drawer.
+    * Include toolbar with zoom controls (stub) and “Share” button placeholder.
+4. types/canvas.ts (the interfaces below).
+5. lib/mockData.ts with example cards (counts filled, realistic summaries).
+Types
+
+export type CardType = "slides"|"landing"|"linkedin"|"instagram";
+export type CardStatus = "generating"|"ready"|"draft"|"error";
+
+export interface Collaborator { id:string; name:string; avatarUrl?:string; active?:boolean; }
+export interface Counts { images:number; sections:number; words:number; variants:number; aiEdits:number; comments:number; }
+
+export interface CanvasCard {
+  id:string;
+  type:CardType;
+  title:string;
+  summary:string;
+  status:CardStatus;
+  version:number;
+  thumbnailUrl?:string;
+  counts:Counts;
+  hashtags?:string[];
+  aspect?: "1:1"|"4:5"|"16:9";
+  collaborators:Collaborator[];
+  lastEditedAt:string;
+  lastEditedBy?:string;
+}
+Design Notes
+* Card: rounded-2xl shadow-xl bg-gradient-to-br from-white/6 to-white/2 backdrop-blur border border-white/10 text-slate-100.
+* Status pill colors: generating (sky), ready (violet), draft (slate), error (rose).
+* Use Lucide: Image, Layers, Type, GitBranch, Sparkles, MessageCircle, Users, Clock, MoreVertical, Maximize2.
+* Animations: subtle scale/translate on hover; shimmer for skeletons.
+Interactions
+* Click card (or press Enter) → open AssetDrawer.
+* Hover → show quick actions; focusable via keyboard.
+* Kebab menu: Duplicate, Delete, Export (wire events only).
+Mock Data Example
+
+{
+  id:"card-slides-1",
+  type:"slides",
+  title:"Presentation Slides",
+  summary:"**Slide 1:** Campaign Title — *Unlock Savings* | Slide 2: Pain Points → Value | Slide 3: Proof",
+  status:"ready",
+  version:1,
+  thumbnailUrl:"/mock/slides-1.png",
+  counts:{ images:6, sections:12, words:820, variants:2, aiEdits:3, comments:4 },
+  collaborators:[
+    {id:"u1",name:"Ana",avatarUrl:"/a1.png",active:true},
+    {id:"u2",name:"Luis",avatarUrl:"/a2.png"}
+  ],
+  lastEditedAt:new Date().toISOString(),
+  lastEditedBy:"Ana"
+}
+Acceptance Tests
+* Closed cards show all required elements; summary truncated; badges display correct counts.
+* Keyboard: Tab to card → Enter opens drawer → Esc closes.
+* Error state visible with Retry.
+* Social cards show hashtags (max 2) + aspect badge.
+* Presence: active collaborator shows glowing avatar ring.
+Out of Scope
+* Actual AI edits, export wiring, real-time presence (stub UI only).
+Output
+* Working React components with Tailwind/ShadCN styling and sample data.
+* No backend required; keep state in component or simple store.
