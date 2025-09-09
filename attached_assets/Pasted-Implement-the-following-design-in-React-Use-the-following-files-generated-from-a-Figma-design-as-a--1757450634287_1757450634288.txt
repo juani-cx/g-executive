@@ -1,0 +1,881 @@
+Implement the following design in React. Use the following files generated from a Figma design as a specification and guide:
+
+```src/styles/Drawer.module.css
+@import "https://fonts.googleapis.com/css?family=Roboto:0,500;0,400&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:0,500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto:0,500;0,400&display=swap";
+.Drawer_140_3099 {
+  background: #fff;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 8px 0;
+  display: flex;
+}
+.SectionHeader_1_140_9578 {
+  border-radius: 100px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 68px;
+  padding: 18px 16px;
+  display: flex;
+  overflow: hidden;
+}
+.Left_140_9579 {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+.Label_140_9580 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Headline-Small-Font, Roboto);
+  font-size: var(--Static-Headline-Small-Size, 24px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Headline-Small-Line-Height, 32px);
+  letter-spacing: var(--Static-Headline-Small-Tracking, 0);
+  display: inline-block;
+}
+.Tag_140_9104 {
+  border: 1px solid var(--Gray-300, #d0d5dd);
+  background: var(--Base-White, #fff);
+  box-sizing: border-box;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  display: flex;
+}
+.Content_3309_406973 {
+  align-items: center;
+  gap: 4px;
+  display: flex;
+}
+.Text_3307_417517 {
+  color: var(--Gray-700, #344054);
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  display: inline-block;
+}
+.Frame_27_140_9628 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Frame_25_140_9594 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  display: flex;
+}
+.Tabs_140_3930 {
+  flex-direction: column;
+  align-items: flex-start;
+  height: 48px;
+  display: flex;
+}
+.TabGroup_54563_40117 {
+  flex: 1 0 0;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Tab_1_54563_40118 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+.StateLayer_54563_40292 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 47px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.TabContents_54563_40293 {
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  height: 47px;
+  padding: 14px 0;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.Label_54563_40294 {
+  color: var(--M3-sys-light-primary, var(--Schemes-Primary, #6750a4));
+  text-align: center;
+  font-family: var(--Static-Title-Small-Font, Roboto);
+  font-size: var(--Static-Title-Small-Size, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Title-Small-Line-Height, 20px);
+  letter-spacing: var(--Static-Title-Small-Tracking, 0.1px);
+  display: inline-block;
+}
+.Indicator_54563_40295 {
+  width: 25px;
+  height: 14px;
+  position: absolute;
+  bottom: 0;
+}
+.Shape_54563_40296 {
+  background: var(--Schemes-Primary, #6750a4);
+  border-radius: 100px 100px 0 0;
+  flex-shrink: 0;
+  width: 21px;
+  height: 3px;
+}
+.Tab_2_54563_40119 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+.StateLayer_54563_40315 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 47px;
+  padding: 0 16px;
+  display: flex;
+  overflow: hidden;
+}
+.TabContents_54563_40316 {
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  height: 47px;
+  padding: 14px 0;
+  display: flex;
+  overflow: hidden;
+}
+.Label_54563_40317 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  text-align: center;
+  font-family: var(--Static-Title-Small-Font, Roboto);
+  font-size: var(--Static-Title-Small-Size, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Title-Small-Line-Height, 20px);
+  letter-spacing: var(--Static-Title-Small-Tracking, 0.1px);
+  display: inline-block;
+}
+.Tab_3_54563_40120 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+.Divider_54563_40123 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+.Divider_51816_5861 {
+  background: var(--Schemes-Outline-Variant, #cac4d0);
+  box-sizing: border-box;
+  width: 470px;
+  height: 1px;
+}
+.Frame_24_140_5114 {
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  padding: 0 32px;
+  display: flex;
+}
+.PlaceholderText_140_5128 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Large-Font, Roboto);
+  font-size: var(--Static-Body-Large-Size, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Body-Large-Line-Height, 24px);
+  letter-spacing: var(--Static-Body-Large-Tracking, 0.5px);
+  display: inline-block;
+}
+.StackedCard_140_5723 {
+  border-radius: 12px;
+  align-items: flex-start;
+  height: 480px;
+  display: flex;
+  position: relative;
+}
+.Content_58710_12846 {
+  border-radius: 12px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  overflow: hidden;
+}
+.Header_58710_12847 {
+  align-items: center;
+  width: 100%;
+  height: 72px;
+  padding: 12px 4px 12px 16px;
+  display: flex;
+}
+.Content_58710_12848 {
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+.Avatar_58710_12849 {
+  width: 40px;
+  height: 40px;
+}
+.Background_50731_13715 {
+  fill: var(--Schemes-Primary-Container, #eaddff);
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+.Initial_50731_13716 {
+  color: var(
+    --M3-sys-light-on-primary-container,
+    var(--Schemes-On-Primary-Container, #4f378a)
+  );
+  text-align: center;
+  letter-spacing: 0.1px;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.Text_58710_12850 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 236px;
+  display: flex;
+}
+.Header_58710_12851 {
+  color: var(--M3-sys-light-on-surface, var(--Schemes-On-Surface, #1d1b20));
+  font-family: var(--Static-Title-Medium-Font, Roboto);
+  font-size: var(--Static-Title-Medium-Size, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Title-Medium-Line-Height, 24px);
+  letter-spacing: var(--Static-Title-Medium-Tracking, 0.15px);
+  display: inline-block;
+}
+.Subhead_58710_12852 {
+  color: var(--M3-sys-light-on-surface, var(--Schemes-On-Surface, #1d1b20));
+  font-family: var(--Static-Body-Medium-Font, Roboto);
+  font-size: var(--Static-Body-Medium-Size, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Medium-Line-Height, 20px);
+  letter-spacing: var(--Static-Body-Medium-Tracking, 0.25px);
+  display: inline-block;
+}
+.IconButtonStandard_58710_12853 {
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Content_58665_37347 {
+  border-radius: 100px;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+}
+.StateLayer_58665_37348 {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+.Icon_58665_37349 {
+  width: 24px;
+  height: 24px;
+}
+.Media_58710_12854 {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 188px;
+  display: flex;
+}
+.Media_58710_12855 {
+  background:
+    url(<path-to-image>) lightgray 50% / contain no-repeat,
+    var(--Schemes-Surface-Container-High, #ece6f0);
+  background-blend-mode: luminosity, normal;
+  width: 406px;
+  height: 188px;
+}
+.TextContent_58710_12856 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+}
+.Headline_58710_12857 {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+.Title_58710_12858 {
+  color: var(--M3-sys-light-on-surface, var(--Schemes-On-Surface, #1d1b20));
+  font-family: var(--Static-Body-Large-Font, Roboto);
+  font-size: var(--Static-Body-Large-Size, 16px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Large-Line-Height, 24px);
+  letter-spacing: var(--Static-Body-Large-Tracking, 0.5px);
+  width: 328px;
+  display: inline-block;
+}
+.Subhead_58710_12859 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Medium-Font, Roboto);
+  font-size: var(--Static-Body-Medium-Size, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Medium-Line-Height, 20px);
+  letter-spacing: var(--Static-Body-Medium-Tracking, 0.25px);
+  width: 328px;
+  display: inline-block;
+}
+.SupportingText_58710_12860 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Medium-Font, Roboto);
+  font-size: var(--Static-Body-Medium-Size, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Medium-Line-Height, 20px);
+  letter-spacing: var(--Static-Body-Medium-Tracking, 0.25px);
+  display: inline-block;
+}
+.Actions_58710_12861 {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+.SecondaryAction_58710_12862 {
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  display: flex;
+}
+.Content_58650_11129 {
+  border: 1px solid var(--Schemes-Outline-Variant, #cac4d0);
+  box-sizing: border-box;
+  border-radius: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+}
+.StateLayer_58650_11130 {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  display: flex;
+}
+.Label_58650_11132 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Label-Large-Font, Roboto);
+  font-size: var(--Static-Label-Large-Size, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Label-Large-Line-Height, 20px);
+  letter-spacing: var(--Static-Label-Large-Tracking, 0.1px);
+  display: inline-block;
+}
+.PrimaryAction_58710_12863 {
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  display: flex;
+}
+.Content_58653_14016 {
+  background: var(--Schemes-Primary, #6750a4);
+  border-radius: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+}
+.StateLayer_58653_14017 {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  display: flex;
+}
+.Label_58653_14019 {
+  color: var(--M3-sys-light-on-primary, var(--Schemes-On-Primary, #fff));
+  font-family: var(--Static-Label-Large-Font, Roboto);
+  font-size: var(--Static-Label-Large-Size, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Label-Large-Line-Height, 20px);
+  letter-spacing: var(--Static-Label-Large-Tracking, 0.1px);
+  display: inline-block;
+}
+.Background_52347_27869 {
+  border: 1px solid var(--Schemes-Outline-Variant, #cac4d0);
+  box-sizing: border-box;
+  border-radius: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 406px;
+  height: 480px;
+  display: flex;
+  position: absolute;
+}
+.StateLayer_52347_27853 {
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 406px;
+  height: 480px;
+  padding: 10px;
+  display: flex;
+}
+.PlaceholderText_140_9630 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Large-Font, Roboto);
+  font-size: var(--Static-Body-Large-Size, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Body-Large-Line-Height, 24px);
+  letter-spacing: var(--Static-Body-Large-Tracking, 0.5px);
+  display: inline-block;
+}
+.TextField_140_2390 {
+  border-radius: 4px 4px 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 128px;
+  display: flex;
+}
+.TextField_52798_24871 {
+  border: 1px solid var(--Schemes-Outline, #79747e);
+  box-sizing: border-box;
+  border-radius: 4px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  display: flex;
+}
+.StateLayer_52798_24872 {
+  border-radius: 4px 4px 0 0;
+  flex: 1 0 0;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 4px 0 4px 16px;
+  display: flex;
+}
+.Content_52798_24873 {
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 48px;
+  padding: 4px 0;
+  display: flex;
+  position: relative;
+}
+.PlaceholderTextContainer_52798_24874 {
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  display: flex;
+}
+.PlaceholderText_52798_24875 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Large-Font, Roboto);
+  font-size: var(--Static-Body-Large-Size, 16px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Large-Line-Height, 24px);
+  letter-spacing: var(--Static-Body-Large-Tracking, 0.5px);
+  flex: 1 0 0;
+  display: inline-block;
+}
+.LabelTextContainer_52798_24876 {
+  background: var(--Schemes-Surface, #fef7ff);
+  align-items: center;
+  padding: 0 4px;
+  display: flex;
+  position: absolute;
+  top: -12px;
+  left: -4px;
+}
+.LabelText_52798_24877 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Small-Font, Roboto);
+  font-size: var(--Static-Body-Small-Size, 12px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Body-Small-Line-Height, 16px);
+  letter-spacing: var(--Static-Body-Small-Tracking, 0.4px);
+  display: inline-block;
+}
+.TrailingIcon_52798_24878 {
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+}
+.Frame_26_140_9602 {
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+.PlaceholderText_140_5130 {
+  color: var(
+    --M3-sys-light-on-surface-variant,
+    var(--Schemes-On-Surface-Variant, #49454f)
+  );
+  font-family: var(--Static-Body-Large-Font, Roboto);
+  font-size: var(--Static-Body-Large-Size, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Body-Large-Line-Height, 24px);
+  letter-spacing: var(--Static-Body-Large-Tracking, 0.5px);
+  display: inline-block;
+}
+.SecondaryAction_140_9595 {
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  display: flex;
+}
+.Icon_58650_11131 {
+  width: 20px;
+  height: 20px;
+}
+.TextField_140_3100,
+.TextField_140_3116 {
+  border-radius: 4px 4px 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 56px;
+  display: flex;
+}
+.Frame_28_140_9629 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 0 32px;
+  display: flex;
+}
+.Button_140_5030 {
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 48px;
+  display: flex;
+}
+.Content_58653_14111 {
+  background: var(--Schemes-Primary, #6750a4);
+  border-radius: 12px;
+  flex-direction: column;
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+}
+.StateLayer_58653_14112 {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  display: flex;
+}
+.Icon_58653_14113 {
+  width: 20px;
+  height: 20px;
+}
+.Label_58653_14114 {
+  color: var(--M3-sys-light-on-primary, var(--Schemes-On-Primary, #fff));
+  font-family: var(--Static-Label-Large-Font, Roboto);
+  font-size: var(--Static-Label-Large-Size, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Static-Label-Large-Line-Height, 20px);
+  letter-spacing: var(--Static-Label-Large-Tracking, 0.1px);
+  display: inline-block;
+}
+
+```
+
+---
+
+```src/components/Drawer.tsx
+import React from 'react';
+import styles from '../styles/Drawer.module.css';
+
+
+export default function Drawer() {
+  return (
+    <div className={styles.Drawer_140_3099}>
+      <div className={styles.SectionHeader_1_140_9578}>
+        <div className={styles.Left_140_9579}><span className={styles.Label_140_9580}>Instagram</span></div>
+        <div className={styles.Tag_140_9104}>
+          <div className={styles.Content_3309_406973}><span className={styles.Text_3307_417517}>Created</span></div>
+        </div>
+      </div>
+      <div className={styles.Frame_27_140_9628}>
+        <div className={styles.Frame_25_140_9594}>
+          <div className={styles.Tabs_140_3930}>
+            <div className={styles.TabGroup_54563_40117}>
+              <div className={styles.Tab_1_54563_40118}>
+                <div className={styles.StateLayer_54563_40292}>
+                  <div className={styles.TabContents_54563_40293}><span className={styles.Label_54563_40294}>Edit</span>
+                    <div className={styles.Indicator_54563_40295}>
+                      <div className={styles.Shape_54563_40296}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.Tab_2_54563_40119}>
+                <div className={styles.StateLayer_54563_40315}>
+                  <div className={styles.TabContents_54563_40316}><span className={styles.Label_54563_40317}>Comments</span></div>
+                </div>
+              </div>
+              <div className={styles.Tab_3_54563_40120}>
+                <div className={styles.StateLayer_54563_40315}>
+                  <div className={styles.TabContents_54563_40316}><span className={styles.Label_54563_40317}>Export</span></div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.Divider_54563_40123}>
+              <div className={styles.Divider_51816_5861}></div>
+            </div>
+          </div>
+          <div className={styles.Frame_24_140_5114}><span className={styles.PlaceholderText_140_5128}>Preview</span>
+            <div className={styles.StackedCard_140_5723}>
+              <div className={styles.Content_58710_12846}>
+                <div className={styles.Header_58710_12847}>
+                  <div className={styles.Content_58710_12848}>
+                    <div className={styles.Avatar_58710_12849}>
+                      <div className={styles.Background_50731_13715}></div><span className={styles.Initial_50731_13716}>G</span>
+                    </div>
+                    <div className={styles.Text_58710_12850}><span className={styles.Header_58710_12851}>Google</span><span className={styles.Subhead_58710_12852}>Ai initiatives</span></div>
+                  </div>
+                  <div className={styles.IconButtonStandard_58710_12853}>
+                    <div className={styles.Content_58665_37347}>
+                      <div className={styles.StateLayer_58665_37348}>
+                        <div className={styles.Icon_58665_37349}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 20C11.45 20 10.9792 19.8042 10.5875 19.4125C10.1958 19.0208 10 18.55 10 18C10 17.45 10.1958 16.9792 10.5875 16.5875C10.9792 16.1958 11.45 16 12 16C12.55 16 13.0208 16.1958 13.4125 16.5875C13.8042 16.9792 14 17.45 14 18C14 18.55 13.8042 19.0208 13.4125 19.4125C13.0208 19.8042 12.55 20 12 20ZM12 14C11.45 14 10.9792 13.8042 10.5875 13.4125C10.1958 13.0208 10 12.55 10 12C10 11.45 10.1958 10.9792 10.5875 10.5875C10.9792 10.1958 11.45 10 12 10C12.55 10 13.0208 10.1958 13.4125 10.5875C13.8042 10.9792 14 11.45 14 12C14 12.55 13.8042 13.0208 13.4125 13.4125C13.0208 13.8042 12.55 14 12 14ZM12 8C11.45 8 10.9792 7.80417 10.5875 7.4125C10.1958 7.02083 10 6.55 10 6C10 5.45 10.1958 4.97917 10.5875 4.5875C10.9792 4.19583 11.45 4 12 4C12.55 4 13.0208 4.19583 13.4125 4.5875C13.8042 4.97917 14 5.45 14 6C14 6.55 13.8042 7.02083 13.4125 7.4125C13.0208 7.80417 12.55 8 12 8Z" fill="#49454F" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.Media_58710_12854}>
+                  <div className={styles.Media_58710_12855}></div>
+                </div>
+                <div className={styles.TextContent_58710_12856}>
+                  <div className={styles.Headline_58710_12857}><span className={styles.Title_58710_12858}>Title</span><span className={styles.Subhead_58710_12859}>Subtitle</span></div><span className={styles.SupportingText_58710_12860}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</span>
+                  <div className={styles.Actions_58710_12861}>
+                    <div className={styles.SecondaryAction_58710_12862}>
+                      <div className={styles.Content_58650_11129}>
+                        <div className={styles.StateLayer_58650_11130}><span className={styles.Label_58650_11132}>Secondary</span></div>
+                      </div>
+                    </div>
+                    <div className={styles.PrimaryAction_58710_12863}>
+                      <div className={styles.Content_58653_14016}>
+                        <div className={styles.StateLayer_58653_14017}><span className={styles.Label_58653_14019}>Primary</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.Background_52347_27869}>
+                <div className={styles.StateLayer_52347_27853}></div>
+              </div>
+            </div><span className={styles.PlaceholderText_140_9630}>Summary</span>
+            <div className={styles.TextField_140_2390}>
+              <div className={styles.TextField_52798_24871}>
+                <div className={styles.StateLayer_52798_24872}>
+                  <div className={styles.Content_52798_24873}>
+                    <div className={styles.PlaceholderTextContainer_52798_24874}><span className={styles.PlaceholderText_52798_24875}>Placeholder</span></div>
+                    <div className={styles.LabelTextContainer_52798_24876}><span className={styles.LabelText_52798_24877}>Label</span></div>
+                  </div>
+                  <div className={styles.TrailingIcon_52798_24878}>
+                    <div className={styles.Content_58665_37347}>
+                      <div className={styles.StateLayer_58665_37348}>
+                        <div className={styles.Icon_58665_37349}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.4 17L12 13.4L15.6 17L17 15.6L13.4 12L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4L10.6 12L7 15.6L8.4 17ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#49454F" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.Frame_26_140_9602}><span className={styles.PlaceholderText_140_5130}>Content</span>
+              <div className={styles.SecondaryAction_140_9595}>
+                <div className={styles.Content_58650_11129}>
+                  <div className={styles.StateLayer_58650_11130}>
+                    <div className={styles.Icon_58650_11131}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16602 10.8332H4.16602V9.1665H9.16602V4.1665H10.8327V9.1665H15.8327V10.8332H10.8327V15.8332H9.16602V10.8332Z" fill="#49454F" />
+                      </svg>
+                    </div><span className={styles.Label_58650_11132}>Add section</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.TextField_140_3100}>
+              <div className={styles.TextField_52798_24871}>
+                <div className={styles.StateLayer_52798_24872}>
+                  <div className={styles.Content_52798_24873}>
+                    <div className={styles.PlaceholderTextContainer_52798_24874}><span className={styles.PlaceholderText_52798_24875}>Title</span></div>
+                    <div className={styles.LabelTextContainer_52798_24876}><span className={styles.LabelText_52798_24877}>Title</span></div>
+                  </div>
+                  <div className={styles.TrailingIcon_52798_24878}>
+                    <div className={styles.Content_58665_37347}>
+                      <div className={styles.StateLayer_58665_37348}>
+                        <div className={styles.Icon_58665_37349}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.4 17L12 13.4L15.6 17L17 15.6L13.4 12L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4L10.6 12L7 15.6L8.4 17ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#49454F" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.TextField_140_3116}>
+              <div className={styles.TextField_52798_24871}>
+                <div className={styles.StateLayer_52798_24872}>
+                  <div className={styles.Content_52798_24873}>
+                    <div className={styles.PlaceholderTextContainer_52798_24874}><span className={styles.PlaceholderText_52798_24875}>Subtitle</span></div>
+                    <div className={styles.LabelTextContainer_52798_24876}><span className={styles.LabelText_52798_24877}>Subtitle</span></div>
+                  </div>
+                  <div className={styles.TrailingIcon_52798_24878}>
+                    <div className={styles.Content_58665_37347}>
+                      <div className={styles.StateLayer_58665_37348}>
+                        <div className={styles.Icon_58665_37349}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.4 17L12 13.4L15.6 17L17 15.6L13.4 12L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4L10.6 12L7 15.6L8.4 17ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#49454F" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.Frame_28_140_9629}>
+          <div className={styles.Button_140_5030}>
+            <div className={styles.Content_58653_14111}>
+              <div className={styles.StateLayer_58653_14112}>
+                <div className={styles.Icon_58653_14113}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.66602 14.9998L9.99935 12.4582L13.3327 14.9998L12.0827 10.8748L15.416 8.49984H11.3327L9.99935 4.1665L8.66602 8.49984H4.58268L7.91602 10.8748L6.66602 14.9998ZM9.99935 18.3332C8.84657 18.3332 7.76324 18.1144 6.74935 17.6769C5.73546 17.2394 4.85352 16.6457 4.10352 15.8957C3.35352 15.1457 2.75977 14.2637 2.32227 13.2498C1.88477 12.2359 1.66602 11.1526 1.66602 9.99984C1.66602 8.84706 1.88477 7.76373 2.32227 6.74984C2.75977 5.73595 3.35352 4.854 4.10352 4.104C4.85352 3.354 5.73546 2.76025 6.74935 2.32275C7.76324 1.88525 8.84657 1.6665 9.99935 1.6665C11.1521 1.6665 12.2355 1.88525 13.2493 2.32275C14.2632 2.76025 15.1452 3.354 15.8952 4.104C16.6452 4.854 17.2389 5.73595 17.6764 6.74984C18.1139 7.76373 18.3327 8.84706 18.3327 9.99984C18.3327 11.1526 18.1139 12.2359 17.6764 13.2498C17.2389 14.2637 16.6452 15.1457 15.8952 15.8957C15.1452 16.6457 14.2632 17.2394 13.2493 17.6769C12.2355 18.1144 11.1521 18.3332 9.99935 18.3332Z" fill="white" />
+                  </svg>
+                </div><span className={styles.Label_58653_14114}>Save changes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
