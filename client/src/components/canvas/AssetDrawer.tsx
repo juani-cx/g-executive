@@ -138,8 +138,8 @@ export default function AssetDrawer({
           <TabsContent value="versions" className="space-y-4 mt-6">
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
-                <GitBranch className="w-4 h-4 text-slate-400" />
-                <span className="text-sm font-medium text-slate-200">Version History</span>
+                <GitBranch className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">Version History</span>
               </div>
               
               <div className="space-y-2">
@@ -147,18 +147,18 @@ export default function AssetDrawer({
                   <div 
                     key={i} 
                     className={`p-3 rounded-lg border ${
-                      i === 0 ? 'bg-violet-900/20 border-violet-600' : 'bg-slate-800 border-slate-600'
+                      i === 0 ? 'bg-violet-100 border-violet-300' : 'bg-gray-50 border-gray-200'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-200">
+                      <span className="text-sm font-medium text-gray-900">
                         Version {card.version - i} {i === 0 && '(Current)'}
                       </span>
-                      <span className="text-xs text-slate-400">
+                      <span className="text-xs text-gray-500">
                         {formatDistanceToNow(new Date(Date.now() - i * 3600000), { addSuffix: true })}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       AI edit: Enhanced content structure and readability
                     </p>
                   </div>
@@ -170,8 +170,8 @@ export default function AssetDrawer({
           <TabsContent value="comments" className="space-y-4 mt-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <MessageCircle className="w-4 h-4 text-slate-400" />
-                <span className="text-sm font-medium text-slate-200">
+                <MessageCircle className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">
                   Comments ({card.counts.comments})
                 </span>
               </div>
@@ -182,7 +182,7 @@ export default function AssetDrawer({
                   placeholder="Add a comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400"
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
                   rows={3}
                 />
                 <Button 
@@ -197,16 +197,16 @@ export default function AssetDrawer({
               {/* Existing Comments */}
               <div className="space-y-3">
                 {Array.from({ length: card.counts.comments }, (_, i) => (
-                  <div key={i} className="p-3 bg-slate-800 rounded-lg border border-slate-600">
+                  <div key={i} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                     <div className="flex items-center space-x-2 mb-2">
                       <Avatar className="w-6 h-6">
                         <AvatarImage src="/api/placeholder/32/32" />
-                        <AvatarFallback className="text-xs bg-slate-700">A</AvatarFallback>
+                        <AvatarFallback className="text-xs bg-gray-200 text-gray-700">A</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm font-medium text-slate-200">Ana Martinez</span>
-                      <span className="text-xs text-slate-400">2h ago</span>
+                      <span className="text-sm font-medium text-gray-900">Ana Martinez</span>
+                      <span className="text-xs text-gray-500">2h ago</span>
                     </div>
-                    <p className="text-sm text-slate-300">
+                    <p className="text-sm text-gray-700">
                       This looks great! Can we make the CTA button more prominent?
                     </p>
                   </div>
@@ -218,14 +218,14 @@ export default function AssetDrawer({
           <TabsContent value="export" className="space-y-4 mt-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <Download className="w-4 h-4 text-slate-400" />
-                <span className="text-sm font-medium text-slate-200">Export Options</span>
+                <Download className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">Export Options</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <Button 
                   variant="outline" 
-                  className="h-20 flex-col border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="h-20 flex-col border-gray-300 text-gray-700 hover:bg-gray-50"
                   onClick={onExport}
                 >
                   <Download className="w-6 h-6 mb-2" />
@@ -233,7 +233,7 @@ export default function AssetDrawer({
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="h-20 flex-col border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="h-20 flex-col border-gray-300 text-gray-700 hover:bg-gray-50"
                   onClick={onExport}
                 >
                   <Download className="w-6 h-6 mb-2" />
@@ -241,7 +241,7 @@ export default function AssetDrawer({
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="h-20 flex-col border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="h-20 flex-col border-gray-300 text-gray-700 hover:bg-gray-50"
                   onClick={onExport}
                 >
                   <Download className="w-6 h-6 mb-2" />
@@ -249,7 +249,7 @@ export default function AssetDrawer({
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="h-20 flex-col border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="h-20 flex-col border-gray-300 text-gray-700 hover:bg-gray-50"
                   onClick={onExport}
                 >
                   <Download className="w-6 h-6 mb-2" />
