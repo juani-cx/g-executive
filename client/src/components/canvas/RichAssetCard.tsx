@@ -87,7 +87,8 @@ export default function RichAssetCard({
     }
   };
 
-  const formatSummary = (summary: string) => {
+  const formatSummary = (summary: string | undefined) => {
+    if (!summary) return '';
     // Convert **bold** text to bold spans
     return summary.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   };
