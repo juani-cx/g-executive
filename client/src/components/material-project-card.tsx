@@ -43,27 +43,15 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
       className={`glass-surface border-glass-border hover:glass-elevated transition-all duration-300 group overflow-hidden cursor-pointer ${className}`}
       onClick={handleCardClick}
     >
-      {/* Hero Image/Gradient with Gray Overlay */}
-      <div className={`h-32 bg-gradient-to-br ${generateGradient(campaign.name)} relative overflow-hidden`}>
-        {campaign.sourceImageUrl ? (
-          <div className="relative w-full h-full">
-            <img 
-              src={campaign.sourceImageUrl} 
-              alt={campaign.name}
-              className="w-full h-full object-cover transition-all duration-300"
-            />
-            {/* Gray overlay that disappears on hover */}
-            <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
-          </div>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center relative">
-            <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300">
-              <Image className="w-6 h-6 text-white" />
-            </div>
-            {/* Gray overlay that disappears on hover */}
-            <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
-          </div>
-        )}
+      {/* Hero Image with Gray Overlay */}
+      <div className="h-32 relative overflow-hidden">
+        <img 
+          src={campaign.sourceImageUrl || "/api/placeholder/320/180"} 
+          alt={campaign.name}
+          className="w-full h-full object-cover transition-all duration-300"
+        />
+        {/* Gray overlay that disappears on hover */}
+        <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
 
         {/* Asset Count Overlay */}
         {getAssetCount(campaign) > 0 && (
