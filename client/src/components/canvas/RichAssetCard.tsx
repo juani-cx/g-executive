@@ -162,41 +162,29 @@ export default function RichAssetCard({
           </div>
         </div>
 
-        {/* Preview Strip */}
-        <div className="mb-3">
-          {card.status === "generating" ? (
-            <div className="w-full h-16 bg-slate-700/50 rounded-lg flex items-center justify-center">
-              <Loader2 className="w-6 h-6 animate-spin text-sky-400" />
-            </div>
-          ) : card.status === "error" ? (
-            <div className="w-full h-16 bg-rose-900/20 rounded-lg flex items-center justify-center">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRetry?.();
-                }}
-                className="text-rose-400 hover:text-rose-300"
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Retry
-              </Button>
-            </div>
-          ) : (
-            <div className="w-full h-16 bg-gradient-to-r from-violet-500/20 to-sky-500/20 rounded-lg flex items-center justify-center">
-              {card.thumbnailUrl ? (
-                <img 
-                  src={card.thumbnailUrl} 
-                  alt="Preview" 
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              ) : (
-                <IconComponent className="w-8 h-8 text-gray-600" />
-              )}
-            </div>
-          )}
-        </div>
+        {/* Status Indicator */}
+        {card.status === "generating" && (
+          <div className="mb-3 flex items-center justify-center">
+            <Loader2 className="w-4 h-4 animate-spin text-sky-400 mr-2" />
+            <span className="text-xs text-sky-400">Generating...</span>
+          </div>
+        )}
+        {card.status === "error" && (
+          <div className="mb-3 flex items-center justify-center">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={(e) => {
+                e.stopPropagation();
+                onRetry?.();
+              }}
+              className="text-rose-400 hover:text-rose-300 text-xs"
+            >
+              <RotateCcw className="w-3 h-3 mr-1" />
+              Retry
+            </Button>
+          </div>
+        )}
 
         {/* Summary */}
         <div className="mb-3">
