@@ -110,7 +110,7 @@ export default function RichAssetCard({
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
-        aria-label={`${card.title}, ${card.status}, ${card.counts.comments} comments, edited ${formatDistanceToNow(new Date(card.lastEditedAt))} ago`}
+        aria-label={`${card.title}, ${card.status}, ${(card.counts?.comments || 0)} comments, edited ${card.lastEditedAt ? formatDistanceToNow(new Date(card.lastEditedAt)) : 'recently'} ago`}
       >
         {/* Preview Image */}
         <div className="mb-3 rounded-lg overflow-hidden bg-gray-100">
@@ -209,23 +209,23 @@ export default function RichAssetCard({
         <div className="flex items-center space-x-3 mb-3 text-xs">
           <div className="flex items-center space-x-1 text-gray-600">
             <Image className="w-3 h-3" />
-            <span>{card.counts.images}</span>
+            <span>{card.counts?.images || 0}</span>
           </div>
           <div className="flex items-center space-x-1 text-gray-600">
             <Layers className="w-3 h-3" />
-            <span>{card.counts.sections}</span>
+            <span>{card.counts?.sections || 0}</span>
           </div>
           <div className="flex items-center space-x-1 text-gray-600">
             <Type className="w-3 h-3" />
-            <span>{formatCount(card.counts.words)}</span>
+            <span>{formatCount(card.counts?.words || 0)}</span>
           </div>
           <div className="flex items-center space-x-1 text-gray-600">
             <GitBranch className="w-3 h-3" />
-            <span>{card.counts.variants}</span>
+            <span>{card.counts?.variants || 0}</span>
           </div>
           <div className="flex items-center space-x-1 text-gray-600">
             <Sparkles className="w-3 h-3" />
-            <span>{card.counts.aiEdits}</span>
+            <span>{card.counts?.aiEdits || 0}</span>
           </div>
           
           {/* Social Extras */}
@@ -277,10 +277,10 @@ export default function RichAssetCard({
             </div>
 
             {/* Comments */}
-            {card.counts.comments > 0 && (
+            {(card.counts?.comments || 0) > 0 && (
               <div className="flex items-center space-x-1 text-gray-600">
                 <MessageCircle className="w-3 h-3" />
-                <span className="text-xs">{card.counts.comments}</span>
+                <span className="text-xs">{card.counts?.comments || 0}</span>
               </div>
             )}
           </div>
