@@ -106,24 +106,15 @@ export default function RichAssetCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="w-80 h-72 rounded-2xl shadow-xl bg-gradient-to-br from-white/90 to-white/80 backdrop-blur border border-gray-200 text-gray-900 p-4 cursor-pointer transition-all duration-200"
+        className="w-80 min-h-fit rounded-2xl shadow-xl bg-gradient-to-br from-white/90 to-white/80 backdrop-blur border border-gray-200 text-gray-900 p-4 cursor-pointer transition-all duration-200"
         onClick={onExpand}
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
         aria-label={`${card.title}, ${card.status}, ${(card.counts?.comments || 0)} comments, edited ${card.lastEditedAt ? formatDistanceToNow(new Date(card.lastEditedAt)) : 'recently'} ago`}
       >
-        {/* Preview Image */}
-        <div className="mb-3 rounded-lg overflow-hidden bg-gray-100">
-          <img 
-            src={card.thumbnailUrl || "/api/placeholder/320/120"}
-            alt={`${card.type} preview`}
-            className="w-full h-20 object-cover"
-          />
-        </div>
-
         {/* Header */}
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
             <IconComponent className="w-4 h-4 text-violet-600" />
             <span className="font-medium text-sm truncate">{card.title}</span>
@@ -160,6 +151,15 @@ export default function RichAssetCard({
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+        </div>
+
+        {/* Preview Image */}
+        <div className="mb-3 rounded-lg overflow-hidden bg-gray-100">
+          <img 
+            src={card.thumbnailUrl || "/api/placeholder/320/120"}
+            alt={`${card.type} preview`}
+            className="w-full h-20 object-cover"
+          />
         </div>
 
         {/* Status Indicator */}
