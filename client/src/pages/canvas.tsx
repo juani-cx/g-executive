@@ -69,20 +69,15 @@ import GlassBackground from "@/components/glass-background";
 import { useLocation, useRoute } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 
-interface AssetCard {
-  id: string;
-  type: "slides" | "landing" | "linkedin" | "instagram" | "twitter" | "facebook" | "email" | "ads" | "blog" | "youtube" | "press" | "config";
-  title: string;
-  status: "generating" | "ready" | "error";
+interface AssetCard extends CanvasCard {
+  position: { x: number; y: number };
+  size: { width: number; height: number };
   content?: {
     preview?: string;
     text?: string;
     image?: string;
     [key: string]: any;
   };
-  position: { x: number; y: number };
-  size: { width: number; height: number };
-  version: number;
   createdAt?: Date;
 }
 
@@ -120,6 +115,7 @@ interface Project {
 }
 
 const CARD_TEMPLATES = [
+  { type: "instagram" as const, label: "Instagram", icon: Instagram, color: "bg-gradient-to-r from-purple-500 to-pink-500" },
   { type: "twitter" as const, label: "X/Twitter", icon: Twitter, color: "bg-black" },
   { type: "facebook" as const, label: "Facebook", icon: Facebook, color: "bg-blue-600" },
   { type: "email" as const, label: "Email", icon: Mail, color: "bg-green-600" },
@@ -129,7 +125,7 @@ const CARD_TEMPLATES = [
   { type: "press" as const, label: "Press Release", icon: Newspaper, color: "bg-gray-600" },
 ];
 
-const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
+const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt" | "summary" | "counts" | "collaborators" | "lastEditedAt">[] = [
   {
     type: "slides",
     title: "Presentation Slides",

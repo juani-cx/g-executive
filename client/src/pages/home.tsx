@@ -99,7 +99,7 @@ export default function Home() {
                         className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
                           activeTab === "campaign" 
                             ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
-                            : "text-glass-text-secondary hover:bg-[rgba(255,255,255,0.05)]"
+                            : "text-glass-text-secondary hover:bg-[rgba(99,102,241,0.1)] hover:text-[#6366f1]"
                         }`}
                         onClick={() => setActiveTab("campaign")}
                       >
@@ -111,7 +111,7 @@ export default function Home() {
                         className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
                           activeTab === "catalog" 
                             ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
-                            : "text-glass-text-secondary hover:bg-[rgba(255,255,255,0.05)]"
+                            : "text-glass-text-secondary hover:bg-[rgba(99,102,241,0.1)] hover:text-[#6366f1]"
                         }`}
                         onClick={() => setActiveTab("catalog")}
                       >
@@ -125,7 +125,7 @@ export default function Home() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-10 h-10 text-glass-text-muted hover:text-glass-text-primary hover:bg-[rgba(255,255,255,0.05)] rounded-lg"
+                        className="w-10 h-10 text-glass-text-muted hover:text-[#6366f1] hover:bg-[rgba(99,102,241,0.1)] rounded-lg"
                         onClick={() => document.getElementById('file-upload')?.click()}
                       >
                         <Paperclip className="w-5 h-5" />
