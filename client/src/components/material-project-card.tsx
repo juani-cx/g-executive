@@ -49,6 +49,10 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
           src={campaign.sourceImageUrl || "/api/placeholder/320/180"} 
           alt={campaign.name}
           className="w-full h-full object-cover transition-all duration-300"
+          onError={(e) => {
+            console.log('Image failed to load:', e.currentTarget.src);
+            e.currentTarget.src = "/api/placeholder/320/180";
+          }}
         />
         {/* Gray overlay that disappears on hover */}
         <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
