@@ -61,7 +61,7 @@ export default function AssetDrawer({
     onSaveManual?.({ title, content });
   };
 
-  const activeCollaborators = card.collaborators.filter(c => c.active);
+  const activeCollaborators = (card.collaborators || []).filter(c => c.active);
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
@@ -86,7 +86,7 @@ export default function AssetDrawer({
           
           <div className="flex items-center justify-between">
             <SheetDescription className="text-gray-600">
-              Last edited {formatDistanceToNow(new Date(card.lastEditedAt), { addSuffix: true })} by {card.lastEditedBy}
+              Last edited {card.lastEditedAt ? formatDistanceToNow(new Date(card.lastEditedAt), { addSuffix: true }) : 'recently'} by {card.lastEditedBy || 'Unknown'}
             </SheetDescription>
             
             {/* Active Collaborators */}
