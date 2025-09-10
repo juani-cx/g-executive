@@ -24,6 +24,7 @@ import {
 import { CanvasCard } from "@/types/canvas";
 import { formatDistanceToNow } from "date-fns";
 import UnifiedContentEditor from "./UnifiedContentEditor";
+import CardPreview from "./CardPreview";
 
 interface AssetDrawerProps {
   card: CanvasCard | null;
@@ -111,8 +112,11 @@ export default function AssetDrawer({
           </div>
         </SheetHeader>
 
-        <Tabs defaultValue="edit" className="mt-6">
-          <TabsList className="grid w-full grid-cols-4 bg-gray-100 text-gray-700">
+        <Tabs defaultValue="preview" className="mt-6">
+          <TabsList className="grid w-full grid-cols-5 bg-gray-100 text-gray-700">
+            <TabsTrigger value="preview" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              Preview
+            </TabsTrigger>
             <TabsTrigger value="edit" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
               Edit
             </TabsTrigger>
@@ -126,6 +130,10 @@ export default function AssetDrawer({
               Export
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="preview" className="space-y-4 mt-6">
+            <CardPreview card={card} />
+          </TabsContent>
 
           <TabsContent value="edit" className="space-y-4 mt-6">
             <UnifiedContentEditor 
