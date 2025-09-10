@@ -180,7 +180,7 @@ export default function AssetDrawer({
               <div className="flex items-center space-x-2">
                 <MessageCircle className="w-4 h-4 text-gray-600" />
                 <span className="text-sm font-medium text-gray-700">
-                  Comments ({card.counts.comments})
+                  Comments ({(card.counts?.comments || 0)})
                 </span>
               </div>
 
@@ -204,7 +204,7 @@ export default function AssetDrawer({
 
               {/* Existing Comments */}
               <div className="space-y-3">
-                {Array.from({ length: card.counts.comments }, (_, i) => (
+                {Array.from({ length: (card.counts?.comments || 0) }, (_, i) => (
                   <div key={i} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                     <div className="flex items-center space-x-2 mb-2">
                       <Avatar className="w-6 h-6">
