@@ -1,11 +1,74 @@
 import { CanvasCard } from "@/types/canvas";
-import { Instagram, Twitter, Facebook, Mail, FileText, Youtube, Newspaper, Globe, FileImage } from "lucide-react";
+import { Instagram, Twitter, Facebook, Mail, FileText, Youtube, Newspaper, Globe, FileImage, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 interface CardPreviewProps {
   card: CanvasCard;
 }
 
 export default function CardPreview({ card }: CardPreviewProps) {
+  const [hoveredInput, setHoveredInput] = useState<string | null>(null);
+  const [editableContent, setEditableContent] = useState({
+    title: card.title || "",
+    introduction: "Hook: The power of first impressions in marketing.",
+    outline1: "Understanding Marketing Assets",
+    outline2: "Identifying Your Target Audience", 
+    outline3: "Creating Compelling Visual Content",
+    outline4: "Measuring Success",
+    wordCount: "1200",
+    readTime: "5",
+    images: "3"
+  });
+  
+  const handleContentChange = (field: string, value: string) => {
+    setEditableContent(prev => ({...prev, [field]: value}));
+  };
+  
+  const handleAISuggestion = (field: string) => {
+    // AI suggestion logic here
+    console.log(`AI suggestion for ${field}`);
+  };
+  
+  const EditableInput = ({ field, value, placeholder, multiline = false, label }: { field: string, value: string, placeholder: string, multiline?: boolean, label: string }) => (
+    <div className="relative group">
+      <label className="text-xs font-medium text-gray-700 mb-1 block">{label}</label>
+      <div 
+        className="relative"
+        onMouseEnter={() => setHoveredInput(field)}
+        onMouseLeave={() => setHoveredInput(null)}
+      >
+        {multiline ? (
+          <Textarea
+            value={value}
+            onChange={(e) => handleContentChange(field, e.target.value)}
+            placeholder={placeholder}
+            className="w-full min-h-[60px] text-sm border border-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+          />
+        ) : (
+          <Input
+            value={value}
+            onChange={(e) => handleContentChange(field, e.target.value)}
+            placeholder={placeholder}
+            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+          />
+        )}
+        {hoveredInput === field && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={() => handleAISuggestion(field)}
+          >
+            <Sparkles className="w-3 h-3 text-violet-600" />
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+  
   const getPreviewContent = () => {
     const content = (card as any).content?.text || card.summary || "Generated content will appear here";
     
@@ -220,11 +283,82 @@ export default function CardPreview({ card }: CardPreviewProps) {
         
       default:
         return (
-          <div className="max-w-lg mx-auto bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-            <div className="px-4 py-6 text-center">
-              <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">{card.title}</h3>
-              <p className="text-sm text-gray-600">{content}</p>
+          <div className="max-w-2xl mx-auto space-y-4">
+            {/* Title Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <EditableInput 
+                field="title"
+                value={editableContent.title}
+                placeholder="Blog Post Title..."
+                label="Blog Post Title"
+              />
+            </div>
+            
+            {/* Introduction Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <EditableInput 
+                field="introduction"
+                value={editableContent.introduction}
+                placeholder="Write your introduction hook..."
+                multiline
+                label="Introduction"
+              />
+            </div>
+            
+            {/* Content Outline */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-800 mb-3">Content Outline</h4>
+              <div className="space-y-3">
+                <EditableInput 
+                  field="outline1"
+                  value={editableContent.outline1}
+                  placeholder="Section 1..."
+                  label="1."
+                />
+                <EditableInput 
+                  field="outline2"
+                  value={editableContent.outline2}
+                  placeholder="Section 2..."
+                  label="2."
+                />
+                <EditableInput 
+                  field="outline3"
+                  value={editableContent.outline3}
+                  placeholder="Section 3..."
+                  label="3."
+                />
+                <EditableInput 
+                  field="outline4"
+                  value={editableContent.outline4}
+                  placeholder="Section 4..."
+                  label="4."
+                />
+              </div>
+            </div>
+            
+            {/* Metrics Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-800 mb-3">Content Metrics</h4>
+              <div className="grid grid-cols-3 gap-4">
+                <EditableInput 
+                  field="wordCount"
+                  value={editableContent.wordCount}
+                  placeholder="1200"
+                  label="Word Count"
+                />
+                <EditableInput 
+                  field="readTime"
+                  value={editableContent.readTime}
+                  placeholder="5"
+                  label="Read Time (min)"
+                />
+                <EditableInput 
+                  field="images"
+                  value={editableContent.images}
+                  placeholder="3"
+                  label="Images"
+                />
+              </div>
             </div>
           </div>
         );
