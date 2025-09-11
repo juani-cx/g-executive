@@ -483,7 +483,7 @@ export async function generatePlatformSpecificContent(platform: string, campaign
   }
 }
 
-export async function generateCardDesign(cardType: string, prompt: string): Promise<{ content: string; imageUrl?: string }> {
+export async function generateCardDesign(cardType: string, prompt: string, shouldGenerateImage: boolean = true): Promise<{ content: string; imageUrl?: string }> {
   console.log(`Generating ${cardType} design for prompt:`, prompt);
   
   try {
@@ -599,4 +599,55 @@ export async function generateCardDesign(cardType: string, prompt: string): Prom
     console.error("Error generating card design:", error);
     throw new Error(`Failed to generate ${cardType} design: ${(error as Error).message}`);
   }
+}
+
+// Image variation mapping for different card types
+const IMAGE_VARIATION_MAPPING = {
+  // Professional/Business content - Variation 1
+  'primary': ['linkedin', 'blog', 'email', 'slides'],
+  // Social content - Variation 2  
+  'secondary': ['instagram', 'facebook', 'twitter'],
+  // Marketing/Commercial content - Variation 3
+  'tertiary': ['ads', 'landing', 'youtube']
+};
+
+// Generate reusable image variations for a campaign
+export async function generateCampaignImageVariations(campaignPrompt: string) {
+  const variations: { [key: string]: string } = {};
+  
+  try {
+    // Generate primary variation (professional/business)
+    const primaryPrompt = `Professional business marketing image for: ${campaignPrompt}. Clean, corporate style, modern design, high quality.`;
+    const primaryResult = await generateImage(primaryPrompt);
+    variations.primary = primaryResult.url;
+    
+    // Generate secondary variation (social media)
+    const secondaryPrompt = `Social media marketing image for: ${campaignPrompt}. Engaging, vibrant, social-friendly design, trending aesthetic.`;
+    const secondaryResult = await generateImage(secondaryPrompt);
+    variations.secondary = secondaryResult.url;
+    
+    // Generate tertiary variation (marketing/commercial)
+    const tertiaryPrompt = `Commercial marketing image for: ${campaignPrompt}. High-impact, conversion-focused, advertisement style, professional quality.`;
+    const tertiaryResult = await generateImage(tertiaryPrompt);
+    variations.tertiary = tertiaryResult.url;
+    
+    console.log('Generated campaign image variations:', Object.keys(variations));
+    return variations;
+  } catch (error) {
+    console.error('Error generating campaign image variations:', error);
+    return {};
+  }
+}
+
+// Get appropriate image variation for a card type
+export function getImageVariationForCardType(cardType: string, variations: { [key: string]: string }): string | null {
+  // Find which variation group this card type belongs to
+  for (const [variationKey, cardTypes] of Object.entries(IMAGE_VARIATION_MAPPING)) {
+    if (cardTypes.includes(cardType)) {
+      return variations[variationKey] || null;
+    }
+  }
+  
+  // Default to primary variation if card type not found
+  return variations.primary || null;
 }

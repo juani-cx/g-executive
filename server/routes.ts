@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertCampaignSchema, insertCatalogSchema, insertCatalogProductSchema, type GeneratedAsset } from "@shared/schema";
-import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign, generateCampaignCoverImage, generatePlatformSpecificContent } from "./services/openai";
+import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign, generateCampaignCoverImage, generatePlatformSpecificContent, generateCampaignImageVariations, getImageVariationForCardType } from "./services/openai";
 import { CollaborationService } from "./services/collaboration";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
@@ -120,26 +120,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
         cardIndex++;
       });
 
-      // Store all cards as part of campaign
+      // Generate reusable image variations for the campaign
+      console.log('Generating campaign image variations...');
+      const campaignPrompt = `${name}: ${description}. Brand tone: ${brandTone}. Target: ${targetAudience}`;
+      const imageVariations = await generateCampaignImageVariations(campaignPrompt);
+      
+      // Add image variations as a special config asset
+      const imageVariationsCard = {
+        id: `variations-${campaign.id}`,
+        type: "config" as const,
+        title: "Image Variations",
+        status: "ready" as const,
+        content: {
+          imageVariations,
+          primary: imageVariations.primary,
+          secondary: imageVariations.secondary,
+          tertiary: imageVariations.tertiary
+        },
+        position: { x: 50, y: 50 },
+        size: { width: 200, height: 200 },
+        version: 1
+      };
+      generatedAssets.push(imageVariationsCard);
+      
+      // Store campaign with all assets including image variations
       const updatedCampaign = await storage.updateCampaign(campaign.id, {
         ...campaign,
         generatedAssets
       });
 
-      // Start background generation for platform cards
+      // Start background generation for platform cards using image variations
       platforms?.forEach(async (platform: string) => {
         const platformType = platformMapping[platform] || platform.toLowerCase();
         const prompt = `${description} - ${platform} content for ${campaignGoals?.join(', ') || 'Brand Awareness'}`;
         
         try {
-          console.log(`Generating ${platformType} design for prompt: ${prompt}`);
-          // Generate platform-specific content using existing generateCardDesign function
+          console.log(`Generating ${platformType} content for prompt: ${prompt}`);
+          
+          // Generate content without image (we'll use reusable variations)
           setTimeout(async () => {
             try {
-              const generatedContent = await generateCardDesign(platformType, prompt);
-              console.log(`Generated ${platformType} content:`, generatedContent?.content?.substring(0, 100));
+              const generatedContent = await generateCardDesign(platformType, prompt, false); // Don't generate image
+              const reusableImageUrl = getImageVariationForCardType(platformType, imageVariations);
               
-              // Update the campaign with generated content and image
+              console.log(`Generated ${platformType} content, using reusable image variation:`, reusableImageUrl?.substring(0, 50));
+              
+              // Update the campaign with generated content and reusable image
               const currentCampaign = await storage.getCampaign(campaign.id);
               if (currentCampaign && currentCampaign.generatedAssets) {
                 const updatedAssets = currentCampaign.generatedAssets.map((asset: any) => {
@@ -147,11 +173,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     return {
                       ...asset,
                       status: "ready" as const,
-                      url: generatedContent?.imageUrl || null,
+                      url: reusableImageUrl,
                       content: {
                         ...asset.content,
                         text: generatedContent?.content || `Generated ${platform} content`,
-                        imageUrl: generatedContent?.imageUrl || null,
+                        imageUrl: reusableImageUrl,
                         generatedAt: new Date().toISOString()
                       }
                     };
