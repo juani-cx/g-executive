@@ -75,7 +75,7 @@ export default function MaterialHeader({
               </Link>
               
               <Avatar className="w-10 h-10 rounded-full overflow-hidden bg-[#D3D3D3]">
-                <AvatarImage src="/api/placeholder/32/32" alt="User" />
+                <AvatarImage src="/attached_assets/generated_images/Professional_female_business_headshot_149cca19.png" alt="User" />
                 <AvatarFallback className="bg-[#D3D3D3] text-gray-600 text-sm font-medium">
                   U
                 </AvatarFallback>

@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import { useLocation } from "wouter";
 import GlassBackground from "@/components/glass-background";
-import { MainMenu } from "@/components/main-menu";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -512,8 +511,6 @@ export default function CampaignGenerator() {
         </div>
       )}
 
-      {/* Main Menu */}
-      <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
     </div>
   );
 }
