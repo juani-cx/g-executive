@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
 import { fileURLToPath } from "url";
+import express from "express";
 
 const upload = multer({ 
   storage: multer.memoryStorage(),
@@ -63,7 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       fs.mkdirSync(imagesDir, { recursive: true });
     }
     next();
-  }, require('express').static(imagesDir, { fallthrough: false }));
+  }, express.static(imagesDir, { fallthrough: false }));
   
   // Campaign routes
   app.post("/api/campaigns", async (req, res) => {
