@@ -147,6 +147,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     return {
                       ...asset,
                       status: "ready" as const,
+                      url: generatedContent?.imageUrl || null,
                       content: {
                         ...asset.content,
                         text: generatedContent?.content || `Generated ${platform} content`,

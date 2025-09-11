@@ -558,7 +558,7 @@ export default function CanvasView() {
               title: asset.title,
               status: asset.status || "ready",
               content: asset.content,
-              thumbnailUrl: asset.content?.imageUrl || null,
+              thumbnailUrl: asset.url || asset.content?.imageUrl || null,
               position: asset.position || { x: Math.random() * 500, y: Math.random() * 300 },
               size: asset.size || { width: 300, height: 400 },
               version: 1,

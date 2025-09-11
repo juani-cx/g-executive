@@ -214,6 +214,13 @@ export default function CardPreview({ card }: CardPreviewProps) {
             
             {/* Email Content */}
             <div className="px-4 py-4">
+              {card.thumbnailUrl && (
+                <img 
+                  src={card.thumbnailUrl} 
+                  alt="Email header image"
+                  className="w-full h-32 object-cover rounded border border-gray-200 mb-4"
+                />
+              )}
               <div className="prose prose-sm max-w-none">
                 <div dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br>') }} />
               </div>
