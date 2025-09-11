@@ -542,11 +542,11 @@ export default function CampaignGenerator() {
       <GlassBackground />
       
       {/* Top Navigation - Step Indicator */}
-      <div className="border-b bg-white/95 backdrop-blur-sm">
-        <div className="max-w-2xl mx-auto px-6 py-4">
+      <div className="flex justify-center pt-8 pb-4">
+        <div className="glass-elevated border border-glass-border backdrop-blur-xl rounded-3xl px-6 py-3 shadow-lg w-full max-w-[1280px]">
           <div className="flex items-center justify-between">
             {/* Left side - Back arrow, title, and step navigation */}
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
                 <Button 
                   variant="ghost" 
@@ -557,27 +557,27 @@ export default function CampaignGenerator() {
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
-                <h1 className="text-lg font-semibold text-gray-800">Create Campaign</h1>
+                <h1 className="text-base font-medium text-gray-800">Create Campaign</h1>
               </div>
               
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-6">
                 {steps.map((step, index) => (
                   <div key={step.key} className="flex items-center">
                     <div 
-                      className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+                      className={`text-sm font-medium px-3 py-2 transition-colors relative ${
                         currentStep === step.key 
-                          ? 'bg-blue-600 text-white' 
+                          ? 'text-blue-600' 
                           : index < currentStepIndex
-                          ? 'bg-blue-100 text-blue-600'
-                          : 'bg-gray-100 text-gray-500'
+                          ? 'text-blue-600'
+                          : 'text-gray-500'
                       }`}
                       data-testid={`step-${step.key}`}
                     >
                       {step.label}
+                      {currentStep === step.key && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"></div>
+                      )}
                     </div>
-                    {index < steps.length - 1 && (
-                      <div className="w-4 h-px bg-gray-300 mx-1"></div>
-                    )}
                   </div>
                 ))}
               </div>
@@ -602,8 +602,8 @@ export default function CampaignGenerator() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-white/95 backdrop-blur-sm">
-        <div className="max-w-2xl mx-auto px-6 py-4">
+      <div className="fixed bottom-0 left-0 right-0 flex justify-center pb-8 pt-4">
+        <div className="glass-elevated border border-glass-border backdrop-blur-xl rounded-3xl px-6 py-3 shadow-lg w-full max-w-[1280px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {canGoPrev && (
