@@ -66,6 +66,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     next();
   }, express.static(imagesDir, { fallthrough: false }));
   
+  // Fix expired images for existing campaigns
+  app.post("/api/campaigns/:id/fix-image", async (req, res) => {
+    try {
+      const campaignId = parseInt(req.params.id);
+      const campaign = await storage.getCampaign(campaignId);
+      
+      if (!campaign) {
+        return res.status(404).json({ error: "Campaign not found" });
+      }
+
+      if (!campaign.sourceImageUrl) {
+        return res.status(400).json({ error: "Campaign has no source image URL" });
+      }
+
+      // Check if URL is already a local path
+      if (campaign.sourceImageUrl.startsWith('/generated-images/')) {
+        return res.json({ success: true, message: "Image already persisted" });
+      }
+
+      // Download and save the image
+      const filename = `campaign_${campaignId}_${Date.now()}.png`;
+      const localImagePath = await downloadAndSaveImage(campaign.sourceImageUrl, filename);
+      
+      // Update the campaign with the new local image path
+      await storage.updateCampaign(campaignId, { sourceImageUrl: localImagePath });
+      
+      res.json({ 
+        success: true, 
+        oldUrl: campaign.sourceImageUrl,
+        newUrl: localImagePath,
+        message: "Image successfully downloaded and saved locally" 
+      });
+    } catch (error) {
+      console.error('Error fixing campaign image:', error);
+      res.status(500).json({ error: "Failed to fix campaign image" });
+    }
+  });
+
   // Campaign routes
   app.post("/api/campaigns", async (req, res) => {
     try {
