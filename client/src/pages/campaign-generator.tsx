@@ -177,21 +177,20 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">1. What's your campaign name?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, name: "TechFlow Startup Campaign"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-name"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Input
                   value={config.name}
                   onChange={(e) => setConfig(prev => ({...prev, name: e.target.value}))}
                   placeholder="Select or Start Typing"
-                  className="w-full"
+                  className="w-full border border-gray-300 focus:border-blue-500"
                   data-testid="input-campaign-name"
                 />
               </div>
@@ -200,21 +199,20 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">2. Describe your campaign</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, description: "Launch campaign for innovative SaaS startup targeting tech professionals with modern, clean design approach"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-description"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Textarea
                   value={config.description}
                   onChange={(e) => setConfig(prev => ({...prev, description: e.target.value}))}
                   placeholder="Select or Start Typing"
-                  className="w-full min-h-[100px]"
+                  className="w-full min-h-[100px] border border-gray-300 focus:border-blue-500"
                   data-testid="input-campaign-description"
                 />
               </div>
@@ -223,18 +221,17 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">3. What's your brand tone?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, brandTone: "professional"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-tone"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Select value={config.brandTone} onValueChange={(value) => setConfig(prev => ({...prev, brandTone: value}))}>
-                  <SelectTrigger className="w-full" data-testid="select-brand-tone">
+                  <SelectTrigger className="w-full border border-gray-300 focus:border-blue-500" data-testid="select-brand-tone">
                     <SelectValue placeholder="Select or Start Typing" />
                   </SelectTrigger>
                   <SelectContent>
@@ -252,18 +249,17 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">4. What's your budget range?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, budget: "5k-10k"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-budget"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Select value={config.budget} onValueChange={(value) => setConfig(prev => ({...prev, budget: value}))}>
-                  <SelectTrigger className="w-full" data-testid="select-budget">
+                  <SelectTrigger className="w-full border border-gray-300 focus:border-blue-500" data-testid="select-budget">
                     <SelectValue placeholder="Select or Start Typing" />
                   </SelectTrigger>
                   <SelectContent>
@@ -280,18 +276,17 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">5. What's your timeline?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, timeline: "1-month"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-timeline"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Select value={config.timeline} onValueChange={(value) => setConfig(prev => ({...prev, timeline: value}))}>
-                  <SelectTrigger className="w-full" data-testid="select-timeline">
+                  <SelectTrigger className="w-full border border-gray-300 focus:border-blue-500" data-testid="select-timeline">
                     <SelectValue placeholder="Select or Start Typing" />
                   </SelectTrigger>
                   <SelectContent>
@@ -319,21 +314,20 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">1. Who's your target audience?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, targetAudience: "Tech professionals, 25-40 years old, interested in productivity tools"}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-audience"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <Input
                   value={config.targetAudience}
                   onChange={(e) => setConfig(prev => ({...prev, targetAudience: e.target.value}))}
                   placeholder="Select or Start Typing"
-                  className="w-full"
+                  className="w-full border border-gray-300 focus:border-blue-500"
                   data-testid="input-target-audience"
                 />
               </div>
@@ -342,14 +336,13 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">2. What are your campaign goals?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, campaignGoals: ["Brand Awareness", "Lead Generation", "Traffic"]}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-goals"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -362,7 +355,7 @@ export default function CampaignGenerator() {
                       className={`justify-start text-sm ${
                         config.campaignGoals.includes(goal) 
                           ? "bg-blue-600 text-white border-blue-600" 
-                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
                       }`}
                       data-testid={`button-goal-${goal.toLowerCase().replace(' ', '-')}`}
                     >
@@ -376,14 +369,13 @@ export default function CampaignGenerator() {
                 <div className="flex items-center justify-between mb-2">
                   <Label className="text-gray-700 font-medium">3. What platforms will you use?</Label>
                   <Button
-                    size="sm"
-                    variant="secondary"
+                    size="icon"
+                    variant="ghost"
                     onClick={() => setConfig(prev => ({...prev, platforms: ["LinkedIn", "Instagram", "Email"]}))}
-                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-platforms"
                   >
-                    <Shuffle className="w-3 h-3 mr-1" />
-                    Randomize
+                    <Shuffle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
@@ -396,7 +388,7 @@ export default function CampaignGenerator() {
                       className={`justify-start text-sm ${
                         config.platforms.includes(platform) 
                           ? "bg-blue-600 text-white border-blue-600" 
-                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
                       }`}
                       data-testid={`button-platform-${platform.toLowerCase()}`}
                     >
@@ -461,7 +453,7 @@ export default function CampaignGenerator() {
                     <Input
                       value={config.primaryColor}
                       onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
-                      className="flex-1"
+                      className="flex-1 border border-gray-300 focus:border-blue-500"
                       data-testid="input-primary-color-text"
                     />
                   </div>
@@ -479,7 +471,7 @@ export default function CampaignGenerator() {
                     <Input
                       value={config.secondaryColor}
                       onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
-                      className="flex-1"
+                      className="flex-1 border border-gray-300 focus:border-blue-500"
                       data-testid="input-secondary-color-text"
                     />
                   </div>
@@ -551,7 +543,7 @@ export default function CampaignGenerator() {
       
       {/* Top Navigation - Step Indicator */}
       <div className="border-b bg-white/95 backdrop-blur-sm">
-        <div className="max-w-full mx-auto px-6 py-4">
+        <div className="max-w-2xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Back arrow, title, and step navigation */}
             <div className="flex items-center space-x-6">
@@ -560,7 +552,7 @@ export default function CampaignGenerator() {
                   variant="ghost" 
                   size="icon"
                   onClick={() => navigate("/")}
-                  className="hover:bg-gray-100"
+                  className="hover:bg-gray-100 hover:text-gray-900"
                   data-testid="button-back-home"
                 >
                   <ArrowLeft className="w-4 h-4" />
@@ -595,7 +587,7 @@ export default function CampaignGenerator() {
             <Button 
               variant="outline" 
               size="sm"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
               data-testid="button-how-it-works"
             >
               How it works
@@ -618,7 +610,7 @@ export default function CampaignGenerator() {
                 <Button 
                   variant="outline" 
                   onClick={handlePrev}
-                  className="border-gray-300 text-gray-700"
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
                   data-testid="button-prev-step"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -628,7 +620,7 @@ export default function CampaignGenerator() {
               <Button 
                 variant="outline"
                 onClick={randomizeCurrentStep}
-                className="border-gray-300 text-gray-700"
+                className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
                 data-testid="button-randomize-all"
               >
                 <Shuffle className="w-4 h-4 mr-2" />
@@ -641,7 +633,7 @@ export default function CampaignGenerator() {
                 <Button 
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="bg-blue-600 text-white hover:bg-blue-700"
+                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500"
                   data-testid="button-continue"
                 >
                   Continue
@@ -651,7 +643,7 @@ export default function CampaignGenerator() {
                 <Button 
                   onClick={handleCreateCampaign}
                   disabled={!isStepValid() || createCampaignMutation.isPending}
-                  className="bg-blue-600 text-white hover:bg-blue-700"
+                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500"
                   data-testid="button-create-campaign"
                 >
                   {createCampaignMutation.isPending ? (
