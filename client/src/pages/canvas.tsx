@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -223,9 +223,11 @@ export default function CanvasView() {
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "error">("saved");
   
-  // Get URL parameters for collaboration
-  const urlParams = new URLSearchParams(window.location.search);
-  const linkToken = urlParams.get('token');
+  // Get URL parameters for collaboration (memoized to prevent re-renders)
+  const linkToken = useMemo(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('token');
+  }, []);
   
   // Initialize collaboration
   const collaboration = useCollaboration({
@@ -317,7 +319,7 @@ export default function CanvasView() {
     };
   }, []);
 
-  // Handle cursor tracking
+  // Handle cursor tracking (removed updateCursor from deps to prevent infinite loop)
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       if (canvasRef.current && collaboration.isConnected) {
@@ -334,7 +336,7 @@ export default function CanvasView() {
         canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
       };
     }
-  }, [collaboration.isConnected, collaboration.updateCursor]);
+  }, [collaboration.isConnected]); // Removed collaboration.updateCursor to prevent infinite loop
 
   // Helper function to generate unique IDs
   const generateId = () => Math.random().toString(36).substr(2, 9);
