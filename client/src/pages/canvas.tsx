@@ -283,6 +283,15 @@ export default function CanvasView() {
     }, 1000); // Save after 1 second of inactivity
   };
 
+  // Cleanup auto-save debounce on unmount
+  useEffect(() => {
+    return () => {
+      if (debouncedAutoSave.current) {
+        clearTimeout(debouncedAutoSave.current);
+      }
+    };
+  }, []);
+
   // Handle collaboration events
   useEffect(() => {
     const handleCardLocked = (event: CustomEvent) => {
@@ -804,15 +813,31 @@ export default function CanvasView() {
   };
 
   const handleZoomIn = () => {
-    setViewport(prev => ({ ...prev, zoom: Math.min(prev.zoom * 1.2, 3) }));
+    setViewport(prev => {
+      const newViewport = { ...prev, zoom: Math.min(prev.zoom * 1.2, 3) };
+      if (project) {
+        autoSave(project, canvasElements);
+      }
+      return newViewport;
+    });
   };
 
   const handleZoomOut = () => {
-    setViewport(prev => ({ ...prev, zoom: Math.max(prev.zoom / 1.2, 0.1) }));
+    setViewport(prev => {
+      const newViewport = { ...prev, zoom: Math.max(prev.zoom / 1.2, 0.1) };
+      if (project) {
+        autoSave(project, canvasElements);
+      }
+      return newViewport;
+    });
   };
 
   const handleFitToView = () => {
-    setViewport({ x: 0, y: 0, zoom: 1 });
+    const newViewport = { x: 0, y: 0, zoom: 1 };
+    setViewport(newViewport);
+    if (project) {
+      autoSave(project, canvasElements);
+    }
   };
 
   const addCard = (type: AssetCard['type']) => {
