@@ -23,7 +23,8 @@ export const campaigns = pgTable("campaigns", {
     linkToken: "",
     maxCollaborators: 10
   }),
-  status: text("status").notNull().default("draft"), // draft, generating, completed, failed
+  status: text("status").notNull().default("in_progress"), // in_progress, in_approval, approved, finished
+  commentsCount: integer("comments_count").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

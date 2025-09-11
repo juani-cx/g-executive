@@ -1,12 +1,19 @@
 import { useLocation } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { 
   Calendar,
-  Image
+  Image,
+  MoreHorizontal,
+  MessageCircle,
+  Share2,
+  Trash2
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { type Campaign } from "@shared/schema";
+import { useState } from "react";
 
 interface MaterialProjectCardProps {
   campaign: Campaign;
@@ -15,9 +22,40 @@ interface MaterialProjectCardProps {
 
 export default function MaterialProjectCard({ campaign, className = "" }: MaterialProjectCardProps) {
   const [, navigate] = useLocation();
+  const [isHovered, setIsHovered] = useState(false);
 
   const getAssetCount = (campaign: Campaign) => {
     return campaign.generatedAssets?.length || 0;
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'in_progress':
+        return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+      case 'in_approval':
+        return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
+      case 'approved':
+        return 'bg-green-500/20 text-green-400 border-green-500/30';
+      case 'finished':
+        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+      default:
+        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'in_progress':
+        return 'In Progress';
+      case 'in_approval':
+        return 'In Approval';
+      case 'approved':
+        return 'Approved';
+      case 'finished':
+        return 'Finished';
+      default:
+        return status;
+    }
   };
 
   // Generate a gradient background based on campaign name
@@ -34,14 +72,32 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
     return gradients[index];
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Prevent navigation if clicking on dropdown menu
+    if ((e.target as HTMLElement).closest('[data-dropdown-trigger]')) {
+      return;
+    }
     navigate(`/canvas/${campaign.id}`);
+  };
+
+  const handleShare = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // TODO: Implement share functionality
+    console.log('Share campaign:', campaign.id);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // TODO: Implement delete functionality
+    console.log('Delete campaign:', campaign.id);
   };
 
   return (
     <Card 
-      className={`glass-surface border-glass-border hover:glass-elevated transition-all duration-300 group overflow-hidden cursor-pointer ${className}`}
+      className={`glass-surface border-glass-border hover:glass-elevated transition-all duration-300 group overflow-hidden cursor-pointer relative ${className}`}
       onClick={handleCardClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Hero Image with Gray Overlay */}
       <div className="h-32 relative overflow-hidden">
@@ -57,6 +113,13 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
         {/* Gray overlay that disappears on hover */}
         <div className="absolute inset-0 bg-gray-500/70 group-hover:bg-transparent transition-all duration-300"></div>
 
+        {/* Status Badge - Top Right */}
+        <div className="absolute top-3 right-3">
+          <Badge className={`text-xs font-medium border backdrop-blur-sm ${getStatusColor(campaign.status)}`}>
+            {getStatusLabel(campaign.status)}
+          </Badge>
+        </div>
+
         {/* Asset Count Overlay */}
         {getAssetCount(campaign) > 0 && (
           <div className="absolute bottom-3 left-3">
@@ -65,19 +128,63 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
             </Badge>
           </div>
         )}
+
+        {/* 3-dots Menu - Appears on Hover */}
+        {isHovered && (
+          <div className="absolute top-3 left-3" data-dropdown-trigger>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="h-8 w-8 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
+                  data-testid="campaign-menu-button"
+                >
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="glass-surface border-glass-border">
+                <DropdownMenuItem onClick={handleShare} data-testid="share-campaign">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Share
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={handleDelete} 
+                  className="text-red-400 focus:text-red-300"
+                  data-testid="delete-campaign"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
       </div>
 
       <CardContent className="p-4">
         <div className="space-y-2">
-          <h3 className="font-medium text-base text-glass-text-primary truncate group-hover:text-[#6366f1] transition-colors duration-200">
-            {campaign.name}
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium text-base text-glass-text-primary truncate group-hover:text-[#6366f1] transition-colors duration-200 flex-1 mr-2">
+              {campaign.name}
+            </h3>
+          </div>
           
-          <div className="flex items-center text-xs text-glass-text-muted">
-            <Calendar className="w-3 h-3 mr-1" />
-            <span>
-              {formatDistanceToNow(new Date(campaign.createdAt), { addSuffix: true })}
-            </span>
+          <div className="flex items-center justify-between text-xs text-glass-text-muted">
+            <div className="flex items-center">
+              <Calendar className="w-3 h-3 mr-1" />
+              <span>
+                {formatDistanceToNow(new Date(campaign.createdAt), { addSuffix: true })}
+              </span>
+            </div>
+            
+            {/* Comments Count */}
+            {campaign.commentsCount > 0 && (
+              <div className="flex items-center" data-testid="comments-count">
+                <MessageCircle className="w-3 h-3 mr-1" />
+                <span>{campaign.commentsCount}</span>
+              </div>
+            )}
           </div>
         </div>
       </CardContent>
