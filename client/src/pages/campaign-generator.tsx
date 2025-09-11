@@ -169,13 +169,13 @@ export default function CampaignGenerator() {
         return (
           <div className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Let's configure your campaign</h2>
+              <h2 className="text-2xl font-bold text-[#141221] mb-2" style={{ fontFamily: 'Work Sans, sans-serif' }}>Let's configure your campaign</h2>
             </div>
 
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">1. What's your campaign name?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>1. What's your campaign name?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -197,7 +197,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">2. Describe your campaign</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>2. Describe your campaign</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -219,7 +219,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">3. What's your brand tone?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>3. What's your brand tone?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -247,7 +247,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">4. What's your budget range?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>4. What's your budget range?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -274,7 +274,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">5. What's your timeline?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>5. What's your timeline?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -306,13 +306,13 @@ export default function CampaignGenerator() {
         return (
           <div className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Let's contextualize your campaign</h2>
+              <h2 className="text-2xl font-bold text-[#141221] mb-2" style={{ fontFamily: 'Work Sans, sans-serif' }}>Let's contextualize your campaign</h2>
             </div>
 
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">1. Who's your target audience?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>1. Who's your target audience?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -334,7 +334,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">2. What are your campaign goals?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>2. What are your campaign goals?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -367,7 +367,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">3. What platforms will you use?</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>3. What platforms will you use?</Label>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -400,7 +400,7 @@ export default function CampaignGenerator() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="text-gray-700 font-medium">4. Upload source image (optional)</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>4. Upload source image (optional)</Label>
                 </div>
                 {imagePreview ? (
                   <div className="relative border-2 border-gray-200 rounded-lg p-4">
@@ -426,7 +426,7 @@ export default function CampaignGenerator() {
                     data-testid="area-upload-image"
                   >
                     <Paperclip className="w-6 h-6 mx-auto mb-2 text-gray-400" />
-                    <p className="text-sm text-gray-500">Click to upload image</p>
+                    <p className="text-sm text-gray-500" style={{ fontFamily: 'Work Sans, sans-serif' }}>Click to upload image</p>
                   </div>
                 )}
                 <input
@@ -441,7 +441,7 @@ export default function CampaignGenerator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-gray-700 font-medium">Primary Color</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>Primary Color</Label>
                   <div className="flex items-center space-x-2 mt-1">
                     <input
                       type="color"
@@ -459,7 +459,7 @@ export default function CampaignGenerator() {
                   </div>
                 </div>
                 <div>
-                  <Label className="text-gray-700 font-medium">Secondary Color</Label>
+                  <Label className="text-gray-700 font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>Secondary Color</Label>
                   <div className="flex items-center space-x-2 mt-1">
                     <input
                       type="color"
@@ -485,42 +485,42 @@ export default function CampaignGenerator() {
         return (
           <div className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Preview your campaign</h2>
-              <p className="text-gray-600">Review your configuration before creating the campaign</p>
+              <h2 className="text-2xl font-bold text-[#141221] mb-2" style={{ fontFamily: 'Work Sans, sans-serif' }}>Preview your campaign</h2>
+              <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>Review your configuration before creating the campaign</p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6 space-y-4">
               <div>
-                <h3 className="font-semibold text-gray-800">Campaign Name</h3>
-                <p className="text-gray-600">{config.name || "Not specified"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Campaign Name</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.name || "Not specified"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Description</h3>
-                <p className="text-gray-600">{config.description || "Not specified"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Description</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.description || "Not specified"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Brand Tone</h3>
-                <p className="text-gray-600">{config.brandTone || "Not specified"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Brand Tone</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.brandTone || "Not specified"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Target Audience</h3>
-                <p className="text-gray-600">{config.targetAudience || "Not specified"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Target Audience</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.targetAudience || "Not specified"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Campaign Goals</h3>
-                <p className="text-gray-600">{config.campaignGoals.length > 0 ? config.campaignGoals.join(", ") : "None selected"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Campaign Goals</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.campaignGoals.length > 0 ? config.campaignGoals.join(", ") : "None selected"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Platforms</h3>
-                <p className="text-gray-600">{config.platforms.length > 0 ? config.platforms.join(", ") : "None selected"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Platforms</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.platforms.length > 0 ? config.platforms.join(", ") : "None selected"}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Budget & Timeline</h3>
-                <p className="text-gray-600">{config.budget || "Not specified"} • {config.timeline || "Not specified"}</p>
+                <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Budget & Timeline</h3>
+                <p className="text-gray-600" style={{ fontFamily: 'Work Sans, sans-serif' }}>{config.budget || "Not specified"} • {config.timeline || "Not specified"}</p>
               </div>
               {imagePreview && (
                 <div>
-                  <h3 className="font-semibold text-gray-800">Source Image</h3>
+                  <h3 className="font-semibold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Source Image</h3>
                   <img 
                     src={imagePreview} 
                     alt="Campaign source" 
@@ -557,7 +557,7 @@ export default function CampaignGenerator() {
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
-                <h1 className="text-base font-medium text-gray-800">Create Campaign</h1>
+                <h1 className="text-sm font-medium text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Create Campaign</h1>
               </div>
               
               <div className="flex items-center space-x-6">
@@ -571,6 +571,7 @@ export default function CampaignGenerator() {
                           ? 'text-blue-600'
                           : 'text-gray-500'
                       }`}
+                      style={{ fontFamily: 'Work Sans, sans-serif' }}
                       data-testid={`step-${step.key}`}
                     >
                       {step.label}
@@ -587,7 +588,8 @@ export default function CampaignGenerator() {
             <Button 
               variant="outline" 
               size="sm"
-              className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+              className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-sm font-medium"
+              style={{ fontFamily: 'Work Sans, sans-serif' }}
               data-testid="button-how-it-works"
             >
               How it works
@@ -597,7 +599,7 @@ export default function CampaignGenerator() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="max-w-2xl mx-auto px-6 py-8 pb-32">
         {renderStepContent()}
       </div>
 
@@ -610,7 +612,8 @@ export default function CampaignGenerator() {
                 <Button 
                   variant="outline" 
                   onClick={handlePrev}
-                  className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700 text-sm font-medium"
+                  style={{ fontFamily: 'Work Sans, sans-serif' }}
                   data-testid="button-prev-step"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -620,7 +623,8 @@ export default function CampaignGenerator() {
               <Button 
                 variant="outline"
                 onClick={randomizeCurrentStep}
-                className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700"
+                className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-700 text-sm font-medium"
+                style={{ fontFamily: 'Work Sans, sans-serif' }}
                 data-testid="button-randomize-all"
               >
                 <Shuffle className="w-4 h-4 mr-2" />
@@ -633,7 +637,8 @@ export default function CampaignGenerator() {
                 <Button 
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500"
+                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500 text-sm font-medium"
+                  style={{ fontFamily: 'Work Sans, sans-serif' }}
                   data-testid="button-continue"
                 >
                   Continue
@@ -643,7 +648,8 @@ export default function CampaignGenerator() {
                 <Button 
                   onClick={handleCreateCampaign}
                   disabled={!isStepValid() || createCampaignMutation.isPending}
-                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500"
+                  className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white disabled:bg-gray-300 disabled:text-gray-500 text-sm font-medium"
+                  style={{ fontFamily: 'Work Sans, sans-serif' }}
                   data-testid="button-create-campaign"
                 >
                   {createCampaignMutation.isPending ? (
@@ -679,7 +685,7 @@ export default function CampaignGenerator() {
             </div>
             
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-800">Preparing Your Canvas</h2>
+              <h2 className="text-2xl font-bold text-[#141221]" style={{ fontFamily: 'Work Sans, sans-serif' }}>Preparing Your Canvas</h2>
               <div className="flex items-center justify-center space-x-2">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
