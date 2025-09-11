@@ -75,7 +75,8 @@ import { MainMenu } from "@/components/main-menu";
 import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
 import { useLocation, useRoute } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 interface AssetCard extends CanvasCard {
   position: { x: number; y: number };
@@ -218,6 +219,10 @@ export default function CanvasView() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [cardLocks, setCardLocks] = useState<Record<string, string>>({});
   
+  // Auto-save state
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+  const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "error">("saved");
+  
   // Get URL parameters for collaboration
   const urlParams = new URLSearchParams(window.location.search);
   const linkToken = urlParams.get('token');
@@ -235,6 +240,48 @@ export default function CanvasView() {
     queryKey: ['/api/campaigns', campaignId],
     enabled: !!campaignId,
   });
+
+  // Auto-save mutation
+  const autoSaveMutation = useMutation({
+    mutationFn: async (canvasState: any) => {
+      if (!campaignId) throw new Error("No campaign ID");
+      return apiRequest(`/api/campaigns/${campaignId}/canvas`, {
+        method: 'POST',
+        body: JSON.stringify(canvasState),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    },
+    onMutate: () => {
+      setSaveStatus("saving");
+    },
+    onSuccess: () => {
+      setSaveStatus("saved");
+      setLastSavedAt(new Date());
+    },
+    onError: (error: any) => {
+      console.error('Auto-save failed:', error);
+      setSaveStatus("error");
+    }
+  });
+
+  // Debounced auto-save function
+  const debouncedAutoSave = useRef<NodeJS.Timeout | null>(null);
+  const autoSave = (project: Project, elements: CanvasElement[]) => {
+    if (debouncedAutoSave.current) {
+      clearTimeout(debouncedAutoSave.current);
+    }
+    
+    debouncedAutoSave.current = setTimeout(() => {
+      if (project && campaignId) {
+        const canvasState = {
+          assets: project.assets,
+          elements: elements,
+          viewport: viewport
+        };
+        autoSaveMutation.mutate(canvasState);
+      }
+    }, 1000); // Save after 1 second of inactivity
+  };
 
   // Handle collaboration events
   useEffect(() => {
@@ -409,14 +456,24 @@ export default function CanvasView() {
 
   // Update element content
   const updateElement = (id: string, updates: Partial<CanvasElement>) => {
-    setCanvasElements(elements => 
-      elements.map(el => el.id === id ? { ...el, ...updates } : el)
-    );
+    setCanvasElements(elements => {
+      const updated = elements.map(el => el.id === id ? { ...el, ...updates } : el);
+      if (project) {
+        autoSave(project, updated);
+      }
+      return updated;
+    });
   };
 
   // Delete element
   const deleteElement = (id: string) => {
-    setCanvasElements(elements => elements.filter(el => el.id !== id));
+    setCanvasElements(elements => {
+      const updated = elements.filter(el => el.id !== id);
+      if (project) {
+        autoSave(project, updated);
+      }
+      return updated;
+    });
   };
 
   // Bring element to front
@@ -703,20 +760,26 @@ export default function CanvasView() {
       const deltaX = (e.clientX - cardDragStart.x) / viewport.zoom;
       const deltaY = (e.clientY - cardDragStart.y) / viewport.zoom;
       
-      setProject(prev => prev ? {
-        ...prev,
-        assets: prev.assets.map(asset => 
-          asset.id === draggedCard 
-            ? { 
-                ...asset, 
-                position: { 
-                  x: asset.position.x + deltaX, 
-                  y: asset.position.y + deltaY 
+      setProject(prev => {
+        if (!prev) return prev;
+        const updatedProject = {
+          ...prev,
+          assets: prev.assets.map(asset => 
+            asset.id === draggedCard 
+              ? { 
+                  ...asset, 
+                  position: { 
+                    x: asset.position.x + deltaX, 
+                    y: asset.position.y + deltaY 
+                  }
                 }
-              }
-            : asset
-        )
-      } : null);
+              : asset
+          )
+        };
+        // Trigger auto-save for card position changes
+        autoSave(updatedProject, canvasElements);
+        return updatedProject;
+      });
       
       setCardDragStart({ x: e.clientX, y: e.clientY });
     }
@@ -1118,6 +1181,30 @@ export default function CanvasView() {
           presences={collaboration.presences}
           currentUserEphemeralId={collaboration.currentUserEphemeralId || undefined}
         />
+
+        {/* Auto-save Status */}
+        <div className="flex items-center gap-2 glass-elevated border-glass-border rounded-xl px-3 py-2 shadow-lg backdrop-blur-xl">
+          {saveStatus === "saving" && (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+              <span className="text-sm text-gray-600">Saving...</span>
+            </>
+          )}
+          {saveStatus === "saved" && (
+            <>
+              <Check className="w-4 h-4 text-green-600" />
+              <span className="text-sm text-gray-600">
+                {lastSavedAt && `Saved ${lastSavedAt.toLocaleTimeString()}`}
+              </span>
+            </>
+          )}
+          {saveStatus === "error" && (
+            <>
+              <X className="w-4 h-4 text-red-600" />
+              <span className="text-sm text-red-600">Save failed</span>
+            </>
+          )}
+        </div>
 
         {/* Connection Status */}
         {collaboration.connectionStatus !== "connected" && (

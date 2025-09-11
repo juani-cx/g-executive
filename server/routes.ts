@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
+import { fileURLToPath } from "url";
 
 const upload = multer({ 
   storage: multer.memoryStorage(),
@@ -24,7 +25,7 @@ async function downloadAndSaveImage(imageUrl: string, filename: string): Promise
     }
     
     const imageBuffer = Buffer.from(await response.arrayBuffer());
-    const imagesDir = path.join(import.meta.dirname, '../public/generated-images');
+    const imagesDir = path.join(fileURLToPath(new URL('.', import.meta.url)), '../public/generated-images');
     
     // Ensure directory exists
     if (!fs.existsSync(imagesDir)) {
@@ -54,17 +55,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
   const collaborationService = new CollaborationService(httpServer);
   
-  // Serve generated images
+  // Serve generated images securely using express.static
+  const imagesDir = path.join(fileURLToPath(new URL('.', import.meta.url)), '../public/generated-images');
   app.use('/generated-images', (req, res, next) => {
-    const imagesDir = path.join(import.meta.dirname, '../public/generated-images');
-    const imagePath = path.join(imagesDir, req.path);
-    
-    if (fs.existsSync(imagePath)) {
-      res.sendFile(imagePath);
-    } else {
-      res.status(404).json({ error: 'Image not found' });
+    // Ensure the directory exists
+    if (!fs.existsSync(imagesDir)) {
+      fs.mkdirSync(imagesDir, { recursive: true });
     }
-  });
+    next();
+  }, require('express').static(imagesDir, { fallthrough: false }));
   
   // Campaign routes
   app.post("/api/campaigns", async (req, res) => {
@@ -778,6 +777,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Placeholder image route
+  // Save canvas state (auto-save endpoint)
+  app.post("/api/campaigns/:id/canvas", async (req, res) => {
+    try {
+      const campaignId = parseInt(req.params.id);
+      const canvasState = req.body;
+      
+      // Update campaign with canvas state
+      const existingCampaign = await storage.getCampaign(campaignId);
+      if (!existingCampaign) {
+        return res.status(404).json({ error: "Campaign not found" });
+      }
+      
+      // Merge canvas assets back into generatedAssets
+      const updatedAssets = canvasState.assets?.map((asset: any) => ({
+        id: asset.id,
+        type: asset.type,
+        title: asset.title,
+        status: asset.status || "ready",
+        content: asset.content || {},
+        url: asset.thumbnailUrl || asset.content?.imageUrl,
+        position: asset.position,
+        size: asset.size,
+        version: asset.version || 1
+      })) || existingCampaign.generatedAssets;
+      
+      await storage.updateCampaign(campaignId, {
+        ...existingCampaign,
+        generatedAssets: updatedAssets,
+        canvasElements: canvasState.elements || [],
+        canvasViewport: canvasState.viewport
+      });
+      
+      res.json({ success: true, saved: new Date().toISOString() });
+    } catch (error) {
+      console.error('Error saving canvas state:', error);
+      res.status(500).json({ error: "Failed to save canvas state" });
+    }
+  });
+
   app.get("/api/placeholder/:width/:height", (req, res) => {
     const { width, height } = req.params;
     
