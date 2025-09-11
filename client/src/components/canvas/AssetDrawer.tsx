@@ -112,16 +112,10 @@ export default function AssetDrawer({
           </div>
         </SheetHeader>
 
-        <Tabs defaultValue="preview" className="mt-6">
-          <TabsList className="grid w-full grid-cols-5 bg-gray-100 text-gray-700">
-            <TabsTrigger value="preview" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
-              Preview
-            </TabsTrigger>
+        <Tabs defaultValue="edit" className="mt-6">
+          <TabsList className="grid w-full grid-cols-3 bg-gray-100 text-gray-700">
             <TabsTrigger value="edit" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
               Edit
-            </TabsTrigger>
-            <TabsTrigger value="versions" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
-              Versions
             </TabsTrigger>
             <TabsTrigger value="comments" className="data-[state=active]:bg-violet-600 data-[state=active]:text-white">
               Comments
@@ -131,49 +125,28 @@ export default function AssetDrawer({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="preview" className="space-y-4 mt-6">
-            <CardPreview card={card} />
-          </TabsContent>
-
           <TabsContent value="edit" className="space-y-4 mt-6">
-            <UnifiedContentEditor 
-              card={card}
-              onSave={onSaveManual}
-              onApplyAI={onApplyAI}
-            />
-          </TabsContent>
-
-          <TabsContent value="versions" className="space-y-4 mt-6">
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <GitBranch className="w-4 h-4 text-gray-600" />
-                <span className="text-sm font-medium text-gray-700">Version History</span>
+            {/* Preview section at the top */}
+            <div className="mb-6">
+              <div className="flex items-center space-x-2 mb-4">
+                <span className="text-sm font-medium text-gray-700">Preview</span>
               </div>
-              
-              <div className="space-y-2">
-                {Array.from({ length: card.version }, (_, i) => (
-                  <div 
-                    key={i} 
-                    className={`p-3 rounded-lg border ${
-                      i === 0 ? 'bg-violet-100 border-violet-300' : 'bg-gray-50 border-gray-200'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-900">
-                        Version {card.version - i} {i === 0 && '(Current)'}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {formatDistanceToNow(new Date(Date.now() - i * 3600000), { addSuffix: true })}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1">
-                      AI edit: Enhanced content structure and readability
-                    </p>
-                  </div>
-                ))}
+              <CardPreview card={card} />
+            </div>
+            
+            {/* Edit section below */}
+            <div className="border-t border-gray-200 pt-6">
+              <div className="flex items-center space-x-2 mb-4">
+                <span className="text-sm font-medium text-gray-700">Edit Content</span>
               </div>
+              <UnifiedContentEditor 
+                card={card}
+                onSave={onSaveManual}
+                onApplyAI={onApplyAI}
+              />
             </div>
           </TabsContent>
+
 
           <TabsContent value="comments" className="space-y-4 mt-6">
             <div className="space-y-4">

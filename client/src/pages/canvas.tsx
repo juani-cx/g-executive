@@ -43,6 +43,8 @@ import {
   Triangle,
   X,
   Check,
+  BringToFront,
+  SendToBack,
   Trash2,
   Home,
   Users,
@@ -50,6 +52,12 @@ import {
   HelpCircle,
   Archive
 } from "lucide-react";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -125,38 +133,54 @@ const CARD_TEMPLATES = [
   { type: "press" as const, label: "Press Release", icon: Newspaper, color: "bg-gray-600" },
 ];
 
-const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt" | "summary" | "counts" | "collaborators" | "lastEditedAt">[] = [
+const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
   {
     type: "slides",
     title: "Presentation Slides",
+    summary: "Professional presentation slides",
     status: "generating",
     position: { x: 100, y: 100 },
     size: { width: 320, height: 240 },
     version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
   },
   {
     type: "landing",
     title: "Landing Page",
+    summary: "Conversion-focused landing page",
     status: "generating", 
     position: { x: 500, y: 100 },
     size: { width: 320, height: 240 },
     version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
   },
   {
     type: "linkedin",
     title: "LinkedIn Post",
+    summary: "Professional LinkedIn content",
     status: "generating",
     position: { x: 100, y: 400 },
     size: { width: 320, height: 240 },
     version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
   },
   {
     type: "instagram",
     title: "Instagram Post",
+    summary: "Engaging Instagram visual content",
     status: "generating",
     position: { x: 500, y: 400 },
     size: { width: 320, height: 240 },
     version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
   },
 ];
 
@@ -174,6 +198,7 @@ export default function CanvasView() {
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
   const [showImageDialog, setShowImageDialog] = useState(false);
   const [activeComment, setActiveComment] = useState<string | null>(null);
+  const [contextMenuElement, setContextMenuElement] = useState<string | null>(null);
   const [imagePrompt, setImagePrompt] = useState("");
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
@@ -392,6 +417,25 @@ export default function CanvasView() {
   // Delete element
   const deleteElement = (id: string) => {
     setCanvasElements(elements => elements.filter(el => el.id !== id));
+  };
+
+  // Bring element to front
+  const bringToFront = (id: string) => {
+    const maxZ = Math.max(...canvasElements.map(el => el.zIndex || 0), 0);
+    updateElement(id, { zIndex: maxZ + 1 });
+  };
+
+  // Send element to back
+  const sendToBack = (id: string) => {
+    const minZ = Math.min(...canvasElements.map(el => el.zIndex || 0), 0);
+    updateElement(id, { zIndex: minZ - 1 });
+  };
+
+  // Handle right-click context menu
+  const handleElementContextMenu = (e: React.MouseEvent, elementId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setContextMenuElement(elementId);
   };
 
   // Delete card
@@ -1132,21 +1176,22 @@ export default function CanvasView() {
         >
           {/* Canvas Elements */}
           {canvasElements.map((element) => (
-            <div
-              key={element.id}
-              className={`absolute ${tool === "select" ? "cursor-move" : "cursor-pointer"} ${
-                draggedElement === element.id ? "shadow-2xl scale-105 z-50" : ""
-              }`}
-              style={{
-                left: element.position.x,
-                top: element.position.y,
-                width: element.size.width,
-                height: element.size.height,
-                transform: element.rotation ? `rotate(${element.rotation}deg)` : undefined,
-                zIndex: element.zIndex || 0,
-              }}
-              onMouseDown={(e) => handleElementMouseDown(e, element.id)}
-            >
+            <ContextMenu key={element.id}>
+              <ContextMenuTrigger asChild>
+                <div
+                  className={`absolute ${tool === "select" ? "cursor-move" : "cursor-pointer"} ${
+                    draggedElement === element.id ? "shadow-2xl scale-105 z-50" : ""
+                  }`}
+                  style={{
+                    left: element.position.x,
+                    top: element.position.y,
+                    width: element.size.width,
+                    height: element.size.height,
+                    transform: element.rotation ? `rotate(${element.rotation}deg)` : undefined,
+                    zIndex: element.zIndex || 0,
+                  }}
+                  onMouseDown={(e) => handleElementMouseDown(e, element.id)}
+                >
               {element.type === "text" && (
                 <div
                   className="w-full h-full flex items-center justify-center border border-transparent hover:border-blue-300 rounded transition-all duration-200"
@@ -1286,7 +1331,23 @@ export default function CanvasView() {
                   </div>
                 </div>
               )}
-            </div>
+                </div>
+              </ContextMenuTrigger>
+              <ContextMenuContent className="w-64">
+                <ContextMenuItem onClick={() => bringToFront(element.id)}>
+                  <BringToFront className="mr-2 h-4 w-4" />
+                  Bring to Front
+                </ContextMenuItem>
+                <ContextMenuItem onClick={() => sendToBack(element.id)}>
+                  <SendToBack className="mr-2 h-4 w-4" />
+                  Send to Back
+                </ContextMenuItem>
+                <ContextMenuItem onClick={() => deleteElement(element.id)} className="text-red-600">
+                  <X className="mr-2 h-4 w-4" />
+                  Delete
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           ))}
 
           {/* Rich Asset Cards */}

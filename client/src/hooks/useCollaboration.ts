@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { type Presence, type LiveCursor } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
@@ -192,7 +192,7 @@ export function useCollaboration({
   }, [canvasId, linkToken, accessCode, displayName, userId, enabled, toast]);
 
   // Cursor movement handler with throttling
-  const updateCursor = (x: number, y: number) => {
+  const updateCursor = useCallback((x: number, y: number) => {
     if (!state.socket?.connected || state.role !== "edit") return;
 
     lastCursorUpdate.current = { x, y };
@@ -205,7 +205,7 @@ export function useCollaboration({
       }
       cursorThrottleRef.current = null;
     }, 1000 / 24); // 24fps limit
-  };
+  }, [state.socket?.connected, state.role]);
 
   // Card selection handler
   const selectCard = (cardId: string | null) => {
