@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertCampaignSchema, insertCatalogSchema, insertCatalogProductSchema, type GeneratedAsset } from "@shared/schema";
-import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign } from "./services/openai";
+import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets, enrichProductDescription, generateImage, generateCardDesign, generateCampaignCoverImage, generatePlatformSpecificContent } from "./services/openai";
 import { CollaborationService } from "./services/collaboration";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
@@ -101,7 +101,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const platformType = platformMapping[platform] || platform.toLowerCase();
         const platformCard = {
           id: `${platformType}-${campaign.id}-${cardIndex}`,
-          type: platformType as const,
+          type: platformType,
           title: `${platform} Content`,
           status: "generating" as const,
           content: {
@@ -476,6 +476,150 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Card design generation error:", error);
       res.status(500).json({ message: "Failed to generate card design", error: (error as Error).message });
+    }
+  });
+
+  // Update all campaigns with real content and images
+  app.post("/api/update-campaigns-content", async (req, res) => {
+    try {
+      console.log("Starting to update all campaigns with real content and images...");
+      
+      // Get all campaigns
+      const campaigns = await storage.getAllCampaigns();
+      const updatedCampaigns = [];
+
+      for (const campaign of campaigns) {
+        console.log(`Processing campaign: ${campaign.name} (ID: ${campaign.id})`);
+        
+        try {
+          // Generate a cover image for the campaign
+          const coverImageResult = await generateCampaignCoverImage(
+            campaign.name,
+            campaign.brandTone,
+            campaign.campaignFocus
+          );
+          
+          // Update the campaign with the cover image URL
+          let updatedCampaign = await storage.updateCampaign(campaign.id, {
+            ...campaign,
+            sourceImageUrl: coverImageResult.url
+          });
+
+          // Generate actual content for each asset
+          const updatedAssets = [];
+          if (campaign.generatedAssets && campaign.generatedAssets.length > 0) {
+            for (const asset of campaign.generatedAssets) {
+              try {
+                // Skip config cards
+                if (asset.type === 'config') {
+                  updatedAssets.push(asset);
+                  continue;
+                }
+
+                console.log(`Generating content for ${asset.type} asset in ${campaign.name}`);
+                
+                // Generate platform-specific content
+                const platformContent = await generatePlatformSpecificContent(
+                  asset.platform || asset.type,
+                  campaign.name,
+                  campaign.brandTone,
+                  campaign.campaignFocus
+                );
+
+                // Update the asset with real content and image
+                const updatedAsset = {
+                  ...asset,
+                  status: "ready" as const,
+                  content: platformContent.content,
+                  url: platformContent.imageUrl,
+                  imagePrompt: `${campaign.brandTone} ${asset.type} image for ${campaign.name} focusing on ${campaign.campaignFocus}`
+                };
+
+                updatedAssets.push(updatedAsset);
+                console.log(`Successfully updated ${asset.type} asset for ${campaign.name}`);
+              } catch (assetError) {
+                console.error(`Failed to generate content for asset ${asset.id}:`, assetError);
+                // Keep the original asset if generation fails
+                updatedAssets.push({
+                  ...asset,
+                  status: "error" as const,
+                  content: { error: `Failed to generate content: ${(assetError as Error).message}` }
+                });
+              }
+            }
+          } else {
+            // If no assets exist, create default ones based on target platforms
+            console.log(`Creating default assets for ${campaign.name}`);
+            const defaultPlatforms = campaign.targetPlatforms || ['LinkedIn', 'Instagram', 'Email'];
+            
+            for (let i = 0; i < defaultPlatforms.length; i++) {
+              const platform = defaultPlatforms[i];
+              const platformType = platform.toLowerCase().replace(/[^a-z]/g, '');
+              
+              try {
+                const platformContent = await generatePlatformSpecificContent(
+                  platform,
+                  campaign.name,
+                  campaign.brandTone,
+                  campaign.campaignFocus
+                );
+
+                const newAsset = {
+                  id: `${platformType}-${campaign.id}-${i + 1}`,
+                  type: platformType,
+                  platform: platform,
+                  title: `${platform} Content`,
+                  status: "ready" as const,
+                  content: platformContent.content,
+                  url: platformContent.imageUrl,
+                  dimensions: platform === 'Instagram' ? '1080x1080' : '1200x630',
+                  imagePrompt: `${campaign.brandTone} ${platform} image for ${campaign.name} focusing on ${campaign.campaignFocus}`,
+                  position: { x: 100 + (i * 380), y: 100 },
+                  size: { width: 350, height: 400 },
+                  version: 1
+                };
+
+                updatedAssets.push(newAsset);
+                console.log(`Created new ${platform} asset for ${campaign.name}`);
+              } catch (assetError) {
+                console.error(`Failed to create ${platform} asset:`, assetError);
+              }
+            }
+          }
+
+          // Update campaign with new assets
+          updatedCampaign = await storage.updateCampaign(campaign.id, {
+            ...updatedCampaign,
+            generatedAssets: updatedAssets,
+            status: "completed"
+          });
+
+          updatedCampaigns.push(updatedCampaign);
+          console.log(`Successfully updated campaign: ${campaign.name}`);
+          
+        } catch (campaignError) {
+          console.error(`Failed to update campaign ${campaign.name}:`, campaignError);
+          updatedCampaigns.push({
+            ...campaign,
+            status: "error",
+            error: (campaignError as Error).message
+          });
+        }
+      }
+
+      console.log(`Completed updating ${updatedCampaigns.length} campaigns`);
+      res.json({ 
+        success: true, 
+        message: `Updated ${updatedCampaigns.length} campaigns with real content`,
+        campaigns: updatedCampaigns 
+      });
+      
+    } catch (error) {
+      console.error("Failed to update campaigns:", error);
+      res.status(500).json({ 
+        message: "Failed to update campaigns", 
+        error: (error as Error).message 
+      });
     }
   });
 

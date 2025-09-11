@@ -377,6 +377,112 @@ export async function generateImage(prompt: string): Promise<{ url: string }> {
   }
 }
 
+export async function generateCampaignCoverImage(campaignName: string, brandTone: string, campaignFocus: string): Promise<{ url: string }> {
+  console.log(`Generating campaign cover image for: ${campaignName}`);
+  
+  try {
+    const imagePrompt = `Professional marketing campaign cover image for "${campaignName}". ${brandTone} brand tone, focusing on ${campaignFocus}. Modern, clean design, high-quality visual, suitable for campaign thumbnail. Professional composition, engaging visuals.`;
+    
+    const response = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: imagePrompt,
+      n: 1,
+      size: "1024x1024",
+      quality: "standard",
+    });
+
+    return { url: response.data?.[0]?.url || "" };
+  } catch (error) {
+    console.error("Error generating campaign cover image:", error);
+    throw new Error(`Failed to generate cover image for ${campaignName}: ${(error as Error).message}`);
+  }
+}
+
+export async function generatePlatformSpecificContent(platform: string, campaignName: string, brandTone: string, campaignFocus: string): Promise<{ content: any; imageUrl?: string }> {
+  console.log(`Generating ${platform} content for campaign: ${campaignName}`);
+  
+  try {
+    let content: any = {};
+    let shouldGenerateImage = false;
+    let designPrompt = "";
+    let imagePrompt = "";
+
+    switch (platform.toLowerCase()) {
+      case "linkedin":
+        designPrompt = `Create professional LinkedIn post content for "${campaignName}" campaign. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include engaging copy, professional insights, and relevant hashtags. Format as JSON with: headline, body, hashtags array.`;
+        imagePrompt = `Professional LinkedIn post image for "${campaignName}" with ${brandTone} tone, focusing on ${campaignFocus}. Business professional style, clean design, corporate branding.`;
+        shouldGenerateImage = true;
+        break;
+      case "instagram":
+        designPrompt = `Create Instagram post content for "${campaignName}" campaign. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include engaging caption, story elements, and trending hashtags. Format as JSON with: caption, hashtags array, story_concept.`;
+        imagePrompt = `Instagram post image for "${campaignName}" with ${brandTone} aesthetic, focusing on ${campaignFocus}. Social media optimized, visually appealing, engaging composition.`;
+        shouldGenerateImage = true;
+        break;
+      case "email":
+        designPrompt = `Create email campaign content for "${campaignName}". Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include subject line, preheader, header, body content, and call-to-action. Format as JSON with: subject, preheader, header, body, cta.`;
+        break;
+      case "landing":
+      case "landing page":
+      case "website":
+        designPrompt = `Create landing page content for "${campaignName}" campaign. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include headline, subheadline, key benefits, features, and call-to-action. Format as JSON with: headline, subheadline, benefits array, cta.`;
+        imagePrompt = `Landing page hero image for "${campaignName}" with ${brandTone} design, focusing on ${campaignFocus}. Web optimized, professional, conversion-focused visual.`;
+        shouldGenerateImage = true;
+        break;
+      case "facebook":
+        designPrompt = `Create Facebook post content for "${campaignName}" campaign. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include engaging copy and call-to-action. Format as JSON with: text, cta, engagement_hook.`;
+        imagePrompt = `Facebook post image for "${campaignName}" with ${brandTone} style, focusing on ${campaignFocus}. Social media friendly, eye-catching, shareable design.`;
+        shouldGenerateImage = true;
+        break;
+      case "twitter":
+      case "x":
+        designPrompt = `Create Twitter/X post content for "${campaignName}" campaign. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Include tweet under 280 characters and hashtags. Format as JSON with: tweet, hashtags array.`;
+        break;
+      default:
+        designPrompt = `Create marketing content for "${campaignName}" campaign on ${platform}. Brand tone: ${brandTone}. Focus: ${campaignFocus}. Format as JSON with relevant fields.`;
+    }
+
+    // Generate text content
+    const textResponse = await openai.chat.completions.create({
+      model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+      messages: [
+        {
+          role: "system",
+          content: "You are a creative marketing expert. Generate compelling, professional marketing content that is engaging and conversion-focused. Always respond with valid JSON format."
+        },
+        {
+          role: "user",
+          content: designPrompt
+        }
+      ],
+      max_tokens: 500,
+    });
+
+    try {
+      content = JSON.parse(textResponse.choices[0].message.content || "{}");
+    } catch (parseError) {
+      // Fallback if JSON parsing fails
+      content = { text: textResponse.choices[0].message.content || "" };
+    }
+
+    // Generate image if needed
+    let imageUrl: string | undefined;
+    if (shouldGenerateImage && imagePrompt) {
+      try {
+        const imageResult = await generateImage(imagePrompt);
+        imageUrl = imageResult.url;
+      } catch (imageError) {
+        console.error(`Error generating image for ${platform}:`, imageError);
+        // Continue without image if generation fails
+      }
+    }
+
+    return { content, imageUrl };
+  } catch (error) {
+    console.error(`Error generating ${platform} content:`, error);
+    throw new Error(`Failed to generate ${platform} content: ${(error as Error).message}`);
+  }
+}
+
 export async function generateCardDesign(cardType: string, prompt: string): Promise<{ content: string; imageUrl?: string }> {
   console.log(`Generating ${cardType} design for prompt:`, prompt);
   
