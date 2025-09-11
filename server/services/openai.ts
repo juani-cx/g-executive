@@ -488,7 +488,7 @@ export async function generateCardDesign(cardType: string, prompt: string): Prom
   
   try {
     let designPrompt = "";
-    let shouldGenerateImage = false;
+    let shouldGenerateImage = true; // Always generate images for all card types
 
     switch (cardType) {
       case "slides":
@@ -496,35 +496,30 @@ export async function generateCardDesign(cardType: string, prompt: string): Prom
         break;
       case "landing":
         designPrompt = `Create landing page content for: ${prompt}. Include headline, subheadline, key benefits, and call-to-action.`;
-        shouldGenerateImage = true;
         break;
       case "linkedin":
         designPrompt = `Create LinkedIn post content for: ${prompt}. Include engaging copy, hashtags, and professional tone.`;
         break;
       case "instagram":
         designPrompt = `Create Instagram post content for: ${prompt}. Include caption, hashtags, and visual description.`;
-        shouldGenerateImage = true;
         break;
       case "twitter":
         designPrompt = `Create Twitter/X post content for: ${prompt}. Include engaging tweet under 280 characters and relevant hashtags.`;
         break;
       case "facebook":
         designPrompt = `Create Facebook post content for: ${prompt}. Include engaging copy and call-to-action.`;
-        shouldGenerateImage = true;
         break;
       case "email":
         designPrompt = `Create email campaign content for: ${prompt}. Include subject line, header, body content, and call-to-action.`;
         break;
       case "ads":
         designPrompt = `Create ad copy and visual concept for: ${prompt}. Include headline, description, and visual elements.`;
-        shouldGenerateImage = true;
         break;
       case "blog":
         designPrompt = `Create blog post outline and introduction for: ${prompt}. Include title, key points, and engaging introduction.`;
         break;
       case "youtube":
         designPrompt = `Create YouTube video content for: ${prompt}. Include title, description, key points, and thumbnail concept.`;
-        shouldGenerateImage = true;
         break;
       default:
         designPrompt = `Create marketing content for: ${prompt}`;
@@ -548,15 +543,53 @@ export async function generateCardDesign(cardType: string, prompt: string): Prom
 
     const content = textResponse.choices[0].message.content || "";
 
-    // Generate image if needed
+    // Generate platform-specific image for all card types
     let imageUrl: string | undefined;
     if (shouldGenerateImage) {
       try {
-        const imagePrompt = `Professional marketing visual for ${cardType}: ${prompt}. Modern, clean design, high quality, brand-focused.`;
+        let imagePrompt = "";
+        
+        switch (cardType) {
+          case "slides":
+            imagePrompt = `Professional presentation slide design for: ${prompt}. Clean corporate layout, modern typography, business presentation style, high quality.`;
+            break;
+          case "landing":
+            imagePrompt = `Modern landing page hero image for: ${prompt}. Web optimized, conversion-focused design, professional layout, engaging visuals.`;
+            break;
+          case "linkedin":
+            imagePrompt = `Professional LinkedIn post image for: ${prompt}. Business network style, corporate branding, professional atmosphere, clean design.`;
+            break;
+          case "instagram":
+            imagePrompt = `Instagram post image for: ${prompt}. Social media optimized, visually appealing, engaging composition, trending aesthetic.`;
+            break;
+          case "twitter":
+            imagePrompt = `Twitter/X post image for: ${prompt}. Social media friendly, concise visual message, shareable design, modern style.`;
+            break;
+          case "facebook":
+            imagePrompt = `Facebook post image for: ${prompt}. Social media optimized, eye-catching, community-focused design, engaging visuals.`;
+            break;
+          case "email":
+            imagePrompt = `Email newsletter header image for: ${prompt}. Email marketing design, professional layout, engaging header visual, brand-focused.`;
+            break;
+          case "ads":
+            imagePrompt = `Advertisement visual for: ${prompt}. High-impact advertising design, attention-grabbing, conversion-focused, professional quality.`;
+            break;
+          case "blog":
+            imagePrompt = `Blog post featured image for: ${prompt}. Content marketing visual, engaging design, blog-optimized, professional quality.`;
+            break;
+          case "youtube":
+            imagePrompt = `YouTube video thumbnail for: ${prompt}. Video platform optimized, eye-catching design, engaging visual, thumbnail format.`;
+            break;
+          default:
+            imagePrompt = `Professional marketing visual for ${cardType}: ${prompt}. Modern, clean design, high quality, brand-focused.`;
+        }
+        
+        console.log(`Generating ${cardType} image with prompt: ${imagePrompt.substring(0, 100)}...`);
         const imageResult = await generateImage(imagePrompt);
         imageUrl = imageResult.url;
+        console.log(`Successfully generated ${cardType} image: ${imageUrl?.substring(0, 50)}...`);
       } catch (imageError) {
-        console.error("Error generating image for card:", imageError);
+        console.error(`Error generating image for ${cardType}:`, imageError);
         // Continue without image if generation fails
       }
     }

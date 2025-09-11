@@ -139,7 +139,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               const generatedContent = await generateCardDesign(platformType, prompt);
               console.log(`Generated ${platformType} content:`, generatedContent?.content?.substring(0, 100));
               
-              // Update the campaign with generated content
+              // Update the campaign with generated content and image
               const currentCampaign = await storage.getCampaign(campaign.id);
               if (currentCampaign && currentCampaign.generatedAssets) {
                 const updatedAssets = currentCampaign.generatedAssets.map((asset: any) => {
@@ -150,6 +150,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                       content: {
                         ...asset.content,
                         text: generatedContent?.content || `Generated ${platform} content`,
+                        imageUrl: generatedContent?.imageUrl || null,
                         generatedAt: new Date().toISOString()
                       }
                     };
