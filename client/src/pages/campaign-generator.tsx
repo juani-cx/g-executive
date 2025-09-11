@@ -2,23 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { 
-  Upload, 
   Sparkles, 
-  FileText,
-  Target,
-  Palette,
-  Users,
-  Calendar,
-  DollarSign,
   ArrowLeft,
+  ArrowRight,
+  Shuffle,
   Paperclip,
   X,
-  Layers,
-  Zap,
   Brain
 } from "lucide-react";
 import { useLocation } from "wouter";
@@ -40,8 +32,11 @@ interface CampaignConfig {
   sourceImage?: File;
 }
 
+type Step = 'configure' | 'contextualize' | 'preview';
+
 export default function CampaignGenerator() {
   const [, navigate] = useLocation();
+  const [currentStep, setCurrentStep] = useState<Step>('configure');
   const [config, setConfig] = useState<CampaignConfig>({
     name: "",
     description: "",
@@ -59,7 +54,6 @@ export default function CampaignGenerator() {
 
   const createCampaignMutation = useMutation({
     mutationFn: async (campaignData: any) => {
-      // Add a minimum loading time to show the animation (4 seconds)
       const [response] = await Promise.all([
         apiRequest('POST', '/api/create-campaign', campaignData),
         new Promise(resolve => setTimeout(resolve, 4000))
@@ -67,13 +61,34 @@ export default function CampaignGenerator() {
       return await response.json();
     },
     onSuccess: (data) => {
-      // Navigate to canvas with campaign ID
       navigate(`/canvas/${data.id}`);
     },
     onError: (error) => {
       console.error('Failed to create campaign:', error);
     }
   });
+
+  const steps: { key: Step; label: string }[] = [
+    { key: 'configure', label: 'Configure' },
+    { key: 'contextualize', label: 'Contextualize' },
+    { key: 'preview', label: 'Preview' }
+  ];
+
+  const currentStepIndex = steps.findIndex(step => step.key === currentStep);
+  const canGoNext = currentStepIndex < steps.length - 1;
+  const canGoPrev = currentStepIndex > 0;
+
+  const handleNext = () => {
+    if (canGoNext) {
+      setCurrentStep(steps[currentStepIndex + 1].key);
+    }
+  };
+
+  const handlePrev = () => {
+    if (canGoPrev) {
+      setCurrentStep(steps[currentStepIndex - 1].key);
+    }
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -110,6 +125,26 @@ export default function CampaignGenerator() {
     }));
   };
 
+  const randomizeCurrentStep = () => {
+    if (currentStep === 'configure') {
+      setConfig(prev => ({
+        ...prev,
+        name: "TechFlow Startup Campaign",
+        description: "Launch campaign for innovative SaaS startup targeting tech professionals with modern, clean design approach",
+        brandTone: "professional",
+        budget: "5k-10k",
+        timeline: "1-month"
+      }));
+    } else if (currentStep === 'contextualize') {
+      setConfig(prev => ({
+        ...prev,
+        targetAudience: "Tech professionals, 25-40 years old, interested in productivity tools",
+        campaignGoals: ["Brand Awareness", "Lead Generation", "Traffic"],
+        platforms: ["LinkedIn", "Instagram", "Email"]
+      }));
+    }
+  };
+
   const handleCreateCampaign = () => {
     const campaignData = {
       ...config,
@@ -118,313 +153,508 @@ export default function CampaignGenerator() {
     createCampaignMutation.mutate(campaignData);
   };
 
-  const isFormValid = config.name && config.description && config.brandTone && config.targetAudience;
+  const isStepValid = () => {
+    if (currentStep === 'configure') {
+      return config.name && config.description && config.brandTone;
+    }
+    if (currentStep === 'contextualize') {
+      return config.targetAudience && config.campaignGoals.length > 0;
+    }
+    return true;
+  };
 
-  return (
-    <div className="min-h-screen relative">
-      <GlassBackground />
-      
-      <div className="py-8">
-        <div className="w-full px-8">
-          {/* Header */}
-          <div className="mb-8 flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => navigate("/")}
-                className="glass-surface hover:glass-elevated rounded-lg"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 'configure':
+        return (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Let's configure your campaign</h2>
+            </div>
+
+            <div className="space-y-6">
               <div>
-                <h1 className="text-2xl font-bold text-glass-text-primary">New Campaign</h1>
-                <p className="text-glass-text-secondary">Configure your campaign and go directly to canvas</p>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">1. What's your campaign name?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, name: "TechFlow Startup Campaign"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-name"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Input
+                  value={config.name}
+                  onChange={(e) => setConfig(prev => ({...prev, name: e.target.value}))}
+                  placeholder="Select or Start Typing"
+                  className="w-full"
+                  data-testid="input-campaign-name"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">2. Describe your campaign</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, description: "Launch campaign for innovative SaaS startup targeting tech professionals with modern, clean design approach"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-description"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Textarea
+                  value={config.description}
+                  onChange={(e) => setConfig(prev => ({...prev, description: e.target.value}))}
+                  placeholder="Select or Start Typing"
+                  className="w-full min-h-[100px]"
+                  data-testid="input-campaign-description"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">3. What's your brand tone?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, brandTone: "professional"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-tone"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Select value={config.brandTone} onValueChange={(value) => setConfig(prev => ({...prev, brandTone: value}))}>
+                  <SelectTrigger className="w-full" data-testid="select-brand-tone">
+                    <SelectValue placeholder="Select or Start Typing" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="professional">Professional</SelectItem>
+                    <SelectItem value="friendly">Friendly</SelectItem>
+                    <SelectItem value="bold">Bold</SelectItem>
+                    <SelectItem value="elegant">Elegant</SelectItem>
+                    <SelectItem value="playful">Playful</SelectItem>
+                    <SelectItem value="minimalist">Minimalist</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">4. What's your budget range?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, budget: "5k-10k"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-budget"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Select value={config.budget} onValueChange={(value) => setConfig(prev => ({...prev, budget: value}))}>
+                  <SelectTrigger className="w-full" data-testid="select-budget">
+                    <SelectValue placeholder="Select or Start Typing" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="under-1k">Under $1,000</SelectItem>
+                    <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
+                    <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                    <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                    <SelectItem value="over-25k">Over $25,000</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">5. What's your timeline?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, timeline: "1-month"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-timeline"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Select value={config.timeline} onValueChange={(value) => setConfig(prev => ({...prev, timeline: value}))}>
+                  <SelectTrigger className="w-full" data-testid="select-timeline">
+                    <SelectValue placeholder="Select or Start Typing" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1-week">1 Week</SelectItem>
+                    <SelectItem value="2-weeks">2 Weeks</SelectItem>
+                    <SelectItem value="1-month">1 Month</SelectItem>
+                    <SelectItem value="3-months">3 Months</SelectItem>
+                    <SelectItem value="6-months">6 Months</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
+        );
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Configuration */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Basic Info */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <FileText className="w-5 h-5 mr-2" />
-                    Campaign Details
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="name" className="text-glass-text-primary">Campaign Name</Label>
-                    <Input
-                      id="name"
-                      value={config.name}
-                      onChange={(e) => setConfig(prev => ({...prev, name: e.target.value}))}
-                      placeholder="Enter campaign name"
-                      className="glass-surface border-glass-border text-glass-text-primary"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="description" className="text-glass-text-primary">Description</Label>
-                    <Textarea
-                      id="description"
-                      value={config.description}
-                      onChange={(e) => setConfig(prev => ({...prev, description: e.target.value}))}
-                      placeholder="Describe your campaign objectives and key messages"
-                      className="glass-surface border-glass-border text-glass-text-primary min-h-[100px]"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Brand & Audience */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Users className="w-5 h-5 mr-2" />
-                    Brand & Audience
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label className="text-glass-text-primary">Brand Tone</Label>
-                    <Select value={config.brandTone} onValueChange={(value) => setConfig(prev => ({...prev, brandTone: value}))}>
-                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
-                        <SelectValue placeholder="Select brand tone" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="professional">Professional</SelectItem>
-                        <SelectItem value="friendly">Friendly</SelectItem>
-                        <SelectItem value="bold">Bold</SelectItem>
-                        <SelectItem value="elegant">Elegant</SelectItem>
-                        <SelectItem value="playful">Playful</SelectItem>
-                        <SelectItem value="minimalist">Minimalist</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label className="text-glass-text-primary">Target Audience</Label>
-                    <Input
-                      value={config.targetAudience}
-                      onChange={(e) => setConfig(prev => ({...prev, targetAudience: e.target.value}))}
-                      placeholder="e.g., Tech professionals, 25-40 years old"
-                      className="glass-surface border-glass-border text-glass-text-primary"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Campaign Goals */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Target className="w-5 h-5 mr-2" />
-                    Campaign Goals
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-3">
-                    {["Brand Awareness", "Lead Generation", "Sales", "Engagement", "Traffic", "Conversions"].map((goal) => (
-                      <Button
-                        key={goal}
-                        variant={config.campaignGoals.includes(goal) ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handleGoalToggle(goal)}
-                        className={`justify-start ${
-                          config.campaignGoals.includes(goal) 
-                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border-[rgba(99,102,241,0.3)]" 
-                            : "glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated"
-                        }`}
-                      >
-                        {goal}
-                      </Button>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Platforms */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Sparkles className="w-5 h-5 mr-2" />
-                    Target Platforms
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-3 gap-3">
-                    {["LinkedIn", "Instagram", "Facebook", "Twitter", "Email", "Website"].map((platform) => (
-                      <Button
-                        key={platform}
-                        variant={config.platforms.includes(platform) ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handlePlatformToggle(platform)}
-                        className={`justify-start ${
-                          config.platforms.includes(platform) 
-                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border-[rgba(99,102,241,0.3)]" 
-                            : "glass-surface border-glass-border text-glass-text-secondary hover:glass-elevated"
-                        }`}
-                      >
-                        {platform}
-                      </Button>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+      case 'contextualize':
+        return (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Let's contextualize your campaign</h2>
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Image Upload */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Upload className="w-5 h-5 mr-2" />
-                    Source Image
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {imagePreview ? (
-                    <div className="relative">
-                      <img 
-                        src={imagePreview} 
-                        alt="Campaign source" 
-                        className="w-full h-40 object-cover rounded-lg"
-                      />
-                      <Button
-                        size="icon"
-                        variant="secondary"
-                        onClick={removeImage}
-                        className="absolute top-2 right-2 w-6 h-6"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ) : (
-                    <div 
-                      className="border-2 border-dashed border-glass-border rounded-lg p-6 text-center cursor-pointer hover:border-[rgba(99,102,241,0.3)] transition-colors"
-                      onClick={() => document.getElementById('file-upload')?.click()}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">1. Who's your target audience?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, targetAudience: "Tech professionals, 25-40 years old, interested in productivity tools"}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-audience"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <Input
+                  value={config.targetAudience}
+                  onChange={(e) => setConfig(prev => ({...prev, targetAudience: e.target.value}))}
+                  placeholder="Select or Start Typing"
+                  className="w-full"
+                  data-testid="input-target-audience"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">2. What are your campaign goals?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, campaignGoals: ["Brand Awareness", "Lead Generation", "Traffic"]}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-goals"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {["Brand Awareness", "Lead Generation", "Sales", "Engagement", "Traffic", "Conversions"].map((goal) => (
+                    <Button
+                      key={goal}
+                      variant={config.campaignGoals.includes(goal) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleGoalToggle(goal)}
+                      className={`justify-start text-sm ${
+                        config.campaignGoals.includes(goal) 
+                          ? "bg-blue-600 text-white border-blue-600" 
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                      }`}
+                      data-testid={`button-goal-${goal.toLowerCase().replace(' ', '-')}`}
                     >
-                      <Paperclip className="w-8 h-8 mx-auto mb-2 text-glass-text-muted" />
-                      <p className="text-sm text-glass-text-muted">Click to upload image</p>
-                    </div>
-                  )}
-                  <input
-                    id="file-upload"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleImageUpload}
-                  />
-                </CardContent>
-              </Card>
+                      {goal}
+                    </Button>
+                  ))}
+                </div>
+              </div>
 
-              {/* Brand Colors */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Palette className="w-5 h-5 mr-2" />
-                    Brand Colors
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label className="text-glass-text-primary">Primary Color</Label>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="color"
-                        value={config.primaryColor}
-                        onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
-                        className="w-10 h-10 rounded border border-glass-border"
-                      />
-                      <Input
-                        value={config.primaryColor}
-                        onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
-                        className="glass-surface border-glass-border text-glass-text-primary"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label className="text-glass-text-primary">Secondary Color</Label>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="color"
-                        value={config.secondaryColor}
-                        onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
-                        className="w-10 h-10 rounded border border-glass-border"
-                      />
-                      <Input
-                        value={config.secondaryColor}
-                        onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
-                        className="glass-surface border-glass-border text-glass-text-primary"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">3. What platforms will you use?</Label>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setConfig(prev => ({...prev, platforms: ["LinkedIn", "Instagram", "Email"]}))}
+                    className="text-xs px-3 py-1 h-auto bg-blue-600 text-white hover:bg-blue-700"
+                    data-testid="button-randomize-platforms"
+                  >
+                    <Shuffle className="w-3 h-3 mr-1" />
+                    Randomize
+                  </Button>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {["LinkedIn", "Instagram", "Facebook", "Twitter", "Email", "Website"].map((platform) => (
+                    <Button
+                      key={platform}
+                      variant={config.platforms.includes(platform) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePlatformToggle(platform)}
+                      className={`justify-start text-sm ${
+                        config.platforms.includes(platform) 
+                          ? "bg-blue-600 text-white border-blue-600" 
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                      }`}
+                      data-testid={`button-platform-${platform.toLowerCase()}`}
+                    >
+                      {platform}
+                    </Button>
+                  ))}
+                </div>
+              </div>
 
-              {/* Timeline & Budget */}
-              <Card className="glass-surface border-glass-border">
-                <CardHeader>
-                  <CardTitle className="text-glass-text-primary flex items-center">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    Planning
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label className="text-glass-text-primary">Timeline</Label>
-                    <Select value={config.timeline} onValueChange={(value) => setConfig(prev => ({...prev, timeline: value}))}>
-                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-week">1 Week</SelectItem>
-                        <SelectItem value="2-weeks">2 Weeks</SelectItem>
-                        <SelectItem value="1-month">1 Month</SelectItem>
-                        <SelectItem value="3-months">3 Months</SelectItem>
-                        <SelectItem value="6-months">6 Months</SelectItem>
-                      </SelectContent>
-                    </Select>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-gray-700 font-medium">4. Upload source image (optional)</Label>
+                </div>
+                {imagePreview ? (
+                  <div className="relative border-2 border-gray-200 rounded-lg p-4">
+                    <img 
+                      src={imagePreview} 
+                      alt="Campaign source" 
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      onClick={removeImage}
+                      className="absolute top-2 right-2 w-6 h-6"
+                      data-testid="button-remove-image"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
                   </div>
-                  <div>
-                    <Label className="text-glass-text-primary">Budget Range</Label>
-                    <Select value={config.budget} onValueChange={(value) => setConfig(prev => ({...prev, budget: value}))}>
-                      <SelectTrigger className="glass-surface border-glass-border text-glass-text-primary">
-                        <SelectValue placeholder="Select budget" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="under-1k">Under $1,000</SelectItem>
-                        <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
-                        <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
-                        <SelectItem value="over-25k">Over $25,000</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Create Campaign Button */}
-              <Button 
-                onClick={handleCreateCampaign}
-                disabled={!isFormValid || createCampaignMutation.isPending}
-                className="w-full bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl py-3 text-sm font-medium transition-all duration-200"
-              >
-                {createCampaignMutation.isPending ? (
-                  <>
-                    <Sparkles className="w-4 h-4 mr-2 animate-spin" />
-                    Creating Campaign...
-                  </>
                 ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Create Campaign
-                  </>
+                  <div 
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
+                    onClick={() => document.getElementById('file-upload')?.click()}
+                    data-testid="area-upload-image"
+                  >
+                    <Paperclip className="w-6 h-6 mx-auto mb-2 text-gray-400" />
+                    <p className="text-sm text-gray-500">Click to upload image</p>
+                  </div>
                 )}
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                  data-testid="input-file-upload"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-gray-700 font-medium">Primary Color</Label>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <input
+                      type="color"
+                      value={config.primaryColor}
+                      onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
+                      className="w-8 h-8 rounded border border-gray-300"
+                      data-testid="input-primary-color"
+                    />
+                    <Input
+                      value={config.primaryColor}
+                      onChange={(e) => setConfig(prev => ({...prev, primaryColor: e.target.value}))}
+                      className="flex-1"
+                      data-testid="input-primary-color-text"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label className="text-gray-700 font-medium">Secondary Color</Label>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <input
+                      type="color"
+                      value={config.secondaryColor}
+                      onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
+                      className="w-8 h-8 rounded border border-gray-300"
+                      data-testid="input-secondary-color"
+                    />
+                    <Input
+                      value={config.secondaryColor}
+                      onChange={(e) => setConfig(prev => ({...prev, secondaryColor: e.target.value}))}
+                      className="flex-1"
+                      data-testid="input-secondary-color-text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'preview':
+        return (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Preview your campaign</h2>
+              <p className="text-gray-600">Review your configuration before creating the campaign</p>
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+              <div>
+                <h3 className="font-semibold text-gray-800">Campaign Name</h3>
+                <p className="text-gray-600">{config.name || "Not specified"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Description</h3>
+                <p className="text-gray-600">{config.description || "Not specified"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Brand Tone</h3>
+                <p className="text-gray-600">{config.brandTone || "Not specified"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Target Audience</h3>
+                <p className="text-gray-600">{config.targetAudience || "Not specified"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Campaign Goals</h3>
+                <p className="text-gray-600">{config.campaignGoals.length > 0 ? config.campaignGoals.join(", ") : "None selected"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Platforms</h3>
+                <p className="text-gray-600">{config.platforms.length > 0 ? config.platforms.join(", ") : "None selected"}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800">Budget & Timeline</h3>
+                <p className="text-gray-600">{config.budget || "Not specified"} • {config.timeline || "Not specified"}</p>
+              </div>
+              {imagePreview && (
+                <div>
+                  <h3 className="font-semibold text-gray-800">Source Image</h3>
+                  <img 
+                    src={imagePreview} 
+                    alt="Campaign source" 
+                    className="w-32 h-32 object-cover rounded-lg mt-2"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <GlassBackground />
+      
+      {/* Top Navigation - Step Indicator */}
+      <div className="border-b bg-white/95 backdrop-blur-sm">
+        <div className="max-w-2xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate("/")}
+              className="hover:bg-gray-100"
+              data-testid="button-back-home"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+            <h1 className="text-lg font-semibold text-gray-800">Create Campaign</h1>
+            <div className="w-10"></div>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            {steps.map((step, index) => (
+              <div key={step.key} className="flex items-center">
+                <div className="flex items-center space-x-2">
+                  <div 
+                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+                      currentStep === step.key 
+                        ? 'bg-blue-600 text-white' 
+                        : index < currentStepIndex
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'bg-gray-100 text-gray-500'
+                    }`}
+                    data-testid={`step-${step.key}`}
+                  >
+                    {step.label}
+                  </div>
+                </div>
+                {index < steps.length - 1 && (
+                  <div className="w-8 h-px bg-gray-300 mx-2"></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-2xl mx-auto px-6 py-8">
+        {renderStepContent()}
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 border-t bg-white/95 backdrop-blur-sm">
+        <div className="max-w-2xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              {canGoPrev && (
+                <Button 
+                  variant="outline" 
+                  onClick={handlePrev}
+                  className="border-gray-300 text-gray-700"
+                  data-testid="button-prev-step"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back
+                </Button>
+              )}
+              <Button 
+                variant="outline"
+                onClick={randomizeCurrentStep}
+                className="border-gray-300 text-gray-700"
+                data-testid="button-randomize-all"
+              >
+                <Shuffle className="w-4 h-4 mr-2" />
+                Randomize All
               </Button>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              {canGoNext ? (
+                <Button 
+                  onClick={handleNext}
+                  disabled={!isStepValid()}
+                  className="bg-blue-600 text-white hover:bg-blue-700"
+                  data-testid="button-continue"
+                >
+                  Continue
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              ) : (
+                <Button 
+                  onClick={handleCreateCampaign}
+                  disabled={!isStepValid() || createCampaignMutation.isPending}
+                  className="bg-blue-600 text-white hover:bg-blue-700"
+                  data-testid="button-create-campaign"
+                >
+                  {createCampaignMutation.isPending ? (
+                    <>
+                      <Brain className="w-4 h-4 mr-2 animate-spin" />
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      Create Campaign
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -434,49 +664,16 @@ export default function CampaignGenerator() {
       {createCampaignMutation.isPending && (
         <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex items-center justify-center">
           <div className="text-center space-y-8">
-            {/* Isometric Animation Container */}
             <div className="relative w-64 h-64 mx-auto">
-              {/* Video Animation */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative">
-                  <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className="w-48 h-48 object-contain opacity-90"
-                    onError={(e) => {
-                      console.error('Video failed to load:', e);
-                      // Hide video and show fallback if it fails to load
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                    onLoadStart={() => console.log('Video loading started')}
-                    onCanPlay={() => console.log('Video can play')}
-                  >
-                    <source src="/loading-animation.mp4" type="video/mp4" />
-                  </video>
-                  {/* Fallback animation if video doesn't load */}
-                  <div className="w-48 h-48 bg-gradient-to-br from-purple-100 to-blue-100 border border-gray-200 rounded-2xl flex items-center justify-center hidden">
+                  <div className="w-48 h-48 bg-gradient-to-br from-purple-100 to-blue-100 border border-gray-200 rounded-2xl flex items-center justify-center">
                     <Brain className="w-16 h-16 text-purple-600 animate-spin" />
                   </div>
                 </div>
               </div>
-              
-              {/* Subtle glow effect around video */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-full blur-2xl animate-pulse"></div>
-              
-              {/* Orbiting particles around video */}
-              <div className="absolute inset-0 animate-spin" style={{animationDuration: '6s'}}>
-                <div className="absolute -top-16 left-1/2 w-3 h-3 bg-purple-500/70 rounded-full"></div>
-                <div className="absolute top-1/2 -right-16 w-2 h-2 bg-blue-500/70 rounded-full"></div>
-                <div className="absolute -bottom-16 left-1/2 w-3 h-3 bg-indigo-500/70 rounded-full"></div>
-                <div className="absolute top-1/2 -left-16 w-2 h-2 bg-violet-500/70 rounded-full"></div>
-              </div>
             </div>
             
-            {/* Loading Text with Typewriter Effect */}
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-gray-800">Preparing Your Canvas</h2>
               <div className="flex items-center justify-center space-x-2">
@@ -486,31 +683,10 @@ export default function CampaignGenerator() {
                   <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
                 </div>
               </div>
-              
-              {/* Progress Steps */}
-              <div className="space-y-3 mt-8">
-                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in">
-                  <Zap className="w-4 h-4 text-yellow-600 animate-pulse" />
-                  <span>Analyzing campaign configuration</span>
-                </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-gray-600 animate-fade-in" style={{animationDelay: '1s'}}>
-                  <Layers className="w-4 h-4 text-blue-600 animate-pulse" style={{animationDelay: '1s'}} />
-                  <span>Initializing AI workspace</span>
-                </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in" style={{animationDelay: '2s'}}>
-                  <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" style={{animationDelay: '2s'}} />
-                  <span>Setting up asset generation</span>
-                </div>
-                <div className="flex items-center justify-center space-x-3 text-sm text-gray-700 animate-fade-in" style={{animationDelay: '3s'}}>
-                  <Brain className="w-4 h-4 text-green-600 animate-pulse" style={{animationDelay: '3s'}} />
-                  <span>Launching your canvas...</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 }
