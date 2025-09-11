@@ -129,37 +129,35 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
           </div>
         )}
 
-        {/* 3-dots Menu - Appears on Hover */}
-        {isHovered && (
-          <div className="absolute top-3 left-3" data-dropdown-trigger>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="h-8 w-8 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
-                  data-testid="campaign-menu-button"
-                >
-                  <MoreHorizontal className="w-4 h-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="glass-surface border-glass-border">
-                <DropdownMenuItem onClick={handleShare} data-testid="share-campaign">
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Share
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={handleDelete} 
-                  className="text-red-400 focus:text-red-300"
-                  data-testid="delete-campaign"
-                >
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        )}
+        {/* 3-dots Menu - Always rendered, visibility controlled by CSS */}
+        <div className={`absolute top-3 left-3 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} data-dropdown-trigger>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="h-8 w-8 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
+                data-testid="campaign-menu-button"
+              >
+                <MoreHorizontal className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="glass-surface border-glass-border">
+              <DropdownMenuItem onClick={handleShare} data-testid="share-campaign">
+                <Share2 className="w-4 h-4 mr-2" />
+                Share
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={handleDelete} 
+                className="text-red-400 focus:text-red-300"
+                data-testid="delete-campaign"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       <CardContent className="p-4">
