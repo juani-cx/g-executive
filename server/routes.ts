@@ -6,16 +6,65 @@ import { analyzeImageForCampaign, generateCampaignAssets, generatePreviewAssets,
 import { CollaborationService } from "./services/collaboration";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
+import fs from "fs";
+import path from "path";
+import fetch from "node-fetch";
 
 const upload = multer({ 
   storage: multer.memoryStorage(),
   limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
 });
 
+// Image storage utilities
+async function downloadAndSaveImage(imageUrl: string, filename: string): Promise<string> {
+  try {
+    const response = await fetch(imageUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.statusText}`);
+    }
+    
+    const imageBuffer = Buffer.from(await response.arrayBuffer());
+    const imagesDir = path.join(import.meta.dirname, '../public/generated-images');
+    
+    // Ensure directory exists
+    if (!fs.existsSync(imagesDir)) {
+      fs.mkdirSync(imagesDir, { recursive: true });
+    }
+    
+    const filePath = path.join(imagesDir, filename);
+    fs.writeFileSync(filePath, imageBuffer);
+    
+    // Return the public URL path
+    return `/generated-images/${filename}`;
+  } catch (error) {
+    console.error('Error downloading image:', error);
+    throw error;
+  }
+}
+
+function generateImageFilename(originalUrl: string): string {
+  const urlObj = new URL(originalUrl);
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(7);
+  return `${timestamp}_${random}.png`;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   const httpServer = createServer(app);
   const collaborationService = new CollaborationService(httpServer);
+  
+  // Serve generated images
+  app.use('/generated-images', (req, res, next) => {
+    const imagesDir = path.join(import.meta.dirname, '../public/generated-images');
+    const imagePath = path.join(imagesDir, req.path);
+    
+    if (fs.existsSync(imagePath)) {
+      res.sendFile(imagePath);
+    } else {
+      res.status(404).json({ error: 'Image not found' });
+    }
+  });
   
   // Campaign routes
   app.post("/api/campaigns", async (req, res) => {
@@ -123,7 +172,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate reusable image variations for the campaign
       console.log('Generating campaign image variations...');
       const campaignPrompt = `${name}: ${description}. Brand tone: ${brandTone}. Target: ${targetAudience}`;
-      const imageVariations = await generateCampaignImageVariations(campaignPrompt);
+      const tempImageVariations = await generateCampaignImageVariations(campaignPrompt);
+      
+      // Download and save image variations locally
+      const imageVariations: { [key: string]: string } = {};
+      for (const [key, tempUrl] of Object.entries(tempImageVariations)) {
+        if (tempUrl && tempUrl.startsWith('https://')) {
+          try {
+            const filename = generateImageFilename(tempUrl);
+            const persistentUrl = await downloadAndSaveImage(tempUrl, filename);
+            imageVariations[key] = persistentUrl;
+            console.log(`Saved ${key} variation locally:`, persistentUrl);
+          } catch (error) {
+            console.error(`Failed to save ${key} variation locally:`, error);
+            imageVariations[key] = tempUrl; // Fallback to original URL
+          }
+        } else {
+          imageVariations[key] = tempUrl;
+        }
+      }
       
       // Add image variations as a special config asset
       const imageVariationsCard = {
@@ -165,7 +232,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
               
               console.log(`Generated ${platformType} content, using reusable image variation:`, reusableImageUrl?.substring(0, 50));
               
-              // Update the campaign with generated content and reusable image
+              // Download and save the image locally for persistence
+              let persistentImageUrl = reusableImageUrl;
+              if (reusableImageUrl && reusableImageUrl.startsWith('https://')) {
+                try {
+                  const filename = generateImageFilename(reusableImageUrl);
+                  persistentImageUrl = await downloadAndSaveImage(reusableImageUrl, filename);
+                  console.log(`Saved ${platformType} image locally:`, persistentImageUrl);
+                } catch (error) {
+                  console.error(`Failed to save ${platformType} image locally:`, error);
+                  // Keep the original URL as fallback
+                }
+              }
+              
+              // Update the campaign with generated content and persistent image
               const currentCampaign = await storage.getCampaign(campaign.id);
               if (currentCampaign && currentCampaign.generatedAssets) {
                 const updatedAssets = currentCampaign.generatedAssets.map((asset: any) => {
@@ -173,11 +253,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     return {
                       ...asset,
                       status: "ready" as const,
-                      url: reusableImageUrl,
+                      url: persistentImageUrl,
                       content: {
                         ...asset.content,
                         text: generatedContent?.content || `Generated ${platform} content`,
-                        imageUrl: reusableImageUrl,
+                        imageUrl: persistentImageUrl,
                         generatedAt: new Date().toISOString()
                       }
                     };
