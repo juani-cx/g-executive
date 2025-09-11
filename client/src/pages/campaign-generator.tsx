@@ -22,7 +22,6 @@ import {
   Brain
 } from "lucide-react";
 import { useLocation } from "wouter";
-import MaterialHeader from "@/components/material-header";
 import GlassBackground from "@/components/glass-background";
 import { MainMenu } from "@/components/main-menu";
 import { useMutation } from "@tanstack/react-query";
@@ -44,7 +43,6 @@ interface CampaignConfig {
 
 export default function CampaignGenerator() {
   const [, navigate] = useLocation();
-  const [showMainMenu, setShowMainMenu] = useState(false);
   const [config, setConfig] = useState<CampaignConfig>({
     name: "",
     description: "",
@@ -126,10 +124,9 @@ export default function CampaignGenerator() {
   return (
     <div className="min-h-screen relative">
       <GlassBackground />
-      <MaterialHeader onToggleMainMenu={() => setShowMainMenu(!showMainMenu)} />
       
-      <div className="pt-24 pb-12">
-        <div className="max-w-4xl mx-auto px-6">
+      <div className="py-8">
+        <div className="w-full px-8">
           {/* Header */}
           <div className="mb-8 flex items-center justify-between">
             <div className="flex items-center space-x-4">
