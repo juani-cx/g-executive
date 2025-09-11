@@ -130,13 +130,13 @@ export default function MaterialProjectCard({ campaign, className = "" }: Materi
         )}
 
         {/* 3-dots Menu - Always rendered, visibility controlled by CSS */}
-        <div className={`absolute top-3 left-3 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} data-dropdown-trigger>
+        <div className={`absolute top-3 left-3 transition-all duration-200 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'}`} data-dropdown-trigger>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="h-8 w-8 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
+                className="h-8 w-8 bg-black/60 hover:bg-black/80 text-white border border-white/20 hover:border-white/40 backdrop-blur-md rounded-full shadow-lg transition-all duration-200 hover:scale-110"
                 data-testid="campaign-menu-button"
               >
                 <MoreHorizontal className="w-4 h-4" />

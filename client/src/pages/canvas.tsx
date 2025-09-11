@@ -744,7 +744,7 @@ export default function CanvasView() {
       };
       setProject(newProject);
     }
-  }, [campaignData, campaignId, setLocation]);
+  }, [campaignData, campaignId]); // Removed setLocation to prevent infinite loop
 
   const handleCanvasMouseDown = (e: React.MouseEvent) => {
     if (isPanning || tool === "hand" || e.button === 1) { // Middle mouse button or spacebar panning
