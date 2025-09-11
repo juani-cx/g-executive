@@ -551,43 +551,55 @@ export default function CampaignGenerator() {
       
       {/* Top Navigation - Step Indicator */}
       <div className="border-b bg-white/95 backdrop-blur-sm">
-        <div className="max-w-2xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => navigate("/")}
-              className="hover:bg-gray-100"
-              data-testid="button-back-home"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-            <h1 className="text-lg font-semibold text-gray-800">Create Campaign</h1>
-            <div className="w-10"></div>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            {steps.map((step, index) => (
-              <div key={step.key} className="flex items-center">
-                <div className="flex items-center space-x-2">
-                  <div 
-                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
-                      currentStep === step.key 
-                        ? 'bg-blue-600 text-white' 
-                        : index < currentStepIndex
-                        ? 'bg-blue-100 text-blue-600'
-                        : 'bg-gray-100 text-gray-500'
-                    }`}
-                    data-testid={`step-${step.key}`}
-                  >
-                    {step.label}
-                  </div>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className="w-8 h-px bg-gray-300 mx-2"></div>
-                )}
+        <div className="max-w-full mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Left side - Back arrow, title, and step navigation */}
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-3">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => navigate("/")}
+                  className="hover:bg-gray-100"
+                  data-testid="button-back-home"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </Button>
+                <h1 className="text-lg font-semibold text-gray-800">Create Campaign</h1>
               </div>
-            ))}
+              
+              <div className="flex items-center space-x-1">
+                {steps.map((step, index) => (
+                  <div key={step.key} className="flex items-center">
+                    <div 
+                      className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+                        currentStep === step.key 
+                          ? 'bg-blue-600 text-white' 
+                          : index < currentStepIndex
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-gray-100 text-gray-500'
+                      }`}
+                      data-testid={`step-${step.key}`}
+                    >
+                      {step.label}
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div className="w-4 h-px bg-gray-300 mx-1"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side - How it works button */}
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              data-testid="button-how-it-works"
+            >
+              How it works
+            </Button>
           </div>
         </div>
       </div>
