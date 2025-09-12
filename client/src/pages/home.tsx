@@ -22,7 +22,6 @@ import { type Campaign } from "@shared/schema";
 import MaterialHeader from "@/components/material-header";
 import MaterialSidebar from "@/components/material-sidebar";
 import MaterialProjectCard from "@/components/material-project-card";
-import GlassBackground from "@/components/glass-background";
 import { MainMenu } from "@/components/main-menu";
 
 export default function Home() {
@@ -55,8 +54,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen relative">
-      <GlassBackground />
+    <div className="min-h-screen relative dotted-background">
       <MaterialHeader onToggleMainMenu={() => setShowMainMenu(!showMainMenu)} />
       <div className="flex h-[calc(100vh-120px)]">
         <MaterialSidebar isOpen={sidebarOpen} />
@@ -65,7 +63,7 @@ export default function Home() {
           <div className="p-8 max-w-[1280px] mx-auto w-full">
             {/* Welcome Section */}
             <div className="mb-8">
-              <h1 className="font-bold text-glass-text-primary mb-6 text-center text-[24px]">
+              <h1 className="font-bold text-gray-800 mb-6 text-center text-[24px]">
                 Welcome back
               </h1>
 
@@ -73,14 +71,14 @@ export default function Home() {
               <div className="mb-8">
                 
 
-                <div className="glass-elevated border-glass-border rounded-3xl p-8 max-w-4xl mx-auto">
+                <div className="clean-card rounded-3xl p-8 max-w-4xl mx-auto">
                   {/* Main text area */}
                   <div className="mb-6">
                     <textarea
                       placeholder="Describe your design"
                       value={campaignPrompt}
                       onChange={(e) => setCampaignPrompt(e.target.value)}
-                      className="w-full h-32 glass-surface border-0 rounded-2xl text-base p-6 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md resize-none"
+                      className="w-full h-32 bg-white border border-gray-200 rounded-2xl text-base p-6 text-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none"
                       style={{ fontFamily: 'Work Sans, sans-serif' }}
                       onKeyPress={(e) => {
                         if (e.key === 'Enter' && e.ctrlKey && campaignPrompt.trim()) {
@@ -98,8 +96,8 @@ export default function Home() {
                         variant={activeTab === "campaign" ? "default" : "ghost"}
                         className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
                           activeTab === "campaign" 
-                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
-                            : "text-glass-text-secondary hover:bg-[rgba(99,102,241,0.1)] hover:text-[#6366f1]"
+                            ? "bg-blue-100 text-blue-600 border border-blue-300" 
+                            : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
                         }`}
                         onClick={() => setActiveTab("campaign")}
                       >
@@ -110,8 +108,8 @@ export default function Home() {
                         variant={activeTab === "catalog" ? "default" : "ghost"}
                         className={`rounded-lg px-4 py-2 text-sm transition-all duration-200 ${
                           activeTab === "catalog" 
-                            ? "bg-[rgba(99,102,241,0.2)] text-[#6366f1] border border-[rgba(99,102,241,0.3)]" 
-                            : "text-glass-text-secondary hover:bg-[rgba(99,102,241,0.1)] hover:text-[#6366f1]"
+                            ? "bg-green-100 text-green-600 border border-green-300" 
+                            : "text-gray-600 hover:bg-green-50 hover:text-green-600"
                         }`}
                         onClick={() => setActiveTab("catalog")}
                       >
@@ -125,7 +123,7 @@ export default function Home() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-10 h-10 text-glass-text-muted hover:text-[#6366f1] hover:bg-[rgba(99,102,241,0.1)] rounded-lg"
+                        className="w-10 h-10 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg"
                         onClick={() => document.getElementById('file-upload')?.click()}
                       >
                         <Paperclip className="w-5 h-5" />
@@ -142,7 +140,7 @@ export default function Home() {
                       />
                       
                       <Button 
-                        className="bg-[rgba(139,92,246,0.9)] hover:bg-[rgba(139,92,246,1)] text-white rounded-2xl px-6 py-2 text-sm font-medium transition-all duration-200"
+                        className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-6 py-2 text-sm font-medium transition-all duration-200"
                         onClick={handleStartCampaign}
                         disabled={!campaignPrompt.trim()}
                         style={{ fontFamily: 'Work Sans, sans-serif' }}
@@ -157,9 +155,9 @@ export default function Home() {
             </div>
 
             {/* Projects Section - Reduced opacity until hover */}
-            <div className="opacity-60 hover:opacity-100 transition-opacity duration-300 border-t border-glass-border pt-8 mt-12">
+            <div className="opacity-60 hover:opacity-100 transition-opacity duration-300 border-t border-gray-200 pt-8 mt-12">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-medium text-glass-text-secondary">
+                <h2 className="text-lg font-medium text-gray-600">
                   Recent Campaigns
                 </h2>
                 <div className="flex items-center gap-2">
@@ -167,7 +165,7 @@ export default function Home() {
                     variant="ghost"
                     size="icon"
                     onClick={() => setViewMode("grid")}
-                    className={`w-7 h-7 ${viewMode === "grid" ? "bg-glass-elevated" : ""}`}
+                    className={`w-7 h-7 ${viewMode === "grid" ? "bg-gray-100" : ""}`}
                   >
                     <Grid3X3 className="w-3.5 h-3.5" />
                   </Button>
@@ -175,7 +173,7 @@ export default function Home() {
                     variant="ghost"
                     size="icon"
                     onClick={() => setViewMode("list")}
-                    className={`w-7 h-7 ${viewMode === "list" ? "bg-glass-elevated" : ""}`}
+                    className={`w-7 h-7 ${viewMode === "list" ? "bg-gray-100" : ""}`}
                   >
                     <List className="w-3.5 h-3.5" />
                   </Button>

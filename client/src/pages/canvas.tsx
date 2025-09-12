@@ -73,7 +73,6 @@ import {
 } from "@/components/ui/sheet";
 import { MainMenu } from "@/components/main-menu";
 import MaterialHeader from "@/components/material-header";
-import GlassBackground from "@/components/glass-background";
 import { useLocation, useRoute } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -124,7 +123,7 @@ interface Project {
 }
 
 const CARD_TEMPLATES = [
-  { type: "instagram" as const, label: "Instagram", icon: Instagram, color: "bg-gradient-to-r from-purple-500 to-pink-500" },
+  { type: "instagram" as const, label: "Instagram", icon: Instagram, color: "bg-pink-500" },
   { type: "twitter" as const, label: "X/Twitter", icon: Twitter, color: "bg-black" },
   { type: "facebook" as const, label: "Facebook", icon: Facebook, color: "bg-blue-600" },
   { type: "email" as const, label: "Email", icon: Mail, color: "bg-green-600" },
@@ -967,8 +966,7 @@ export default function CanvasView() {
 
   if (!project) {
     return (
-      <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
-        <GlassBackground />
+      <div className="min-h-screen relative flex items-center justify-center overflow-hidden dotted-background">
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -1004,8 +1002,8 @@ export default function CanvasView() {
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-glass-text-primary">Preparing Canvas</h3>
-            <p className="text-glass-text-secondary">Setting up your creative workspace...</p>
+            <h3 className="text-xl font-semibold text-gray-800">Preparing Canvas</h3>
+            <p className="text-gray-600">Setting up your creative workspace...</p>
           </div>
 
           {/* Loading Steps */}
@@ -1026,11 +1024,10 @@ export default function CanvasView() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <GlassBackground />
+    <div className="min-h-screen relative overflow-hidden dotted-background">
       {/* Floating Header - Miro Style */}
       <div className="fixed top-6 left-6 z-30">
-        <div className="glass-elevated border-glass-border rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl">
+        <div className="clean-card rounded-2xl px-4 py-3">
           <div className="flex items-center space-x-4">
             {/* Menu Icon */}
             <Button 
@@ -1054,7 +1051,7 @@ export default function CanvasView() {
             />
 
             {/* Project Title */}
-            <span className="text-glass-text-primary font-medium">{project?.prompt || project?.title || "New Campaign"}</span>
+            <span className="text-gray-800 font-medium">{project?.prompt || project?.title || "New Campaign"}</span>
 
             {/* More Options */}
             <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
@@ -1070,7 +1067,7 @@ export default function CanvasView() {
       
       {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
       <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
-        <div className="glass-elevated border-glass-border rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+        <div className="clean-card rounded-2xl p-2">
           <div className="flex flex-col space-y-2">
             {/* Select Tool */}
             <Button
@@ -1210,7 +1207,7 @@ export default function CanvasView() {
         />
 
         {/* Auto-save Status */}
-        <div className="flex items-center gap-2 glass-elevated border-glass-border rounded-xl px-3 py-2 shadow-lg backdrop-blur-xl">
+        <div className="flex items-center gap-2 clean-card rounded-xl px-3 py-2">
           {saveStatus === "saving" && (
             <>
               <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
@@ -1521,12 +1518,12 @@ export default function CanvasView() {
 
       {/* Project Info Panel */}
       <div className="fixed bottom-6 left-6 z-40">
-        <Card className="glass-elevated border-glass-border">
+        <Card className="clean-card">
           <CardContent className="p-4">
-            <h3 className="font-medium text-glass-text-primary mb-1">
+            <h3 className="font-medium text-gray-800 mb-1">
               {project.title}
             </h3>
-            <p className="text-xs text-glass-text-muted mb-2">
+            <p className="text-xs text-gray-500 mb-2">
               {project.assets.length} assets • Created {project.createdAt.toLocaleDateString()}
             </p>
             <div className="flex space-x-1">
@@ -1547,7 +1544,7 @@ export default function CanvasView() {
 
       {/* Zoom Controls - Bottom Right (Miro Style) */}
       <div className="fixed bottom-6 right-6 z-40">
-        <div className="glass-elevated border-glass-border rounded-2xl p-2 shadow-xl backdrop-blur-xl">
+        <div className="clean-card rounded-2xl p-2">
           <div className="flex items-center space-x-2">
             {/* Fit to View */}
             <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-10 h-10 p-0 rounded-xl" title="Fit to Screen">
@@ -1564,7 +1561,7 @@ export default function CanvasView() {
 
             {/* Zoom Percentage */}
             <div className="px-3 py-1">
-              <span className="text-sm font-medium text-glass-text-primary">
+              <span className="text-sm font-medium text-gray-800">
                 {Math.round(viewport.zoom * 100)}%
               </span>
             </div>

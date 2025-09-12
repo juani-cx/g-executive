@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Home, ArrowLeft, Mic, MicOff, Volume2 } from "lucide-react";
-import GlassBackground from "@/components/glass-background";
 
 export default function PromptInput() {
   const [, navigate] = useLocation();
@@ -61,17 +60,16 @@ export default function PromptInput() {
   };
 
   return (
-    <div className="min-h-screen relative">
-      <GlassBackground />
+    <div className="min-h-screen relative dotted-background">
       
       <main className="flex items-center justify-center min-h-screen p-8">
         <div className="w-full max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-glass-text-primary mb-4">
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">
               Say or type your prompt
             </h1>
-            <p className="text-xl text-glass-text-secondary">
+            <p className="text-lg text-gray-600">
               {appType === 'marketing' 
                 ? "Describe your marketing campaign vision" 
                 : "Describe your product catalog needs"}
@@ -79,7 +77,7 @@ export default function PromptInput() {
           </div>
 
           {/* Main input card */}
-          <Card className="glass-elevated border-glass-border mb-12">
+          <Card className="clean-card mb-12">
             <CardContent className="p-12">
               {/* Large text input area */}
               <div className="mb-8">
@@ -87,7 +85,7 @@ export default function PromptInput() {
                   placeholder={samplePrompts[appType]}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  className="w-full h-64 glass-surface border-0 rounded-2xl text-xl p-8 text-glass-text-primary placeholder:text-glass-text-muted focus:ring-2 focus:ring-[rgba(99,102,241,0.3)] focus:border-transparent bg-[rgba(255,255,255,0.05)] backdrop-blur-md resize-none"
+                  className="w-full h-64 bg-white border border-gray-200 rounded-2xl text-lg p-6 text-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none"
                   style={{ fontFamily: 'Work Sans, sans-serif' }}
                   data-testid="textarea-prompt"
                 />
@@ -100,12 +98,12 @@ export default function PromptInput() {
                   <Button
                     variant="ghost"
                     onClick={handleClear}
-                    className="text-glass-text-secondary hover:text-glass-text-primary py-3 px-6 text-lg min-h-[48px]"
+                    className="text-gray-600 hover:text-gray-800 py-3 px-6 text-lg min-h-[48px]"
                     data-testid="button-clear"
                   >
                     Clear
                   </Button>
-                  <span className="text-base text-glass-text-muted">
+                  <span className="text-base text-gray-500">
                     {prompt.length}/2000
                   </span>
                 </div>
@@ -118,7 +116,7 @@ export default function PromptInput() {
                   className={`rounded-full w-16 h-16 p-0 ${
                     isListening 
                       ? 'bg-red-500 hover:bg-red-600 text-white border-red-500' 
-                      : 'glass-surface border-glass-border text-glass-text-primary hover:bg-[rgba(99,102,241,0.1)]'
+                      : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
                   }`}
                   data-testid="button-voice"
                 >
@@ -130,7 +128,7 @@ export default function PromptInput() {
 
           {/* Sample suggestions based on app type */}
           <div className="mb-12">
-            <p className="text-lg text-glass-text-secondary mb-6">Try something like:</p>
+            <p className="text-lg text-gray-600 mb-6">Try something like:</p>
             <div className="flex flex-wrap gap-4">
               {appType === 'marketing' ? (
                 <>
@@ -173,7 +171,7 @@ export default function PromptInput() {
               <Button
                 variant="outline"
                 onClick={handleGoHome}
-                className="glass-surface border-glass-border text-glass-text-primary hover:bg-[rgba(99,102,241,0.1)] rounded-full w-14 h-14 p-0"
+                className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 rounded-full w-14 h-14 p-0"
                 data-testid="button-home"
               >
                 <Home className="w-6 h-6" />
@@ -181,7 +179,7 @@ export default function PromptInput() {
               <Button
                 variant="outline"
                 onClick={handleGoBack}
-                className="glass-surface border-glass-border text-glass-text-primary hover:bg-[rgba(99,102,241,0.1)] px-6 py-3 min-h-[56px]"
+                className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 px-6 py-3 min-h-[56px]"
                 data-testid="button-back"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
@@ -191,10 +189,10 @@ export default function PromptInput() {
 
             {/* Center - Guided mode toggle */}
             <div 
-              className="flex items-center space-x-3 cursor-pointer min-h-[48px] px-3 py-2 rounded-lg hover:bg-[rgba(99,102,241,0.05)] transition-colors"
+              className="flex items-center space-x-3 cursor-pointer min-h-[48px] px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
               onClick={() => setGuidedMode(!guidedMode)}
             >
-              <label htmlFor="guided-mode-switch" className="text-base text-glass-text-secondary cursor-pointer">
+              <label htmlFor="guided-mode-switch" className="text-base text-gray-600 cursor-pointer">
                 Guided mode
               </label>
               <Switch

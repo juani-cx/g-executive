@@ -155,7 +155,7 @@ export default function OutputHub() {
   ) || [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-surface to-primary/5">
+    <div className="min-h-screen dotted-background">
       <div className="max-w-7xl mx-auto px-6 py-8">
         
         {/* Success Header */}
@@ -163,8 +163,8 @@ export default function OutputHub() {
           <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="text-green-600 w-12 h-12" />
           </div>
-          <h2 className="text-4xl font-bold text-on-surface mb-4">Campaign Generated Successfully!</h2>
-          <p className="text-xl text-on-surface-variant max-w-2xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Campaign Generated Successfully!</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Your AI-powered marketing campaign "{campaign?.name}" is ready. Download individual assets or share the complete campaign with your team.
           </p>
         </div>
