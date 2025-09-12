@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import Login from "@/pages/login";
+import Landing from "@/pages/landing";
+import PromptInput from "@/pages/prompt-input";
 import Home from "@/pages/home";
 import CanvasView from "@/pages/canvas";
 import CampaignGenerator from "@/pages/campaign-generator";
@@ -16,7 +18,9 @@ import NotFound from "@/pages/not-found";
 function AuthenticatedRouter() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={Landing} />
+      <Route path="/prompt-input" component={PromptInput} />
+      <Route path="/home" component={Home} />
       <Route path="/canvas" component={CanvasView} />
       <Route path="/canvas/:id" component={CanvasView} />
       <Route path="/campaign-generator" component={CampaignGenerator} />
