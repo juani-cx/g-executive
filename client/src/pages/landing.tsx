@@ -18,20 +18,20 @@ export default function Landing() {
   };
 
   const renderDemo2Prompt = () => (
-    <div className="w-full max-w-2xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
-          Promote your product now
-        </h1>
-        <p className="text-lg text-gray-600">
-          Complete multi-channel campaign AI builder for executive people
-        </p>
-      </div>
+    <div className="flex items-center justify-center min-h-screen p-8">
+      <div className="w-full max-w-2xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
+            Promote your product now
+          </h1>
+          <p className="text-lg text-gray-600">
+            Complete multi-channel campaign AI builder for executive people
+          </p>
+        </div>
 
-      {/* Prompt Input Area */}
-      <Card className="clean-card mb-8">
-        <CardContent className="p-8">
+        {/* Prompt Input Area - No Card wrapper, no background */}
+        <div className="mb-8">
           <div className="text-center mb-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Describe your product to market</h3>
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -45,31 +45,31 @@ export default function Landing() {
             </div>
           </div>
           
-          <div className="border border-gray-300 rounded-lg p-6 min-h-[120px] bg-gray-50 mb-6">
+          <div className="border border-gray-300 rounded-lg p-6 min-h-[120px] mb-6">
             <div className="text-gray-400 text-center">
               Type your product description here...
             </div>
           </div>
 
           <div className="flex justify-center mb-4">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium">
+            <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-8 py-3 rounded-lg font-medium">
               Generate Campaign
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      {/* Bottom suggestions */}
-      <div className="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
-        <div>
-          <p className="font-medium mb-1">Recent content</p>
-          <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
-        </div>
-        <div>
-          <p className="font-medium mb-1">Email new product launch for Q4 market</p>
-        </div>
-        <div>
-          <p className="font-medium mb-1">Digital services for development</p>
+        {/* Bottom suggestions */}
+        <div className="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
+          <div>
+            <p className="font-medium mb-1">Recent content</p>
+            <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
+          </div>
+          <div>
+            <p className="font-medium mb-1">Email new product launch for Q4 market</p>
+          </div>
+          <div>
+            <p className="font-medium mb-1">Digital services for development</p>
+          </div>
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@ export default function Landing() {
               </div>
 
               <div className="flex justify-center mb-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium">
+                <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-8 py-3 rounded-lg font-medium">
                   Generate Campaign
                 </Button>
               </div>
