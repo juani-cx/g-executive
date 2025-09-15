@@ -77,8 +77,8 @@ export default function Landing() {
 
   const renderDemo3Prompt = () => (
     <div className="relative w-full min-h-screen">
-      {/* Spline Background */}
-      <div className="absolute inset-0 z-0">
+      {/* Spline Background - Interactive */}
+      <div className="absolute inset-0">
         <iframe 
           src='https://my.spline.design/googleiolandingpageconcept-0tTW0rW0LglwjHiVQlAaadFE/' 
           frameBorder='0' 
@@ -88,61 +88,56 @@ export default function Landing() {
         />
       </div>
       
-      {/* Content overlay */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-8">
-        <div className="w-full max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-2xl p-8">
-          {/* Same content as Demo 2 but with overlay styling */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
-              Promote your product now
-            </h1>
-            <p className="text-lg text-gray-600">
-              Complete multi-channel campaign AI builder for executive people
-            </p>
+      {/* Content positioned to left side with fixed width - No z-index to allow Spline interaction */}
+      <div className="absolute left-8 top-1/2 transform -translate-y-1/2 w-96">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4 tracking-tight">
+            Promote your product now
+          </h1>
+          <p className="text-base text-gray-600">
+            Complete multi-channel campaign AI builder for executive people
+          </p>
+        </div>
+
+        {/* Prompt Input Area - No Card wrapper, minimal styling */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Describe your product to market</h3>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
+                <Upload className="w-4 h-4 text-gray-500" />
+              </div>
+              <span className="text-gray-400">or</span>
+              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
+                <Star className="w-4 h-4 text-gray-500" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="border border-gray-300 rounded-lg p-4 min-h-[100px] mb-6 bg-white">
+            <div className="text-gray-400 text-sm">
+              Type your product description here...
+            </div>
           </div>
 
-          {/* Prompt Input Area */}
-          <Card className="clean-card mb-8 bg-white/95">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Describe your product to market</h3>
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
-                    <Upload className="w-4 h-4 text-gray-500" />
-                  </div>
-                  <span className="text-gray-400">or</span>
-                  <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
-                    <Star className="w-4 h-4 text-gray-500" />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="border border-gray-300 rounded-lg p-6 min-h-[120px] bg-gray-50 mb-6">
-                <div className="text-gray-400 text-center">
-                  Type your product description here...
-                </div>
-              </div>
+          <div className="flex justify-center mb-6">
+            <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-medium">
+              Generate Campaign
+            </Button>
+          </div>
+        </div>
 
-              <div className="flex justify-center mb-4">
-                <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-8 py-3 rounded-lg font-medium">
-                  Generate Campaign
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Bottom suggestions */}
-          <div className="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
-            <div>
-              <p className="font-medium mb-1">Recent content</p>
-              <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
-            </div>
-            <div>
-              <p className="font-medium mb-1">Email new product launch for Q4 market</p>
-            </div>
-            <div>
-              <p className="font-medium mb-1">Digital services for development</p>
-            </div>
+        {/* Bottom suggestions - Simplified */}
+        <div className="grid grid-cols-1 gap-2 text-center text-xs text-gray-600">
+          <div>
+            <p className="font-medium mb-1">Recent content</p>
+            <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
+          </div>
+          <div>
+            <p className="font-medium">Email new product launch for Q4 market</p>
+          </div>
+          <div>
+            <p className="font-medium">Digital services for development</p>
           </div>
         </div>
       </div>
