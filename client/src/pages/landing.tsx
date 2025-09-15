@@ -183,9 +183,7 @@ export default function Landing() {
             {/* Header */}
             <div className="text-center mb-12">
               <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">Promote your product now</h1>
-              <p className="text-lg text-gray-600">
-                No technical expertise required
-              </p>
+              <p className="text-lg text-gray-600">Executive campaign AI builder for executive people</p>
             </div>
 
             {/* Two main options - Simplified for Demo 1 */}
