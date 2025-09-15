@@ -136,15 +136,15 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen dotted-background">
-      {/* Demo Navigation Links */}
-      <div className="absolute top-6 left-6 z-50">
-        <div className="flex gap-4">
+      {/* Demo Navigation Links - Centered */}
+      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="flex gap-8">
           <button
             onClick={() => setActiveDemo('demo1')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`text-sm font-medium transition-colors ${
               activeDemo === 'demo1' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-white text-gray-600 hover:bg-gray-100'
+                ? 'text-blue-600' 
+                : 'text-gray-600 hover:text-gray-800'
             }`}
             data-testid="link-demo1"
           >
@@ -152,10 +152,10 @@ export default function Landing() {
           </button>
           <button
             onClick={() => setActiveDemo('demo2')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`text-sm font-medium transition-colors ${
               activeDemo === 'demo2' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-white text-gray-600 hover:bg-gray-100'
+                ? 'text-blue-600' 
+                : 'text-gray-600 hover:text-gray-800'
             }`}
             data-testid="link-demo2"
           >
@@ -163,10 +163,10 @@ export default function Landing() {
           </button>
           <button
             onClick={() => setActiveDemo('demo3')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`text-sm font-medium transition-colors ${
               activeDemo === 'demo3' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-white text-gray-600 hover:bg-gray-100'
+                ? 'text-blue-600' 
+                : 'text-gray-600 hover:text-gray-800'
             }`}
             data-testid="link-demo3"
           >
