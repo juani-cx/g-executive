@@ -174,19 +174,15 @@ export default function Landing() {
           </button>
         </div>
       </div>
-
       {/* Conditional Demo Content */}
       {activeDemo === 'demo2' && renderDemo2Prompt()}
       {activeDemo === 'demo3' && renderDemo3Prompt()}
-      
       {activeDemo === 'demo1' && (
         <main className="flex items-center justify-center min-h-screen p-8">
           <div className="w-full max-w-4xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">
-                GenAI and Machine Learning Experiments
-              </h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">Promote your product now</h1>
               <p className="text-lg text-gray-600">
                 No technical expertise required
               </p>
