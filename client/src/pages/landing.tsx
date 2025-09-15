@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, TrendingUp, ArrowRight, MousePointer2 } from "lucide-react";
+import { Sparkles, TrendingUp, ArrowRight, MousePointer2, Upload, Star } from "lucide-react";
 
 export default function Landing() {
   const [, navigate] = useLocation();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [activeDemo, setActiveDemo] = useState<'demo1' | 'demo2' | 'demo3'>('demo1');
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
     setSelectedOption(optionType);
@@ -16,110 +17,271 @@ export default function Landing() {
     navigate('/prompt-input');
   };
 
-  return (
-    <div className="min-h-screen dotted-background">
-      <main className="flex items-center justify-center min-h-screen p-8">
-        <div className="w-full max-w-4xl mx-auto">
-          {/* Header */}
+  const renderDemo2Prompt = () => (
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
+          Promote your product now
+        </h1>
+        <p className="text-lg text-gray-600">
+          Complete multi-channel campaign AI builder for executive people
+        </p>
+      </div>
+
+      {/* Prompt Input Area */}
+      <Card className="clean-card mb-8">
+        <CardContent className="p-8">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Describe your product to market</h3>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
+                <Upload className="w-4 h-4 text-gray-500" />
+              </div>
+              <span className="text-gray-400">or</span>
+              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
+                <Star className="w-4 h-4 text-gray-500" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="border border-gray-300 rounded-lg p-6 min-h-[120px] bg-gray-50 mb-6">
+            <div className="text-gray-400 text-center">
+              Type your product description here...
+            </div>
+          </div>
+
+          <div className="flex justify-center mb-4">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium">
+              Generate Campaign
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Bottom suggestions */}
+      <div className="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
+        <div>
+          <p className="font-medium mb-1">Recent content</p>
+          <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
+        </div>
+        <div>
+          <p className="font-medium mb-1">Email new product launch for Q4 market</p>
+        </div>
+        <div>
+          <p className="font-medium mb-1">Digital services for development</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderDemo3Prompt = () => (
+    <div className="relative w-full min-h-screen">
+      {/* Spline Background */}
+      <div className="absolute inset-0 z-0">
+        <iframe 
+          src='https://my.spline.design/googleiolandingpageconcept-0tTW0rW0LglwjHiVQlAaadFE/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="w-full h-full"
+        />
+      </div>
+      
+      {/* Content overlay */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-8">
+        <div className="w-full max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-2xl p-8">
+          {/* Same content as Demo 2 but with overlay styling */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">
-              GenAI and Machine Learning Experiments
+            <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
+              Promote your product now
             </h1>
             <p className="text-lg text-gray-600">
-              No technical expertise required
+              Complete multi-channel campaign AI builder for executive people
             </p>
           </div>
 
-          {/* Two main options */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
-            {/* Marketing Inspiration Option */}
-            <Card 
-              className="clean-card border-orange-300 hover:border-orange-400 cursor-pointer group"
-              onClick={() => handleOptionSelect('marketing')}
-              data-testid="card-marketing-option"
-            >
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    <TrendingUp className="text-white w-8 h-8" />
+          {/* Prompt Input Area */}
+          <Card className="clean-card mb-8 bg-white/95">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Describe your product to market</h3>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
+                    <Upload className="w-4 h-4 text-gray-500" />
                   </div>
-                  
-                  <h2 className="text-xl font-bold text-gray-800 mb-3">
-                    Marketing Inspiration<br />to Activation
-                  </h2>
-                  
-                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                    Capture or upload an image, describe what you want to promote, and select your target audience. AI transforms your inspiration into complete multi-channel campaigns.
-                  </p>
-                  
-                  {/* Preview image placeholder */}
-                  <div className="w-full h-24 bg-orange-100 rounded-lg mb-4 flex items-center justify-center">
-                    <div className="text-center text-orange-600">
-                      <TrendingUp className="w-6 h-6 mx-auto mb-1" />
-                      <span className="text-xs font-medium">Campaign Preview</span>
-                    </div>
+                  <span className="text-gray-400">or</span>
+                  <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center">
+                    <Star className="w-4 h-4 text-gray-500" />
                   </div>
-                  
-                  <Button 
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
-                    data-testid="button-select-marketing"
-                  >
-                    Start Marketing Campaign
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Catalog Enrichment Option */}
-            <Card 
-              className="clean-card border-green-300 hover:border-green-400 cursor-pointer group"
-              onClick={() => handleOptionSelect('catalog')}
-              data-testid="card-catalog-option"
-            >
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    <Sparkles className="text-white w-8 h-8" />
-                  </div>
-                  
-                  <h2 className="text-xl font-bold text-gray-800 mb-3">
-                    Catalog<br />Enrichment
-                  </h2>
-                  
-                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                    Upload product images and define your brand tone. AI generates high-quality titles, descriptions, feature bullets, alt text, and SEO metadata instantly.
-                  </p>
-                  
-                  {/* Preview image placeholder */}
-                  <div className="w-full h-24 bg-green-100 rounded-lg mb-4 flex items-center justify-center">
-                    <div className="text-center text-green-600">
-                      <Sparkles className="w-6 h-6 mx-auto mb-1" />
-                      <span className="text-xs font-medium">Product Catalog</span>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
-                    data-testid="button-select-catalog"
-                  >
-                    Enrich Product Catalog
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+              </div>
+              
+              <div className="border border-gray-300 rounded-lg p-6 min-h-[120px] bg-gray-50 mb-6">
+                <div className="text-gray-400 text-center">
+                  Type your product description here...
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
 
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-gray-600 text-base mb-2">
-              Choose an experience to get started
-            </p>
-            <MousePointer2 className="w-5 h-5 text-gray-500 mx-auto" />
+              <div className="flex justify-center mb-4">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium">
+                  Generate Campaign
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Bottom suggestions */}
+          <div className="grid grid-cols-3 gap-4 text-center text-sm text-gray-600">
+            <div>
+              <p className="font-medium mb-1">Recent content</p>
+              <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
+            </div>
+            <div>
+              <p className="font-medium mb-1">Email new product launch for Q4 market</p>
+            </div>
+            <div>
+              <p className="font-medium mb-1">Digital services for development</p>
+            </div>
           </div>
         </div>
-      </main>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen dotted-background">
+      {/* Demo Navigation Links */}
+      <div className="absolute top-6 left-6 z-50">
+        <div className="flex gap-4">
+          <button
+            onClick={() => setActiveDemo('demo1')}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeDemo === 'demo1' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-gray-600 hover:bg-gray-100'
+            }`}
+            data-testid="link-demo1"
+          >
+            Demo 1
+          </button>
+          <button
+            onClick={() => setActiveDemo('demo2')}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeDemo === 'demo2' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-gray-600 hover:bg-gray-100'
+            }`}
+            data-testid="link-demo2"
+          >
+            Demo 2
+          </button>
+          <button
+            onClick={() => setActiveDemo('demo3')}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeDemo === 'demo3' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-gray-600 hover:bg-gray-100'
+            }`}
+            data-testid="link-demo3"
+          >
+            Demo 3
+          </button>
+        </div>
+      </div>
+
+      {/* Conditional Demo Content */}
+      {activeDemo === 'demo2' && renderDemo2Prompt()}
+      {activeDemo === 'demo3' && renderDemo3Prompt()}
+      
+      {activeDemo === 'demo1' && (
+        <main className="flex items-center justify-center min-h-screen p-8">
+          <div className="w-full max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">
+                GenAI and Machine Learning Experiments
+              </h1>
+              <p className="text-lg text-gray-600">
+                No technical expertise required
+              </p>
+            </div>
+
+            {/* Two main options - Simplified for Demo 1 */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
+              {/* Marketing Inspiration Option - Simplified */}
+              <Card 
+                className="clean-card border-gray-200 hover:border-gray-300 cursor-pointer group"
+                onClick={() => handleOptionSelect('marketing')}
+                data-testid="card-marketing-option"
+              >
+                <CardContent className="p-8">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                      <TrendingUp className="text-gray-800 w-8 h-8" />
+                    </div>
+                    
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                      Marketing Inspiration<br />to Activation
+                    </h2>
+                    
+                    <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                      Capture or upload an image, describe what you want to promote, and select your target audience. AI transforms your inspiration into complete multi-channel campaigns.
+                    </p>
+                    
+                    <Button 
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
+                      data-testid="button-select-marketing"
+                    >
+                      Start Marketing Campaign
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Catalog Enrichment Option - Simplified */}
+              <Card 
+                className="clean-card border-gray-200 hover:border-gray-300 cursor-pointer group"
+                onClick={() => handleOptionSelect('catalog')}
+                data-testid="card-catalog-option"
+              >
+                <CardContent className="p-8">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                      <Sparkles className="text-gray-800 w-8 h-8" />
+                    </div>
+                    
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                      Catalog<br />Enrichment
+                    </h2>
+                    
+                    <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                      Upload product images and define your brand tone. AI generates high-quality titles, descriptions, feature bullets, alt text, and SEO metadata instantly.
+                    </p>
+                    
+                    <Button 
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
+                      data-testid="button-select-catalog"
+                    >
+                      Enrich Product Catalog
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Footer */}
+            <div className="text-center">
+              <p className="text-gray-600 text-base mb-2">
+                Choose an experience to get started
+              </p>
+              <MousePointer2 className="w-5 h-5 text-gray-500 mx-auto" />
+            </div>
+          </div>
+        </main>
+      )}
     </div>
   );
 }
