@@ -88,9 +88,9 @@ export default function Landing() {
         />
       </div>
       
-      {/* Content positioned to left side with fixed width - No z-index to allow Spline interaction */}
-      <div className="absolute left-8 top-1/2 transform -translate-y-1/2 w-96">
-        <div className="text-center mb-12">
+      {/* Content positioned with specific dimensions - No z-index to allow Spline interaction */}
+      <div className="absolute left-8 top-1/2 transform -translate-y-1/2" style={{ width: '880px', paddingLeft: '444px', textAlign: 'left' }}>
+        <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-4 tracking-tight">
             Promote your product now
           </h1>
@@ -101,43 +101,33 @@ export default function Landing() {
 
         {/* Prompt Input Area - No Card wrapper, minimal styling */}
         <div className="mb-8">
-          <div className="text-center mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Describe your product to market</h3>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
-                <Upload className="w-4 h-4 text-gray-500" />
-              </div>
-              <span className="text-gray-400">or</span>
-              <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
-                <Star className="w-4 h-4 text-gray-500" />
-              </div>
-            </div>
-          </div>
-          
           <div className="border border-gray-300 rounded-lg p-4 min-h-[100px] mb-6 bg-white">
             <div className="text-gray-400 text-sm">
               Type your product description here...
             </div>
           </div>
 
-          <div className="flex justify-center mb-6">
+          <div className="flex items-center gap-4 mb-6">
             <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-medium">
-              Generate Campaign
+              Start now
             </Button>
+            <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
+              <Upload className="w-4 h-4 text-gray-500" />
+            </div>
+            <span className="text-gray-400">or</span>
+            <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
+              <Star className="w-4 h-4 text-gray-500" />
+            </div>
           </div>
         </div>
 
         {/* Bottom suggestions - Simplified */}
-        <div className="grid grid-cols-1 gap-2 text-center text-xs text-gray-600">
-          <div>
-            <p className="font-medium mb-1">Recent content</p>
-            <p className="text-xs">AI generated platform built in platform marketing campaigns and drive more buyers to your groups</p>
+        <div className="text-xs text-gray-600">
+          <div className="mb-2">
+            <p className="font-medium">How it works</p>
           </div>
           <div>
-            <p className="font-medium">Email new product launch for Q4 market</p>
-          </div>
-          <div>
-            <p className="font-medium">Digital services for development</p>
+            <p className="font-medium">Check examples</p>
           </div>
         </div>
       </div>
