@@ -22,17 +22,17 @@ export default function Landing() {
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ellipse SVG - Top Right */}
-        <img 
-          src="/vectors/ellipse.svg" 
-          alt="" 
-          className="absolute top-20 right-20 w-80 h-80 opacity-30"
-        />
+        <div className="absolute top-20 right-20 w-80 h-80 opacity-30">
+          <svg width="100%" height="100%" viewBox="0 0 1068 1068" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#D96756" strokeWidth="67" d="M34,534A500,500 0,1,1 1034,534A500,500 0,1,1 34,534" className="animate-pulse"/>
+          </svg>
+        </div>
         {/* Shape SVG - Bottom Left */}
-        <img 
-          src="/vectors/shape.svg" 
-          alt="" 
-          className="absolute bottom-20 left-20 w-72 h-72 opacity-25"
-        />
+        <div className="absolute bottom-20 left-20 w-72 h-72 opacity-25">
+          <svg width="100%" height="100%" viewBox="0 0 1596 2919" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M34 2919V34H1596" stroke="#6790ED" strokeWidth="67" className="animate-pulse"/>
+          </svg>
+        </div>
       </div>
 
       <div className="relative z-10 w-full max-w-2xl mx-auto">
