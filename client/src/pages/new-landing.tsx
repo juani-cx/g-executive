@@ -58,13 +58,13 @@ export default function NewLanding() {
 
       {/* Main Content - Left Aligned */}
       <div className="relative z-10 flex items-center min-h-screen">
-        <div className="max-w-6xl mx-auto px-8 w-full">
-          <div className="text-left max-w-4xl">
-            <h1 className="text-9xl font-bold text-gray-800 mb-6 tracking-tight leading-tight">
+        <div className="w-full px-8">
+          <div className="text-left w-full">
+            <h1 className="text-9xl font-bold text-gray-800 mb-6 tracking-tight leading-none w-full">
               Promote your product now
             </h1>
             
-            <p className="text-3xl text-gray-600 mb-16 max-w-2xl">
+            <p className="text-3xl text-gray-600 mb-16 w-full">
               Executive campaign AI builder for executive people
             </p>
             

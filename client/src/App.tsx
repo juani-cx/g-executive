@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Login from "@/pages/login";
 import Landing from "@/pages/landing";
 import NewLanding from "@/pages/new-landing";
@@ -16,21 +17,56 @@ import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
 
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: -20,
+  },
+  in: {
+    opacity: 1,
+    x: 0,
+  },
+  out: {
+    opacity: 0,
+    x: 20,
+  }
+};
+
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.5
+};
+
 function AuthenticatedRouter() {
+  const [location] = useLocation();
+  
   return (
-    <Switch>
-      <Route path="/" component={NewLanding} />
-      <Route path="/homepage" component={Landing} />
-      <Route path="/prompt-input" component={PromptInput} />
-      <Route path="/home" component={Home} />
-      <Route path="/canvas" component={CanvasView} />
-      <Route path="/canvas/:id" component={CanvasView} />
-      <Route path="/campaign-generator" component={CampaignGenerator} />
-      <Route path="/catalog-generator" component={CatalogGenerator} />
-      <Route path="/output/:campaignId" component={OutputHub} />
-      <Route path="/executive/:linkId" component={ExecutiveView} />
-      <Route component={NotFound} />
-    </Switch>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        transition={pageTransition}
+        className="w-full h-full"
+      >
+        <Switch>
+          <Route path="/" component={NewLanding} />
+          <Route path="/homepage" component={Landing} />
+          <Route path="/prompt-input" component={PromptInput} />
+          <Route path="/home" component={Home} />
+          <Route path="/canvas" component={CanvasView} />
+          <Route path="/canvas/:id" component={CanvasView} />
+          <Route path="/campaign-generator" component={CampaignGenerator} />
+          <Route path="/catalog-generator" component={CatalogGenerator} />
+          <Route path="/output/:campaignId" component={OutputHub} />
+          <Route path="/executive/:linkId" component={ExecutiveView} />
+          <Route component={NotFound} />
+        </Switch>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
