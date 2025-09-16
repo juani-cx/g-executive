@@ -79,7 +79,7 @@ export default function Home() {
                       value={campaignPrompt}
                       onChange={(e) => setCampaignPrompt(e.target.value)}
                       className="w-full h-32 bg-white border border-gray-200 rounded-2xl text-base p-6 text-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none"
-                      style={{ fontFamily: 'Work Sans, sans-serif' }}
+                      
                       onKeyPress={(e) => {
                         if (e.key === 'Enter' && e.ctrlKey && campaignPrompt.trim()) {
                           handleStartCampaign();
@@ -143,7 +143,7 @@ export default function Home() {
                         className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-6 py-2 text-sm font-medium transition-all duration-200"
                         onClick={handleStartCampaign}
                         disabled={!campaignPrompt.trim()}
-                        style={{ fontFamily: 'Work Sans, sans-serif' }}
+                        
                       >
                         <Sparkles className="w-4 h-4 mr-2" />
                         Generate designs

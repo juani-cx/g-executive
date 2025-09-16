@@ -124,9 +124,7 @@ export default function PromptInput() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="w-full h-48 bg-white dark:bg-black rounded-2xl text-lg p-6 pb-16 text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none overflow-hidden border border-[#cbcbcb] dark:border-neutral-700"
-                style={{ 
-                  fontFamily: 'Work Sans, sans-serif'
-                }}
+                style={{}}
                 data-testid="textarea-prompt"
               />
               

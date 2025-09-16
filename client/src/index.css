@@ -1,31 +1,7 @@
-/* Google Sans Font Definitions */
+/* Google Sans Font Family - All weights and styles */
 @font-face {
   font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_Regular.ttf') format('truetype');
+  src: url('/fonts/GoogleSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -33,7 +9,15 @@
 
 @font-face {
   font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_Medium.ttf') format('truetype');
+  src: url('/fonts/GoogleSans-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('/fonts/GoogleSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -41,17 +25,74 @@
 
 @font-face {
   font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_SemiBold.ttf') format('truetype');
-  font-weight: 600;
+  src: url('/fonts/GoogleSans-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('/fonts/GoogleSans-Bold.ttf') format('truetype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Google Sans';
-  src: url('/fonts/GoogleSans_Bold.ttf') format('truetype');
+  src: url('/fonts/GoogleSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Google Sans Text variant for better readability in body text */
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('/fonts/GoogleSansText-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -334,7 +375,7 @@
 
   body {
     @apply font-sans antialiased text-foreground dotted-background;
-    font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+    font-family: 'Google Sans', 'Google Sans Text', 'Roboto', system-ui, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
@@ -560,7 +601,7 @@
 
 /* Material Design 3 Typography System with Google Sans */
 body, * {
-  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Display Typography */

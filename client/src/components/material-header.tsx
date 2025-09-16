@@ -51,17 +51,17 @@ export default function MaterialHeader({
 
             {/* Center - Navigation Links */}
             <nav className="flex items-center space-x-9">
-              <Link href="/" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+              <Link href="/" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors">
                 Dashboard
               </Link>
-              <Link href="/templates" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+              <Link href="/templates" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors">
                 Templates
               </Link>
-              <Link href="/campaign-generator" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+              <Link href="/campaign-generator" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors">
                 Campaigns
               </Link>
               
-              <Link href="/resources" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+              <Link href="/resources" className="text-sm font-medium text-[#141221] hover:text-[rgba(99,102,241,0.9)] transition-colors">
                 Resources
               </Link>
             </nav>
@@ -69,7 +69,7 @@ export default function MaterialHeader({
             {/* Right side - Action Button and Profile */}
             <div className="flex items-center space-x-4">
               <Link href="/campaign-generator">
-                <Button className="bg-[#694FE8] hover:bg-[#5A42C7] text-white rounded-full px-4 py-2 text-sm transition-all duration-200 shadow-lg font-medium" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+                <Button className="bg-[#694FE8] hover:bg-[#5A42C7] text-white rounded-full px-4 py-2 text-sm transition-all duration-200 shadow-lg font-medium">
                   New Campaign
                 </Button>
               </Link>
