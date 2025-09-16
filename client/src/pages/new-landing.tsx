@@ -58,7 +58,7 @@ export default function NewLanding() {
 
       {/* Main Content - Centered */}
       <div className="relative z-10 flex items-center justify-center min-h-screen">
-        <div className="text-center max-w-6xl mx-auto px-8">
+        <div className="text-center w-full px-8">
           <h1 className="text-[120px] font-bold text-gray-800 tracking-tight leading-none">
             Promote your product now
           </h1>
