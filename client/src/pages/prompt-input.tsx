@@ -148,12 +148,12 @@ export default function PromptInput() {
                       <Upload className="w-5 h-5 text-gray-500" />
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
+                  <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] opacity-100">
                     <DialogHeader>
                       <DialogTitle className="text-center">Scan this code to upload your image</DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-col items-center space-y-4">
-                      <div className="bg-white p-6 rounded-lg shadow-lg">
+                      <div className="bg-white p-6 rounded-lg border border-[#cbcbcb]">
                         <QRCode 
                           value={`${window.location.origin}/prompt-input`} 
                           size={200}
@@ -196,7 +196,7 @@ export default function PromptInput() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
                 <Select value={targetAudience} onValueChange={handleAudienceChange}>
-                  <SelectTrigger className="w-full" data-testid="select-audience">
+                  <SelectTrigger className="w-full bg-white dark:bg-black border border-[#cbcbcb] dark:border-neutral-700 rounded-lg h-12" data-testid="select-audience">
                     <SelectValue placeholder="Select audience" />
                   </SelectTrigger>
                   <SelectContent>
@@ -213,7 +213,7 @@ export default function PromptInput() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Campaign Type</label>
                 <Select value={campaignType} onValueChange={handleCampaignTypeChange}>
-                  <SelectTrigger className="w-full" data-testid="select-campaign">
+                  <SelectTrigger className="w-full bg-white dark:bg-black border border-[#cbcbcb] dark:border-neutral-700 rounded-lg h-12" data-testid="select-campaign">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -230,7 +230,7 @@ export default function PromptInput() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Tone of Voice</label>
                 <Select value={toneOfVoice} onValueChange={handleToneChange}>
-                  <SelectTrigger className="w-full" data-testid="select-tone">
+                  <SelectTrigger className="w-full bg-white dark:bg-black border border-[#cbcbcb] dark:border-neutral-700 rounded-lg h-12" data-testid="select-tone">
                     <SelectValue placeholder="Select tone" />
                   </SelectTrigger>
                   <SelectContent>
