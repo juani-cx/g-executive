@@ -33,11 +33,11 @@ export default function Landing() {
             <style dangerouslySetInnerHTML={{__html: `.WxGoLpNe_0{stroke-dasharray:3143 3145;stroke-dashoffset:3144;animation:WxGoLpNe_draw_0 7200ms ease-in-out 0ms infinite,WxGoLpNe_fade 7200ms linear 0ms infinite;}@keyframes WxGoLpNe_draw{100%{stroke-dashoffset:0;}}@keyframes WxGoLpNe_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes WxGoLpNe_draw_0{11.11111111111111%{stroke-dashoffset: 3144}38.88888888888889%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}`}} />
           </svg>
         </div>
-        {/* Shape SVG - Top Right */}
+        {/* Triangle SVG - Top Right */}
         <div className="absolute top-20 right-20 w-72 h-72 opacity-100">
-          <svg width="100%" height="100%" viewBox="0 0 1596 2919" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M34 2919V34H1596" stroke="#6790ED" strokeWidth="67" className="alVfMhya_0"/>
-            <style dangerouslySetInnerHTML={{__html: `.alVfMhya_0{stroke-dasharray:4447 4449;stroke-dashoffset:4448;animation:alVfMhya_draw_0 7200ms ease-in-out 0ms infinite,alVfMhya_fade 7200ms linear 0ms infinite;}@keyframes alVfMhya_draw{100%{stroke-dashoffset:0;}}@keyframes alVfMhya_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes alVfMhya_draw_0{11.11111111111111%{stroke-dashoffset: 4448}38.88888888888889%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}`}} />
+          <svg width="100%" height="100%" viewBox="0 0 780 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M721.688 641.5H58.3125L390 66.999L721.688 641.5Z" stroke="#69AD6E" strokeWidth="67" className="STajmnwW_0"/>
+            <style dangerouslySetInnerHTML={{__html: `.STajmnwW_0{stroke-dasharray:1991 1993;stroke-dashoffset:1992;animation:STajmnwW_draw_0 6900ms ease-in-out 0ms infinite,STajmnwW_fade 6900ms linear 0ms infinite;}@keyframes STajmnwW_draw{100%{stroke-dashoffset:0;}}@keyframes STajmnwW_fade{0%{stroke-opacity:1;}97.10144927536231%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes STajmnwW_draw_0{2.898550724637681%{stroke-dashoffset: 1992}68.11594202898551%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}`}} />
           </svg>
         </div>
       </div>
