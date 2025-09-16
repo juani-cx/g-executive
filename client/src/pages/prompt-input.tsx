@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Upload, QrCode } from "lucide-react";
+import { Upload, Mic } from "lucide-react";
 import { motion } from "framer-motion";
-import QRCode from "react-qr-code";
 
 export default function PromptInput() {
   const [, navigate] = useLocation();
@@ -14,7 +12,6 @@ export default function PromptInput() {
   const [targetAudience, setTargetAudience] = useState("");
   const [campaignType, setCampaignType] = useState("");
   const [toneOfVoice, setToneOfVoice] = useState("");
-  const [showQRModal, setShowQRModal] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
   // Get the selected app type and saved values from localStorage
@@ -105,7 +102,7 @@ export default function PromptInput() {
               Promote your product now
             </h1>
             <p className="text-lg text-gray-600">
-              Complete multi-channel campaign AI builder for executive people
+              Add a brief description to create your campaign
             </p>
           </motion.div>
 
@@ -116,9 +113,22 @@ export default function PromptInput() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Describe your product to market</h3>
-              <div className="flex items-center justify-center gap-4 mb-4">
+            
+            {/* Large text input area with icons */}
+            <div className="mb-8 relative">
+              <textarea
+                placeholder="Type your product description here..."
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="w-full h-48 bg-white dark:bg-black rounded-2xl text-lg p-6 pb-16 text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none overflow-hidden border border-[#cbcbcb] dark:border-neutral-700"
+                style={{ 
+                  fontFamily: 'Work Sans, sans-serif'
+                }}
+                data-testid="textarea-prompt"
+              />
+              
+              {/* Icons inside textarea */}
+              <div className="absolute bottom-4 left-6 flex items-center gap-4">
                 <input
                   type="file"
                   accept="image/*"
@@ -126,67 +136,29 @@ export default function PromptInput() {
                   className="hidden"
                   id="image-upload"
                 />
-                <label htmlFor="image-upload">
-                  <Button 
-                    variant="outline" 
-                    className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center p-0 cursor-pointer"
-                    data-testid="button-upload"
-                    asChild
-                  >
-                    <span>
-                      <Upload className="w-4 h-4" />
-                    </span>
-                  </Button>
+                <label 
+                  htmlFor="image-upload"
+                  className="w-8 h-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded flex items-center justify-center transition-colors"
+                  data-testid="button-upload"
+                >
+                  <Upload className="w-5 h-5 text-gray-500" />
                 </label>
-                <span className="text-gray-400">or</span>
-                <Dialog open={showQRModal} onOpenChange={setShowQRModal}>
-                  <DialogTrigger asChild>
-                    <Button 
-                      variant="outline" 
-                      className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center p-0"
-                      data-testid="button-qr-upload"
-                    >
-                      <QrCode className="w-4 h-4" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                      <DialogTitle className="text-center">Scan this code to upload your image</DialogTitle>
-                    </DialogHeader>
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="bg-blue-500 p-4 rounded-lg">
-                        <QRCode 
-                          value={`${window.location.origin}/prompt-input`} 
-                          size={200}
-                          style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                          bgColor="#3B82F6"
-                          fgColor="#FFFFFF"
-                        />
-                      </div>
-                      <p className="text-center text-gray-600">Scan the QR code to visit our upload service</p>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                
+                <span className="text-gray-400 text-sm">or</span>
+                
+                <button 
+                  className="w-8 h-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-800 rounded flex items-center justify-center transition-colors"
+                  data-testid="button-mic"
+                >
+                  <Mic className="w-5 h-5 text-gray-500" />
+                </button>
               </div>
+              
               {uploadedImage && (
-                <p className="text-sm text-green-600 text-center mb-4">
+                <p className="text-sm text-green-600 mt-2">
                   Image uploaded: {uploadedImage.name}
                 </p>
               )}
-            </div>
-            
-            {/* Large text input area - No card background */}
-            <div className="mb-8">
-              <textarea
-                placeholder="Type your product description here..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="w-full h-48 bg-white dark:bg-black rounded-2xl text-lg p-6 text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-none overflow-hidden border border-[#cbcbcb] dark:border-neutral-700"
-                style={{ 
-                  fontFamily: 'Work Sans, sans-serif'
-                }}
-                data-testid="textarea-prompt"
-              />
             </div>
           </motion.div>
 
