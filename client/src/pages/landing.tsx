@@ -3,11 +3,94 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, TrendingUp, ArrowRight, MousePointer2, Upload, Star } from "lucide-react";
+import Lottie from "lottie-react";
 
 export default function Landing() {
   const [, navigate] = useLocation();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [activeDemo, setActiveDemo] = useState<'demo1' | 'demo2' | 'demo3'>('demo1');
+
+  // Animation data for the Lottie animation
+  const campaignAnimationData = {
+    "v": "5.7.4",
+    "fr": 29.9700012207031,
+    "ip": 0,
+    "op": 90.0000036657751,
+    "w": 1080,
+    "h": 1080,
+    "nm": "Campaign Animation",
+    "ddd": 0,
+    "assets": [],
+    "layers": [
+      {
+        "ddd": 0,
+        "ind": 1,
+        "ty": 4,
+        "nm": "Shape Layer 1",
+        "sr": 1,
+        "ks": {
+          "o": {"a": 0, "k": 100, "ix": 11},
+          "r": {"a": 1, "k": [{"i": {"x": [0.667], "y": [1]}, "o": {"x": [0.333], "y": [0]}, "t": 0, "s": [0]}, {"t": 89.0000036250368, "s": [360]}], "ix": 10},
+          "p": {"a": 0, "k": [540, 540, 0], "ix": 2},
+          "a": {"a": 0, "k": [0, 0, 0], "ix": 1},
+          "s": {"a": 0, "k": [100, 100, 100], "ix": 6}
+        },
+        "ao": 0,
+        "shapes": [
+          {
+            "ty": "gr",
+            "it": [
+              {
+                "d": 1,
+                "ty": "el",
+                "s": {"a": 0, "k": [200, 200], "ix": 2},
+                "p": {"a": 0, "k": [0, 0], "ix": 3},
+                "nm": "Ellipse Path 1",
+                "mn": "ADBE Vector Shape - Ellipse",
+                "hd": false
+              },
+              {
+                "ty": "st",
+                "c": {"a": 0, "k": [0.2, 0.6, 0.9, 1], "ix": 3},
+                "o": {"a": 0, "k": 100, "ix": 4},
+                "w": {"a": 0, "k": 20, "ix": 5},
+                "lc": 1,
+                "lj": 1,
+                "ml": 4,
+                "bm": 0,
+                "nm": "Stroke 1",
+                "mn": "ADBE Vector Graphic - Stroke",
+                "hd": false
+              },
+              {
+                "ty": "tr",
+                "p": {"a": 0, "k": [0, 0], "ix": 2},
+                "a": {"a": 0, "k": [0, 0], "ix": 1},
+                "s": {"a": 0, "k": [100, 100], "ix": 3},
+                "r": {"a": 0, "k": 0, "ix": 6},
+                "o": {"a": 0, "k": 100, "ix": 7},
+                "sk": {"a": 0, "k": 0, "ix": 4},
+                "sa": {"a": 0, "k": 0, "ix": 5},
+                "nm": "Transform"
+              }
+            ],
+            "nm": "Ellipse 1",
+            "np": 3,
+            "cix": 2,
+            "bm": 0,
+            "ix": 1,
+            "mn": "ADBE Vector Group",
+            "hd": false
+          }
+        ],
+        "ip": 0,
+        "op": 90.0000036657751,
+        "st": 0,
+        "bm": 0
+      }
+    ],
+    "markers": []
+  };
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
     setSelectedOption(optionType);
@@ -219,8 +302,13 @@ export default function Landing() {
               >
                 <CardContent className="p-8">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                      <TrendingUp className="text-gray-800 w-8 h-8" />
+                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto overflow-hidden">
+                      <Lottie 
+                        animationData={campaignAnimationData}
+                        loop={true}
+                        autoplay={true}
+                        style={{ width: 40, height: 40 }}
+                      />
                     </div>
                     
                     <h2 className="text-xl font-bold text-gray-800 mb-4">
