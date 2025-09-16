@@ -17,58 +17,35 @@ import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  }
-};
-
-const pageTransition = {
-  type: "tween",
-  ease: "easeInOut",
-  duration: 0.3
-};
-
 function AuthenticatedRouter() {
   const [location] = useLocation();
   
   return (
-    <div className="w-full h-full">
-      <AnimatePresence mode="wait" initial={true}>
-        <motion.div
-          key={location}
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-          className="w-full h-full"
-        >
-          <Switch>
-            <Route path="/" component={NewLanding} />
-            <Route path="/homepage" component={Landing} />
-            <Route path="/prompt-input" component={PromptInput} />
-            <Route path="/home" component={Home} />
-            <Route path="/canvas" component={CanvasView} />
-            <Route path="/canvas/:id" component={CanvasView} />
-            <Route path="/campaign-generator" component={CampaignGenerator} />
-            <Route path="/catalog-generator" component={CatalogGenerator} />
-            <Route path="/output/:campaignId" component={OutputHub} />
-            <Route path="/executive/:linkId" component={ExecutiveView} />
-            <Route component={NotFound} />
-          </Switch>
-        </motion.div>
-      </AnimatePresence>
-    </div>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div 
+        key={location}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -16 }}
+        transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+        className="min-h-screen"
+        style={{ willChange: 'opacity, transform' }}
+      >
+        <Switch>
+          <Route path="/" component={NewLanding} />
+          <Route path="/homepage" component={Landing} />
+          <Route path="/prompt-input" component={PromptInput} />
+          <Route path="/home" component={Home} />
+          <Route path="/canvas" component={CanvasView} />
+          <Route path="/canvas/:id" component={CanvasView} />
+          <Route path="/campaign-generator" component={CampaignGenerator} />
+          <Route path="/catalog-generator" component={CatalogGenerator} />
+          <Route path="/output/:campaignId" component={OutputHub} />
+          <Route path="/executive/:linkId" component={ExecutiveView} />
+          <Route component={NotFound} />
+        </Switch>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
