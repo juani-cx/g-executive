@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, TrendingUp, ArrowRight, MousePointer2, Upload, Star } from "lucide-react";
 import Lottie from "lottie-react";
+// import marketingAnimation from "../assets/marketing-animation.json";
 
 export default function Landing() {
   const [, navigate] = useLocation();
@@ -14,91 +15,9 @@ export default function Landing() {
   const [animationData, setAnimationData] = useState<any>(null);
   
   useEffect(() => {
-    // Marketing Campaign Animation - Direct JSON data
-    const marketingAnimationData = {
-      "v": "4.8.0",
-      "meta": {
-        "g": "LottieFiles AE 1.0.0", 
-        "a": "Daniel Oliveira - Viral Methods",
-        "k": "marketing Campaigns",
-        "d": "Marketing Campaigns Lottie - Viral Methods - Sales Funnel, Ads, SEO",
-        "tc": "orange"
-      },
-      "fr": 29.9700012207031,
-      "ip": 0,
-      "op": 123.000005009893,
-      "w": 1000,
-      "h": 949,
-      "nm": "Marketing Campaigns Total",
-      "ddd": 0,
-      "assets": [],
-      "layers": [
-        {
-          "ddd": 0,
-          "ind": 1,
-          "ty": 4,
-          "nm": "Chart",
-          "sr": 1,
-          "ks": {
-            "o": { "a": 0, "k": 100, "ix": 11 },
-            "r": { "a": 1, "k": [{ "t": 0, "s": [0] }, { "t": 123, "s": [360] }], "ix": 10 },
-            "p": { "a": 0, "k": [500, 474, 0], "ix": 2 },
-            "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
-            "s": { "a": 0, "k": [100, 100, 100], "ix": 6 }
-          },
-          "ao": 0,
-          "shapes": [
-            {
-              "ty": "gr",
-              "it": [
-                {
-                  "d": 1,
-                  "ty": "el",
-                  "s": { "a": 0, "k": [200, 200], "ix": 2 },
-                  "p": { "a": 0, "k": [0, 0], "ix": 3 },
-                  "nm": "Pie Chart"
-                },
-                {
-                  "ty": "st",
-                  "c": { "a": 0, "k": [0.2, 0.6, 0.9, 1], "ix": 3 },
-                  "o": { "a": 0, "k": 100, "ix": 4 },
-                  "w": { "a": 0, "k": 15, "ix": 5 },
-                  "lc": 1,
-                  "lj": 1,
-                  "ml": 4,
-                  "bm": 0,
-                  "nm": "Stroke"
-                },
-                {
-                  "ty": "tr",
-                  "p": { "a": 0, "k": [0, 0], "ix": 2 },
-                  "a": { "a": 0, "k": [0, 0], "ix": 1 },
-                  "s": { "a": 0, "k": [100, 100], "ix": 3 },
-                  "r": { "a": 0, "k": 0, "ix": 6 },
-                  "o": { "a": 0, "k": 100, "ix": 7 },
-                  "sk": { "a": 0, "k": 0, "ix": 4 },
-                  "sa": { "a": 0, "k": 0, "ix": 5 },
-                  "nm": "Transform"
-                }
-              ],
-              "nm": "Marketing Chart",
-              "np": 3,
-              "cix": 2,
-              "bm": 0,
-              "ix": 1
-            }
-          ],
-          "ip": 0,
-          "op": 123,
-          "st": 0,
-          "bm": 0
-        }
-      ],
-      "markers": []
-    };
-    
-    setAnimationData(marketingAnimationData);
-    console.log('Successfully loaded marketing campaign animation');
+    // For now, use a custom marketing animation instead
+    setAnimationData(null); // Will show the custom CSS animation
+    console.log('Using custom marketing animation');
   }, []);
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
@@ -318,9 +237,30 @@ export default function Landing() {
                           loop={true}
                           autoplay={true}
                           style={{ width: 40, height: 40 }}
+                          onLoadedData={() => console.log('Animation loaded successfully')}
+                          onError={(error) => console.error('Animation error:', error)}
                         />
                       ) : (
-                        <TrendingUp className="text-gray-800 w-8 h-8" />
+                        <div className="relative w-8 h-8">
+                          {/* Marketing Dashboard Animation */}
+                          <div className="absolute inset-0">
+                            {/* Pie Chart */}
+                            <div className="w-6 h-6 border-2 border-gray-800 rounded-full relative animate-spin" style={{animationDuration: '3s'}}>
+                              <div className="absolute inset-0 border-t-2 border-r-2 border-transparent border-t-gray-800 border-r-gray-800 rounded-full"></div>
+                            </div>
+                            {/* Growth Bars */}
+                            <div className="absolute top-1 right-0 flex space-x-0.5">
+                              <div className="w-0.5 h-2 bg-gray-800 animate-pulse" style={{animationDelay: '0s'}}></div>
+                              <div className="w-0.5 h-3 bg-gray-800 animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                              <div className="w-0.5 h-4 bg-gray-800 animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                            </div>
+                            {/* Trend Arrow */}
+                            <div className="absolute bottom-0 right-0 w-3 h-3 transform rotate-45 animate-bounce" style={{animationDelay: '1s'}}>
+                              <div className="w-full h-0.5 bg-gray-800"></div>
+                              <div className="w-0.5 h-full bg-gray-800 absolute top-0 right-0"></div>
+                            </div>
+                          </div>
+                        </div>
                       )}
                     </div>
                     
