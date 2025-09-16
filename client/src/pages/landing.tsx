@@ -34,7 +34,7 @@ export default function Landing() {
           </svg>
         </div>
         {/* Triangle SVG - Top Right */}
-        <div className="absolute top-20 right-20 w-72 h-72 opacity-100">
+        <div className="absolute top-20 w-72 h-72 opacity-100" style={{ right: '-70px' }}>
           <svg width="100%" height="100%" viewBox="0 0 780 675" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M721.688 641.5H58.3125L390 66.999L721.688 641.5Z" stroke="#69AD6E" strokeWidth="67" className="STajmnwW_0"/>
             <style dangerouslySetInnerHTML={{__html: `.STajmnwW_0{stroke-dasharray:1991 1993;stroke-dashoffset:1992;animation:STajmnwW_draw_0 6900ms ease-in-out 0ms infinite,STajmnwW_fade 6900ms linear 0ms infinite;}@keyframes STajmnwW_draw{100%{stroke-dashoffset:0;}}@keyframes STajmnwW_fade{0%{stroke-opacity:1;}97.10144927536231%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes STajmnwW_draw_0{2.898550724637681%{stroke-dashoffset: 1992}68.11594202898551%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}`}} />
