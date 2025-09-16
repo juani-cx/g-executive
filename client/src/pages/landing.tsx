@@ -231,9 +231,9 @@ export default function Landing() {
                 onClick={() => handleOptionSelect('marketing')}
                 data-testid="card-marketing-option"
               >
-                <div className="p-8">
+                <div className="md-card md-state-layer p-8">
                   <div className="text-center">
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto rounded-2xl" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                       {marketingAnimationData ? (
                         <Lottie 
                           animationData={marketingAnimationData}
@@ -248,11 +248,11 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                    <h2 className="md-typescale-headline-small font-medium mb-4" style={{ color: 'var(--md-sys-color-on-surface)' }}>
                       Marketing Inspiration<br />to Activation
                     </h2>
                     
-                    <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                    <p className="md-typescale-body-medium mb-6 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                       AI transforms your inspiration into complete multi-channel campaigns.
                     </p>
                     
@@ -273,9 +273,9 @@ export default function Landing() {
                 onClick={() => handleOptionSelect('catalog')}
                 data-testid="card-catalog-option"
               >
-                <div className="p-8">
+                <div className="md-card md-state-layer p-8">
                   <div className="text-center">
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto rounded-2xl" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                       {chartsAnimationData ? (
                         <Lottie 
                           animationData={chartsAnimationData}
@@ -290,11 +290,11 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                    <h2 className="md-typescale-headline-small font-medium mb-4" style={{ color: 'var(--md-sys-color-on-surface)' }}>
                       Catalog<br />Enrichment
                     </h2>
                     
-                    <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                    <p className="md-typescale-body-medium mb-6 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                       AI generates high-quality SEO metadata instantly.
                     </p>
                     
