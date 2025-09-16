@@ -18,8 +18,24 @@ export default function Landing() {
   };
 
   const renderDemo2Prompt = () => (
-    <div className="flex items-center justify-center min-h-screen p-8">
-      <div className="w-full max-w-2xl mx-auto">
+    <div className="relative flex items-center justify-center min-h-screen p-8">
+      {/* Floating Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Ellipse SVG - Top Right */}
+        <img 
+          src="/vectors/ellipse.svg" 
+          alt="" 
+          className="absolute top-20 right-20 w-80 h-80 opacity-30"
+        />
+        {/* Shape SVG - Bottom Left */}
+        <img 
+          src="/vectors/shape.svg" 
+          alt="" 
+          className="absolute bottom-20 left-20 w-72 h-72 opacity-25"
+        />
+      </div>
+
+      <div className="relative z-10 w-full max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
