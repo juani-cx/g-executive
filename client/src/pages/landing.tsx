@@ -182,7 +182,7 @@ export default function Landing() {
           <div className="w-full max-w-4xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">GenAI and Machine Learning Experiments</h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">Promote your product now</h1>
               <p className="text-lg text-gray-600">Executive campaign AI builder for executive people</p>
             </div>
 
