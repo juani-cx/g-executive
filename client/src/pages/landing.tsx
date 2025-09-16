@@ -216,7 +216,7 @@ export default function Landing() {
       {activeDemo === 'demo3' && renderDemo3Prompt()}
       {activeDemo === 'demo1' && (
         <main className="flex items-center justify-center min-h-screen p-8">
-          <div className="w-full max-w-4xl mx-auto">
+          <div className="w-full max-w-screen-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-24">
               <h1 className="text-8xl font-bold text-gray-800 mb-8 tracking-tight">Promote your product now</h1>
@@ -224,7 +224,7 @@ export default function Landing() {
             </div>
 
             {/* Two main options - Scaled for 4K */}
-            <div className="grid md:grid-cols-2 gap-16 mb-16 max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-16 mb-16 w-full mx-auto">
               {/* Marketing Inspiration Option - Simplified */}
               <div 
                 className="cursor-pointer group"

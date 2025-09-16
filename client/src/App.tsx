@@ -66,7 +66,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen">
-          {!isAuthenticated ? (
+          {!isAuthenticated && location !== '/' ? (
             <Login />
           ) : (
             <AuthenticatedRouter />
