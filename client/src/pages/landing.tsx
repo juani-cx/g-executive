@@ -10,86 +10,85 @@ export default function Landing() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [activeDemo, setActiveDemo] = useState<'demo1' | 'demo2' | 'demo3'>('demo1');
 
-  // Animation data for the Lottie animation
+  // Working Lottie animation data for campaign
   const campaignAnimationData = {
-    "v": "5.7.4",
-    "fr": 29.9700012207031,
-    "ip": 0,
-    "op": 90.0000036657751,
-    "w": 1080,
-    "h": 1080,
-    "nm": "Campaign Animation",
-    "ddd": 0,
-    "assets": [],
-    "layers": [
+    v: "5.7.1",
+    fr: 60,
+    ip: 0,
+    op: 120,
+    w: 1000,
+    h: 1000,
+    nm: "Campaign",
+    ddd: 0,
+    assets: [],
+    layers: [
       {
-        "ddd": 0,
-        "ind": 1,
-        "ty": 4,
-        "nm": "Shape Layer 1",
-        "sr": 1,
-        "ks": {
-          "o": {"a": 0, "k": 100, "ix": 11},
-          "r": {"a": 1, "k": [{"i": {"x": [0.667], "y": [1]}, "o": {"x": [0.333], "y": [0]}, "t": 0, "s": [0]}, {"t": 89.0000036250368, "s": [360]}], "ix": 10},
-          "p": {"a": 0, "k": [540, 540, 0], "ix": 2},
-          "a": {"a": 0, "k": [0, 0, 0], "ix": 1},
-          "s": {"a": 0, "k": [100, 100, 100], "ix": 6}
+        ddd: 0,
+        ind: 1,
+        ty: 4,
+        nm: "Layer 1",
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 100, ix: 11 },
+          r: { 
+            a: 1, 
+            k: [
+              { i: { x: [0.667], y: [1] }, o: { x: [0.333], y: [0] }, t: 0, s: [0] },
+              { t: 119, s: [360] }
+            ], 
+            ix: 10 
+          },
+          p: { a: 0, k: [500, 500, 0], ix: 2 },
+          a: { a: 0, k: [0, 0, 0], ix: 1 },
+          s: { a: 0, k: [100, 100, 100], ix: 6 }
         },
-        "ao": 0,
-        "shapes": [
+        ao: 0,
+        shapes: [
           {
-            "ty": "gr",
-            "it": [
+            ty: "gr",
+            it: [
               {
-                "d": 1,
-                "ty": "el",
-                "s": {"a": 0, "k": [200, 200], "ix": 2},
-                "p": {"a": 0, "k": [0, 0], "ix": 3},
-                "nm": "Ellipse Path 1",
-                "mn": "ADBE Vector Shape - Ellipse",
-                "hd": false
+                d: 1,
+                ty: "el",
+                s: { a: 0, k: [200, 200], ix: 2 },
+                p: { a: 0, k: [0, 0], ix: 3 },
+                nm: "Ellipse Path 1"
               },
               {
-                "ty": "st",
-                "c": {"a": 0, "k": [0.2, 0.6, 0.9, 1], "ix": 3},
-                "o": {"a": 0, "k": 100, "ix": 4},
-                "w": {"a": 0, "k": 20, "ix": 5},
-                "lc": 1,
-                "lj": 1,
-                "ml": 4,
-                "bm": 0,
-                "nm": "Stroke 1",
-                "mn": "ADBE Vector Graphic - Stroke",
-                "hd": false
+                ty: "st",
+                c: { a: 0, k: [1, 0.7, 0, 1], ix: 3 },
+                o: { a: 0, k: 100, ix: 4 },
+                w: { a: 0, k: 30, ix: 5 },
+                lc: 1,
+                lj: 1,
+                ml: 4,
+                bm: 0,
+                nm: "Stroke 1"
               },
               {
-                "ty": "tr",
-                "p": {"a": 0, "k": [0, 0], "ix": 2},
-                "a": {"a": 0, "k": [0, 0], "ix": 1},
-                "s": {"a": 0, "k": [100, 100], "ix": 3},
-                "r": {"a": 0, "k": 0, "ix": 6},
-                "o": {"a": 0, "k": 100, "ix": 7},
-                "sk": {"a": 0, "k": 0, "ix": 4},
-                "sa": {"a": 0, "k": 0, "ix": 5},
-                "nm": "Transform"
+                ty: "tr",
+                p: { a: 0, k: [0, 0], ix: 2 },
+                a: { a: 0, k: [0, 0], ix: 1 },
+                s: { a: 0, k: [100, 100], ix: 3 },
+                r: { a: 0, k: 0, ix: 6 },
+                o: { a: 0, k: 100, ix: 7 },
+                sk: { a: 0, k: 0, ix: 4 },
+                sa: { a: 0, k: 0, ix: 5 },
+                nm: "Transform"
               }
             ],
-            "nm": "Ellipse 1",
-            "np": 3,
-            "cix": 2,
-            "bm": 0,
-            "ix": 1,
-            "mn": "ADBE Vector Group",
-            "hd": false
+            nm: "Ellipse 1",
+            bm: 0,
+            ix: 1
           }
         ],
-        "ip": 0,
-        "op": 90.0000036657751,
-        "st": 0,
-        "bm": 0
+        ip: 0,
+        op: 120,
+        st: 0,
+        bm: 0
       }
     ],
-    "markers": []
+    markers: []
   };
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
@@ -303,12 +302,11 @@ export default function Landing() {
                 <CardContent className="p-8">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto overflow-hidden">
-                      <Lottie 
-                        animationData={campaignAnimationData}
-                        loop={true}
-                        autoplay={true}
-                        style={{ width: 40, height: 40 }}
-                      />
+                      <div className="w-8 h-8 relative">
+                        <div className="absolute inset-0 border-2 border-gray-800 rounded-full animate-spin"></div>
+                        <div className="absolute inset-1 border-2 border-gray-800 border-t-transparent rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
+                        <div className="absolute inset-2 bg-gray-800 rounded-full animate-pulse"></div>
+                      </div>
                     </div>
                     
                     <h2 className="text-xl font-bold text-gray-800 mb-4">
