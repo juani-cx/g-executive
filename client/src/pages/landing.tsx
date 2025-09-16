@@ -232,12 +232,12 @@ export default function Landing() {
                 data-testid="card-marketing-option"
               >
                 <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
-                  <div className="text-center">
-                    <h2 className="text-black mb-4 font-bold" style={{ height: '40px', lineHeight: '40px' }}>
+                  <div className="text-left">
+                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '40px' }}>
                       Marketing Inspiration<br />to Activation
                     </h2>
                     
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {marketingAnimationData ? (
                         <Lottie 
                           animationData={marketingAnimationData}
@@ -274,12 +274,12 @@ export default function Landing() {
                 data-testid="card-catalog-option"
               >
                 <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
-                  <div className="text-center">
-                    <h2 className="text-black mb-4 font-bold" style={{ height: '40px', lineHeight: '40px' }}>
+                  <div className="text-left">
+                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '40px' }}>
                       Catalog<br />Enrichment
                     </h2>
                     
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {chartsAnimationData ? (
                         <Lottie 
                           animationData={chartsAnimationData}
