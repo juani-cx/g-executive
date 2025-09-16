@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import ShareModal from "@/components/collaboration/share-modal";
+import DownloadModal from "@/components/canvas/DownloadModal";
 import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
 import { useCollaboration } from "@/hooks/useCollaboration";
 import RichAssetCard from "@/components/canvas/RichAssetCard";
@@ -215,8 +215,8 @@ export default function CanvasView() {
   const [draggedElement, setDraggedElement] = useState<string | null>(null);
   const [elementDragStart, setElementDragStart] = useState({ x: 0, y: 0 });
   
-  // Collaboration state
-  const [showShareModal, setShowShareModal] = useState(false);
+  // Download modal state
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [cardLocks, setCardLocks] = useState<Record<string, string>>({});
   
   // Auto-save state
@@ -1199,56 +1199,15 @@ export default function CanvasView() {
         </div>
       </div>
 
-      {/* Collaboration UI - Top Right */}
-      <div className="fixed top-6 right-6 z-40 flex items-center gap-3">
-        {/* Presence Indicators */}
-        <PresenceIndicators 
-          presences={collaboration.presences}
-          currentUserEphemeralId={collaboration.currentUserEphemeralId || undefined}
-        />
-
-        {/* Auto-save Status */}
-        <div className="flex items-center gap-2 clean-card rounded-xl px-3 py-2">
-          {saveStatus === "saving" && (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-              <span className="text-sm text-gray-600">Saving...</span>
-            </>
-          )}
-          {saveStatus === "saved" && (
-            <>
-              <Check className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-gray-600">
-                {lastSavedAt && `Saved ${lastSavedAt.toLocaleTimeString()}`}
-              </span>
-            </>
-          )}
-          {saveStatus === "error" && (
-            <>
-              <X className="w-4 h-4 text-red-600" />
-              <span className="text-sm text-red-600">Save failed</span>
-            </>
-          )}
-        </div>
-
-        {/* Connection Status */}
-        {collaboration.connectionStatus !== "connected" && (
-          <Badge 
-            variant={collaboration.connectionStatus === "connecting" ? "secondary" : "destructive"}
-            className="text-xs"
-          >
-            {collaboration.connectionStatus}
-          </Badge>
-        )}
-
-        {/* Share Button */}
+      {/* Share Button - Top Right */}
+      <div className="fixed top-6 right-6 z-40">
         <Button 
           variant="outline" 
           size="sm" 
           className="glass-surface px-4 py-2 gap-2"
-          onClick={() => setShowShareModal(true)}
+          onClick={() => setShowDownloadModal(true)}
         >
-          <Users className="w-4 h-4" />
+          <Share className="w-4 h-4" />
           Share
         </Button>
       </div>
@@ -1500,11 +1459,16 @@ export default function CanvasView() {
         ))}
       </div>
 
-      {/* Share Modal */}
-      <ShareModal
-        open={showShareModal}
-        onOpenChange={setShowShareModal}
-        canvasId={campaignId ? parseInt(campaignId) : 0}
+      {/* Download Modal */}
+      <DownloadModal
+        open={showDownloadModal}
+        onOpenChange={setShowDownloadModal}
+        assets={project?.assets.map(asset => ({
+          id: asset.id,
+          type: asset.type,
+          title: asset.title,
+          status: asset.status
+        })) || []}
       />
 
       {/* Rich Asset Drawer */}
