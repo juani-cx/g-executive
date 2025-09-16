@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, TrendingUp, ArrowRight, MousePointer2, Upload, Star } from "lucide-react";
 import Lottie from "lottie-react";
-// import marketingAnimation from "../assets/marketing-animation.json";
+import marketingAnimation from "../assets/marketing-animation.json";
 
 export default function Landing() {
   const [, navigate] = useLocation();
@@ -15,9 +15,9 @@ export default function Landing() {
   const [animationData, setAnimationData] = useState<any>(null);
   
   useEffect(() => {
-    // For now, use a custom marketing animation instead
-    setAnimationData(null); // Will show the custom CSS animation
-    console.log('Using custom marketing animation');
+    // Use the marketing animation from Daniel Oliveira (Viral Methods)
+    setAnimationData(marketingAnimation);
+    console.log('Successfully loaded marketing campaign animation from Viral Methods');
   }, []);
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
@@ -241,26 +241,7 @@ export default function Landing() {
                           onError={(error) => console.error('Animation error:', error)}
                         />
                       ) : (
-                        <div className="relative w-8 h-8">
-                          {/* Marketing Dashboard Animation */}
-                          <div className="absolute inset-0">
-                            {/* Pie Chart */}
-                            <div className="w-6 h-6 border-2 border-gray-800 rounded-full relative animate-spin" style={{animationDuration: '3s'}}>
-                              <div className="absolute inset-0 border-t-2 border-r-2 border-transparent border-t-gray-800 border-r-gray-800 rounded-full"></div>
-                            </div>
-                            {/* Growth Bars */}
-                            <div className="absolute top-1 right-0 flex space-x-0.5">
-                              <div className="w-0.5 h-2 bg-gray-800 animate-pulse" style={{animationDelay: '0s'}}></div>
-                              <div className="w-0.5 h-3 bg-gray-800 animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                              <div className="w-0.5 h-4 bg-gray-800 animate-pulse" style={{animationDelay: '0.4s'}}></div>
-                            </div>
-                            {/* Trend Arrow */}
-                            <div className="absolute bottom-0 right-0 w-3 h-3 transform rotate-45 animate-bounce" style={{animationDelay: '1s'}}>
-                              <div className="w-full h-0.5 bg-gray-800"></div>
-                              <div className="w-0.5 h-full bg-gray-800 absolute top-0 right-0"></div>
-                            </div>
-                          </div>
-                        </div>
+                        <TrendingUp className="text-gray-800 w-8 h-8" />
                       )}
                     </div>
                     
