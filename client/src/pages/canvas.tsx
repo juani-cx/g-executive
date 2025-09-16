@@ -1467,7 +1467,7 @@ export default function CanvasView() {
           id: asset.id,
           type: asset.type,
           title: asset.title,
-          status: asset.status
+          status: asset.status === "draft" ? "ready" : asset.status
         })) || []}
       />
 

@@ -101,12 +101,12 @@ export default function RichAssetCard({
     <motion.div
       className="relative group"
       whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="w-80 min-h-fit rounded-2xl shadow-xl bg-gradient-to-br from-white/90 to-white/80 backdrop-blur border border-gray-200 text-gray-900 p-4 cursor-pointer transition-all duration-200"
+        className="md-card md-state-layer w-80 min-h-fit p-4 cursor-pointer"
         onClick={onExpand}
         onKeyDown={handleKeyDown}
         role="button"
@@ -116,14 +116,14 @@ export default function RichAssetCard({
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <IconComponent className="w-4 h-4 text-violet-600" />
-            <span className="font-medium text-sm truncate">{card.title}</span>
+            <IconComponent className="w-4 h-4" style={{ color: 'var(--md-sys-color-primary)' }} />
+            <span className="md-typescale-title-medium text-gray-900 truncate">{card.title}</span>
           </div>
           <div className="flex items-center space-x-2">
             <Badge className={`${getStatusColor(card.status)} text-white text-xs px-2 py-1`}>
               {card.status}
             </Badge>
-            <span className="text-xs text-gray-600">v{card.version}</span>
+            <span className="md-typescale-body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>v{card.version}</span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -154,7 +154,7 @@ export default function RichAssetCard({
         </div>
 
         {/* Preview Image */}
-        <div className="mb-3 rounded-lg overflow-hidden bg-gray-100">
+        <div className="mb-3 rounded-lg overflow-hidden" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
           <img 
             src={card.thumbnailUrl || "/api/placeholder/320/120"}
             alt={`${card.type} preview`}
@@ -189,30 +189,31 @@ export default function RichAssetCard({
         {/* Summary */}
         <div className="mb-3">
           <p 
-            className="text-xs text-gray-700 line-clamp-2 leading-relaxed"
+            className="md-typescale-body-medium line-clamp-2 leading-relaxed"
+            style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
             dangerouslySetInnerHTML={{ __html: formatSummary(card.summary) }}
           />
         </div>
 
         {/* Badges Row */}
-        <div className="flex items-center space-x-3 mb-3 text-xs">
-          <div className="flex items-center space-x-1 text-gray-600">
+        <div className="flex items-center space-x-3 mb-3 md-typescale-body-medium">
+          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             <Image className="w-3 h-3" />
             <span>{card.counts?.images || 0}</span>
           </div>
-          <div className="flex items-center space-x-1 text-gray-600">
+          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             <Layers className="w-3 h-3" />
             <span>{card.counts?.sections || 0}</span>
           </div>
-          <div className="flex items-center space-x-1 text-gray-600">
+          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             <Type className="w-3 h-3" />
             <span>{formatCount(card.counts?.words || 0)}</span>
           </div>
-          <div className="flex items-center space-x-1 text-gray-600">
+          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             <GitBranch className="w-3 h-3" />
             <span>{card.counts?.variants || 0}</span>
           </div>
-          <div className="flex items-center space-x-1 text-gray-600">
+          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             <Sparkles className="w-3 h-3" />
             <span>{card.counts?.aiEdits || 0}</span>
           </div>

@@ -49,6 +49,69 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+/* Material Design 3 Components */
+.md-card {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: 12px;
+  box-shadow: var(--md-sys-elevation-1);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.md-card:hover {
+  box-shadow: var(--md-sys-elevation-2);
+  transform: translateY(-1px);
+}
+
+.md-card.elevated {
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-sys-elevation-2);
+}
+
+.md-card.elevated:hover {
+  box-shadow: var(--md-sys-elevation-3);
+}
+
+.md-surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-state-layer {
+  position: relative;
+  overflow: hidden;
+}
+
+.md-state-layer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--md-sys-color-on-surface);
+  opacity: 0;
+  transition: opacity 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border-radius: inherit;
+}
+
+.md-state-layer:hover::before {
+  opacity: 0.08;
+}
+
+.md-state-layer:focus::before {
+  opacity: 0.12;
+}
+
+.md-state-layer:active::before {
+  opacity: 0.16;
+}
+
 :root {
   /* Clean Design System */
   --primary: #e67e22;
@@ -74,35 +137,35 @@
   --border: #e1e5e9;
   --border-strong: #d5dbdb;
   
-  /* Material Design 3 Light Theme - Adapted for Glass */
-  --md-sys-color-primary: var(--primary);
-  --md-sys-color-on-primary: var(--text-inverse);
-  --md-sys-color-primary-container: var(--primary-light);
-  --md-sys-color-on-primary-container: var(--text-primary);
+  /* Material Design 3 Light Theme */
+  --md-sys-color-primary: hsl(256, 100%, 67%);
+  --md-sys-color-on-primary: hsl(0, 0%, 100%);
+  --md-sys-color-primary-container: hsl(256, 100%, 95%);
+  --md-sys-color-on-primary-container: hsl(258, 100%, 12%);
   
-  --md-sys-color-secondary: var(--glass-secondary);
-  --md-sys-color-on-secondary: var(--glass-text-inverse);
-  --md-sys-color-secondary-container: var(--glass-secondary-light);
-  --md-sys-color-on-secondary-container: var(--glass-text-primary);
+  --md-sys-color-secondary: hsl(285, 26%, 64%);
+  --md-sys-color-on-secondary: hsl(0, 0%, 100%);
+  --md-sys-color-secondary-container: hsl(285, 100%, 95%);
+  --md-sys-color-on-secondary-container: hsl(279, 100%, 16%);
   
-  --md-sys-color-tertiary: var(--glass-tertiary);
-  --md-sys-color-on-tertiary: var(--glass-text-inverse);
-  --md-sys-color-tertiary-container: var(--glass-tertiary-light);
-  --md-sys-color-on-tertiary-container: var(--glass-text-primary);
+  --md-sys-color-tertiary: hsl(345, 82%, 65%);
+  --md-sys-color-on-tertiary: hsl(0, 0%, 100%);
+  --md-sys-color-tertiary-container: hsl(345, 100%, 95%);
+  --md-sys-color-on-tertiary-container: hsl(340, 100%, 16%);
   
-  --md-sys-color-surface: var(--glass-surface);
-  --md-sys-color-surface-dim: var(--glass-backdrop);
-  --md-sys-color-surface-bright: var(--glass-surface-high);
-  --md-sys-color-surface-container-lowest: var(--glass-backdrop);
-  --md-sys-color-surface-container-low: var(--glass-surface);
-  --md-sys-color-surface-container: var(--glass-surface-elevated);
-  --md-sys-color-surface-container-high: var(--glass-surface-high);
-  --md-sys-color-surface-container-highest: var(--glass-surface-high);
+  --md-sys-color-surface: hsl(0, 0%, 99%);
+  --md-sys-color-surface-dim: hsl(0, 0%, 87%);
+  --md-sys-color-surface-bright: hsl(0, 0%, 99%);
+  --md-sys-color-surface-container-lowest: hsl(0, 0%, 100%);
+  --md-sys-color-surface-container-low: hsl(0, 0%, 96%);
+  --md-sys-color-surface-container: hsl(0, 0%, 94%);
+  --md-sys-color-surface-container-high: hsl(0, 0%, 92%);
+  --md-sys-color-surface-container-highest: hsl(0, 0%, 90%);
   
-  --md-sys-color-on-surface: var(--glass-text-primary);
-  --md-sys-color-on-surface-variant: var(--glass-text-secondary);
-  --md-sys-color-outline: var(--glass-border);
-  --md-sys-color-outline-variant: var(--glass-border);
+  --md-sys-color-on-surface: hsl(0, 0%, 10%);
+  --md-sys-color-on-surface-variant: hsl(220, 7%, 43%);
+  --md-sys-color-outline: hsl(220, 9%, 69%);
+  --md-sys-color-outline-variant: hsl(220, 17%, 85%);
   
   --md-sys-color-error: hsl(0, 68%, 42%);
   --md-sys-color-on-error: hsl(0, 0%, 100%);
@@ -129,7 +192,14 @@
   --destructive: var(--md-sys-color-error);
   --destructive-foreground: var(--md-sys-color-on-error);
   --ring: var(--md-sys-color-primary);
-  --radius: 1rem;
+  --radius: 0.75rem;
+  
+  /* Material Design 3 Elevation */
+  --md-sys-elevation-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
   --surface: var(--md-sys-color-surface-container-low);
   --surface-variant: var(--md-sys-color-surface-container);
   --on-surface: var(--md-sys-color-on-surface);
