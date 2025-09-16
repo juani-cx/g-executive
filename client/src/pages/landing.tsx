@@ -89,7 +89,7 @@ export default function Landing() {
           </div>
 
           <div className="flex justify-center mb-4">
-            <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-8 py-3 rounded-lg font-medium">
+            <Button className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-3 rounded-lg font-medium">
               Generate Campaign
             </Button>
           </div>
@@ -145,7 +145,7 @@ export default function Landing() {
           </div>
 
           <div className="flex items-center gap-4 mb-6">
-            <Button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-medium">
+            <Button className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-lg font-medium">
               Start now
             </Button>
             <div className="w-8 h-8 border-2 border-gray-300 rounded flex items-center justify-center bg-white">
@@ -257,7 +257,7 @@ export default function Landing() {
                     </p>
                     
                     <Button 
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
+                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
                       data-testid="button-select-marketing"
                     >
                       Start Marketing Campaign
@@ -299,7 +299,7 @@ export default function Landing() {
                     </p>
                     
                     <Button 
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
+                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
                       data-testid="button-select-catalog"
                     >
                       Enrich Product Catalog

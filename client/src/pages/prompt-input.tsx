@@ -254,7 +254,7 @@ export default function PromptInput() {
             <Button
               onClick={handleGenerate}
               disabled={!prompt.trim()}
-              className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-4 px-12 text-lg rounded-lg transition-all duration-200 min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold py-4 px-12 text-lg rounded-lg transition-all duration-200 min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
               data-testid="button-generate"
             >
               Generate Campaign

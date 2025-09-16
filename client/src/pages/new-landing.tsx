@@ -70,7 +70,7 @@ export default function NewLanding() {
             
             <div className="flex items-center gap-8">
               <Button 
-                className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 text-xl font-semibold px-12 py-6 rounded-full min-h-[80px]"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xl font-semibold px-12 py-6 rounded-full min-h-[80px]"
                 onClick={handleStartNow}
                 data-testid="button-start-now"
               >
