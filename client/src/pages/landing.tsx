@@ -5,19 +5,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, TrendingUp, ArrowRight, MousePointer2, Upload, Star } from "lucide-react";
 import Lottie from "lottie-react";
 import marketingAnimation from "../assets/marketing-animation.json";
+import chartsAnimation from "../assets/charts-animation.json";
 
 export default function Landing() {
   const [, navigate] = useLocation();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [activeDemo, setActiveDemo] = useState<'demo1' | 'demo2' | 'demo3'>('demo1');
 
-  // Load animation from URL using fetch
-  const [animationData, setAnimationData] = useState<any>(null);
+  // Load animations
+  const [marketingAnimationData, setMarketingAnimationData] = useState<any>(null);
+  const [chartsAnimationData, setChartsAnimationData] = useState<any>(null);
   
   useEffect(() => {
-    // Use the marketing animation from Daniel Oliveira (Viral Methods)
-    setAnimationData(marketingAnimation);
-    console.log('Successfully loaded marketing campaign animation from Viral Methods');
+    // Load both animations
+    setMarketingAnimationData(marketingAnimation);
+    setChartsAnimationData(chartsAnimation);
+    console.log('Successfully loaded both Lottie animations');
   }, []);
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
@@ -230,18 +233,18 @@ export default function Landing() {
               >
                 <CardContent className="p-8">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto overflow-hidden">
-                      {animationData ? (
+                    <div className="w-24 h-24 flex items-center justify-center mb-6 mx-auto">
+                      {marketingAnimationData ? (
                         <Lottie 
-                          animationData={animationData}
+                          animationData={marketingAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 40, height: 40 }}
-                          onLoadedData={() => console.log('Animation loaded successfully')}
-                          onError={(error) => console.error('Animation error:', error)}
+                          style={{ width: 96, height: 96 }}
+                          onLoadedData={() => console.log('Marketing animation loaded successfully')}
+                          onError={(error) => console.error('Marketing animation error:', error)}
                         />
                       ) : (
-                        <TrendingUp className="text-gray-800 w-8 h-8" />
+                        <TrendingUp className="text-gray-800 w-12 h-12" />
                       )}
                     </div>
                     
@@ -272,8 +275,19 @@ export default function Landing() {
               >
                 <CardContent className="p-8">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-yellow-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                      <Sparkles className="text-gray-800 w-8 h-8" />
+                    <div className="w-24 h-24 flex items-center justify-center mb-6 mx-auto">
+                      {chartsAnimationData ? (
+                        <Lottie 
+                          animationData={chartsAnimationData}
+                          loop={true}
+                          autoplay={true}
+                          style={{ width: 96, height: 96 }}
+                          onLoadedData={() => console.log('Charts animation loaded successfully')}
+                          onError={(error) => console.error('Charts animation error:', error)}
+                        />
+                      ) : (
+                        <Sparkles className="text-gray-800 w-12 h-12" />
+                      )}
                     </div>
                     
                     <h2 className="text-xl font-bold text-gray-800 mb-4">
