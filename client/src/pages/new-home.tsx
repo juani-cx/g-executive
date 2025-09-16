@@ -8,7 +8,7 @@ export default function NewHome() {
   const [showHowItWorks, setShowHowItWorks] = useState(false);
 
   const handleStartNow = () => {
-    navigate('/prompt-input');
+    navigate('/options');
   };
 
   const handleHowItWorks = () => {

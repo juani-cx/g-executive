@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import Login from "@/pages/login";
 import NewHome from "@/pages/new-home";
+import OptionSelector from "@/pages/option-selector";
 import PromptInput from "@/pages/prompt-input";
 import Home from "@/pages/home";
 import CanvasView from "@/pages/canvas";
@@ -19,6 +20,7 @@ function AuthenticatedRouter() {
   return (
     <Switch>
       <Route path="/" component={NewHome} />
+      <Route path="/options" component={OptionSelector} />
       <Route path="/prompt-input" component={PromptInput} />
       <Route path="/home" component={Home} />
       <Route path="/canvas" component={CanvasView} />
