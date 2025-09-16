@@ -226,20 +226,20 @@ export default function Landing() {
             {/* Two main options - Simplified for Demo 1 */}
             <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
               {/* Marketing Inspiration Option - Simplified */}
-              <Card 
-                className="clean-card border-gray-200 hover:border-gray-300 cursor-pointer group"
+              <div 
+                className="cursor-pointer group"
                 onClick={() => handleOptionSelect('marketing')}
                 data-testid="card-marketing-option"
               >
-                <CardContent className="p-8">
+                <div className="p-8">
                   <div className="text-center">
-                    <div className="w-24 h-24 flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto">
                       {marketingAnimationData ? (
                         <Lottie 
                           animationData={marketingAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 96, height: 96 }}
+                          style={{ width: 250, height: 250 }}
                           onLoadedData={() => console.log('Marketing animation loaded successfully')}
                           onError={(error) => console.error('Marketing animation error:', error)}
                         />
@@ -253,7 +253,7 @@ export default function Landing() {
                     </h2>
                     
                     <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-                      Capture or upload an image, describe what you want to promote, and select your target audience. AI transforms your inspiration into complete multi-channel campaigns.
+                      AI transforms your inspiration into complete multi-channel campaigns.
                     </p>
                     
                     <Button 
@@ -264,24 +264,24 @@ export default function Landing() {
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
               {/* Catalog Enrichment Option - Simplified */}
-              <Card 
-                className="clean-card border-gray-200 hover:border-gray-300 cursor-pointer group"
+              <div 
+                className="cursor-pointer group"
                 onClick={() => handleOptionSelect('catalog')}
                 data-testid="card-catalog-option"
               >
-                <CardContent className="p-8">
+                <div className="p-8">
                   <div className="text-center">
-                    <div className="w-24 h-24 flex items-center justify-center mb-6 mx-auto">
+                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 mx-auto">
                       {chartsAnimationData ? (
                         <Lottie 
                           animationData={chartsAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 96, height: 96 }}
+                          style={{ width: 250, height: 250 }}
                           onLoadedData={() => console.log('Charts animation loaded successfully')}
                           onError={(error) => console.error('Charts animation error:', error)}
                         />
@@ -295,7 +295,7 @@ export default function Landing() {
                     </h2>
                     
                     <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-                      Upload product images and define your brand tone. AI generates high-quality titles, descriptions, feature bullets, alt text, and SEO metadata instantly.
+                      AI generates high-quality SEO metadata instantly.
                     </p>
                     
                     <Button 
@@ -306,8 +306,8 @@ export default function Landing() {
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             {/* Footer */}
