@@ -218,32 +218,32 @@ export default function Landing() {
         <main className="flex items-center justify-center min-h-screen p-8">
           <div className="w-full max-w-4xl mx-auto">
             {/* Header */}
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-800 mb-3 tracking-tight">Promote your product now</h1>
-              <p className="text-lg text-gray-600">Executive campaign AI builder for executive people</p>
+            <div className="text-center mb-24">
+              <h1 className="text-8xl font-bold text-gray-800 mb-8 tracking-tight">Promote your product now</h1>
+              <p className="text-4xl text-gray-600">Executive campaign AI builder for executive people</p>
             </div>
 
-            {/* Two main options - Simplified for Demo 1 */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
+            {/* Two main options - Scaled for 4K */}
+            <div className="grid md:grid-cols-2 gap-16 mb-16 max-w-7xl mx-auto">
               {/* Marketing Inspiration Option - Simplified */}
               <div 
                 className="cursor-pointer group"
                 onClick={() => handleOptionSelect('marketing')}
                 data-testid="card-marketing-option"
               >
-                <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
+                <div className="p-16" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '40px' }}>
+                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '80px', lineHeight: '80px' }}>
                       Marketing Inspiration<br />to Activation
                     </h2>
                     
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[500px] h-[500px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {marketingAnimationData ? (
                         <Lottie 
                           animationData={marketingAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 250, height: 250 }}
+                          style={{ width: 500, height: 500 }}
                           onLoadedData={() => console.log('Marketing animation loaded successfully')}
                           onError={(error) => console.error('Marketing animation error:', error)}
                         />
@@ -252,16 +252,16 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <p className="md-typescale-body-medium mb-6 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <p className="text-2xl mb-12 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                       AI transforms your inspiration into complete multi-channel campaigns.
                     </p>
                     
                     <Button 
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
                       data-testid="button-select-marketing"
                     >
                       Start Marketing Campaign
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-8 h-8 ml-4" />
                     </Button>
                   </div>
                 </div>
@@ -273,19 +273,19 @@ export default function Landing() {
                 onClick={() => handleOptionSelect('catalog')}
                 data-testid="card-catalog-option"
               >
-                <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
+                <div className="p-16" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '40px' }}>
+                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '80px', lineHeight: '80px' }}>
                       Catalog<br />Enrichment
                     </h2>
                     
-                    <div className="w-[250px] h-[250px] flex items-center justify-center mb-6 rounded-2xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[500px] h-[500px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {chartsAnimationData ? (
                         <Lottie 
                           animationData={chartsAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 250, height: 250 }}
+                          style={{ width: 500, height: 500 }}
                           onLoadedData={() => console.log('Charts animation loaded successfully')}
                           onError={(error) => console.error('Charts animation error:', error)}
                         />
@@ -294,16 +294,16 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <p className="md-typescale-body-medium mb-6 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <p className="text-2xl mb-12 leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                       AI generates high-quality SEO metadata instantly.
                     </p>
                     
                     <Button 
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-3 text-sm rounded-lg transition-all duration-200 min-h-[44px]"
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-6 text-2xl rounded-lg transition-all duration-200 min-h-[80px]"
                       data-testid="button-select-catalog"
                     >
                       Enrich Product Catalog
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-8 h-8 ml-4" />
                     </Button>
                   </div>
                 </div>
