@@ -233,17 +233,17 @@ export default function Landing() {
               >
                 <div className="p-16" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '80px', lineHeight: '80px' }}>
-                      Marketing Inspiration<br />to Activation
+                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '60px', lineHeight: '60px' }}>
+                      Marketing Campaign
                     </h2>
                     
-                    <div className="w-[500px] h-[500px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[350px] h-[300px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {marketingAnimationData ? (
                         <Lottie 
                           animationData={marketingAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 500, height: 500 }}
+                          style={{ width: 300, height: 250 }}
                           onLoadedData={() => console.log('Marketing animation loaded successfully')}
                           onError={(error) => console.error('Marketing animation error:', error)}
                         />
@@ -275,17 +275,17 @@ export default function Landing() {
               >
                 <div className="p-16" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '80px', lineHeight: '80px' }}>
+                    <h2 className="text-black mb-8 font-bold" style={{ fontSize: '60px', lineHeight: '60px' }}>
                       Catalog<br />Enrichment
                     </h2>
                     
-                    <div className="w-[500px] h-[500px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="w-[350px] h-[300px] flex items-center justify-center mb-12 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
                       {chartsAnimationData ? (
                         <Lottie 
                           animationData={chartsAnimationData}
                           loop={true}
                           autoplay={true}
-                          style={{ width: 500, height: 500 }}
+                          style={{ width: 300, height: 250 }}
                           onLoadedData={() => console.log('Charts animation loaded successfully')}
                           onError={(error) => console.error('Charts animation error:', error)}
                         />
