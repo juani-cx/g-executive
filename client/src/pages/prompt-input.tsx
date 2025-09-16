@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Upload, Mic } from "lucide-react";
 import { motion } from "framer-motion";
+import QRCode from "react-qr-code";
 
 export default function PromptInput() {
   const [, navigate] = useLocation();
@@ -13,6 +15,7 @@ export default function PromptInput() {
   const [campaignType, setCampaignType] = useState("");
   const [toneOfVoice, setToneOfVoice] = useState("");
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [showQRModal, setShowQRModal] = useState(false);
 
   // Get the selected app type and saved values from localStorage
   useEffect(() => {
@@ -136,13 +139,33 @@ export default function PromptInput() {
                   className="hidden"
                   id="image-upload"
                 />
-                <label 
-                  htmlFor="image-upload"
-                  className="w-8 h-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded flex items-center justify-center transition-colors"
-                  data-testid="button-upload"
-                >
-                  <Upload className="w-5 h-5 text-gray-500" />
-                </label>
+                <Dialog open={showQRModal} onOpenChange={setShowQRModal}>
+                  <DialogTrigger asChild>
+                    <button 
+                      className="w-8 h-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer rounded flex items-center justify-center transition-colors"
+                      data-testid="button-upload"
+                    >
+                      <Upload className="w-5 h-5 text-gray-500" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-center">Scan this code to upload your image</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <QRCode 
+                          value={`${window.location.origin}/prompt-input`} 
+                          size={200}
+                          style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                          bgColor="#FFFFFF"
+                          fgColor="#000000"
+                        />
+                      </div>
+                      <p className="text-center text-gray-600">Scan the QR code to visit our upload service</p>
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 
                 <span className="text-gray-400 text-sm">or</span>
                 
