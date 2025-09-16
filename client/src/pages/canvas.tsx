@@ -201,6 +201,7 @@ export default function CanvasView() {
   const [contextMenuElement, setContextMenuElement] = useState<string | null>(null);
   const [imagePrompt, setImagePrompt] = useState("");
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [currentView, setCurrentView] = useState<'canvas' | 'slideshow' | 'kanban'>('canvas');
   const [showGrid, setShowGrid] = useState(false);
   const [showMinimap, setShowMinimap] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
@@ -1516,30 +1517,45 @@ export default function CanvasView() {
         onExport={() => console.log('Export')}
       />
 
-      {/* Project Info Panel */}
+      {/* View Switcher */}
       <div className="fixed bottom-6 left-6 z-40">
-        <Card className="clean-card">
-          <CardContent className="p-4">
-            <h3 className="font-medium text-gray-800 mb-1">
-              {project.title}
-            </h3>
-            <p className="text-xs text-gray-500 mb-2">
-              {project.assets.length} assets • Created {project.createdAt.toLocaleDateString()}
-            </p>
-            <div className="flex space-x-1">
-              {project.assets.map(asset => (
-                <div
-                  key={asset.id}
-                  className={`w-2 h-2 rounded-full ${
-                    asset.status === "ready" ? "bg-green-500" :
-                    asset.status === "generating" ? "bg-yellow-500" :
-                    "bg-red-500"
-                  }`}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="clean-card rounded-2xl p-1">
+          <div className="flex items-center space-x-1">
+            <button
+              onClick={() => setCurrentView('canvas')}
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
+                currentView === 'canvas'
+                  ? 'bg-blue-100 text-blue-800'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+              }`}
+              data-testid="button-canvas-view"
+            >
+              Canvas
+            </button>
+            <button
+              onClick={() => setCurrentView('slideshow')}
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
+                currentView === 'slideshow'
+                  ? 'bg-blue-100 text-blue-800'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+              }`}
+              data-testid="button-slideshow-view"
+            >
+              Slideshow
+            </button>
+            <button
+              onClick={() => setCurrentView('kanban')}
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
+                currentView === 'kanban'
+                  ? 'bg-blue-100 text-blue-800'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+              }`}
+              data-testid="button-kanban-view"
+            >
+              Kanban
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Zoom Controls - Bottom Right (Miro Style) */}
