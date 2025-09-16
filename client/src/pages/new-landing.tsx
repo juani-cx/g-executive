@@ -56,36 +56,36 @@ export default function NewLanding() {
         </Button>
       </div>
 
-      {/* Main Content - Left Aligned */}
-      <div className="relative z-10 flex items-center min-h-screen">
-        <div className="w-full px-8">
-          <div className="text-left w-full">
-            <h1 className="text-9xl font-bold text-gray-800 mb-6 tracking-tight leading-none w-full">
-              Promote your product now
-            </h1>
+      {/* Main Content - Centered */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen">
+        <div className="text-center max-w-6xl mx-auto px-8">
+          <h1 className="text-[120px] font-bold text-gray-800 tracking-tight leading-none">
+            Promote your product now
+          </h1>
+          
+          <p className="text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1' }}>
+            Executive campaign AI builder for executive people
+          </p>
+          
+          <div className="flex items-center justify-center gap-8">
+            <Button 
+              className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
+              style={{ fontSize: '30px', lineHeight: '1', padding: '24px 76px', height: 'auto' }}
+              onClick={handleStartNow}
+              data-testid="button-start-now"
+            >
+              Start now
+            </Button>
             
-            <p className="text-3xl text-gray-600 mb-16 w-full">
-              Executive campaign AI builder for executive people
-            </p>
-            
-            <div className="flex items-center gap-8">
-              <Button 
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xl font-semibold px-12 py-6 rounded-full min-h-[80px]"
-                onClick={handleStartNow}
-                data-testid="button-start-now"
-              >
-                Start now
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="text-xl px-12 py-6 rounded-full border-gray-800 text-gray-800 hover:bg-gray-50 min-h-[80px]"
-                onClick={() => console.log('How it works clicked')}
-                data-testid="button-how-it-works"
-              >
-                How it works
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              className="border-gray-800 text-gray-800 hover:bg-gray-50 rounded-full font-semibold"
+              style={{ fontSize: '30px', lineHeight: '1', padding: '24px 76px', height: 'auto' }}
+              onClick={() => console.log('How it works clicked')}
+              data-testid="button-how-it-works"
+            >
+              How it works
+            </Button>
           </div>
         </div>
       </div>
