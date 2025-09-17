@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Upload, Camera } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Upload, Camera, Sparkles, Loader2 } from "lucide-react";
 
 export default function UploadImage() {
   const [, navigate] = useLocation();
   const [uploadMode, setUploadMode] = useState<'qr' | 'computer'>('qr');
+  const [selectedOption, setSelectedOption] = useState<'upload' | 'camera' | 'ai' | null>(null);
+  const [showAIDialog, setShowAIDialog] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -49,6 +55,7 @@ export default function UploadImage() {
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setSelectedOption('upload');
       try {
         // Compress image before storing
         const compressedImage = await compressImage(file);
@@ -76,9 +83,59 @@ export default function UploadImage() {
   };
 
   const handleCameraCapture = () => {
+    setSelectedOption('camera');
     // For demo purposes, simulate camera capture
     console.log('Camera capture would be implemented here');
     // In real implementation, this would open camera modal
+  };
+
+  const handleAIGeneration = async () => {
+    if (!aiPrompt.trim()) return;
+    
+    setIsGenerating(true);
+    try {
+      const response = await fetch('/api/openai/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          prompt: aiPrompt,
+          size: "1024x1024",
+          quality: "standard"
+        })
+      });
+      
+      if (response.ok) {
+        const { imageUrl } = await response.json();
+        
+        // Convert the generated image URL to base64 for storage
+        const imageResponse = await fetch(imageUrl);
+        const imageBlob = await imageResponse.blob();
+        
+        const reader = new FileReader();
+        reader.onload = () => {
+          const imageData = reader.result as string;
+          localStorage.setItem('uploadedImage', imageData);
+          localStorage.setItem('uploadedFileName', 'ai-generated.png');
+          localStorage.setItem('aiGeneratedPrompt', aiPrompt);
+          navigate('/configure');
+        };
+        reader.readAsDataURL(imageBlob);
+      } else {
+        alert('Failed to generate image. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error generating image:', error);
+      alert('Error generating image. Please try again.');
+    } finally {
+      setIsGenerating(false);
+      setShowAIDialog(false);
+      setAiPrompt('');
+    }
+  };
+
+  const handleAIOption = () => {
+    setSelectedOption('ai');
+    setShowAIDialog(true);
   };
 
   return (
@@ -224,29 +281,111 @@ export default function UploadImage() {
           )}
 
           {/* Bottom buttons */}
-          <div className="flex items-center justify-center gap-8">
+          <div className="flex items-center justify-center gap-12">
             <Button
               variant="ghost"
               size="lg"
-              onClick={() => setUploadMode(uploadMode === 'qr' ? 'computer' : 'qr')}
-              className="w-16 h-16 rounded-full bg-gray-100 hover:bg-gray-200 p-0"
+              onClick={() => {
+                setSelectedOption('upload');
+                setUploadMode(uploadMode === 'qr' ? 'computer' : 'qr');
+              }}
+              className={`w-24 h-24 rounded-full p-0 transition-all ${
+                selectedOption === 'upload' 
+                  ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
               data-testid="button-toggle-upload"
             >
-              <Upload className="w-8 h-8 text-gray-600" />
+              <Upload className={`w-12 h-12 ${
+                selectedOption === 'upload' ? 'text-white' : 'text-gray-600'
+              }`} />
             </Button>
             
             <Button
               variant="ghost"
               size="lg"
               onClick={handleCameraCapture}
-              className="w-16 h-16 rounded-full bg-gray-100 hover:bg-gray-200 p-0"
+              className={`w-24 h-24 rounded-full p-0 transition-all ${
+                selectedOption === 'camera' 
+                  ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
               data-testid="button-camera-capture"
             >
-              <Camera className="w-8 h-8 text-gray-600" />
+              <Camera className={`w-12 h-12 ${
+                selectedOption === 'camera' ? 'text-white' : 'text-gray-600'
+              }`} />
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={handleAIOption}
+              className={`w-24 h-24 rounded-full p-0 transition-all ${
+                selectedOption === 'ai' 
+                  ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+              data-testid="button-ai-generate"
+            >
+              <Sparkles className={`w-12 h-12 ${
+                selectedOption === 'ai' ? 'text-white' : 'text-gray-600'
+              }`} />
             </Button>
           </div>
         </div>
       </div>
+
+      {/* AI Image Generation Dialog */}
+      <Dialog open={showAIDialog} onOpenChange={setShowAIDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#4285F4]" />
+              Generate Image with AI
+            </DialogTitle>
+            <DialogDescription>
+              Describe the image you'd like to create and AI will generate it for you.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <Input
+              placeholder="Describe your image (e.g., 'A modern office space with natural lighting')"
+              value={aiPrompt}
+              onChange={(e) => setAiPrompt(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && !isGenerating && handleAIGeneration()}
+              data-testid="input-ai-prompt"
+            />
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowAIDialog(false)}
+                disabled={isGenerating}
+                data-testid="button-cancel-ai"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAIGeneration}
+                disabled={!aiPrompt.trim() || isGenerating}
+                data-testid="button-generate-ai"
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Generate
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
