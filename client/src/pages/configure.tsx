@@ -28,20 +28,20 @@ function VirtualKeyboard() {
   ];
 
   return (
-    <div className={`fixed bottom-0 left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+    <div className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`}>
-      <div className="bg-gray-100 rounded-t-2xl p-4 shadow-2xl" style={{ width: '800px' }}>
-        <div className="space-y-2">
+      <div className="p-6" style={{ width: '900px' }}>
+        <div className="space-y-3">
           {keyboardKeys.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-2">
+            <div key={rowIndex} className="flex justify-center gap-3">
               {row.map((key, keyIndex) => (
                 <div
                   key={keyIndex}
                   className={`
-                    bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-700 font-medium cursor-pointer hover:bg-gray-50 transition-colors
-                    ${key === '⎵' ? 'px-16 py-3' : key === '123?' || key === '🔍' ? 'px-4 py-3' : 'w-12 h-12'}
-                    ${key === '↑' || key === '⌫' ? 'text-lg' : 'text-base'}
+                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer hover:bg-gray-50 transition-colors border border-gray-200
+                    ${key === '⎵' ? 'px-20 py-4' : key === '123?' || key === '🔍' ? 'px-6 py-4' : 'w-14 h-14'}
+                    ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
                   `}
                   data-testid={`key-${key}`}
                 >
@@ -152,25 +152,25 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       </div>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center h-screen max-h-screen p-8 pt-20">
-        <div className="w-full max-w-6xl">
-          <div className="text-center mb-8">
-            <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
+      <div className="flex items-start justify-center min-h-screen p-8 pt-24">
+        <div className="w-full max-w-none px-16">
+          <div className="text-center mb-12">
+            <h1 className="text-7xl text-gray-800 mb-6 tracking-tight" style={{ fontWeight: '475' }}>
               Configure
             </h1>
             
-            <p className="text-2xl text-gray-600" style={{ fontWeight: '400' }}>
+            <p className="text-3xl text-gray-600" style={{ fontWeight: '400' }}>
               Executive campaign AI builder for executive people
             </p>
           </div>
 
           {/* White card container */}
-          <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-4xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="bg-white rounded-3xl p-16 shadow-lg border border-gray-200 mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
                 {uploadedImage && (
-                  <div className="w-80 h-64 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-96 h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
@@ -182,15 +182,15 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Form Fields Row */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-6">
                 <div>
-                  <Label htmlFor="target-audience" className="text-sm text-gray-600 mb-1 block">
+                  <Label htmlFor="target-audience" className="text-lg text-gray-600 mb-3 block">
                     Target audience
                   </Label>
                   <Select value={targetAudience} onValueChange={setTargetAudience}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-target-audience">
+                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-target-audience">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -204,11 +204,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="campaign-type" className="text-sm text-gray-600 mb-1 block">
+                  <Label htmlFor="campaign-type" className="text-lg text-gray-600 mb-3 block">
                     Campaign Type
                   </Label>
                   <Select value={campaignType} onValueChange={setCampaignType}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-campaign-type">
+                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-campaign-type">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -222,11 +222,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="tone-of-voice" className="text-sm text-gray-600 mb-1 block">
+                  <Label htmlFor="tone-of-voice" className="text-lg text-gray-600 mb-3 block">
                     Tone of voice
                   </Label>
                   <Select value={toneOfVoice} onValueChange={setToneOfVoice}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-tone-of-voice">
+                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-tone-of-voice">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -242,7 +242,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
 
               {/* Description */}
               <div>
-                <Label htmlFor="product-description" className="text-sm text-gray-600 mb-2 block">
+                <Label htmlFor="product-description" className="text-lg text-gray-600 mb-3 block">
                   Description of your product
                 </Label>
                 <Textarea
@@ -250,8 +250,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   value={productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
                   placeholder="AI is analyzing your image..."
-                  className="text-sm min-h-24 resize-none bg-gray-50"
-                  rows={4}
+                  className="text-lg min-h-32 resize-none bg-gray-50"
+                  rows={6}
                   data-testid="textarea-product-description"
                 />
               </div>
@@ -259,11 +259,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
             </div>
             
             {/* Buttons Row - Outside the grid, centered */}
-            <div className="mt-8 flex gap-4 justify-center">
+            <div className="mt-12 flex gap-6 justify-center">
               <Button
                 onClick={handleCreateCampaign}
                 disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-12 py-4 text-xl rounded-full transition-all duration-200"
                 data-testid="button-create-preview"
               >
                 Create preview
@@ -273,7 +273,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 type="button"
                 variant="outline"
                 onClick={handleRandomizeAll}
-                className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 rounded-full"
+                className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-8 py-4 text-xl rounded-full"
                 data-testid="button-randomize-all"
               >
                 Randomize all
