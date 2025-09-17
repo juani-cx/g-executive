@@ -19,19 +19,20 @@ import NotFound from "@/pages/not-found";
 
 function AuthenticatedRouter() {
   const [location] = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
   
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait" initial={false} onExitComplete={() => setDisplayLocation(location)}>
       <motion.div 
         key={location}
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -16 }}
         transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-        className="min-h-screen"
+        className="min-h-screen bg-white"
         style={{ willChange: 'opacity, transform' }}
       >
-        <Switch>
+        <Switch location={displayLocation}>
           <Route path="/" component={NewLanding} />
           <Route path="/homepage" component={Landing} />
           <Route path="/prompt-input" component={PromptInput} />
