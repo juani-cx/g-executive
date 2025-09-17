@@ -20,14 +20,15 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen dotted-background overflow-hidden" style={{ 
-      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    <div className="dotted-background overflow-hidden" style={{ 
+      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      height: '100vh'
     }}>
       {/* Top Navigation */}
       <TopNavigation isLandingPage={true} />
 
       {/* Main Content Container */}
-      <div className="flex items-center justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
+      <div className="flex items-center justify-center p-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="w-full max-w-6xl text-center">
           {/* Title Section */}
           <div className="mb-12">

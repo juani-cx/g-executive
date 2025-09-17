@@ -186,13 +186,13 @@ export default function UploadImage() {
   };
 
   return (
-    <div className="h-screen max-h-screen dotted-background overflow-hidden">
+    <div className="dotted-background overflow-hidden" style={{ height: '100vh' }}>
 
       {/* Top Navigation */}
       <TopNavigation />
 
       {/* Main Content */}
-      <div className="flex items-center justify-center h-screen max-h-screen p-8">
+      <div className="flex items-center justify-center p-8" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="text-center w-full max-w-2xl">
           <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
             Upload your image

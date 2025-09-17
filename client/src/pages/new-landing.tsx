@@ -10,7 +10,7 @@ export default function NewLanding() {
   };
 
   return (
-    <div className="h-screen max-h-screen dotted-background relative overflow-hidden">
+    <div className="dotted-background relative overflow-hidden" style={{ height: '100vh' }}>
       {/* Animated SVG Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ellipse SVG - Bottom Left */}
@@ -39,7 +39,7 @@ export default function NewLanding() {
       <TopNavigation isLandingPage={true} />
 
       {/* Main Content - Centered */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="text-center w-full px-8">
           <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475' }}>
             Promote your product now

@@ -33,8 +33,8 @@ function AuthenticatedRouter() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-          className="h-screen max-h-screen overflow-hidden bg-white"
-          style={{ willChange: 'opacity, transform' }}
+          className="overflow-hidden bg-white"
+          style={{ height: '100vh', willChange: 'opacity, transform' }}
         >
           <Switch location={displayLocation}>
             <Route path="/" component={NewLanding} />

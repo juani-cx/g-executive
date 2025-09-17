@@ -77,13 +77,13 @@ export default function Preview() {
   }
 
   return (
-    <div className="h-screen max-h-screen dotted-background overflow-hidden">
+    <div className="dotted-background overflow-hidden" style={{ height: '100vh' }}>
 
       {/* Top Navigation */}
       <TopNavigation />
 
       {/* Main Content */}
-      <div className="flex items-start justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
+      <div className="flex items-start justify-center p-8 pt-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
