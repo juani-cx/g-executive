@@ -98,6 +98,67 @@ const DEFAULT_CARDS: AssetCard[] = [
   },
 ];
 
+// Virtual Keyboard Component
+function VirtualKeyboard({ 
+  onKeyPress, 
+  onBackspace, 
+  onDone 
+}: { 
+  onKeyPress: (key: string) => void; 
+  onBackspace: () => void; 
+  onDone: () => void; 
+}) {
+  const rows = [
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+  ];
+
+  return (
+    <div className="bg-gray-100 rounded-lg p-4 space-y-3">
+      {rows.map((row, rowIndex) => (
+        <div key={rowIndex} className="flex justify-center gap-2">
+          {row.map((key) => (
+            <Button
+              key={key}
+              onClick={() => onKeyPress(key)}
+              className="w-12 h-12 bg-white hover:bg-gray-50 border border-gray-300 text-lg font-medium"
+              data-testid={`key-${key.toLowerCase()}`}
+            >
+              {key}
+            </Button>
+          ))}
+        </div>
+      ))}
+      
+      {/* Bottom row with special keys */}
+      <div className="flex justify-center gap-2">
+        <Button
+          onClick={() => onKeyPress(' ')}
+          className="w-32 h-12 bg-white hover:bg-gray-50 border border-gray-300 text-sm"
+          data-testid="key-space"
+        >
+          Space
+        </Button>
+        <Button
+          onClick={onBackspace}
+          className="w-20 h-12 bg-white hover:bg-gray-50 border border-gray-300 text-sm"
+          data-testid="key-backspace"
+        >
+          ⌫
+        </Button>
+        <Button
+          onClick={onDone}
+          className="w-20 h-12 bg-[#4285F4] hover:bg-[#3367D6] text-white text-sm"
+          data-testid="key-done"
+        >
+          Done
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 // Timeout Modal Component
 function TimeoutModal({ 
   isOpen, 
@@ -113,6 +174,9 @@ function TimeoutModal({
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent className="max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
+        <DialogHeader className="sr-only">
+          <DialogTitle>Session Timeout</DialogTitle>
+        </DialogHeader>
         <div className="text-center py-8 bg-black bg-opacity-80">
           <h2 className="text-2xl font-medium text-white mb-4">Are you still there?</h2>
           <p className="text-lg text-gray-300 mb-6">
@@ -148,6 +212,7 @@ export default function CanvasView() {
   const [timeLeft, setTimeLeft] = useState(20);
   const [editContent, setEditContent] = useState("");
   const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState(0);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -228,9 +293,29 @@ export default function CanvasView() {
 
   const handleAssetClick = (asset: AssetCard) => {
     setSelectedAsset(asset);
-    setEditContent(asset.content?.text || "");
+    const content = asset.content?.text || "";
+    setEditContent(content);
+    setCursorPosition(content.length);
     setShowAssetModal(true);
     setShowVirtualKeyboard(true);
+  };
+
+  const handleKeyPress = (key: string) => {
+    const newContent = editContent.slice(0, cursorPosition) + key + editContent.slice(cursorPosition);
+    setEditContent(newContent);
+    setCursorPosition(cursorPosition + 1);
+  };
+
+  const handleBackspace = () => {
+    if (cursorPosition > 0) {
+      const newContent = editContent.slice(0, cursorPosition - 1) + editContent.slice(cursorPosition);
+      setEditContent(newContent);
+      setCursorPosition(cursorPosition - 1);
+    }
+  };
+
+  const handleKeyboardDone = () => {
+    setShowVirtualKeyboard(false);
   };
 
   const handleShareClick = () => {
@@ -271,32 +356,22 @@ export default function CanvasView() {
         </div>
       </div>
 
-      <div className="absolute top-8 right-8 z-10">
-        <Button 
-          variant="outline" 
-          className="text-gray-600 border-gray-300 hover:bg-gray-50"
-          onClick={() => setLocation('/')}
-          data-testid="button-back-to-home"
-        >
-          Back to home
-        </Button>
-      </div>
 
       {/* Static Centered Grid Layout */}
       <div className="min-h-screen flex flex-col">
-        {/* Main Content Area - Centered Grid */}
-        <div className="flex-1 flex items-center justify-center px-8 py-16">
-          <div className="w-full max-w-7xl">
-            <div className="grid grid-cols-4 gap-8">
+        {/* Main Content Area - Optimized for 4K Display */}
+        <div className="flex-1 flex items-center justify-center px-16 py-20">
+          <div className="w-full max-w-none">
+            <div className="grid grid-cols-4 gap-16 max-w-6xl mx-auto">
               {project.assets.map((card) => (
                 <div
                   key={card.id}
-                  className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow duration-200 border border-gray-200"
+                  className="bg-white rounded-3xl shadow-lg p-8 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[400px]"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
-                  {/* Preview Image */}
-                  <div className="w-full h-40 mb-4 bg-gray-100 rounded-xl overflow-hidden">
+                  {/* Preview Image - Larger for 4K */}
+                  <div className="w-full h-56 mb-6 bg-gray-100 rounded-2xl overflow-hidden">
                     <img 
                       src={card.previewImage} 
                       alt={card.title}
@@ -304,15 +379,15 @@ export default function CanvasView() {
                     />
                   </div>
                   
-                  {/* Card Content */}
-                  <div className="space-y-3">
-                    <div className="text-sm text-gray-500 capitalize">{card.type}</div>
-                    <h3 className="text-xl font-semibold text-gray-900">{card.title}</h3>
-                    <p className="text-sm text-gray-600">{card.summary}</p>
+                  {/* Card Content - Optimized for touch */}
+                  <div className="space-y-4">
+                    <div className="text-base text-gray-500 capitalize font-medium">{card.type}</div>
+                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{card.title}</h3>
+                    <p className="text-base text-gray-600 line-clamp-3">{card.summary}</p>
                     <Button 
                       variant="outline" 
-                      size="sm"
-                      className="w-full"
+                      size="lg"
+                      className="w-full h-12 text-lg font-semibold"
                       data-testid={`button-learn-more-${card.id}`}
                     >
                       Learn More
@@ -324,25 +399,25 @@ export default function CanvasView() {
           </div>
         </div>
 
-        {/* Bottom Toolbar - Add and Share buttons */}
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40">
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2">
-            <div className="flex items-center space-x-2">
+        {/* Bottom Toolbar - Optimized for Touch */}
+        <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-40">
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-4">
+            <div className="flex items-center space-x-4">
               <Button
-                size="sm"
-                className="w-12 h-12 p-0 rounded-xl bg-white hover:bg-gray-50 border border-gray-200"
+                size="lg"
+                className="w-16 h-16 p-0 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
                 data-testid="button-add-new"
               >
-                <Plus className="w-6 h-6 text-gray-600" />
+                <Plus className="w-8 h-8 text-gray-600" />
               </Button>
               
               <Button
-                size="sm"
+                size="lg"
                 onClick={handleShareClick}
-                className="w-12 h-12 p-0 rounded-xl bg-white hover:bg-gray-50 border border-gray-200"
+                className="w-16 h-16 p-0 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
                 data-testid="button-share"
               >
-                <Share className="w-6 h-6 text-gray-600" />
+                <Share className="w-8 h-8 text-gray-600" />
               </Button>
             </div>
           </div>
@@ -373,22 +448,39 @@ export default function CanvasView() {
                 {/* Content Editor */}
                 <div>
                   <h3 className="text-lg font-medium mb-3">Content</h3>
-                  <Textarea
-                    value={editContent}
-                    onChange={(e) => setEditContent(e.target.value)}
-                    placeholder="Edit your content here..."
-                    className="min-h-32"
-                    data-testid="textarea-content-edit"
-                  />
+                  <div className="relative">
+                    <Textarea
+                      value={editContent}
+                      onChange={(e) => {
+                        setEditContent(e.target.value);
+                        setCursorPosition(e.target.selectionStart || 0);
+                      }}
+                      onSelect={(e) => setCursorPosition((e.target as HTMLTextAreaElement).selectionStart || 0)}
+                      placeholder="Edit your content here..."
+                      className="min-h-32 text-lg"
+                      data-testid="textarea-content-edit"
+                      onClick={() => setShowVirtualKeyboard(true)}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowVirtualKeyboard(!showVirtualKeyboard)}
+                      className="absolute top-2 right-2"
+                      data-testid="button-toggle-keyboard"
+                    >
+                      ⌨️
+                    </Button>
+                  </div>
                 </div>
 
-                {/* Virtual Keyboard Space */}
+                {/* Virtual Keyboard */}
                 {showVirtualKeyboard && (
-                  <div className="bg-gray-100 rounded-lg p-4">
-                    <div className="text-center text-gray-500 text-sm">
-                      Virtual keyboard interface would appear here for touchscreen editing
-                    </div>
-                  </div>
+                  <VirtualKeyboard
+                    onKeyPress={handleKeyPress}
+                    onBackspace={handleBackspace}
+                    onDone={handleKeyboardDone}
+                  />
                 )}
 
                 {/* Action Buttons */}
