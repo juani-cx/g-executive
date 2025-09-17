@@ -2,14 +2,11 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Upload, Camera, Sparkles, Loader2 } from "lucide-react";
 
 export default function UploadImage() {
   const [, navigate] = useLocation();
-  const [uploadMode, setUploadMode] = useState<'qr' | 'computer'>('qr');
-  const [selectedOption, setSelectedOption] = useState<'upload' | 'camera' | 'ai' | null>(null);
-  const [showAIDialog, setShowAIDialog] = useState(false);
+  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai'>('qr');
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -55,7 +52,6 @@ export default function UploadImage() {
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedOption('upload');
       try {
         // Compress image before storing
         const compressedImage = await compressImage(file);
@@ -83,7 +79,6 @@ export default function UploadImage() {
   };
 
   const handleCameraCapture = () => {
-    setSelectedOption('camera');
     // For demo purposes, simulate camera capture
     console.log('Camera capture would be implemented here');
     // In real implementation, this would open camera modal
@@ -128,14 +123,7 @@ export default function UploadImage() {
       alert('Error generating image. Please try again.');
     } finally {
       setIsGenerating(false);
-      setShowAIDialog(false);
-      setAiPrompt('');
     }
-  };
-
-  const handleAIOption = () => {
-    setSelectedOption('ai');
-    setShowAIDialog(true);
   };
 
   return (
@@ -169,7 +157,7 @@ export default function UploadImage() {
             Executive campaign AI builder for executive people
           </p>
 
-          {uploadMode === 'qr' ? (
+          {activeTab === 'qr' ? (
             <div className="mb-12">
               {/* QR Code Area */}
               <div className="w-80 h-80 mx-auto bg-[#4285F4] rounded-3xl flex items-center justify-center mb-8">
@@ -253,7 +241,7 @@ export default function UploadImage() {
                 Scan the QR code to visit our<br />upload service
               </p>
             </div>
-          ) : (
+          ) : activeTab === 'computer' ? (
             <div className="mb-12">
               <div className="w-80 h-80 mx-auto border-2 border-dashed border-gray-300 rounded-3xl flex items-center justify-center mb-8">
                 <div className="text-center">
@@ -278,6 +266,45 @@ export default function UploadImage() {
                 Choose File
               </label>
             </div>
+          ) : (
+            <div className="mb-12">
+              {/* AI Generation Area */}
+              <div className="w-80 h-80 mx-auto border-2 border-dashed border-[#4285F4] rounded-3xl flex items-center justify-center mb-8">
+                <div className="text-center">
+                  <Sparkles className="w-16 h-16 text-[#4285F4] mx-auto mb-4" />
+                  <p className="text-lg text-gray-600">Describe your image and AI will create it</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <Input
+                  placeholder="Describe your image (e.g., 'A modern office space with natural lighting')"
+                  value={aiPrompt}
+                  onChange={(e) => setAiPrompt(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && !isGenerating && handleAIGeneration()}
+                  className="max-w-md mx-auto"
+                  data-testid="input-ai-prompt"
+                />
+                <Button
+                  onClick={handleAIGeneration}
+                  disabled={!aiPrompt.trim() || isGenerating}
+                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-3 rounded-full text-lg font-semibold"
+                  data-testid="button-generate-ai"
+                >
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      Generate Image
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
           )}
 
           {/* Bottom buttons */}
@@ -285,19 +312,16 @@ export default function UploadImage() {
             <Button
               variant="ghost"
               size="lg"
-              onClick={() => {
-                setSelectedOption('upload');
-                setUploadMode(uploadMode === 'qr' ? 'computer' : 'qr');
-              }}
+              onClick={() => setActiveTab(activeTab === 'qr' ? 'computer' : 'qr')}
               className={`w-24 h-24 rounded-full p-0 transition-all ${
-                selectedOption === 'upload' 
+                activeTab === 'qr' || activeTab === 'computer'
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
               data-testid="button-toggle-upload"
             >
               <Upload className={`w-12 h-12 ${
-                selectedOption === 'upload' ? 'text-white' : 'text-gray-600'
+                activeTab === 'qr' || activeTab === 'computer' ? 'text-white' : 'text-gray-600'
               }`} />
             </Button>
             
@@ -306,86 +330,34 @@ export default function UploadImage() {
               size="lg"
               onClick={handleCameraCapture}
               className={`w-24 h-24 rounded-full p-0 transition-all ${
-                selectedOption === 'camera' 
+                false // Camera capture is not implemented yet
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
               data-testid="button-camera-capture"
             >
-              <Camera className={`w-12 h-12 ${
-                selectedOption === 'camera' ? 'text-white' : 'text-gray-600'
-              }`} />
+              <Camera className={`w-12 h-12 text-gray-600`} />
             </Button>
             
             <Button
               variant="ghost"
               size="lg"
-              onClick={handleAIOption}
+              onClick={() => setActiveTab('ai')}
               className={`w-24 h-24 rounded-full p-0 transition-all ${
-                selectedOption === 'ai' 
+                activeTab === 'ai' 
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
               data-testid="button-ai-generate"
             >
               <Sparkles className={`w-12 h-12 ${
-                selectedOption === 'ai' ? 'text-white' : 'text-gray-600'
+                activeTab === 'ai' ? 'text-white' : 'text-gray-600'
               }`} />
             </Button>
           </div>
         </div>
       </div>
 
-      {/* AI Image Generation Dialog */}
-      <Dialog open={showAIDialog} onOpenChange={setShowAIDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#4285F4]" />
-              Generate Image with AI
-            </DialogTitle>
-            <DialogDescription>
-              Describe the image you'd like to create and AI will generate it for you.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Input
-              placeholder="Describe your image (e.g., 'A modern office space with natural lighting')"
-              value={aiPrompt}
-              onChange={(e) => setAiPrompt(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && !isGenerating && handleAIGeneration()}
-              data-testid="input-ai-prompt"
-            />
-            <div className="flex justify-end gap-3">
-              <Button
-                variant="outline"
-                onClick={() => setShowAIDialog(false)}
-                disabled={isGenerating}
-                data-testid="button-cancel-ai"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleAIGeneration}
-                disabled={!aiPrompt.trim() || isGenerating}
-                data-testid="button-generate-ai"
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Generating...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Generate
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
