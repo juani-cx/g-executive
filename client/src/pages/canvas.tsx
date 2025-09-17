@@ -582,7 +582,7 @@ export default function CanvasView() {
               className="bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50"
               data-testid="button-close-preview"
             >
-              ← Back to Canvas
+← Back
             </Button>
           </div>
 
@@ -622,13 +622,33 @@ export default function CanvasView() {
             <span className="text-2xl">→</span>
           </Button>
 
-          {/* Share Button - Bottom Center */}
+          {/* Edit Button - Top Center */}
+          <div className="absolute top-24 left-1/2 transform -translate-x-1/2 translate-y-16 z-10">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setSelectedAsset(project.assets[currentPreviewIndex]);
+                setShowAssetModal(true);
+              }}
+              className="px-6 py-2 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 text-sm"
+              data-testid="button-edit-slideshow"
+            >
+              ✏️ Edit
+            </Button>
+          </div>
+
+          {/* Export Assets Button - Bottom Center */}
           <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10">
             <Button 
               variant="outline" 
-              className="px-8 py-3 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50"
+              onClick={() => {
+                setSelectedAsset(project.assets[currentPreviewIndex]);
+                setShowAssetModal(true);
+              }}
+              className="px-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 font-semibold"
+              data-testid="button-export-assets"
             >
-              Share
+              📤 Export Assets
             </Button>
           </div>
 
