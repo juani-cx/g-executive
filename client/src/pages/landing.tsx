@@ -1,9 +1,7 @@
 import { useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Settings } from "lucide-react";
 import campaignImage from "@assets/campaign_1758139095122.png";
 import catalogImage from "@assets/catalog_1758139095122.png";
-import Logo from "@/components/Logo";
+import TopNavigation from "@/components/TopNavigation";
 
 export default function Landing() {
   const [, navigate] = useLocation();
@@ -22,64 +20,34 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white" style={{ 
-      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      padding: '48px 112px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '104px'
+    <div className="min-h-screen dotted-background overflow-hidden" style={{ 
+      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-      {/* Header */}
-      <div className="w-full flex justify-between items-center" style={{
-        borderBottom: '1px solid #e5e8eb',
-        borderRadius: '24px',
-        padding: '12px 0'
-      }}>
-        {/* Google Logo */}
-        <div className="relative">
-          <Logo />
-        </div>
-        
-        {/* Right side - How it works button and settings */}
-        <div className="flex items-center gap-20">
-          <Button 
-            variant="outline"
-            className="rounded-full border-4 text-[30px] font-medium leading-[36px] text-[#1f2937]"
-            style={{
-              borderColor: '#bec6d1b3',
-              padding: '32px 115.702px'
-            }}
-            onClick={() => console.log('How it works clicked')}
-            data-testid="button-how-it-works"
-          >
-            How it works
-          </Button>
-          <Settings className="w-20 h-20 text-gray-600" />
-        </div>
-      </div>
+      {/* Top Navigation */}
+      <TopNavigation isLandingPage={true} />
 
       {/* Main Content Container */}
-      <div className="flex flex-col items-center gap-16 max-w-screen-2xl mx-auto" style={{ padding: '16px 0 24px' }}>
-        {/* Title Section */}
-        <div className="flex flex-col justify-center items-center gap-6 w-full">
-          <h1 
-            className="text-6xl text-center text-gray-800 mb-4 tracking-tight"
-            style={{ fontWeight: '475' }}
-            data-testid="text-main-title"
-          >
-            Promote your product now
-          </h1>
-          <p 
-            className="text-2xl text-center text-gray-600"
-            style={{ fontWeight: '400' }}
-          >
-            Executive campaign AI builder for executive people
-          </p>
-        </div>
+      <div className="flex items-center justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
+        <div className="w-full max-w-6xl text-center">
+          {/* Title Section */}
+          <div className="mb-12">
+            <h1 
+              className="text-6xl text-gray-800 mb-4 tracking-tight"
+              style={{ fontWeight: '475' }}
+              data-testid="text-main-title"
+            >
+              Promote your product now
+            </h1>
+            <p 
+              className="text-2xl text-gray-600 mb-16"
+              style={{ fontWeight: '400' }}
+            >
+              Executive campaign AI builder for executive people
+            </p>
+          </div>
 
-        {/* Cards Container */}
-        <div className="flex items-start gap-12 w-full max-w-6xl">
+          {/* Cards Container */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {/* Marketing Campaign Card */}
           <div 
             className="flex-1 cursor-pointer group"
@@ -195,23 +163,17 @@ export default function Landing() {
               </p>
             </div>
           </div>
+          </div>
+          
+          {/* Footer CTA */}
+          <p 
+            className="text-xl text-gray-600"
+            style={{ fontWeight: '400' }}
+            data-testid="text-footer-cta"
+          >
+            Choose an experience to get started
+          </p>
         </div>
-      </div>
-
-      {/* Footer */}
-      <div className="w-full flex justify-center items-center" style={{
-        background: '#fff3',
-        borderBottom: '1px solid #e5e8eb',
-        borderRadius: '24px',
-        padding: '12px 40px'
-      }}>
-        <p 
-          className="text-xl text-gray-600"
-          style={{ fontWeight: '400' }}
-          data-testid="text-footer-cta"
-        >
-          Choose an experience to get started
-        </p>
       </div>
     </div>
   );
