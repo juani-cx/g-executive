@@ -1,0 +1,339 @@
+Implement the following design in React. Use the following files generated from a Figma design as a specification and guide:
+
+```src/styles/Container.module.css
+.Container_522_6501 {
+  background: #fff;
+  flex-direction: column;
+  align-items: center;
+  gap: 104px;
+  width: 100%;
+  height: 100%;
+  padding: 48px 112px;
+  display: flex;
+}
+.Frame_1171274793_522_6573 {
+  flex-direction: column;
+  align-items: center;
+  gap: 122px;
+  width: 100%;
+  display: flex;
+}
+.Depth_2Frame_0_522_6502 {
+  box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid #e5e8eb;
+  border-radius: 24px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+}
+.Depth_3Frame_0_522_6503 {
+  align-items: center;
+  display: flex;
+}
+.Logo_522_6504 {
+  align-items: center;
+  gap: -22.679px;
+  display: flex;
+}
+.Logo_265_1776 {
+  width: 323.176px;
+  height: 146.507px;
+  overflow: hidden;
+}
+.Frame_1171274796_523_1354 {
+  align-items: center;
+  gap: 80px;
+  display: flex;
+}
+.Button_523_1345 {
+  box-sizing: border-box;
+  border: 4px solid #bec6d1b3;
+  border-radius: 15024.7px;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 115.702px;
+  display: flex;
+}
+.HowItWorks_523_1346 {
+  color: #1f2937;
+  text-align: center;
+  font-family: Google Sans;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  display: inline-block;
+}
+.RegularSettingsGear_523_1351 {
+  width: 80.001px;
+  height: 80.001px;
+}
+.Container_522_6509 {
+  flex-direction: column;
+  align-items: center;
+  gap: 136px;
+  width: 2012px;
+  padding: 16px 0 24px;
+  display: flex;
+}
+.Frame_35_522_6510 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Title_522_6511 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  text-align: center;
+  font-family: Google Sans;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: var(--line-height-72, 72px);
+  display: inline-block;
+}
+.Subtitle_522_6512 {
+  color: #5c5c5c;
+  text-align: center;
+  font-family: Google Sans;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: var(--font-weight-400, 400);
+  line-height: 56px;
+  display: inline-block;
+}
+.Container_522_6513 {
+  align-items: flex-start;
+  gap: 104px;
+  width: 100%;
+  display: flex;
+}
+.BackgroundShadowOverlayBlur_522_6514 {
+  min-height: var(--height-148, 148px);
+  background: #fffc;
+  border-radius: 48px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  padding: 80px 48px;
+  display: flex;
+  box-shadow: 0 2px 40px #00000029;
+}
+.Frame_1171274794_523_1343 {
+  box-sizing: border-box;
+  border-bottom: 3px solid #000;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-bottom: 48px;
+  display: flex;
+}
+.Subtitle_522_6562 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  flex: 1 0 0;
+  font-family: Google Sans;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 55px;
+  display: inline-block;
+}
+.Frame_1171274792_522_6572 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Margin_522_6515 {
+  box-sizing: border-box;
+  background: #e6ebf2;
+  border-radius: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 599px;
+  padding-bottom: 8px;
+  display: flex;
+  overflow: hidden;
+}
+.Campaign_522_6557 {
+  aspect-ratio: 234/197;
+  background: #d3d3d3 url(<path-to-image>) 0 -55.572px/100% 118.782% no-repeat;
+  width: 702px;
+  height: 591px;
+}
+.Subtitle_522_6523 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  width: 816px;
+  font-family: Google Sans;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 56px;
+  display: inline-block;
+}
+.BackgroundShadowOverlayBlur_522_6564 {
+  min-height: var(--height-148, 148px);
+  background: #fffc;
+  border-radius: 48px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  padding: 80px 48px;
+  display: flex;
+  box-shadow: 0 2px 40px #00000029;
+}
+.Frame_1171274795_523_1344 {
+  box-sizing: border-box;
+  border-bottom: 3px solid #000;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-bottom: 48px;
+  display: flex;
+}
+.Subtitle_522_6570 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  flex: 1 0 0;
+  font-family: Google Sans;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 55px;
+  display: inline-block;
+}
+.Frame_1171274791_522_6571 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  display: flex;
+}
+.Margin_522_6566 {
+  box-sizing: border-box;
+  background: #e6ebf2;
+  border-radius: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 599px;
+  padding-bottom: 8px;
+  display: flex;
+  overflow: hidden;
+}
+.Campaign_522_6567 {
+  aspect-ratio: 858/621.42;
+  background: #d3d3d3 url(<path-to-image>) 59.934px -58.615px/86.029% 118.782% no-repeat;
+  flex-shrink: 0;
+  height: 621.419px;
+}
+.Subtitle_522_6568 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  width: 681px;
+  font-family: Google Sans;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 56px;
+  display: inline-block;
+}
+.Depth_2Frame_1_522_6546 {
+  box-sizing: border-box;
+  background: #fff3;
+  border-bottom: 1px solid #e5e8eb;
+  border-radius: 24px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 12px 40px;
+  display: flex;
+}
+.Subtitle_522_6547 {
+  color: #5c5c5c;
+  font-family: Google Sans;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: var(--font-weight-400, 400);
+  line-height: 56px;
+  display: inline-block;
+}
+
+```
+
+---
+
+```src/components/Container.tsx
+import React from 'react';
+import styles from '../styles/Container.module.css';
+
+
+export default function Container() {
+  return (
+    <div className={styles.Container_522_6501}>
+      <div className={styles.Frame_1171274793_522_6573}>
+        <div className={styles.Depth_2Frame_0_522_6502}>
+          <div className={styles.Depth_3Frame_0_522_6503}>
+            <div className={styles.Logo_522_6504}>
+              <div className={styles.Logo_265_1776}><svg width="324" height="147" viewBox="0 0 324 147" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M143.675 75.4022C143.675 87.1756 134.465 95.8513 123.162 95.8513C111.858 95.8513 102.648 87.1756 102.648 75.4022C102.648 63.5458 111.858 54.9531 123.162 54.9531C134.465 54.9531 143.675 63.5458 143.675 75.4022ZM134.695 75.4022C134.695 68.045 129.357 63.0111 123.162 63.0111C116.966 63.0111 111.628 68.045 111.628 75.4022C111.628 82.6857 116.966 87.7933 123.162 87.7933C129.357 87.7933 134.695 82.6765 134.695 75.4022Z" fill="#292645" />
+                  <path d="M187.929 75.4022C187.929 87.1756 178.719 95.8513 167.415 95.8513C156.112 95.8513 146.902 87.1756 146.902 75.4022C146.902 63.555 156.112 54.9531 167.415 54.9531C178.719 54.9531 187.929 63.5458 187.929 75.4022ZM178.949 75.4022C178.949 68.045 173.611 63.0111 167.415 63.0111C161.22 63.0111 155.882 68.045 155.882 75.4022C155.882 82.6857 161.22 87.7933 167.415 87.7933C173.611 87.7933 178.949 82.6765 178.949 75.4022Z" fill="#292645" />
+                  <path d="M230.337 56.1886V92.901C230.337 108.003 221.431 114.171 210.903 114.171C200.991 114.171 195.026 107.542 192.777 102.121L200.595 98.8661C201.987 102.194 205.398 106.122 210.893 106.122C217.633 106.122 221.809 101.964 221.809 94.1364V91.1954H221.496C219.486 93.6754 215.614 95.842 210.727 95.842C200.503 95.842 191.136 86.9359 191.136 75.476C191.136 63.933 200.503 54.9531 210.727 54.9531C215.605 54.9531 219.477 57.1197 221.496 59.526H221.809V56.1978H230.337V56.1886ZM222.446 75.476C222.446 68.2754 217.642 63.0111 211.53 63.0111C205.334 63.0111 200.143 68.2754 200.143 75.476C200.143 82.6027 205.334 87.7933 211.53 87.7933C217.642 87.7933 222.446 82.6027 222.446 75.476Z" fill="#292645" />
+                  <path d="M244.4 34.6719V94.5993H235.641V34.6719H244.4Z" fill="#292645" />
+                  <path d="M278.529 82.132L285.499 86.7786C283.249 90.1069 277.828 95.8415 268.461 95.8415C256.844 95.8415 248.168 86.8616 248.168 75.3924C248.168 63.2318 256.918 54.9434 267.456 54.9434C278.068 54.9434 283.258 63.3885 284.955 67.9522L285.886 70.2756L258.55 81.5972C260.643 85.6999 263.897 87.7928 268.461 87.7928C273.034 87.7928 276.205 85.5432 278.529 82.132ZM257.075 74.7747L275.348 67.187C274.343 64.6332 271.319 62.8538 267.76 62.8538C263.196 62.8538 256.844 66.8827 257.075 74.7747Z" fill="#292645" />
+                  <path d="M69.4951 70.081V61.4053H98.7304C99.0162 62.9173 99.1637 64.706 99.1637 66.6421C99.1637 73.1511 97.3844 81.1998 91.6498 86.9344C86.0719 92.7428 78.9452 95.8405 69.5043 95.8405C52.0055 95.8405 37.291 81.587 37.291 64.0882C37.291 46.5894 52.0055 32.3359 69.5043 32.3359C79.1849 32.3359 86.0811 36.1344 91.2626 41.0853L85.1407 47.2072C81.4252 43.7221 76.3913 41.0116 69.4951 41.0116C56.7167 41.0116 46.7227 51.3099 46.7227 64.0882C46.7227 76.8666 56.7167 87.1649 69.4951 87.1649C77.7835 87.1649 82.5039 83.8366 85.528 80.8126C87.9804 78.3602 89.5938 74.8567 90.23 70.0718L69.4951 70.081Z" fill="#292645" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div className={styles.Frame_1171274796_523_1354}>
+            <div className={styles.Button_523_1345}><span className={styles.HowItWorks_523_1346}>How it works</span></div>
+            <div className={styles.RegularSettingsGear_523_1351}><svg width="80" height="81" viewBox="0 0 80 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46.2495 73.5874H33.7493C32.916 73.5874 32.1938 73.3096 31.5826 72.7541C30.9715 72.1985 30.6104 71.504 30.4993 70.6707L29.4993 62.9206C28.777 62.6428 28.097 62.3095 27.4593 61.9206C26.8192 61.5317 26.1937 61.115 25.5826 60.6706L18.3325 63.6706C17.5547 63.9484 16.7769 63.9762 15.9991 63.7539C15.2213 63.5317 14.6102 63.0595 14.1658 62.3373L7.99901 51.5871C7.55456 50.8649 7.41567 50.0871 7.58234 49.2538C7.74901 48.4204 8.16568 47.7538 8.83236 47.2537L15.0824 42.5037C15.0269 42.1148 14.9991 41.7392 14.9991 41.377V39.127C14.9991 38.767 15.0269 38.3925 15.0824 38.0036L8.83236 33.2536C8.16568 32.7536 7.74901 32.0869 7.58234 31.2536C7.41567 30.4202 7.55456 29.6424 7.99901 28.9202L14.1658 18.1701C14.5546 17.3923 15.1513 16.9056 15.9558 16.71C16.7625 16.5167 17.5547 16.5589 18.3325 16.8367L25.5826 19.8367C26.1937 19.3923 26.8326 18.9756 27.4993 18.5867C28.1659 18.1978 28.8326 17.8645 29.4993 17.5867L30.4993 9.83662C30.6104 9.00328 30.9715 8.30883 31.5826 7.75327C32.1938 7.1977 32.916 6.91992 33.7493 6.91992H46.2495C47.0828 6.91992 47.8051 7.1977 48.4162 7.75327C49.0273 8.30883 49.3884 9.00328 49.4995 9.83662L50.4995 17.5867C51.2218 17.8645 51.9029 18.1978 52.5429 18.5867C53.1807 18.9756 53.8051 19.3923 54.4163 19.8367L61.6663 16.8367C62.4441 16.5589 63.2219 16.5311 63.9997 16.7534C64.7775 16.9756 65.3886 17.4478 65.8331 18.1701L71.9998 28.9202C72.4442 29.6424 72.5831 30.4202 72.4165 31.2536C72.2498 32.0869 71.8331 32.7536 71.1665 33.2536L64.9164 38.0036C64.9719 38.3925 64.9997 38.767 64.9997 39.127V41.377C64.9997 41.7392 64.9442 42.1148 64.833 42.5037L71.0831 47.2537C71.7498 47.7538 72.1665 48.4204 72.3331 49.2538C72.4998 50.0871 72.3609 50.8649 71.9165 51.5871L65.7497 62.2539C65.3053 62.9762 64.6808 63.4628 63.8764 63.7139C63.0697 63.9628 62.2775 63.9484 61.4997 63.6706L54.4163 60.6706C53.8051 61.115 53.1662 61.5317 52.4996 61.9206C51.8329 62.3095 51.1662 62.6428 50.4995 62.9206L49.4995 70.6707C49.3884 71.504 49.0273 72.1985 48.4162 72.7541C47.8051 73.3096 47.0828 73.5874 46.2495 73.5874ZM40.1661 51.9205C43.3883 51.9205 46.1384 50.7816 48.4162 48.5038C50.694 46.226 51.8329 43.4759 51.8329 40.2537C51.8329 37.0314 50.694 34.2814 48.4162 32.0036C46.1384 29.7258 43.3883 28.5869 40.1661 28.5869C36.8883 28.5869 34.1238 29.7258 31.8726 32.0036C29.6237 34.2814 28.4993 37.0314 28.4993 40.2537C28.4993 43.4759 29.6237 46.226 31.8726 48.5038C34.1238 50.7816 36.8883 51.9205 40.1661 51.9205ZM40.1661 45.2537C38.7772 45.2537 37.5972 44.7671 36.626 43.7937C35.6527 42.8226 35.166 41.6426 35.166 40.2537C35.166 38.8648 35.6527 37.6847 36.626 36.7136C37.5972 35.7403 38.7772 35.2536 40.1661 35.2536C41.555 35.2536 42.7361 35.7403 43.7095 36.7136C44.6806 37.6847 45.1661 38.8648 45.1661 40.2537C45.1661 41.6426 44.6806 42.8226 43.7095 43.7937C42.7361 44.7671 41.555 45.2537 40.1661 45.2537ZM36.666 66.9207H43.2494L44.4161 58.0872C46.1384 57.6428 47.7362 56.9894 49.2095 56.1272C50.6806 55.2672 52.0273 54.2261 53.2496 53.0038L61.4997 56.4205L64.7497 50.7538L57.583 45.3371C57.8607 44.5593 58.0552 43.7393 58.1663 42.877C58.2774 42.017 58.333 41.1426 58.333 40.2537C58.333 39.3648 58.2774 38.4892 58.1663 37.627C58.0552 36.767 57.8607 35.9481 57.583 35.1703L64.7497 29.7535L61.4997 24.0868L53.2496 27.5868C52.0273 26.309 50.6806 25.239 49.2095 24.3768C47.7362 23.5168 46.1384 22.8646 44.4161 22.4201L43.3328 13.5867H36.7494L35.5827 22.4201C33.8604 22.8646 32.2638 23.5168 30.7926 24.3768C29.3193 25.239 27.9715 26.2813 26.7492 27.5035L18.4991 24.0868L15.2491 29.7535L22.4159 35.0869C22.1381 35.9203 21.9436 36.7536 21.8325 37.587C21.7214 38.4203 21.6658 39.3092 21.6658 40.2537C21.6658 41.1426 21.7214 42.0037 21.8325 42.837C21.9436 43.6704 22.1381 44.5037 22.4159 45.3371L15.2491 50.7538L18.4991 56.4205L26.7492 52.9205C27.9715 54.1983 29.3193 55.2672 30.7926 56.1272C32.2638 56.9894 33.8604 57.6428 35.5827 58.0872L36.666 66.9207Z" fill="#33333C" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className={styles.Container_522_6509}>
+          <div className={styles.Frame_35_522_6510}><span className={styles.Title_522_6511}>Promote your product now</span><span className={styles.Subtitle_522_6512}>Executive campaign AI builder for executive people</span></div>
+          <div className={styles.Container_522_6513}>
+            <div className={styles.BackgroundShadowOverlayBlur_522_6514}>
+              <div className={styles.Frame_1171274794_523_1343}><span className={styles.Subtitle_522_6562}>Marketing
+                  Campaign</span></div>
+              <div className={styles.Frame_1171274792_522_6572}>
+                <div className={styles.Margin_522_6515}>
+                  <div className={styles.Campaign_522_6557}></div>
+                </div><span className={styles.Subtitle_522_6523}>AI transforms your inspiration into complete multi-channel campaigns.</span>
+              </div>
+            </div>
+            <div className={styles.BackgroundShadowOverlayBlur_522_6564}>
+              <div className={styles.Frame_1171274795_523_1344}><span className={styles.Subtitle_522_6570}>Catalog
+                  Enrichment</span></div>
+              <div className={styles.Frame_1171274791_522_6571}>
+                <div className={styles.Margin_522_6566}>
+                  <div className={styles.Campaign_522_6567}></div>
+                </div><span className={styles.Subtitle_522_6568}>AI generates high-quality SEO metadata instantly.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.Depth_2Frame_1_522_6546}><span className={styles.Subtitle_522_6547}>Choose an experience to get started</span></div>
+    </div>
+  );
+}
+```
+
