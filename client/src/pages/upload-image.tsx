@@ -241,9 +241,6 @@ export default function UploadImage() {
                 Scan this code<br />to upload your image
               </h2>
               
-              <p className="text-lg text-gray-600" style={{ fontWeight: '400' }}>
-                Scan the QR code to visit our<br />upload service
-              </p>
               
               {/* Hidden file input for QR code upload */}
               <input
