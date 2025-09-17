@@ -1,5 +1,6 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import TopNavigation from "@/components/TopNavigation";
 
 export default function NewLanding() {
   const [, navigate] = useLocation();
@@ -34,16 +35,8 @@ export default function NewLanding() {
       </div>
 
 
-      {/* How it works - Top Right */}
-      <div className="absolute top-8 right-8 z-10">
-        <Button 
-          variant="outline" 
-          className="text-lg px-6 py-3 rounded-full border-gray-800 text-gray-800 hover:bg-gray-50"
-          onClick={() => console.log('How it works clicked')}
-        >
-          How it works
-        </Button>
-      </div>
+      {/* Top Navigation */}
+      <TopNavigation isLandingPage={true} />
 
       {/* Main Content - Centered */}
       <div className="relative z-10 flex items-center justify-center min-h-screen">
