@@ -204,82 +204,13 @@ export default function UploadImage() {
 
           {activeTab === 'qr' ? (
             <div className="mb-12">
-              {/* QR Code Area - Clickable to upload */}
+              {/* Image Upload Area - Clickable to upload */}
               <div 
-                className="w-80 h-80 mx-auto bg-[#4285F4] rounded-3xl flex items-center justify-center mb-8 cursor-pointer hover:bg-[#3367D6] transition-colors"
+                className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200"
+                style={{ height: '640px' }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
-                {/* QR Code Pattern */}
-                <svg width="200" height="200" viewBox="0 0 200 200" className="text-white">
-                  <rect x="0" y="0" width="30" height="30" fill="currentColor"/>
-                  <rect x="10" y="10" width="10" height="10" fill="transparent"/>
-                  <rect x="170" y="0" width="30" height="30" fill="currentColor"/>
-                  <rect x="180" y="10" width="10" height="10" fill="transparent"/>
-                  <rect x="0" y="170" width="30" height="30" fill="currentColor"/>
-                  <rect x="10" y="180" width="10" height="10" fill="transparent"/>
-                  
-                  {/* QR Pattern squares */}
-                  <rect x="40" y="0" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="0" width="10" height="10" fill="currentColor"/>
-                  <rect x="80" y="0" width="10" height="10" fill="currentColor"/>
-                  <rect x="120" y="0" width="10" height="10" fill="currentColor"/>
-                  <rect x="140" y="0" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="0" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="20" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="40" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="120" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="160" y="40" width="10" height="10" fill="currentColor"/>
-                  <rect x="180" y="40" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="20" y="60" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="60" width="10" height="10" fill="currentColor"/>
-                  <rect x="80" y="60" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="60" width="10" height="10" fill="currentColor"/>
-                  <rect x="140" y="60" width="10" height="10" fill="currentColor"/>
-                  <rect x="180" y="60" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="40" y="80" width="10" height="10" fill="currentColor"/>
-                  <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
-                  <rect x="120" y="80" width="10" height="10" fill="currentColor"/>
-                  <rect x="160" y="80" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="0" y="100" width="10" height="10" fill="currentColor"/>
-                  <rect x="40" y="100" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="100" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="100" width="10" height="10" fill="currentColor"/>
-                  <rect x="140" y="100" width="10" height="10" fill="currentColor"/>
-                  <rect x="180" y="100" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="20" y="120" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="120" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="120" width="10" height="10" fill="currentColor"/>
-                  <rect x="120" y="120" width="10" height="10" fill="currentColor"/>
-                  <rect x="160" y="120" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="0" y="140" width="10" height="10" fill="currentColor"/>
-                  <rect x="40" y="140" width="10" height="10" fill="currentColor"/>
-                  <rect x="80" y="140" width="10" height="10" fill="currentColor"/>
-                  <rect x="120" y="140" width="10" height="10" fill="currentColor"/>
-                  <rect x="160" y="140" width="10" height="10" fill="currentColor"/>
-                  <rect x="190" y="140" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="40" y="160" width="10" height="10" fill="currentColor"/>
-                  <rect x="60" y="160" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="160" width="10" height="10" fill="currentColor"/>
-                  <rect x="140" y="160" width="10" height="10" fill="currentColor"/>
-                  <rect x="180" y="160" width="10" height="10" fill="currentColor"/>
-                  
-                  <rect x="40" y="180" width="10" height="10" fill="currentColor"/>
-                  <rect x="80" y="180" width="10" height="10" fill="currentColor"/>
-                  <rect x="100" y="180" width="10" height="10" fill="currentColor"/>
-                  <rect x="140" y="180" width="10" height="10" fill="currentColor"/>
-                  <rect x="180" y="180" width="10" height="10" fill="currentColor"/>
-                  <rect x="190" y="180" width="10" height="10" fill="currentColor"/>
-                </svg>
               </div>
               
               <h2 className="text-3xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
