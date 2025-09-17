@@ -104,7 +104,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
 
       {/* Main Content */}
       <div className="flex items-start justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-7xl">
           <div className="text-center mb-12">
             <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
               Configure
@@ -115,24 +115,22 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Left Column - Image */}
-            <div>
-              <h3 className="text-2xl text-gray-800 mb-6" style={{ fontWeight: '475' }}>
-                Image uploaded
-              </h3>
-              
-              {uploadedImage && (
-                <div className="w-full h-80 bg-gray-100 rounded-3xl overflow-hidden flex items-center justify-center">
-                  <img 
-                    src={uploadedImage} 
-                    alt="Uploaded product" 
-                    className="max-w-full max-h-full object-contain"
-                    data-testid="img-uploaded-preview"
-                  />
-                </div>
-              )}
-            </div>
+          {/* White card container */}
+          <div className="bg-white rounded-3xl p-12 shadow-sm border border-gray-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              {/* Left Column - Image */}
+              <div>
+                {uploadedImage && (
+                  <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={uploadedImage} 
+                      alt="Uploaded product" 
+                      className="max-w-full max-h-full object-contain"
+                      data-testid="img-uploaded-preview"
+                    />
+                  </div>
+                )}
+              </div>
 
             {/* Right Column - Configuration */}
             <div className="space-y-8">
@@ -195,22 +193,9 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
 
               {/* Description */}
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <Label htmlFor="product-description" className="text-lg text-gray-700">
-                    Description of your product
-                  </Label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={handleRandomizeAll}
-                    className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2"
-                    data-testid="button-randomize-all"
-                  >
-                    <Shuffle className="w-4 h-4" />
-                    Randomize all
-                  </Button>
-                </div>
+                <Label htmlFor="product-description" className="text-lg text-gray-700 mb-2 block">
+                  Description of your product
+                </Label>
                 <Textarea
                   id="product-description"
                   value={productDescription}
@@ -222,16 +207,28 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 />
               </div>
 
-              {/* Create Preview Button */}
-              <div className="pt-4">
+              {/* Buttons Row */}
+              <div className="pt-4 flex gap-4 justify-center">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleRandomizeAll}
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3"
+                  data-testid="button-randomize-all"
+                >
+                  <Shuffle className="w-4 h-4" />
+                  Randomize all
+                </Button>
+                
                 <Button
                   onClick={handleCreateCampaign}
                   disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
-                  className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold py-4 text-xl rounded-full transition-all duration-200"
+                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-xl rounded-full transition-all duration-200"
                   data-testid="button-create-preview"
                 >
                   Create preview
                 </Button>
+              </div>
               </div>
             </div>
           </div>
