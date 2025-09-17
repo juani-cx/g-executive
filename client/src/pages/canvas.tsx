@@ -409,29 +409,29 @@ export default function CanvasView() {
 
       {/* Static Centered Grid Layout */}
       <div className="min-h-screen flex flex-col">
-        {/* Title Section */}
-        <div className="text-center pt-24 pb-12">
-          <h1 className="text-4xl font-normal text-gray-800 mb-4" style={{ fontWeight: '475' }}>
-            AI-Generated Marketing Assets
+        {/* Title Section - Matching Preview Page Style */}
+        <div className="text-center pt-24 pb-16">
+          <h1 className="text-5xl font-normal text-gray-900 mb-4" style={{ fontWeight: '500' }}>
+            Canvas
           </h1>
-          <p className="text-xl text-gray-600" style={{ fontWeight: '400' }}>
-            Review and customize your campaign content
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed" style={{ fontWeight: '400' }}>
+            Review and customize your AI-generated marketing assets. Click on any asset to see the full preview and edit content.
           </p>
         </div>
 
-        {/* Main Content Area - Larger Cards for Better Visibility */}
+        {/* Main Content Area - Single Line Layout */}
         <div className="flex-1 flex items-center justify-center px-8 pb-20">
           <div className="w-full max-w-none">
-            <div className="grid grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
               {project.assets.map((card) => (
                 <div
                   key={card.id}
-                  className="bg-white rounded-3xl shadow-lg p-10 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[500px]"
+                  className="bg-white rounded-3xl shadow-lg p-8 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[450px]"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
-                  {/* Preview Image - Much Larger */}
-                  <div className="w-full h-72 mb-8 bg-gray-100 rounded-2xl overflow-hidden">
+                  {/* Preview Image */}
+                  <div className="w-full h-56 mb-6 bg-gray-100 rounded-2xl overflow-hidden">
                     <img 
                       src={card.previewImage} 
                       alt={card.title}
@@ -439,15 +439,15 @@ export default function CanvasView() {
                     />
                   </div>
                   
-                  {/* Card Content - Larger Text */}
-                  <div className="space-y-6">
-                    <div className="text-lg text-gray-500 capitalize font-medium">{card.type}</div>
-                    <h3 className="text-3xl font-bold text-gray-900 leading-tight">{card.title}</h3>
-                    <p className="text-lg text-gray-600 leading-relaxed">{card.summary}</p>
+                  {/* Card Content */}
+                  <div className="space-y-4">
+                    <div className="text-base text-gray-500 capitalize font-medium">{card.type}</div>
+                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{card.title}</h3>
+                    <p className="text-base text-gray-600 leading-relaxed line-clamp-3">{card.summary}</p>
                     <Button 
                       variant="outline" 
                       size="lg"
-                      className="w-full h-14 text-xl font-semibold"
+                      className="w-full h-12 text-lg font-semibold"
                       data-testid={`button-learn-more-${card.id}`}
                     >
                       Learn More
