@@ -447,32 +447,30 @@ export default function CanvasView() {
               {project.assets.map((card) => (
                 <div
                   key={card.id}
-                  className="bg-white rounded-3xl shadow-lg p-8 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[450px]"
+                  className="cursor-pointer group"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
-                  {/* Preview Image */}
-                  <div className="w-full h-56 mb-6 bg-gray-100 rounded-2xl overflow-hidden">
-                    <img 
-                      src={card.previewImage} 
-                      alt={card.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  
-                  {/* Card Content */}
-                  <div className="space-y-4">
-                    <div className="text-base text-gray-500 capitalize font-medium">{card.type}</div>
-                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{card.title}</h3>
-                    <p className="text-base text-gray-600 leading-relaxed line-clamp-3">{card.summary}</p>
-                    <Button 
-                      variant="outline" 
-                      size="lg"
-                      className="w-full h-12 text-lg font-semibold"
-                      data-testid={`button-learn-more-${card.id}`}
-                    >
-                      Learn More
-                    </Button>
+                  <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
+                    <div className="text-left">
+                      <div className="text-sm text-gray-500 capitalize font-medium mb-2">{card.type}</div>
+                      <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '44px' }}>
+                        {card.title}
+                      </h2>
+                      
+                      {/* Preview Image - Same height as landing page */}
+                      <div className="w-full h-[250px] flex items-center justify-center mb-6 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
+                        <img 
+                          src={card.previewImage} 
+                          alt={card.title}
+                          className="w-full h-full object-cover rounded-3xl"
+                        />
+                      </div>
+                      
+                      <p className="text-lg leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        {card.summary}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
