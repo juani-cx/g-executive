@@ -179,6 +179,16 @@ export default function Landing() {
 
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
+      {/* Persistent Header with Logo - Always Visible */}
+      <div className="absolute top-6 left-6 z-50">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-lg">AI</span>
+          </div>
+          <span className="text-xl font-semibold text-gray-800">Campaign AI Platform</span>
+        </div>
+      </div>
+
       {/* Demo Navigation Links - Centered */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="flex gap-8">
@@ -237,9 +247,9 @@ export default function Landing() {
                 onClick={() => handleOptionSelect('marketing')}
                 data-testid="card-marketing-option"
               >
-                <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
+                <div className="p-8" style={{ fontWeight: 'bold', background: 'rgb(255, 255, 255)', boxShadow: '0 16px 24px #ccc', borderRadius: '16px', width: '590px' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '44px' }}>
+                    <h2 className="mb-4" style={{ fontSize: '40px', lineHeight: '44px', fontWeight: '475', color: '#1f2937' }}>
                       Marketing Campaign
                     </h2>
                     
@@ -258,7 +268,7 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <p className="text-lg leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <p style={{ color: 'hsl(0deg 0% 25.12%)', fontSize: '24px', lineHeight: '1.4', fontWeight: '400' }}>
                       AI transforms your inspiration into complete multi-channel campaigns.
                     </p>
                   </div>
@@ -271,9 +281,9 @@ export default function Landing() {
                 onClick={() => handleOptionSelect('catalog')}
                 data-testid="card-catalog-option"
               >
-                <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
+                <div className="p-8" style={{ fontWeight: 'bold', background: 'rgb(255, 255, 255)', boxShadow: '0 16px 24px #ccc', borderRadius: '16px', width: '590px' }}>
                   <div className="text-left">
-                    <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '44px' }}>
+                    <h2 className="mb-4" style={{ fontSize: '40px', lineHeight: '44px', fontWeight: '475', color: '#1f2937' }}>
                       Catalog<br />Enrichment
                     </h2>
                     
@@ -292,7 +302,7 @@ export default function Landing() {
                       )}
                     </div>
                     
-                    <p className="text-lg leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <p style={{ color: 'hsl(0deg 0% 25.12%)', fontSize: '24px', lineHeight: '1.4', fontWeight: '400' }}>
                       AI generates high-quality SEO metadata instantly.
                     </p>
                   </div>
