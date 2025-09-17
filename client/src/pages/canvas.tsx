@@ -480,10 +480,26 @@ export default function CanvasView() {
               {project.assets.map((card) => (
                 <Card 
                   key={card.id}
-                  className="cursor-pointer transition-all duration-200 hover:shadow-xl shadow-md hover:ring-1 hover:ring-gray-300 w-full"
+                  className="cursor-pointer transition-all duration-200 hover:shadow-xl shadow-md hover:ring-1 hover:ring-gray-300 w-full relative"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
+                  {/* Edit Button - Positioned close to card content */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedAsset(card);
+                        setShowAssetModal(true);
+                      }}
+                      className="px-3 py-1 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 text-xs rounded-full"
+                      data-testid={`button-edit-card-${card.id}`}
+                    >
+                      Edit
+                    </Button>
+                  </div>
                   <CardContent className="p-8">
                     {/* Image with Spinner for generating status */}
                     <div className="w-full h-48 bg-gray-100 rounded-2xl overflow-hidden mb-6 flex items-center justify-center relative">
@@ -527,7 +543,7 @@ export default function CanvasView() {
                     {/* Learn More Button */}
                     <Button 
                       variant="outline" 
-                      className="text-gray-700 border-gray-300 hover:bg-gray-50"
+                      className="text-gray-700 border-gray-300 hover:bg-gray-50 rounded-full"
                       data-testid={`button-learn-more-${card.id}`}
                     >
                       Learn More
@@ -546,19 +562,19 @@ export default function CanvasView() {
               <Button
                 size="lg"
                 onClick={() => setShowAddModal(true)}
-                className="w-16 h-16 p-0 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
+                className="w-16 h-16 p-0 rounded-full bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
                 data-testid="button-add-new"
               >
-                <Plus className="w-8 h-8 text-gray-600" />
+                <span className="text-2xl text-gray-600">+</span>
               </Button>
               
               <Button
                 size="lg"
                 onClick={handleShareClick}
-                className="w-16 h-16 p-0 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
+                className="w-16 h-16 p-0 rounded-full bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
                 data-testid="button-share"
               >
-                <Share className="w-8 h-8 text-gray-600" />
+                <span className="text-2xl text-gray-600">⚡</span>
               </Button>
             </div>
           </div>
@@ -579,7 +595,7 @@ export default function CanvasView() {
               variant="outline"
               size="lg"
               onClick={() => setShowFullPagePreview(false)}
-              className="bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50"
+              className="bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 rounded-full"
               data-testid="button-close-preview"
             >
 ← Back
@@ -622,18 +638,18 @@ export default function CanvasView() {
             <span className="text-2xl">→</span>
           </Button>
 
-          {/* Edit Button - Top Center */}
-          <div className="absolute top-24 left-1/2 transform -translate-x-1/2 translate-y-16 z-10">
+          {/* Edit Button - Much closer to content */}
+          <div className="absolute top-40 left-1/2 transform -translate-x-1/2 z-10">
             <Button 
               variant="outline" 
               onClick={() => {
                 setSelectedAsset(project.assets[currentPreviewIndex]);
                 setShowAssetModal(true);
               }}
-              className="px-6 py-2 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 text-sm"
+              className="px-6 py-2 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 text-sm rounded-full"
               data-testid="button-edit-slideshow"
             >
-              ✏️ Edit
+              Edit
             </Button>
           </div>
 
@@ -645,10 +661,10 @@ export default function CanvasView() {
                 setSelectedAsset(project.assets[currentPreviewIndex]);
                 setShowAssetModal(true);
               }}
-              className="px-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 font-semibold"
+              className="px-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50 font-semibold rounded-full"
               data-testid="button-export-assets"
             >
-              📤 Export Assets
+              Export Assets
             </Button>
           </div>
 
