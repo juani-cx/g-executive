@@ -170,11 +170,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               {/* Left Column - Image */}
               <div className="flex justify-center">
                 {uploadedImage && (
-                  <div className="w-96 h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
-                      className="max-w-full max-h-full object-contain"
+                      className="w-full h-full object-cover"
                       data-testid="img-uploaded-preview"
                     />
                   </div>
