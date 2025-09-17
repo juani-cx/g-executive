@@ -31,6 +31,17 @@ interface Project {
   assets: AssetCard[];
 }
 
+const CARD_TEMPLATES = [
+  { type: "video", label: "Vertical Video", description: "TikTok, Instagram Reels, YouTube Shorts" },
+  { type: "landing", label: "Landing Page Hero", description: "Website header section" },
+  { type: "linkedin", label: "LinkedIn Image", description: "Professional social post" },
+  { type: "banner", label: "Ad Banner", description: "Display advertising" },
+  { type: "instagram", label: "Instagram Post", description: "Square social media post" },
+  { type: "twitter", label: "Twitter/X Post", description: "Social media engagement" },
+  { type: "email", label: "Email Template", description: "Newsletter or marketing email" },
+  { type: "facebook", label: "Facebook Post", description: "Social media content" },
+];
+
 const DEFAULT_CARDS: AssetCard[] = [
   {
     id: "1",
@@ -173,21 +184,28 @@ function TimeoutModal({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className="max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
+      <DialogContent className="max-w-lg bg-white" onPointerDownOutside={(e) => e.preventDefault()}>
         <DialogHeader className="sr-only">
           <DialogTitle>Session Timeout</DialogTitle>
         </DialogHeader>
-        <div className="text-center py-8 bg-black bg-opacity-80">
-          <h2 className="text-2xl font-medium text-white mb-4">Are you still there?</h2>
-          <p className="text-lg text-gray-300 mb-6">
+        <div className="text-center py-8">
+          {/* Placeholder Image */}
+          <div className="w-32 h-32 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-gray-400 rounded-full"></div>
+            </div>
+          </div>
+          
+          <h2 className="text-2xl font-medium text-gray-800 mb-4">Are you still there?</h2>
+          <p className="text-lg text-gray-600 mb-6">
             Your experience will time out in{' '}
-            <span className="inline-block bg-white text-black px-3 py-1 rounded-full font-mono">
+            <span className="inline-block bg-gray-800 text-white px-3 py-1 rounded-full font-mono">
               0:{timeLeft.toString().padStart(2, '0')}
             </span>
           </p>
           <Button
             onClick={onExtend}
-            className="bg-white text-black border border-gray-300 hover:bg-gray-50 px-8 py-3 rounded-full text-lg"
+            className="bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 px-8 py-3 rounded-full text-lg"
             data-testid="button-extend-session"
           >
             I'm still here!
@@ -213,6 +231,7 @@ export default function CanvasView() {
   const [editContent, setEditContent] = useState("");
   const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -318,6 +337,37 @@ export default function CanvasView() {
     setShowVirtualKeyboard(false);
   };
 
+  const generateId = () => Math.random().toString(36).substr(2, 9);
+
+  const handleAddNewCard = (cardType: string) => {
+    const template = CARD_TEMPLATES.find(t => t.type === cardType);
+    if (!template || !project) return;
+
+    const newCard: AssetCard = {
+      id: generateId(),
+      type: cardType as any,
+      title: template.label,
+      summary: template.description,
+      status: "ready",
+      version: 1,
+      counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+      collaborators: [],
+      lastEditedAt: new Date().toISOString(),
+      content: {
+        preview: `Generated ${template.label} content`,
+        text: `AI-generated ${template.label} content for your marketing campaign.`,
+      },
+      previewImage: `data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3E${encodeURIComponent(template.label)}%3C/text%3E%3C/svg%3E`
+    };
+
+    setProject({
+      ...project,
+      assets: [...project.assets, newCard]
+    });
+
+    setShowAddModal(false);
+  };
+
   const handleShareClick = () => {
     const currentUrl = window.location.href;
     setShowQRModal(true);
@@ -359,19 +409,29 @@ export default function CanvasView() {
 
       {/* Static Centered Grid Layout */}
       <div className="min-h-screen flex flex-col">
-        {/* Main Content Area - Optimized for 4K Display */}
-        <div className="flex-1 flex items-center justify-center px-16 py-20">
+        {/* Title Section */}
+        <div className="text-center pt-24 pb-12">
+          <h1 className="text-4xl font-normal text-gray-800 mb-4" style={{ fontWeight: '475' }}>
+            AI-Generated Marketing Assets
+          </h1>
+          <p className="text-xl text-gray-600" style={{ fontWeight: '400' }}>
+            Review and customize your campaign content
+          </p>
+        </div>
+
+        {/* Main Content Area - Larger Cards for Better Visibility */}
+        <div className="flex-1 flex items-center justify-center px-8 pb-20">
           <div className="w-full max-w-none">
-            <div className="grid grid-cols-4 gap-16 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 gap-12 max-w-5xl mx-auto">
               {project.assets.map((card) => (
                 <div
                   key={card.id}
-                  className="bg-white rounded-3xl shadow-lg p-8 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[400px]"
+                  className="bg-white rounded-3xl shadow-lg p-10 cursor-pointer active:scale-95 transition-all duration-200 border border-gray-200 min-h-[500px]"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
-                  {/* Preview Image - Larger for 4K */}
-                  <div className="w-full h-56 mb-6 bg-gray-100 rounded-2xl overflow-hidden">
+                  {/* Preview Image - Much Larger */}
+                  <div className="w-full h-72 mb-8 bg-gray-100 rounded-2xl overflow-hidden">
                     <img 
                       src={card.previewImage} 
                       alt={card.title}
@@ -379,15 +439,15 @@ export default function CanvasView() {
                     />
                   </div>
                   
-                  {/* Card Content - Optimized for touch */}
-                  <div className="space-y-4">
-                    <div className="text-base text-gray-500 capitalize font-medium">{card.type}</div>
-                    <h3 className="text-2xl font-bold text-gray-900 leading-tight">{card.title}</h3>
-                    <p className="text-base text-gray-600 line-clamp-3">{card.summary}</p>
+                  {/* Card Content - Larger Text */}
+                  <div className="space-y-6">
+                    <div className="text-lg text-gray-500 capitalize font-medium">{card.type}</div>
+                    <h3 className="text-3xl font-bold text-gray-900 leading-tight">{card.title}</h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">{card.summary}</p>
                     <Button 
                       variant="outline" 
                       size="lg"
-                      className="w-full h-12 text-lg font-semibold"
+                      className="w-full h-14 text-xl font-semibold"
                       data-testid={`button-learn-more-${card.id}`}
                     >
                       Learn More
@@ -405,6 +465,7 @@ export default function CanvasView() {
             <div className="flex items-center space-x-4">
               <Button
                 size="lg"
+                onClick={() => setShowAddModal(true)}
                 className="w-16 h-16 p-0 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
                 data-testid="button-add-new"
               >
@@ -529,6 +590,39 @@ export default function CanvasView() {
             <p className="text-sm text-gray-500">
               Anyone with this link can view the canvas
             </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add New Asset Modal */}
+      <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-semibold">Add New Asset</DialogTitle>
+          </DialogHeader>
+          <div className="mt-6">
+            <p className="text-gray-600 mb-8">Choose the type of marketing asset you'd like to create:</p>
+            <div className="grid grid-cols-2 gap-6">
+              {CARD_TEMPLATES.map((template) => (
+                <div
+                  key={template.type}
+                  className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:shadow-lg hover:border-[#4285F4] transition-all duration-200"
+                  onClick={() => handleAddNewCard(template.type)}
+                  data-testid={`template-${template.type}`}
+                >
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-semibold text-gray-900">{template.label}</h3>
+                    <p className="text-gray-600">{template.description}</p>
+                    <Button
+                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white"
+                      size="lg"
+                    >
+                      Create {template.label}
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
