@@ -445,7 +445,7 @@ export default function CanvasView() {
           <div className="w-full max-w-none">
             <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
               {project.assets.map((card) => (
-                <div
+                <div 
                   key={card.id}
                   className="cursor-pointer group"
                   onClick={() => handleAssetClick(card)}
@@ -453,12 +453,10 @@ export default function CanvasView() {
                 >
                   <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
                     <div className="text-left">
-                      <div className="text-sm text-gray-500 capitalize font-medium mb-2">{card.type}</div>
                       <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '44px' }}>
                         {card.title}
                       </h2>
                       
-                      {/* Preview Image - Same height as landing page */}
                       <div className="w-full h-[250px] flex items-center justify-center mb-6 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
                         <img 
                           src={card.previewImage} 
