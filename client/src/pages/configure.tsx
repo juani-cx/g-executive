@@ -7,6 +7,55 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Shuffle } from "lucide-react";
 
+// Virtual Keyboard Component
+function VirtualKeyboard() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Slide in keyboard after component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const keyboardKeys = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '@'],
+    ['↑', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', '⌫'],
+    ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
+  ];
+
+  return (
+    <div className={`fixed bottom-0 left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+    }`}>
+      <div className="bg-gray-100 rounded-t-2xl p-4 shadow-2xl" style={{ width: '800px' }}>
+        <div className="space-y-2">
+          {keyboardKeys.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex justify-center gap-2">
+              {row.map((key, keyIndex) => (
+                <div
+                  key={keyIndex}
+                  className={`
+                    bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-700 font-medium cursor-pointer hover:bg-gray-50 transition-colors
+                    ${key === '⎵' ? 'px-16 py-3' : key === '123?' || key === '🔍' ? 'px-4 py-3' : 'w-12 h-12'}
+                    ${key === '↑' || key === '⌫' ? 'text-lg' : 'text-base'}
+                  `}
+                  data-testid={`key-${key}`}
+                >
+                  {key}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Configure() {
   const [, navigate] = useLocation();
   const [uploadedImage, setUploadedImage] = useState<string>("");
@@ -103,9 +152,9 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       </div>
 
       {/* Main Content */}
-      <div className="flex items-start justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
-        <div className="w-full max-w-7xl">
-          <div className="text-center mb-12">
+      <div className="flex items-center justify-center h-screen max-h-screen p-8 pt-20">
+        <div className="w-full max-w-6xl">
+          <div className="text-center mb-8">
             <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
               Configure
             </h1>
@@ -116,12 +165,12 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
           </div>
 
           {/* White card container */}
-          <div className="bg-white rounded-3xl p-12 shadow-sm border border-gray-100">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-4xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
-              <div>
+              <div className="flex justify-center">
                 {uploadedImage && (
-                  <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-80 h-64 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
@@ -133,16 +182,16 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               {/* Form Fields Row */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <Label htmlFor="target-audience" className="text-lg text-gray-700 mb-2 block">
+                  <Label htmlFor="target-audience" className="text-sm text-gray-600 mb-1 block">
                     Target audience
                   </Label>
                   <Select value={targetAudience} onValueChange={setTargetAudience}>
-                    <SelectTrigger className="text-base h-12" data-testid="select-target-audience">
-                      <SelectValue placeholder="Select target audience" />
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-target-audience">
+                      <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
                       {targetAudienceOptions.map((option) => (
@@ -155,12 +204,12 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="campaign-type" className="text-lg text-gray-700 mb-2 block">
+                  <Label htmlFor="campaign-type" className="text-sm text-gray-600 mb-1 block">
                     Campaign Type
                   </Label>
                   <Select value={campaignType} onValueChange={setCampaignType}>
-                    <SelectTrigger className="text-base h-12" data-testid="select-campaign-type">
-                      <SelectValue placeholder="Select campaign type" />
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-campaign-type">
+                      <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
                       {campaignTypeOptions.map((option) => (
@@ -173,12 +222,12 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="tone-of-voice" className="text-lg text-gray-700 mb-2 block">
+                  <Label htmlFor="tone-of-voice" className="text-sm text-gray-600 mb-1 block">
                     Tone of voice
                   </Label>
                   <Select value={toneOfVoice} onValueChange={setToneOfVoice}>
-                    <SelectTrigger className="text-base h-12" data-testid="select-tone-of-voice">
-                      <SelectValue placeholder="Select tone" />
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-tone-of-voice">
+                      <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
                       {toneOfVoiceOptions.map((option) => (
@@ -193,7 +242,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
 
               {/* Description */}
               <div>
-                <Label htmlFor="product-description" className="text-lg text-gray-700 mb-2 block">
+                <Label htmlFor="product-description" className="text-sm text-gray-600 mb-2 block">
                   Description of your product
                 </Label>
                 <Textarea
@@ -201,39 +250,41 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   value={productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
                   placeholder="AI is analyzing your image..."
-                  className="text-base min-h-32 resize-none"
-                  rows={6}
+                  className="text-sm min-h-24 resize-none bg-gray-50"
+                  rows={4}
                   data-testid="textarea-product-description"
                 />
               </div>
-
-              {/* Buttons Row */}
-              <div className="pt-4 flex gap-4 justify-center">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleRandomizeAll}
-                  className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3"
-                  data-testid="button-randomize-all"
-                >
-                  <Shuffle className="w-4 h-4" />
-                  Randomize all
-                </Button>
-                
-                <Button
-                  onClick={handleCreateCampaign}
-                  disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
-                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-xl rounded-full transition-all duration-200"
-                  data-testid="button-create-preview"
-                >
-                  Create preview
-                </Button>
-              </div>
-              </div>
+            </div>
+            </div>
+            
+            {/* Buttons Row - Outside the grid, centered */}
+            <div className="mt-8 flex gap-4 justify-center">
+              <Button
+                onClick={handleCreateCampaign}
+                disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
+                data-testid="button-create-preview"
+              >
+                Create preview
+              </Button>
+              
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleRandomizeAll}
+                className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 rounded-full"
+                data-testid="button-randomize-all"
+              >
+                Randomize all
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Virtual Keyboard */}
+      <VirtualKeyboard />
     </div>
   );
 }
