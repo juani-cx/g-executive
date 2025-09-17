@@ -1,75 +1,8 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import DownloadModal from "@/components/canvas/DownloadModal";
-import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
-import { useCollaboration } from "@/hooks/useCollaboration";
-import RichAssetCard from "@/components/canvas/RichAssetCard";
-import { mockCanvasCards } from "@/lib/mockData";
 import { CanvasCard } from "@/types/canvas";
-import { 
-  Plus, 
-  Download,
-  Edit3,
-  MoreVertical,
-  ZoomIn,
-  ZoomOut,
-  Maximize,
-  Hand,
-  StickyNote,
-  Grid3X3,
-  Share,
-  Loader2,
-  FileText,
-  Instagram,
-  Linkedin,
-  Presentation,
-  Globe,
-  Twitter,
-  Facebook,
-  Mail,
-  FileImage,
-  Youtube,
-  Newspaper,
-  Sparkles,
-  Type,
-  MessageCircle,
-  Square,
-  Circle,
-  Triangle,
-  X,
-  Check,
-  BringToFront,
-  SendToBack,
-  Trash2,
-  Home,
-  Users,
-  Settings,
-  HelpCircle,
-  Archive
-} from "lucide-react";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Plus, Share, X, Home, Edit } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -77,47 +10,17 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import QRCode from "react-qr-code";
-import { MainMenu } from "@/components/main-menu";
-import MaterialHeader from "@/components/material-header";
 import { useLocation, useRoute } from "wouter";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { useQuery } from "@tanstack/react-query";
 
 interface AssetCard extends CanvasCard {
-  position: { x: number; y: number };
-  size: { width: number; height: number };
   content?: {
     preview?: string;
     text?: string;
     image?: string;
     [key: string]: any;
   };
-  createdAt?: Date;
-}
-
-interface CanvasElement {
-  id: string;
-  type: "text" | "shape" | "image" | "comment";
-  content: {
-    text?: string;
-    fontSize?: number;
-    fontFamily?: string;
-    color?: string;
-    backgroundColor?: string;
-    shapeType?: 'rectangle' | 'circle' | 'triangle';
-    fillColor?: string;
-    strokeColor?: string;
-    strokeWidth?: number;
-    imageUrl?: string;
-    imagePrompt?: string;
-    commentText?: string;
-    author?: string;
-    resolved?: boolean;
-  };
-  position: { x: number; y: number };
-  size: { width: number; height: number };
-  rotation?: number;
-  zIndex?: number;
+  previewImage?: string;
 }
 
 interface Project {
@@ -128,25 +31,13 @@ interface Project {
   assets: AssetCard[];
 }
 
-const CARD_TEMPLATES = [
-  { type: "instagram" as const, label: "Instagram", icon: Instagram, color: "bg-pink-500" },
-  { type: "twitter" as const, label: "X/Twitter", icon: Twitter, color: "bg-black" },
-  { type: "facebook" as const, label: "Facebook", icon: Facebook, color: "bg-blue-600" },
-  { type: "email" as const, label: "Email", icon: Mail, color: "bg-green-600" },
-  { type: "ads" as const, label: "Ads", icon: FileImage, color: "bg-orange-600" },
-  { type: "blog" as const, label: "Blog", icon: FileText, color: "bg-purple-600" },
-  { type: "youtube" as const, label: "YouTube", icon: Youtube, color: "bg-red-600" },
-  { type: "press" as const, label: "Press Release", icon: Newspaper, color: "bg-gray-600" },
-];
-
-const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
+const DEFAULT_CARDS: AssetCard[] = [
   {
+    id: "1",
     type: "video",
     title: "Vertical Video",
     summary: "Engaging vertical video content with meta description for social media platforms",
-    status: "generating",
-    position: { x: 100, y: 100 },
-    size: { width: 320, height: 240 },
+    status: "ready",
     version: 1,
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
@@ -155,14 +46,14 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
       preview: "9:16 vertical video preview with compelling visuals",
       text: "Meta description: Captivating vertical video designed for maximum engagement on mobile platforms. Optimized for TikTok, Instagram Reels, and YouTube Shorts with compelling storytelling and clear call-to-action.",
     },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3EVertical Video%3C/text%3E%3C/svg%3E"
   },
   {
+    id: "2",
     type: "landing",
     title: "Landing Page Hero",
     summary: "High-converting landing page hero section with meta description",
-    status: "generating", 
-    position: { x: 500, y: 100 },
-    size: { width: 320, height: 240 },
+    status: "ready", 
     version: 1,
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
@@ -171,30 +62,14 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
       preview: "Hero section with compelling headline and CTA",
       text: "Meta description: Conversion-optimized hero section featuring bold headline, value proposition, and strategic call-to-action button. Designed to capture attention and drive user engagement from first page visit.",
     },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3ELanding Page%3C/text%3E%3C/svg%3E"
   },
   {
-    type: "banner",
-    title: "Ad Banner",
-    summary: "Eye-catching advertising banner with meta description",
-    status: "generating",
-    position: { x: 100, y: 400 },
-    size: { width: 320, height: 240 },
-    version: 1,
-    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
-    collaborators: [],
-    lastEditedAt: new Date().toISOString(),
-    content: {
-      preview: "Professional banner ad with brand elements",
-      text: "Meta description: Strategic advertising banner optimized for display campaigns across web and social platforms. Features brand-consistent design, clear messaging, and compelling visuals to drive click-through rates.",
-    },
-  },
-  {
+    id: "3",
     type: "linkedin",
     title: "LinkedIn Image",
     summary: "Professional LinkedIn post image with meta description",
-    status: "generating",
-    position: { x: 500, y: 400 },
-    size: { width: 320, height: 240 },
+    status: "ready",
     version: 1,
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
@@ -203,70 +78,76 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
       preview: "Professional LinkedIn post visual",
       text: "Meta description: Business-focused LinkedIn image designed for professional networking and thought leadership. Optimized for LinkedIn's algorithm with industry-appropriate design and engagement-driving elements.",
     },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3ELinkedIn Image%3C/text%3E%3C/svg%3E"
+  },
+  {
+    id: "4",
+    type: "banner",
+    title: "Ad Banner",
+    summary: "Eye-catching advertising banner with meta description",
+    status: "ready",
+    version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "Professional banner ad with brand elements",
+      text: "Meta description: Strategic advertising banner optimized for display campaigns across web and social platforms. Features brand-consistent design, clear messaging, and compelling visuals to drive click-through rates.",
+    },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3EAd Banner%3C/text%3E%3C/svg%3E"
   },
 ];
+
+// Timeout Modal Component
+function TimeoutModal({ 
+  isOpen, 
+  timeLeft, 
+  onExtend, 
+  onClose 
+}: { 
+  isOpen: boolean; 
+  timeLeft: number; 
+  onExtend: () => void; 
+  onClose: () => void; 
+}) {
+  return (
+    <Dialog open={isOpen} onOpenChange={() => {}}>
+      <DialogContent className="max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
+        <div className="text-center py-8 bg-black bg-opacity-80">
+          <h2 className="text-2xl font-medium text-white mb-4">Are you still there?</h2>
+          <p className="text-lg text-gray-300 mb-6">
+            Your experience will time out in{' '}
+            <span className="inline-block bg-white text-black px-3 py-1 rounded-full font-mono">
+              0:{timeLeft.toString().padStart(2, '0')}
+            </span>
+          </p>
+          <Button
+            onClick={onExtend}
+            className="bg-white text-black border border-gray-300 hover:bg-gray-50 px-8 py-3 rounded-full text-lg"
+            data-testid="button-extend-session"
+          >
+            I'm still here!
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export default function CanvasView() {
   const [, setLocation] = useLocation();
   const [match, params] = useRoute("/canvas/:id");
   const campaignId = params?.id;
+  
+  // State management
   const [project, setProject] = useState<Project | null>(null);
-  const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [tool, setTool] = useState<"hand" | "select" | "text" | "shape" | "image" | "comment">("select");
-  const [canvasElements, setCanvasElements] = useState<CanvasElement[]>([]);
-  const [editingText, setEditingText] = useState<string | null>(null);
-  const [showShapeDropdown, setShowShapeDropdown] = useState(false);
-  const [showImageDialog, setShowImageDialog] = useState(false);
-  const [activeComment, setActiveComment] = useState<string | null>(null);
-  const [contextMenuElement, setContextMenuElement] = useState<string | null>(null);
-  const [imagePrompt, setImagePrompt] = useState("");
-  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
-  const [currentView, setCurrentView] = useState<'canvas' | 'slideshow' | 'kanban'>('canvas');
-  const [showGrid, setShowGrid] = useState(false);
-  const [showMinimap, setShowMinimap] = useState(false);
-  const [aiPrompt, setAiPrompt] = useState("");
-  const [showMainMenu, setShowMainMenu] = useState(false);
-  const [isPanning, setIsPanning] = useState(false);
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [draggedCard, setDraggedCard] = useState<string | null>(null);
-  const [cardDragStart, setCardDragStart] = useState({ x: 0, y: 0 });
-  const [draggedElement, setDraggedElement] = useState<string | null>(null);
-  const [elementDragStart, setElementDragStart] = useState({ x: 0, y: 0 });
-  
-  // Download modal state
-  const [showDownloadModal, setShowDownloadModal] = useState(false);
-  const [cardLocks, setCardLocks] = useState<Record<string, string>>({});
-  
-  // Auto-save state
-  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
-  const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "error">("saved");
-  
-  // Asset modal state
   const [selectedAsset, setSelectedAsset] = useState<AssetCard | null>(null);
   const [showAssetModal, setShowAssetModal] = useState(false);
-  
-  // QR modal state
   const [showQRModal, setShowQRModal] = useState(false);
-  const [qrUrl, setQrUrl] = useState("");
-  
-  // Get URL parameters for collaboration (memoized to prevent re-renders)
-  const linkToken = useMemo(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('token');
-  }, []);
-  
-  // Initialize collaboration - memoize to prevent infinite loops
-  const displayName = useMemo(() => `User ${Math.floor(Math.random() * 1000)}`, []); // Stable name
-  const collabConfig = useMemo(() => ({
-    canvasId: campaignId ? parseInt(campaignId) : 0,
-    linkToken: linkToken || undefined,
-    displayName, // In production, get from auth
-    enabled: !!campaignId
-  }), [campaignId, linkToken, displayName]);
-  const collaboration = useCollaboration(collabConfig);
+  const [showTimeoutModal, setShowTimeoutModal] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(20);
+  const [editContent, setEditContent] = useState("");
+  const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -274,834 +155,116 @@ export default function CanvasView() {
     enabled: !!campaignId,
   });
 
-  // Auto-save mutation
-  const autoSaveMutation = useMutation({
-    mutationFn: async (canvasState: any) => {
-      if (!campaignId) throw new Error("No campaign ID");
-      return apiRequest(`/api/campaigns/${campaignId}/canvas`, {
-        method: 'POST',
-        body: JSON.stringify(canvasState),
-        headers: { 'Content-Type': 'application/json' }
-      });
-    },
-    onMutate: () => {
-      setSaveStatus("saving");
-    },
-    onSuccess: () => {
-      setSaveStatus("saved");
-      setLastSavedAt(new Date());
-    },
-    onError: (error: any) => {
-      console.error('Auto-save failed:', error);
-      setSaveStatus("error");
-    }
-  });
-
-  // Debounced auto-save function
-  const debouncedAutoSave = useRef<NodeJS.Timeout | null>(null);
-  const autoSave = (project: Project, elements: CanvasElement[]) => {
-    if (debouncedAutoSave.current) {
-      clearTimeout(debouncedAutoSave.current);
-    }
-    
-    debouncedAutoSave.current = setTimeout(() => {
-      if (project && campaignId) {
-        const canvasState = {
-          assets: project.assets,
-          elements: elements,
-          viewport: viewport
-        };
-        autoSaveMutation.mutate(canvasState);
-      }
-    }, 1000); // Save after 1 second of inactivity
-  };
-
-  // Cleanup auto-save debounce on unmount
+  // Initialize project with default cards or campaign data
   useEffect(() => {
-    return () => {
-      if (debouncedAutoSave.current) {
-        clearTimeout(debouncedAutoSave.current);
-      }
-    };
-  }, []);
-
-  // Handle collaboration events
-  useEffect(() => {
-    const handleCardLocked = (event: CustomEvent) => {
-      const { cardId, lockedBy } = event.detail;
-      setCardLocks(prev => ({ ...prev, [cardId]: lockedBy }));
-    };
-
-    const handleCardUnlocked = (event: CustomEvent) => {
-      const { cardId } = event.detail;
-      setCardLocks(prev => {
-        const newLocks = { ...prev };
-        delete newLocks[cardId];
-        return newLocks;
-      });
-    };
-
-    window.addEventListener('card-locked', handleCardLocked as EventListener);
-    window.addEventListener('card-unlocked', handleCardUnlocked as EventListener);
-
-    return () => {
-      window.removeEventListener('card-locked', handleCardLocked as EventListener);
-      window.removeEventListener('card-unlocked', handleCardUnlocked as EventListener);
-    };
-  }, []);
-
-  // Handle cursor tracking (removed updateCursor from deps to prevent infinite loop)
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (canvasRef.current && collaboration.isConnected) {
-        const rect = canvasRef.current.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        collaboration.updateCursor(x, y);
-      }
-    };
-
-    if (canvasRef.current) {
-      canvasRef.current.addEventListener('mousemove', handleMouseMove);
-      return () => {
-        canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
-      };
-    }
-  }, [collaboration.isConnected]); // Restored collaboration dependency now that it's stable
-
-  // Helper function to generate unique IDs
-  const generateId = () => Math.random().toString(36).substr(2, 9);
-
-  // Add text element to canvas
-  const addTextElement = (x: number, y: number) => {
-    const newElement: CanvasElement = {
-      id: generateId(),
-      type: "text",
-      content: {
-        text: "Double-click to edit",
-        fontSize: 16,
-        fontFamily: "Arial",
-        color: "#000000",
-        backgroundColor: "transparent"
-      },
-      position: { x, y },
-      size: { width: 200, height: 40 },
-      rotation: 0,
-      zIndex: canvasElements.length
-    };
-    setCanvasElements([...canvasElements, newElement]);
-    setTool("select");
-  };
-
-  // Add shape element to canvas
-  const addShapeElement = (shapeType: 'rectangle' | 'circle' | 'triangle', x: number, y: number) => {
-    const newElement: CanvasElement = {
-      id: generateId(),
-      type: "shape",
-      content: {
-        shapeType,
-        fillColor: "#3b82f6",
-        strokeColor: "#1e40af",
-        strokeWidth: 2
-      },
-      position: { x, y },
-      size: { width: 100, height: 100 },
-      rotation: 0,
-      zIndex: canvasElements.length
-    };
-    setCanvasElements([...canvasElements, newElement]);
-    setShowShapeDropdown(false);
-    setTool("select");
-  };
-
-  // Add comment element to canvas
-  const addCommentElement = (x: number, y: number) => {
-    const newElement: CanvasElement = {
-      id: generateId(),
-      type: "comment",
-      content: {
-        commentText: "",
-        author: "Current User",
-        resolved: false
-      },
-      position: { x, y },
-      size: { width: 200, height: 100 },
-      rotation: 0,
-      zIndex: canvasElements.length
-    };
-    setCanvasElements([...canvasElements, newElement]);
-    setActiveComment(newElement.id);
-    setTool("select");
-  };
-
-  // Generate AI image
-  const generateAIImage = async (prompt: string) => {
-    setIsGeneratingImage(true);
-    try {
-      const response = await fetch('/api/generate-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        const newElement: CanvasElement = {
-          id: generateId(),
-          type: "image",
-          content: {
-            imageUrl: data.url, // The API returns { url: "..." }
-            imagePrompt: prompt
-          },
-          position: { 
-            x: -viewport.x / viewport.zoom + 200, 
-            y: -viewport.y / viewport.zoom + 200 
-          },
-          size: { width: 300, height: 300 },
-          rotation: 0,
-          zIndex: canvasElements.length
-        };
-        setCanvasElements([...canvasElements, newElement]);
-      }
-    } catch (error) {
-      console.error('Error generating image:', error);
-    } finally {
-      setIsGeneratingImage(false);
-      setShowImageDialog(false);
-      setImagePrompt("");
-      setTool("select");
-    }
-  };
-
-  // Handle canvas click for adding elements
-  const handleCanvasClick = (e: React.MouseEvent) => {
-    if (tool === "select" || isDragging) return;
-    
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const x = (e.clientX - rect.left - viewport.x) / viewport.zoom;
-    const y = (e.clientY - rect.top - viewport.y) / viewport.zoom;
-    
-    switch (tool) {
-      case "text":
-        addTextElement(x, y);
-        break;
-      case "comment":
-        addCommentElement(x, y);
-        break;
-      case "image":
-        setShowImageDialog(true);
-        break;
-    }
-  };
-
-  // Update element content
-  const updateElement = (id: string, updates: Partial<CanvasElement>) => {
-    setCanvasElements(elements => {
-      const updated = elements.map(el => el.id === id ? { ...el, ...updates } : el);
-      if (project) {
-        autoSave(project, updated);
-      }
-      return updated;
-    });
-  };
-
-  // Delete element
-  const deleteElement = (id: string) => {
-    setCanvasElements(elements => {
-      const updated = elements.filter(el => el.id !== id);
-      if (project) {
-        autoSave(project, updated);
-      }
-      return updated;
-    });
-  };
-
-  // Bring element to front
-  const bringToFront = (id: string) => {
-    const maxZ = Math.max(...canvasElements.map(el => el.zIndex || 0), 0);
-    updateElement(id, { zIndex: maxZ + 1 });
-  };
-
-  // Send element to back
-  const sendToBack = (id: string) => {
-    const minZ = Math.min(...canvasElements.map(el => el.zIndex || 0), 0);
-    updateElement(id, { zIndex: minZ - 1 });
-  };
-
-  // Handle right-click context menu
-  const handleElementContextMenu = (e: React.MouseEvent, elementId: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setContextMenuElement(elementId);
-  };
-
-  // Delete card
-  const deleteCard = (cardId: string) => {
-    setProject(prev => prev ? {
-      ...prev,
-      assets: prev.assets.filter(asset => asset.id !== cardId)
-    } : null);
-  };
-
-  // Handle asset card click to open modal
-  const handleAssetClick = (asset: AssetCard) => {
-    setSelectedAsset(asset);
-    setShowAssetModal(true);
-  };
-
-  // Handle share button click to show QR code
-  const handleShareClick = () => {
-    // Generate a shareable URL for the canvas
-    const currentUrl = window.location.href;
-    const shareUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'shared=true';
-    setQrUrl(shareUrl);
-    setShowQRModal(true);
-  };
-
-  // Handle mouse wheel zoom
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? 0.9 : 1.1;
-    const newZoom = Math.min(Math.max(viewport.zoom * delta, 0.1), 5);
-    
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    setViewport(prev => ({
-      ...prev,
-      zoom: newZoom,
-      x: centerX - (centerX - prev.x) * (newZoom / prev.zoom),
-      y: centerY - (centerY - prev.y) * (newZoom / prev.zoom)
-    }));
-  };
-
-  // Handle keyboard events for panning
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === 'Space' && !isPanning) {
-      e.preventDefault();
-      setIsPanning(true);
-      document.body.style.cursor = 'grab';
-    }
-  };
-
-  const handleKeyUp = (e: KeyboardEvent) => {
-    if (e.code === 'Space') {
-      e.preventDefault();
-      setIsPanning(false);
-      document.body.style.cursor = 'default';
-    }
-  };
-
-  // Setup keyboard listeners
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
-    
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-      document.body.style.cursor = 'default';
-    };
-  }, [isPanning]);
-
-  // Handle element mouse down for dragging
-  const handleElementMouseDown = (e: React.MouseEvent, elementId: string) => {
-    if (tool !== "select") return;
-    
-    e.stopPropagation();
-    setDraggedElement(elementId);
-    
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const element = canvasElements.find(el => el.id === elementId);
-    if (!element) return;
-    
-    const mouseX = (e.clientX - rect.left - viewport.x) / viewport.zoom;
-    const mouseY = (e.clientY - rect.top - viewport.y) / viewport.zoom;
-    
-    setElementDragStart({
-      x: mouseX - element.position.x,
-      y: mouseY - element.position.y
-    });
-  };
-
-  // Handle element dragging
-  const handleElementDrag = (e: React.MouseEvent) => {
-    if (!draggedElement) return;
-    
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const mouseX = (e.clientX - rect.left - viewport.x) / viewport.zoom;
-    const mouseY = (e.clientY - rect.top - viewport.y) / viewport.zoom;
-    
-    const newX = mouseX - elementDragStart.x;
-    const newY = mouseY - elementDragStart.y;
-    
-    updateElement(draggedElement, {
-      position: { x: newX, y: newY }
-    });
-  };
-
-  // Handle element mouse up
-  const handleElementMouseUp = () => {
-    setDraggedElement(null);
-    setElementDragStart({ x: 0, y: 0 });
-  };
-
-  // Initialize project from prompt or campaign data
-  useEffect(() => {
-    // If we have campaign data, use it
     if (campaignData && typeof campaignData === 'object' && 'id' in campaignData) {
-      const campaign = campaignData as any; // Type assertion for campaign data
+      const campaign = campaignData as any;
       const newProject: Project = {
         id: campaign.id.toString(),
         title: campaign.name,
         prompt: campaign.name + ' - ' + (campaign.campaignFocus || 'Campaign'),
         createdAt: new Date(campaign.createdAt),
         assets: campaign.generatedAssets?.length > 0 
-          ? campaign.generatedAssets.map((asset: any) => ({
-              id: asset.id || generateId(),
-              type: asset.type,
-              title: asset.title,
+          ? campaign.generatedAssets.map((asset: any, index: number) => ({
+              ...DEFAULT_CARDS[index % DEFAULT_CARDS.length],
+              id: asset.id || `asset-${index}`,
+              title: asset.title || DEFAULT_CARDS[index % DEFAULT_CARDS.length].title,
               status: asset.status || "ready",
-              content: asset.content,
-              thumbnailUrl: asset.url || asset.content?.imageUrl || null,
-              position: asset.position || { x: Math.random() * 500, y: Math.random() * 300 },
-              size: asset.size || { width: 300, height: 400 },
-              version: 1,
-              createdAt: new Date(),
+              content: {
+                ...DEFAULT_CARDS[index % DEFAULT_CARDS.length].content,
+                ...asset.content
+              },
             }))
-          : DEFAULT_CARDS.map((card, index) => ({
-              ...card,
-              id: `card-${index}`,
-              createdAt: new Date(),
-            })),
+          : DEFAULT_CARDS
       };
       setProject(newProject);
-      return;
-    }
-    
-    // Check for finalCampaign data from new flow
-    const finalCampaign = localStorage.getItem('finalCampaign');
-    if (finalCampaign) {
-      try {
-        const campaignData = JSON.parse(finalCampaign);
-        if (campaignData && typeof campaignData === 'object') {
-          const newProject: Project = {
-            id: Date.now().toString(),
-            title: campaignData.selectedOption?.title || 'New Marketing Campaign',
-            prompt: campaignData.productDescription || 'Create marketing campaign',
-            createdAt: new Date(),
-            assets: DEFAULT_CARDS.map((card, index) => ({
-              ...card,
-              id: `card-${index}`,
-              createdAt: new Date(),
-            })),
-          };
-          setProject(newProject);
-          
-          // Clear the finalCampaign data
-          localStorage.removeItem('finalCampaign');
-          return;
-        }
-      } catch (error) {
-        console.error('Failed to parse finalCampaign data:', error);
-        localStorage.removeItem('finalCampaign');
-      }
-    }
-    
-    // Fallback to prompt-based initialization
-    const prompt = localStorage.getItem('campaignPrompt');
-    if (prompt) {
-      const newProject: Project = {
-        id: Date.now().toString(),
-        title: prompt.slice(0, 50) + (prompt.length > 50 ? '...' : ''),
-        prompt,
+    } else {
+      // Default project with sample cards
+      setProject({
+        id: "sample-project",
+        title: "Marketing Campaign",
+        prompt: "Create engaging marketing content",
         createdAt: new Date(),
-        assets: DEFAULT_CARDS.map((card, index) => ({
-          ...card,
-          id: `card-${index}`,
-          createdAt: new Date(),
-        })),
-      };
-      setProject(newProject);
-      
-      // Generate actual designs for each card using OpenAI
-      setTimeout(() => {
-        DEFAULT_CARDS.forEach((cardTemplate, index) => {
-          setTimeout(async () => {
-            try {
-              const response = await fetch('/api/generate-card-design', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                  cardType: cardTemplate.type, 
-                  prompt: prompt 
-                })
-              });
-              
-              if (response.ok) {
-                const { content, imageUrl } = await response.json();
-                
-                setProject(prev => prev ? {
-                  ...prev,
-                  assets: prev.assets.map(asset => 
-                    asset.id === `card-${index}` 
-                      ? { 
-                          ...asset, 
-                          status: "ready" as const,
-                          content: {
-                            preview: content.substring(0, 100) + '...',
-                            text: content,
-                            imageUrl: imageUrl
-                          }
-                        }
-                      : asset
-                  )
-                } : null);
-              } else {
-                // Fallback if generation fails
-                setProject(prev => prev ? {
-                  ...prev,
-                  assets: prev.assets.map(asset => 
-                    asset.id === `card-${index}` 
-                      ? { 
-                          ...asset, 
-                          status: "ready" as const,
-                          content: {
-                            preview: `Generated ${asset.type} content`,
-                            text: `AI-generated content for ${asset.title} based on: "${prompt}"`,
-                          }
-                        }
-                      : asset
-                  )
-                } : null);
-              }
-            } catch (error) {
-              console.error(`Error generating ${cardTemplate.type} design:`, error);
-              // Fallback content
-              setProject(prev => prev ? {
-                ...prev,
-                assets: prev.assets.map(asset => 
-                  asset.id === `card-${index}` 
-                    ? { 
-                        ...asset, 
-                        status: "ready" as const,
-                        content: {
-                          preview: `Generated ${asset.type} content`,
-                          text: `AI-generated content for ${asset.title} based on: "${prompt}"`,
-                        }
-                      }
-                    : asset
-                )
-              } : null);
-            }
-          }, (index + 1) * 3000); // Stagger by 3 seconds to avoid rate limits
-        });
-      }, 500);
-      
-      localStorage.removeItem('campaignPrompt');
-    } else if (!campaignId) {
-      // If no campaign data and no prompt, create default project
-      const newProject: Project = {
-        id: Date.now().toString(),
-        title: 'New Canvas Project',
-        prompt: 'Create marketing assets',
-        createdAt: new Date(),
-        assets: [],
-      };
-      setProject(newProject);
-    }
-  }, [campaignId]); // Only depend on campaignId to prevent infinite loop
-
-  const handleCanvasMouseDown = (e: React.MouseEvent) => {
-    if (isPanning || tool === "hand" || e.button === 1) { // Middle mouse button or spacebar panning
-      setIsDragging(true);
-      setDragStart({ 
-        x: e.clientX - viewport.x, 
-        y: e.clientY - viewport.y 
+        assets: DEFAULT_CARDS
       });
-      document.body.style.cursor = 'grabbing';
-      return;
     }
-  };
+  }, [campaignData]);
 
-  const handleCanvasMouseMove = (e: React.MouseEvent) => {
-    if (isDragging && !draggedCard) {
-      setViewport(prev => ({
-        ...prev,
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      }));
-    }
-    
-    if (draggedCard) {
-      const deltaX = (e.clientX - cardDragStart.x) / viewport.zoom;
-      const deltaY = (e.clientY - cardDragStart.y) / viewport.zoom;
-      
-      setProject(prev => {
-        if (!prev) return prev;
-        const updatedProject = {
-          ...prev,
-          assets: prev.assets.map(asset => 
-            asset.id === draggedCard 
-              ? { 
-                  ...asset, 
-                  position: { 
-                    x: asset.position.x + deltaX, 
-                    y: asset.position.y + deltaY 
-                  }
-                }
-              : asset
-          )
-        };
-        // Trigger auto-save for card position changes
-        autoSave(updatedProject, canvasElements);
-        return updatedProject;
-      });
-      
-      setCardDragStart({ x: e.clientX, y: e.clientY });
-    }
+  // Timeout functionality
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTimeoutModal(true);
+    }, 20000); // Show modal after 20 seconds
 
-    if (draggedElement) {
-      handleElementDrag(e);
-    }
-  };
+    return () => clearTimeout(timer);
+  }, []);
 
-  const handleCanvasMouseUp = () => {
-    setIsDragging(false);
-    setDraggedCard(null);
-    handleElementMouseUp();
-  };
-
-  const handleCardMouseDown = (e: React.MouseEvent, cardId: string) => {
-    if (tool === "select") {
-      e.stopPropagation();
-      setDraggedCard(cardId);
-      setCardDragStart({ x: e.clientX, y: e.clientY });
-    }
-  };
-
-  const handleZoomIn = () => {
-    setViewport(prev => {
-      const newViewport = { ...prev, zoom: Math.min(prev.zoom * 1.2, 3) };
-      if (project) {
-        autoSave(project, canvasElements);
-      }
-      return newViewport;
-    });
-  };
-
-  const handleZoomOut = () => {
-    setViewport(prev => {
-      const newViewport = { ...prev, zoom: Math.max(prev.zoom / 1.2, 0.1) };
-      if (project) {
-        autoSave(project, canvasElements);
-      }
-      return newViewport;
-    });
-  };
-
-  const handleFitToView = () => {
-    const newViewport = { x: 0, y: 0, zoom: 1 };
-    setViewport(newViewport);
-    if (project) {
-      autoSave(project, canvasElements);
-    }
-  };
-
-  const addCard = (type: AssetCard['type']) => {
-    if (!project) return;
-    
-    const newCard: AssetCard = {
-      id: `card-${Date.now()}`,
-      type,
-      title: CARD_TEMPLATES.find(t => t.type === type)?.label || type,
-      summary: "Generating content...",
-      status: "generating",
-      position: { 
-        x: -viewport.x / viewport.zoom + 300, 
-        y: -viewport.y / viewport.zoom + 300 
-      },
-      size: { width: 320, height: 240 },
-      version: 1,
-      counts: { images: 0, sections: 0, words: 0, variants: 1, aiEdits: 0, comments: 0 },
-      collaborators: [],
-      lastEditedAt: new Date().toISOString(),
-      lastEditedBy: "Current User",
-      createdAt: new Date(),
-    };
-
-    setProject(prev => prev ? {
-      ...prev,
-      assets: [...prev.assets, newCard]
-    } : null);
-
-    // Generate actual design content
-    setTimeout(async () => {
-      try {
-        const response = await fetch('/api/generate-card-design', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            cardType: type, 
-            prompt: project?.prompt || "marketing campaign" 
-          })
+  // Countdown timer for timeout modal
+  useEffect(() => {
+    if (showTimeoutModal && timeLeft > 0) {
+      const countdown = setTimeout(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            // Time's up - redirect to landing page
+            setLocation('/');
+            return 0;
+          }
+          return prev - 1;
         });
-        
-        if (response.ok) {
-          const { content, imageUrl } = await response.json();
-          
-          setProject(prev => prev ? {
-            ...prev,
-            assets: prev.assets.map(asset => 
-              asset.id === newCard.id 
-                ? { 
-                    ...asset, 
-                    status: "ready" as const,
-                    summary: content.substring(0, 100) + '...',
-                    content: {
-                      preview: content.substring(0, 100) + '...',
-                      text: content,
-                      imageUrl: imageUrl
-                    },
-                    counts: {
-                      ...asset.counts,
-                      words: content.split(' ').length,
-                      sections: content.split('**').length / 2
-                    }
-                  }
-                : asset
-            )
-          } : null);
-        } else {
-          // Fallback
-          setProject(prev => prev ? {
-            ...prev,
-            assets: prev.assets.map(asset => 
-              asset.id === newCard.id 
-                ? { 
-                    ...asset, 
-                    status: "ready" as const,
-                    summary: `Generated ${type} content`,
-                    content: {
-                      preview: `Generated ${type} content`,
-                      text: `AI-generated ${type} content based on: "${prev?.prompt || "marketing campaign"}"`,
-                    }
-                  }
-                : asset
-            )
-          } : null);
-        }
-      } catch (error) {
-        console.error(`Error generating ${type} design:`, error);
-        // Fallback
-        setProject(prev => prev ? {
-          ...prev,
-          assets: prev.assets.map(asset => 
-            asset.id === newCard.id 
-              ? { 
-                  ...asset, 
-                  status: "ready" as const,
-                  content: {
-                    preview: `Generated ${type} content`,
-                    text: `AI-generated ${type} content`,
-                  }
-                }
-              : asset
-          )
-        } : null);
-      }
-    }, 2000);
+      }, 1000);
+
+      return () => clearTimeout(countdown);
+    }
+  }, [showTimeoutModal, timeLeft, setLocation]);
+
+  const handleExtendSession = () => {
+    setShowTimeoutModal(false);
+    setTimeLeft(20);
+    // Reset the 20-second timer
+    setTimeout(() => {
+      setShowTimeoutModal(true);
+    }, 20000);
   };
 
-  const getCardIcon = (type: AssetCard['type']) => {
-    switch (type) {
-      case "slides": return Presentation;
-      case "landing": return Globe;
-      case "linkedin": return Linkedin;
-      case "instagram": return Instagram;
-      case "twitter": return Twitter;
-      case "facebook": return Facebook;
-      case "email": return Mail;
-      case "ads": return FileImage;
-      case "blog": return FileText;
-      case "youtube": return Youtube;
-      case "press": return Newspaper;
-      case "config": return Settings;
-      default: return FileText;
+  const handleAssetClick = (asset: AssetCard) => {
+    setSelectedAsset(asset);
+    setEditContent(asset.content?.text || "");
+    setShowAssetModal(true);
+    setShowVirtualKeyboard(true);
+  };
+
+  const handleShareClick = () => {
+    const currentUrl = window.location.href;
+    setShowQRModal(true);
+  };
+
+  const handleSaveContent = () => {
+    if (selectedAsset && project) {
+      const updatedAssets = project.assets.map(asset => 
+        asset.id === selectedAsset.id 
+          ? { ...asset, content: { ...asset.content, text: editContent } }
+          : asset
+      );
+      setProject({ ...project, assets: updatedAssets });
+      setShowAssetModal(false);
+      setShowVirtualKeyboard(false);
     }
   };
 
   if (!project) {
     return (
-      <div className="min-h-screen relative flex items-center justify-center overflow-hidden dotted-background">
-        
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Floating circles */}
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-100 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-24 h-24 bg-purple-100 rounded-full opacity-40 animate-bounce"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-20 h-20 bg-green-100 rounded-full opacity-50 animate-ping"></div>
-          
-          {/* Floating shapes */}
-          <div className="absolute top-1/2 left-1/6 w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-300 transform rotate-45 opacity-30 animate-pulse"></div>
-          <div className="absolute bottom-1/3 right-1/6 w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-lg opacity-40 animate-bounce"></div>
-        </div>
-
-        {/* Central Loading Content */}
-        <div className="text-center space-y-6 z-10 relative">
-          {/* Creative Loading Animation */}
-          <div className="relative">
-            <div className="w-20 h-20 mx-auto relative">
-              {/* Central dot */}
-              <div className="absolute inset-1/2 w-2 h-2 bg-blue-600 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-              
-              {/* Orbiting elements */}
-              <div className="absolute inset-0 animate-spin">
-                <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1/2"></div>
-              </div>
-              <div className="absolute inset-0 animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }}>
-                <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-purple-500 rounded-full transform -translate-x-1/2"></div>
-              </div>
-              <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2s' }}>
-                <div className="absolute top-1/2 right-0 w-1.5 h-1.5 bg-green-500 rounded-full transform -translate-y-1/2"></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-gray-800">Preparing Canvas</h3>
-            <p className="text-gray-600">Setting up your creative workspace...</p>
-          </div>
-
-          {/* Loading Steps */}
-          <div className="flex items-center justify-center space-x-2">
-            <div className="flex space-x-1">
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
-                  style={{ animationDelay: `${i * 0.3}s` }}
-                ></div>
-              ))}
-            </div>
-          </div>
+      <div className="min-h-screen flex items-center justify-center dotted-background">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading canvas...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden dotted-background">
-      {/* Header with Logo */}
+    <div className="min-h-screen dotted-background overflow-hidden">
+      {/* Header with Logo and Back Button */}
       <div className="absolute top-8 left-8 z-10">
         <div className="flex items-center gap-4">
           <img src="/Google_logo.svg" alt="Google" className="h-10" />
@@ -1118,565 +281,81 @@ export default function CanvasView() {
           Back to home
         </Button>
       </div>
-      
-      {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
-      <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40">
-        <div className="clean-card rounded-2xl p-2">
-          <div className="flex flex-col space-y-2">
-            {/* Select Tool */}
-            <Button
-              size="sm"
-              onClick={() => setTool("select")}
-              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
-                tool === "select" 
-                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
-                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
-              }`}
-              title="Select & Move"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
-              </svg>
-            </Button>
 
-            {/* Text */}
-            <Button 
-              size="sm" 
-              onClick={() => setTool("text")}
-              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
-                tool === "text" 
-                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
-                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
-              }`}
-              title="Add Text"
-            >
-              <Type className="w-5 h-5" />
-            </Button>
-
-            {/* Shape Tool */}
-            <DropdownMenu open={showShapeDropdown} onOpenChange={setShowShapeDropdown}>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  size="sm" 
-                  onClick={() => setTool("shape")}
-                  className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
-                    tool === "shape" 
-                      ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
-                      : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
-                  }`}
-                  title="Add Shape"
-                >
-                  <Square className="w-5 h-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="start">
-                <DropdownMenuItem onClick={() => addShapeElement('rectangle', 300, 300)}>
-                  <Square className="w-4 h-4 mr-2" />
-                  Rectangle
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => addShapeElement('circle', 300, 300)}>
-                  <Circle className="w-4 h-4 mr-2" />
-                  Circle
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => addShapeElement('triangle', 300, 300)}>
-                  <Triangle className="w-4 h-4 mr-2" />
-                  Triangle
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Image Tool */}
-            <Button 
-              size="sm" 
-              onClick={() => setTool("image")}
-              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
-                tool === "image" 
-                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
-                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
-              }`}
-              title="Add AI Image"
-            >
-              <FileImage className="w-5 h-5" />
-            </Button>
-
-            {/* Comments */}
-            <Button 
-              size="sm" 
-              onClick={() => setTool("comment")}
-              className={`w-12 h-12 p-0 rounded-xl border-0 transition-colors ${
-                tool === "comment" 
-                  ? "bg-[#dee5f3] text-[#334155] hover:bg-[#dee5f3]" 
-                  : "bg-transparent hover:bg-[#e8edf7] text-[#64748b]"
-              }`}
-              title="Add Comment"
-            >
-              <MessageCircle className="w-5 h-5" />
-            </Button>
-
-            {/* Add Section */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  size="sm" 
-                  className="w-12 h-12 p-0 rounded-xl border-0 bg-[#6366f1] hover:bg-[#5856eb] text-white transition-colors" 
-                  title="Add Anything"
-                >
-                  <Plus className="w-5 h-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" className="ml-2">
-                {/* Add all current templates plus landing page and hero */}
-                {CARD_TEMPLATES.map((template) => {
-                  const IconComponent = template.icon;
-                  return (
-                    <DropdownMenuItem
-                      key={template.type}
-                      onClick={() => addCard(template.type)}
-                    >
-                      <IconComponent className="w-4 h-4 mr-2" />
-                      {template.label}
-                    </DropdownMenuItem>
-                  );
-                })}
-                <DropdownMenuItem onClick={() => addCard("landing")}>
-                  <Globe className="w-4 h-4 mr-2" />
-                  Landing Page
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => addCard("slides")}>
-                  <Presentation className="w-4 h-4 mr-2" />
-                  Hero Section
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      </div>
-
-      {/* Share Button - Top Right */}
-      <div className="fixed top-6 right-6 z-40">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="glass-surface px-4 py-2 gap-2"
-          onClick={handleShareClick}
-        >
-          <Share className="w-4 h-4" />
-          Share
-        </Button>
-      </div>
-
-      {/* Canvas */}
-      <div
-        ref={canvasRef}
-        className="absolute inset-0 cursor-move overflow-hidden"
-        style={{ cursor: isPanning ? "grab" : tool === "hand" ? "grab" : "default" }}
-        onMouseDown={handleCanvasMouseDown}
-        onMouseMove={handleCanvasMouseMove}
-        onMouseUp={handleCanvasMouseUp}
-        onMouseLeave={handleCanvasMouseUp}
-        onWheel={handleWheel}
-        onClick={handleCanvasClick}
-      >
-        {/* Grid */}
-        {showGrid && (
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: `${20 * viewport.zoom}px ${20 * viewport.zoom}px`,
-              transform: `translate(${viewport.x}px, ${viewport.y}px)`,
-            }}
-          />
-        )}
-
-        {/* Asset Cards */}
-        <div
-          style={{
-            transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-            transformOrigin: "0 0",
-          }}
-        >
-          {/* Canvas Elements */}
-          {canvasElements.map((element) => (
-            <ContextMenu key={element.id}>
-              <ContextMenuTrigger asChild>
+      {/* Static Centered Grid Layout */}
+      <div className="min-h-screen flex flex-col">
+        {/* Main Content Area - Centered Grid */}
+        <div className="flex-1 flex items-center justify-center px-8 py-16">
+          <div className="w-full max-w-7xl">
+            <div className="grid grid-cols-4 gap-8">
+              {project.assets.map((card) => (
                 <div
-                  className={`absolute ${tool === "select" ? "cursor-move" : "cursor-pointer"} ${
-                    draggedElement === element.id ? "shadow-2xl scale-105 z-50" : ""
-                  }`}
-                  style={{
-                    left: element.position.x,
-                    top: element.position.y,
-                    width: element.size.width,
-                    height: element.size.height,
-                    transform: element.rotation ? `rotate(${element.rotation}deg)` : undefined,
-                    zIndex: element.zIndex || 0,
-                  }}
-                  onMouseDown={(e) => handleElementMouseDown(e, element.id)}
+                  key={card.id}
+                  className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow duration-200 border border-gray-200"
+                  onClick={() => handleAssetClick(card)}
+                  data-testid={`card-asset-${card.id}`}
                 >
-              {element.type === "text" && (
-                <div
-                  className="w-full h-full flex items-center justify-center border border-transparent hover:border-blue-300 rounded transition-all duration-200"
-                  style={{
-                    fontSize: element.content.fontSize || 16,
-                    fontFamily: element.content.fontFamily || "Arial",
-                    color: element.content.color || "#000000",
-                    backgroundColor: element.content.backgroundColor || "transparent",
-                    cursor: tool === "select" ? "move" : "pointer",
-                  }}
-                  onDoubleClick={(e) => {
-                    e.stopPropagation();
-                    setEditingText(element.id);
-                  }}
-                >
-                  {editingText === element.id ? (
-                    <input
-                      type="text"
-                      value={element.content.text || ""}
-                      onChange={(e) => updateElement(element.id, {
-                        content: { ...element.content, text: e.target.value }
-                      })}
-                      onBlur={() => setEditingText(null)}
-                      onKeyPress={(e) => e.key === 'Enter' && setEditingText(null)}
-                      className="w-full h-full bg-transparent border-none outline-none text-center"
-                      autoFocus
+                  {/* Preview Image */}
+                  <div className="w-full h-40 mb-4 bg-gray-100 rounded-xl overflow-hidden">
+                    <img 
+                      src={card.previewImage} 
+                      alt={card.title}
+                      className="w-full h-full object-cover"
                     />
-                  ) : (
-                    <span>{element.content.text || "Double-click to edit"}</span>
-                  )}
-                </div>
-              )}
-
-              {element.type === "shape" && (
-                <div 
-                  className="w-full h-full transition-all duration-200 hover:scale-105"
-                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
-                >
-                  {element.content.shapeType === "rectangle" && (
-                    <div
-                      className="w-full h-full rounded border-2"
-                      style={{
-                        backgroundColor: element.content.fillColor || "#3b82f6",
-                        borderColor: element.content.strokeColor || "#1e40af",
-                        borderWidth: element.content.strokeWidth || 2,
-                      }}
-                    />
-                  )}
-                  {element.content.shapeType === "circle" && (
-                    <div
-                      className="w-full h-full rounded-full border-2"
-                      style={{
-                        backgroundColor: element.content.fillColor || "#3b82f6",
-                        borderColor: element.content.strokeColor || "#1e40af",
-                        borderWidth: element.content.strokeWidth || 2,
-                      }}
-                    />
-                  )}
-                  {element.content.shapeType === "triangle" && (
-                    <div
-                      className="w-full h-full flex items-center justify-center"
-                      style={{ color: element.content.fillColor || "#3b82f6" }}
+                  </div>
+                  
+                  {/* Card Content */}
+                  <div className="space-y-3">
+                    <div className="text-sm text-gray-500 capitalize">{card.type}</div>
+                    <h3 className="text-xl font-semibold text-gray-900">{card.title}</h3>
+                    <p className="text-sm text-gray-600">{card.summary}</p>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="w-full"
+                      data-testid={`button-learn-more-${card.id}`}
                     >
-                      <Triangle className="w-full h-full" fill="currentColor" />
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {element.type === "image" && (
-                <div 
-                  className="w-full h-full transition-all duration-200 hover:scale-105"
-                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
-                >
-                  {element.content.imageUrl ? (
-                    <img
-                      src={element.content.imageUrl}
-                      alt={element.content.imagePrompt || "AI Generated"}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                      <FileImage className="w-8 h-8 text-gray-400" />
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {element.type === "comment" && (
-                <div 
-                  className="w-full h-full"
-                  style={{ cursor: tool === "select" ? "move" : "pointer" }}
-                >
-                  <div className="bg-yellow-100 border-l-4 border-yellow-400 p-2 rounded shadow-sm">
-                    {activeComment === element.id ? (
-                      <div>
-                        <Textarea
-                          value={element.content.commentText || ""}
-                          onChange={(e) => updateElement(element.id, {
-                            content: { ...element.content, commentText: e.target.value }
-                          })}
-                          placeholder="Add your comment..."
-                          className="w-full text-xs"
-                          rows={3}
-                        />
-                        <div className="flex justify-end space-x-1 mt-1">
-                          <Button
-                            size="sm"
-                            onClick={() => setActiveComment(null)}
-                            className="h-6 px-2 text-xs"
-                          >
-                            <Check className="w-3 h-3" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => deleteElement(element.id)}
-                            className="h-6 px-2 text-xs"
-                          >
-                            <X className="w-3 h-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div 
-                        onClick={() => setActiveComment(element.id)}
-                        className="cursor-pointer"
-                      >
-                        <div className="text-xs font-medium text-yellow-800">
-                          {element.content.author || "Comment"}
-                        </div>
-                        <div className="text-xs text-yellow-700">
-                          {element.content.commentText || "Click to add comment..."}
-                        </div>
-                      </div>
-                    )}
+                      Learn More
+                    </Button>
                   </div>
                 </div>
-              )}
-                </div>
-              </ContextMenuTrigger>
-              <ContextMenuContent className="w-64">
-                <ContextMenuItem onClick={() => bringToFront(element.id)}>
-                  <BringToFront className="mr-2 h-4 w-4" />
-                  Bring to Front
-                </ContextMenuItem>
-                <ContextMenuItem onClick={() => sendToBack(element.id)}>
-                  <SendToBack className="mr-2 h-4 w-4" />
-                  Send to Back
-                </ContextMenuItem>
-                <ContextMenuItem onClick={() => deleteElement(element.id)} className="text-red-600">
-                  <X className="mr-2 h-4 w-4" />
-                  Delete
-                </ContextMenuItem>
-              </ContextMenuContent>
-            </ContextMenu>
-          ))}
-
-          {/* Rich Asset Cards */}
-          {project?.assets.map((card, index) => {
-            return (
-              <div
-                key={card.id}
-                className="absolute cursor-pointer"
-                style={{
-                  left: card.position?.x || (200 + (index * 100)),
-                  top: card.position?.y || (150 + Math.floor(index / 2) * 300),
-                }}
-                onMouseDown={(e) => handleCardMouseDown(e, card.id)}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAssetClick(card);
-                }}
-              >
-                <RichAssetCard
-                  card={card}
-                  onExpand={() => {}} // No longer needed - modal handles everything
-                  onDuplicate={() => console.log('Duplicate', card.id)}
-                  onExport={() => console.log('Export', card.id)}
-                  onDelete={() => console.log('Delete', card.id)}
-                  onRetry={() => console.log('Retry', card.id)}
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Live Cursors */}
-        {Array.from(collaboration.cursors.values()).map((cursor) => (
-          <LiveCursor
-            key={cursor.ephemeralId}
-            cursor={cursor}
-            displayName={cursor.displayName}
-            color={cursor.color}
-            isVisible={true}
-          />
-        ))}
-      </div>
-
-      {/* Download Modal */}
-      <DownloadModal
-        open={showDownloadModal}
-        onOpenChange={setShowDownloadModal}
-        assets={project?.assets.map(asset => ({
-          id: asset.id,
-          type: asset.type,
-          title: asset.title,
-          status: asset.status === "draft" ? "ready" : asset.status
-        })) || []}
-      />
-
-
-      {/* View Switcher */}
-      <div className="fixed bottom-6 left-6 z-40">
-        <div className="clean-card rounded-2xl p-1">
-          <div className="flex items-center space-x-1">
-            <button
-              onClick={() => setCurrentView('canvas')}
-              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
-                currentView === 'canvas'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-              }`}
-              data-testid="button-canvas-view"
-            >
-              Canvas
-            </button>
-            <button
-              onClick={() => setCurrentView('slideshow')}
-              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
-                currentView === 'slideshow'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-              }`}
-              data-testid="button-slideshow-view"
-            >
-              Slideshow
-            </button>
-            <button
-              onClick={() => setCurrentView('kanban')}
-              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
-                currentView === 'kanban'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-              }`}
-              data-testid="button-kanban-view"
-            >
-              Kanban
-            </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Zoom Controls - Bottom Right (Miro Style) */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <div className="clean-card rounded-2xl p-2">
-          <div className="flex items-center space-x-2">
-            {/* Fit to View */}
-            <Button variant="ghost" size="sm" onClick={handleFitToView} className="w-10 h-10 p-0 rounded-xl" title="Fit to Screen">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
-                <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
-                <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
-                <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
-              </svg>
-            </Button>
-
-            {/* Separator */}
-            <div className="w-px h-6 bg-glass-border"></div>
-
-            {/* Zoom Percentage */}
-            <div className="px-3 py-1">
-              <span className="text-sm font-medium text-gray-800">
-                {Math.round(viewport.zoom * 100)}%
-              </span>
-            </div>
-
-            {/* Zoom Controls */}
-            <Button variant="ghost" size="sm" onClick={handleZoomOut} className="w-10 h-10 p-0 rounded-xl" title="Zoom Out">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14"/>
-              </svg>
-            </Button>
-            
-            <Button variant="ghost" size="sm" onClick={handleZoomIn} className="w-10 h-10 p-0 rounded-xl" title="Zoom In">
-              <Plus className="w-4 h-4" />
-            </Button>
-
-            {/* Help/Info */}
-            <div className="w-px h-6 bg-glass-border"></div>
-            <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-xl" title="Help">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* AI Image Generation Dialog */}
-      <Sheet open={showImageDialog} onOpenChange={setShowImageDialog}>
-        <SheetContent side="right" className="w-[400px] overflow-y-auto">
-          <SheetHeader>
-            <SheetTitle>Generate AI Image</SheetTitle>
-            <SheetDescription>
-              Create an image using AI based on your description
-            </SheetDescription>
-          </SheetHeader>
-          <div className="mt-6 space-y-4 pb-6">
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Image Description
-              </label>
-              <Textarea
-                value={imagePrompt}
-                onChange={(e) => setImagePrompt(e.target.value)}
-                placeholder="Describe the image you want to create..."
-                rows={4}
-              />
-            </div>
-            <div className="flex space-x-3">
+        {/* Bottom Toolbar - Add and Share buttons */}
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2">
+            <div className="flex items-center space-x-2">
               <Button
-                onClick={() => generateAIImage(imagePrompt)}
-                disabled={!imagePrompt.trim() || isGeneratingImage}
-                className="flex-1"
+                size="sm"
+                className="w-12 h-12 p-0 rounded-xl bg-white hover:bg-gray-50 border border-gray-200"
+                data-testid="button-add-new"
               >
-                {isGeneratingImage ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Generating...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Generate Image
-                  </>
-                )}
+                <Plus className="w-6 h-6 text-gray-600" />
               </Button>
+              
               <Button
-                variant="outline"
-                onClick={() => setShowImageDialog(false)}
+                size="sm"
+                onClick={handleShareClick}
+                className="w-12 h-12 p-0 rounded-xl bg-white hover:bg-gray-50 border border-gray-200"
+                data-testid="button-share"
               >
-                Cancel
+                <Share className="w-6 h-6 text-gray-600" />
               </Button>
             </div>
           </div>
-        </SheetContent>
-      </Sheet>
+        </div>
+      </div>
 
-      {/* Main Menu */}
-      <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
-
-      {/* Asset Content Modal */}
+      {/* Asset Content Modal with Virtual Keyboard */}
       <Dialog open={showAssetModal} onOpenChange={setShowAssetModal}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold">
-              {selectedAsset?.title}
+            <DialogTitle className="text-2xl font-semibold flex items-center gap-2">
+              <Edit className="w-5 h-5" />
+              Edit {selectedAsset?.title}
             </DialogTitle>
           </DialogHeader>
           <div className="mt-6 space-y-6">
@@ -1684,38 +363,53 @@ export default function CanvasView() {
               <>
                 {/* Asset Preview */}
                 <div className="bg-gray-50 rounded-lg p-8 text-center">
-                  <div className="text-lg text-gray-600 mb-4">
-                    {selectedAsset.content?.preview || "Preview content for " + selectedAsset.title}
-                  </div>
-                  <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-                    {selectedAsset.type === "video" ? "📹 Vertical Video Preview" :
-                     selectedAsset.type === "landing" ? "🌐 Landing Page Hero" :
-                     selectedAsset.type === "banner" ? "📄 Ad Banner Design" :
-                     selectedAsset.type === "linkedin" ? "💼 LinkedIn Image" : 
-                     "🎨 Asset Preview"}
-                  </div>
+                  <img 
+                    src={selectedAsset.previewImage} 
+                    alt={selectedAsset.title}
+                    className="w-full max-w-md mx-auto h-64 object-cover rounded-lg"
+                  />
                 </div>
                 
-                {/* Meta Description */}
+                {/* Content Editor */}
                 <div>
-                  <h3 className="text-lg font-medium mb-3">Meta Description</h3>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-gray-700">
-                      {selectedAsset.content?.text || selectedAsset.summary}
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-medium mb-3">Content</h3>
+                  <Textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    placeholder="Edit your content here..."
+                    className="min-h-32"
+                    data-testid="textarea-content-edit"
+                  />
                 </div>
-                
-                {/* Asset Details */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Asset Type</h4>
-                    <p className="text-gray-600 capitalize">{selectedAsset.type}</p>
+
+                {/* Virtual Keyboard Space */}
+                {showVirtualKeyboard && (
+                  <div className="bg-gray-100 rounded-lg p-4">
+                    <div className="text-center text-gray-500 text-sm">
+                      Virtual keyboard interface would appear here for touchscreen editing
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Status</h4>
-                    <p className="text-gray-600 capitalize">{selectedAsset.status}</p>
-                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex gap-4">
+                  <Button
+                    onClick={handleSaveContent}
+                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white"
+                    data-testid="button-save-content"
+                  >
+                    Save Changes
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowAssetModal(false);
+                      setShowVirtualKeyboard(false);
+                    }}
+                    data-testid="button-cancel-edit"
+                  >
+                    Cancel
+                  </Button>
                 </div>
               </>
             )}
@@ -1733,21 +427,27 @@ export default function CanvasView() {
             <p className="text-gray-600">
               Scan this QR code to access the canvas on your device
             </p>
-            {qrUrl && (
-              <div className="bg-white p-4 rounded-lg inline-block">
-                <QRCode 
-                  value={qrUrl} 
-                  size={200}
-                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                />
-              </div>
-            )}
+            <div className="bg-white p-4 rounded-lg inline-block">
+              <QRCode 
+                value={window.location.href} 
+                size={200}
+                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              />
+            </div>
             <p className="text-sm text-gray-500">
               Anyone with this link can view the canvas
             </p>
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Timeout Modal */}
+      <TimeoutModal
+        isOpen={showTimeoutModal}
+        timeLeft={timeLeft}
+        onExtend={handleExtendSession}
+        onClose={() => setShowTimeoutModal(false)}
+      />
     </div>
   );
 }
