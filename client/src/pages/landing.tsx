@@ -143,30 +143,24 @@ export default function Landing() {
             className="flex-1 cursor-pointer group"
             style={{
               background: '#ffffff',
-              borderRadius: '48px',
-              boxShadow: '0 2px 40px #00000029',
-              padding: '80px 48px',
+              borderRadius: '24px',
+              boxShadow: '0 2px 20px #00000015',
+              padding: '32px 24px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'flex-start',
-              gap: '48px'
+              gap: '24px'
             }}
             onClick={() => handleOptionSelect('catalog')}
             data-testid="card-catalog-option"
           >
             {/* Card Title */}
             <div className="w-full flex justify-center items-center gap-2" style={{
-              borderBottom: '3px solid #000',
-              paddingBottom: '48px'
+              borderBottom: '2px solid #000',
+              paddingBottom: '16px'
             }}>
-              <h2 className="flex-1 text-center" style={{
-                color: '#000',
-                fontSize: '56px',
-                fontWeight: '500',
-                lineHeight: '55px'
-              }}>
-                Catalog
-                Enrichment
+              <h2 className="flex-1 text-center text-2xl font-medium text-black">
+                Catalog Enrichment
               </h2>
             </div>
 
@@ -174,9 +168,9 @@ export default function Landing() {
             <div className="flex flex-col items-start gap-8 w-full">
               {/* Image Container */}
               <div className="w-full" style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                height: '599px',
+                background: '#e6ebf2',
+                borderRadius: '16px',
+                height: '200px',
                 paddingBottom: '8px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -189,19 +183,14 @@ export default function Landing() {
                   alt="Catalog Enrichment"
                   className="object-contain"
                   style={{
-                    height: '621.419px'
+                    maxWidth: '100%',
+                    maxHeight: '100%'
                   }}
                 />
               </div>
               
               {/* Description */}
-              <p style={{
-                color: '#000',
-                width: '681px',
-                fontSize: '48px',
-                fontWeight: '400',
-                lineHeight: '56px'
-              }}>
+              <p className="text-lg text-black leading-relaxed">
                 AI generates high-quality SEO metadata instantly.
               </p>
             </div>
@@ -217,12 +206,8 @@ export default function Landing() {
         padding: '12px 40px'
       }}>
         <p 
-          style={{
-            color: '#5c5c5c',
-            fontSize: '48px',
-            fontWeight: '400',
-            lineHeight: '56px'
-          }}
+          className="text-xl text-gray-600"
+          style={{ fontWeight: '400' }}
           data-testid="text-footer-cta"
         >
           Choose an experience to get started
