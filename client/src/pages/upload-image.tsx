@@ -7,18 +7,71 @@ export default function UploadImage() {
   const [, navigate] = useLocation();
   const [uploadMode, setUploadMode] = useState<'qr' | 'computer'>('qr');
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Function to compress image before storing
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calculate new dimensions (max 800x600 to keep under localStorage limit)
+        const maxWidth = 800;
+        const maxHeight = 600;
+        let { width, height } = img;
+        
+        if (width > height) {
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw and compress
+        ctx?.drawImage(img, 0, 0, width, height);
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        resolve(compressedDataUrl);
+      };
+      
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Store the uploaded file and navigate to configure page
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const imageData = e.target?.result as string;
-        localStorage.setItem('uploadedImage', imageData);
+      try {
+        // Compress image before storing
+        const compressedImage = await compressImage(file);
+        localStorage.setItem('uploadedImage', compressedImage);
         localStorage.setItem('uploadedFileName', file.name);
         navigate('/configure');
-      };
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+        // Fallback: try storing original if compression fails
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const imageData = e.target?.result as string;
+            localStorage.setItem('uploadedImage', imageData);
+            localStorage.setItem('uploadedFileName', file.name);
+            navigate('/configure');
+          } catch (storageError) {
+            alert('Image too large. Please select a smaller image.');
+            console.error('Storage error:', storageError);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
