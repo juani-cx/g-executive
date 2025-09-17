@@ -152,7 +152,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       </div>
 
       {/* Main Content */}
-      <div className="flex items-start justify-center min-h-screen p-8 pt-24">
+      <div className="flex items-start justify-center p-8 pt-24 pb-80">
         <div className="w-full max-w-none px-16">
           <div className="text-center mb-12">
             <h1 className="text-7xl text-gray-800 mb-6 tracking-tight" style={{ fontWeight: '475' }}>
@@ -165,7 +165,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
           </div>
 
           {/* White card container */}
-          <div className="bg-white rounded-3xl p-16 shadow-lg border border-gray-200 mx-auto max-w-7xl">
+          <div className="bg-white rounded-3xl p-12 shadow-lg border border-gray-200 mx-auto max-w-7xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
@@ -250,8 +250,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   value={productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
                   placeholder="AI is analyzing your image..."
-                  className="text-lg min-h-32 resize-none bg-gray-50"
-                  rows={6}
+                  className="text-lg min-h-24 resize-none bg-gray-50"
+                  rows={4}
                   data-testid="textarea-product-description"
                 />
               </div>
