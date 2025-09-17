@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -187,16 +188,8 @@ export default function UploadImage() {
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
 
-      <div className="absolute top-8 right-8 z-10">
-        <Button 
-          variant="outline" 
-          className="text-gray-600 border-gray-300 hover:bg-gray-50"
-          onClick={() => navigate('/homepage')}
-          data-testid="button-back-to-home"
-        >
-          Back to home
-        </Button>
-      </div>
+      {/* Top Navigation */}
+      <TopNavigation />
 
       {/* Main Content */}
       <div className="flex items-center justify-center h-screen max-h-screen p-8">

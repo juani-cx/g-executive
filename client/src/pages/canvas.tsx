@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import TopNavigation from "@/components/TopNavigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { CanvasCard } from "@/types/canvas";
@@ -579,8 +580,10 @@ export default function CanvasView() {
       {showFullPagePreview && selectedAsset && (
         <div className="fixed inset-0 bg-white z-50 overflow-hidden">
 
-          {/* Navigation Header - Top Right */}
-          <div className="absolute top-8 right-8 z-10">
+          {/* Top Navigation */}
+          <TopNavigation />
+          
+          <div className="hidden">
             <Button
               variant="outline"
               size="lg"

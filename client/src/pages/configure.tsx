@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -135,7 +136,10 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
       {/* Header */}
 
-      <div className="absolute top-8 right-8 z-10">
+      {/* Top Navigation */}
+      <TopNavigation />
+      
+      <div className="hidden">
         <Button 
           variant="outline" 
           className="text-gray-600 border-gray-300 hover:bg-gray-50"

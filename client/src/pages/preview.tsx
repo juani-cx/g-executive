@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import TopNavigation from "@/components/TopNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface CampaignConfig {
@@ -78,16 +79,8 @@ export default function Preview() {
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
 
-      <div className="absolute top-8 right-8 z-10">
-        <Button 
-          variant="outline" 
-          className="text-gray-600 border-gray-300 hover:bg-gray-50"
-          onClick={() => navigate('/configure')}
-          data-testid="button-back-to-configure"
-        >
-          Back to home
-        </Button>
-      </div>
+      {/* Top Navigation */}
+      <TopNavigation />
 
       {/* Main Content */}
       <div className="flex items-start justify-center h-screen max-h-screen p-8 pt-32 overflow-y-auto">
