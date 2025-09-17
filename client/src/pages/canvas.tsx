@@ -232,6 +232,8 @@ export default function CanvasView() {
   const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showFullPagePreview, setShowFullPagePreview] = useState(false);
+  const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -311,12 +313,31 @@ export default function CanvasView() {
   };
 
   const handleAssetClick = (asset: AssetCard) => {
+    if (!project) return;
+    
     setSelectedAsset(asset);
-    const content = asset.content?.text || "";
-    setEditContent(content);
-    setCursorPosition(content.length);
-    setShowAssetModal(true);
-    setShowVirtualKeyboard(true);
+    setEditContent(asset.content?.text || "");
+    const index = project.assets.findIndex(a => a.id === asset.id);
+    setCurrentPreviewIndex(index);
+    setShowFullPagePreview(true);
+  };
+
+  const handleNavigatePrevious = () => {
+    if (!project) return;
+    
+    const prevIndex = currentPreviewIndex > 0 ? currentPreviewIndex - 1 : project.assets.length - 1;
+    setCurrentPreviewIndex(prevIndex);
+    setSelectedAsset(project.assets[prevIndex]);
+    setEditContent(project.assets[prevIndex].content?.text || "");
+  };
+
+  const handleNavigateNext = () => {
+    if (!project) return;
+    
+    const nextIndex = currentPreviewIndex < project.assets.length - 1 ? currentPreviewIndex + 1 : 0;
+    setCurrentPreviewIndex(nextIndex);
+    setSelectedAsset(project.assets[nextIndex]);
+    setEditContent(project.assets[nextIndex].content?.text || "");
   };
 
   const handleKeyPress = (key: string) => {
@@ -484,6 +505,183 @@ export default function CanvasView() {
           </div>
         </div>
       </div>
+
+      {/* Full Page Preview */}
+      {showFullPagePreview && selectedAsset && (
+        <div className="fixed inset-0 bg-white z-50 overflow-hidden">
+          {/* Navigation Header */}
+          <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-10">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setShowFullPagePreview(false)}
+              className="bg-white/90 backdrop-blur-sm border-gray-300"
+              data-testid="button-close-preview"
+            >
+              ← Back to Canvas
+            </Button>
+            <div className="text-lg font-medium text-gray-700 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
+              {selectedAsset.title} ({currentPreviewIndex + 1} of {project.assets.length})
+            </div>
+          </div>
+
+          {/* Navigation Arrows */}
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={handleNavigatePrevious}
+            className="absolute left-8 top-1/2 transform -translate-y-1/2 z-10 w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm border-gray-300"
+            data-testid="button-navigate-previous"
+          >
+            ←
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={handleNavigateNext}
+            className="absolute right-8 top-1/2 transform -translate-y-1/2 z-10 w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm border-gray-300"
+            data-testid="button-navigate-next"
+          >
+            →
+          </Button>
+
+          {/* Preview Content */}
+          <div className="w-full h-full flex items-center justify-center pt-24 pb-16">
+            {selectedAsset.type === 'landing' && (
+              <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
+                {/* Landing Page Hero Simulation */}
+                <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-16 text-center">
+                  <h1 className="text-6xl font-bold mb-8 leading-tight">
+                    Transform Your Business
+                  </h1>
+                  <p className="text-2xl mb-12 opacity-90 max-w-4xl mx-auto">
+                    {editContent || "Discover how our AI-powered platform can revolutionize your marketing strategies and drive unprecedented growth."}
+                  </p>
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 rounded-xl font-semibold"
+                  >
+                    Get Started Now
+                  </Button>
+                </div>
+                <div className="h-24 bg-gray-50"></div>
+              </div>
+            )}
+
+            {selectedAsset.type === 'linkedin' && (
+              <div className="w-full max-w-2xl mx-auto">
+                {/* LinkedIn Post Simulation */}
+                <div className="bg-white rounded-2xl shadow-2xl border border-gray-200">
+                  {/* LinkedIn Header */}
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        CB
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Campaign Builder</h3>
+                        <p className="text-sm text-gray-500">Marketing Technology • 2h</p>
+                      </div>
+                    </div>
+                  </div>
+                  {/* LinkedIn Content */}
+                  <div className="p-6">
+                    <p className="text-lg text-gray-800 leading-relaxed mb-6">
+                      {editContent || "🚀 Excited to share how AI is transforming marketing! Our latest campaign generated 3x more engagement using intelligent targeting and personalized content creation. The future of marketing is here! #AI #Marketing #Innovation"}
+                    </p>
+                    <div className="bg-gray-100 rounded-xl p-6 mb-6">
+                      <div className="text-center text-gray-500">
+                        📊 Campaign Performance Dashboard
+                      </div>
+                    </div>
+                    {/* LinkedIn Actions */}
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                      <div className="flex space-x-6 text-gray-600">
+                        <button className="flex items-center space-x-2 hover:text-blue-600">
+                          <span>👍</span> <span>Like</span>
+                        </button>
+                        <button className="flex items-center space-x-2 hover:text-blue-600">
+                          <span>💬</span> <span>Comment</span>
+                        </button>
+                        <button className="flex items-center space-x-2 hover:text-blue-600">
+                          <span>🔄</span> <span>Repost</span>
+                        </button>
+                        <button className="flex items-center space-x-2 hover:text-blue-600">
+                          <span>📤</span> <span>Send</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedAsset.type === 'video' && (
+              <div className="w-full max-w-lg mx-auto">
+                {/* Vertical Video Player Simulation */}
+                <div className="bg-black rounded-3xl overflow-hidden shadow-2xl aspect-[9/16] relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-purple-600 to-pink-600 flex items-center justify-center">
+                    <div className="text-center text-white p-8">
+                      <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mb-8 mx-auto">
+                        <div className="w-0 h-0 border-l-[24px] border-l-white border-y-[12px] border-y-transparent ml-2"></div>
+                      </div>
+                      <h2 className="text-3xl font-bold mb-4">Vertical Video</h2>
+                      <p className="text-lg opacity-90 mb-8 leading-relaxed">
+                        {editContent || "Transform your content strategy with AI-powered video creation"}
+                      </p>
+                      <div className="text-sm opacity-75">
+                        Perfect for TikTok, Instagram Reels & YouTube Shorts
+                      </div>
+                    </div>
+                  </div>
+                  {/* Video Controls */}
+                  <div className="absolute bottom-6 left-6 right-6 text-white">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex space-x-4">
+                        <button>❤️ 12.5K</button>
+                        <button>💬 234</button>
+                        <button>🔄 89</button>
+                        <button>📤</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedAsset.type === 'banner' && (
+              <div className="w-full max-w-5xl mx-auto">
+                {/* Ad Banner Simulation */}
+                <div className="bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-3xl shadow-2xl overflow-hidden">
+                  <div className="flex items-center h-64">
+                    <div className="flex-1 p-12">
+                      <h2 className="text-4xl font-bold mb-4">
+                        Special Limited Offer!
+                      </h2>
+                      <p className="text-xl mb-6 opacity-90">
+                        {editContent || "Get 50% off your first month - Transform your marketing with AI-powered campaigns"}
+                      </p>
+                      <Button 
+                        size="lg" 
+                        className="bg-white text-green-600 hover:bg-gray-100 text-lg px-8 py-4 rounded-xl font-semibold"
+                      >
+                        Claim Offer Now →
+                      </Button>
+                    </div>
+                    <div className="w-64 h-full bg-white/10 flex items-center justify-center">
+                      <div className="text-center opacity-75">
+                        <div className="text-6xl mb-4">🎯</div>
+                        <div className="text-lg">Marketing AI</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Asset Content Modal with Virtual Keyboard */}
       <Dialog open={showAssetModal} onOpenChange={setShowAssetModal}>
