@@ -235,7 +235,7 @@ export default function Landing() {
             </div>
 
             {/* Two main options - Scaled for 4K */}
-            <div className="grid md:grid-cols-2 gap-8 mb-8 w-full mx-auto">
+            <div className="flex justify-center items-center gap-4 mb-8">
               {/* Marketing Inspiration Option - Simplified */}
               <div 
                 className="cursor-pointer group"
@@ -245,7 +245,7 @@ export default function Landing() {
                 <div className="p-8" style={{ fontWeight: 'bold', background: 'rgb(255, 255, 255)', boxShadow: '0 16px 24px #ccc', borderRadius: '16px', width: '590px' }}>
                   <div className="text-left">
                     <h2 className="mb-4" style={{ fontSize: '40px', lineHeight: '44px', fontWeight: '475', color: '#1f2937' }}>
-                      Marketing Campaign
+                      Marketing<br />Campaign
                     </h2>
                     
                     <div className="w-full h-[250px] flex items-center justify-center mb-6 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
