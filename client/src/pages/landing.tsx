@@ -179,10 +179,6 @@ export default function Landing() {
 
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
-      {/* Persistent Header - Always Visible */}
-      <div className="absolute top-6 left-6 z-50">
-        <span className="text-2xl font-normal text-gray-900">Google</span>
-      </div>
 
       {/* Demo Navigation Links - Centered */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">

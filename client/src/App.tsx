@@ -19,40 +19,46 @@ import CatalogGenerator from "@/pages/catalog-generator";
 import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
+import Logo from "@/components/Logo";
 
 function AuthenticatedRouter() {
   const [location] = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
   
   return (
-    <AnimatePresence mode="wait" initial={false} onExitComplete={() => setDisplayLocation(location)}>
-      <motion.div 
-        key={location}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -16 }}
-        transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-        className="h-screen max-h-screen overflow-hidden bg-white"
-        style={{ willChange: 'opacity, transform' }}
-      >
-        <Switch location={displayLocation}>
-          <Route path="/" component={NewLanding} />
-          <Route path="/homepage" component={Landing} />
-          <Route path="/prompt-input" component={PromptInput} />
-          <Route path="/upload" component={UploadImage} />
-          <Route path="/configure" component={Configure} />
-          <Route path="/preview" component={Preview} />
-          <Route path="/home" component={Home} />
-          <Route path="/canvas" component={CanvasView} />
-          <Route path="/canvas/:id" component={CanvasView} />
-          <Route path="/campaign-generator" component={CampaignGenerator} />
-          <Route path="/catalog-generator" component={CatalogGenerator} />
-          <Route path="/output/:campaignId" component={OutputHub} />
-          <Route path="/executive/:linkId" component={ExecutiveView} />
-          <Route component={NotFound} />
-        </Switch>
-      </motion.div>
-    </AnimatePresence>
+    <div className="relative">
+      {/* Fixed Logo - Outside Animation */}
+      <Logo />
+      
+      <AnimatePresence mode="wait" initial={false} onExitComplete={() => setDisplayLocation(location)}>
+        <motion.div 
+          key={location}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -16 }}
+          transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
+          className="h-screen max-h-screen overflow-hidden bg-white"
+          style={{ willChange: 'opacity, transform' }}
+        >
+          <Switch location={displayLocation}>
+            <Route path="/" component={NewLanding} />
+            <Route path="/homepage" component={Landing} />
+            <Route path="/prompt-input" component={PromptInput} />
+            <Route path="/upload" component={UploadImage} />
+            <Route path="/configure" component={Configure} />
+            <Route path="/preview" component={Preview} />
+            <Route path="/home" component={Home} />
+            <Route path="/canvas" component={CanvasView} />
+            <Route path="/canvas/:id" component={CanvasView} />
+            <Route path="/campaign-generator" component={CampaignGenerator} />
+            <Route path="/catalog-generator" component={CatalogGenerator} />
+            <Route path="/output/:campaignId" component={OutputHub} />
+            <Route path="/executive/:linkId" component={ExecutiveView} />
+            <Route component={NotFound} />
+          </Switch>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
 
