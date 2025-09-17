@@ -32,7 +32,7 @@ export default function Landing() {
   };
 
   const renderDemo2Prompt = () => (
-    <div className="relative flex items-center justify-center min-h-screen p-8">
+    <div className="relative flex items-center justify-center h-screen max-h-screen p-8 overflow-hidden">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ellipse SVG - Bottom Left */}
@@ -113,7 +113,7 @@ export default function Landing() {
   );
 
   const renderDemo3Prompt = () => (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-full h-screen max-h-screen overflow-hidden">
       {/* Spline Background - Interactive */}
       <div className="absolute inset-0">
         <iframe 
@@ -172,7 +172,7 @@ export default function Landing() {
   );
 
   return (
-    <div className="min-h-screen dotted-background">
+    <div className="h-screen max-h-screen dotted-background overflow-hidden">
       {/* Demo Navigation Links - Centered */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="flex gap-8">
@@ -215,7 +215,7 @@ export default function Landing() {
       {activeDemo === 'demo2' && renderDemo2Prompt()}
       {activeDemo === 'demo3' && renderDemo3Prompt()}
       {activeDemo === 'demo1' && (
-        <main className="flex items-center justify-center min-h-screen p-8">
+        <main className="flex items-center justify-center h-screen max-h-screen p-8 overflow-hidden">
           <div className="w-full max-w-screen-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">

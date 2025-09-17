@@ -29,7 +29,7 @@ function AuthenticatedRouter() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -16 }}
         transition={{ type: 'tween', ease: 'easeInOut', duration: 0.25 }}
-        className="min-h-screen bg-white"
+        className="h-screen max-h-screen overflow-hidden bg-white"
         style={{ willChange: 'opacity, transform' }}
       >
         <Switch location={displayLocation}>
@@ -81,7 +81,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen">
+        <div className="h-screen max-h-screen overflow-hidden">
           {!isAuthenticated && location !== '/' ? (
             <Login />
           ) : (

@@ -9,7 +9,7 @@ export default function NewLanding() {
   };
 
   return (
-    <div className="min-h-screen dotted-background relative overflow-hidden">
+    <div className="h-screen max-h-screen dotted-background relative overflow-hidden">
       {/* Animated SVG Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ellipse SVG - Bottom Left */}

@@ -372,12 +372,18 @@
   * {
     @apply border-border;
   }
+  
+  /* Prevent scrolling globally for 4K screen usage */
+  html {
+    overflow: hidden;
+  }
 
-  body {
+  html, body {
     @apply font-sans antialiased text-foreground dotted-background;
     font-family: 'Google Sans', 'Google Sans Text', 'Roboto', system-ui, sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
     position: relative;
   }
   
