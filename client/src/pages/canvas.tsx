@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
 import { CanvasCard } from "@/types/canvas";
 import { Plus, Share, X, Home, Edit } from "lucide-react";
 import {
@@ -445,32 +446,56 @@ export default function CanvasView() {
           <div className="w-full max-w-none">
             <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
               {project.assets.map((card) => (
-                <div 
+                <Card 
                   key={card.id}
-                  className="cursor-pointer group"
+                  className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:ring-1 hover:ring-gray-300"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
-                  <div className="p-8" style={{ fontWeight: 'bold', background: '#fff', boxShadow: 'none' }}>
-                    <div className="text-left">
-                      <h2 className="text-black mb-4 font-bold" style={{ fontSize: '40px', lineHeight: '44px' }}>
-                        {card.title}
-                      </h2>
-                      
-                      <div className="w-full h-[250px] flex items-center justify-center mb-6 rounded-3xl" style={{ backgroundColor: '#f5f5f5' }}>
-                        <img 
-                          src={card.previewImage} 
-                          alt={card.title}
-                          className="w-full h-full object-cover rounded-3xl"
-                        />
-                      </div>
-                      
-                      <p className="text-lg leading-relaxed" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                        {card.summary}
-                      </p>
+                  <CardContent className="p-8">
+                    {/* Image - Same as preview page */}
+                    <div className="w-full h-48 bg-gray-100 rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
+                      <img 
+                        src={card.previewImage} 
+                        alt={card.title}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          objectFit: 'cover'
+                        }}
+                      />
                     </div>
-                  </div>
-                </div>
+                    
+                    {/* Style Badge - Same as preview page */}
+                    <div className="mb-4">
+                      <span className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                        {card.type === 'video' ? 'Video' : 
+                         card.type === 'landing' ? 'Landing' : 
+                         card.type === 'linkedin' ? 'LinkedIn' : 
+                         card.type === 'banner' ? 'Banner' : 'Description'}
+                      </span>
+                    </div>
+                    
+                    {/* Title - Same as preview page */}
+                    <h3 className="text-2xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
+                      {card.title}
+                    </h3>
+                    
+                    {/* Description - Same as preview page */}
+                    <p className="text-base text-gray-600 mb-6" style={{ fontWeight: '400' }}>
+                      {card.summary}
+                    </p>
+                    
+                    {/* Learn More Button - Same as preview page */}
+                    <Button 
+                      variant="outline" 
+                      className="text-gray-700 border-gray-300 hover:bg-gray-50"
+                      data-testid={`button-learn-more-${card.id}`}
+                    >
+                      Learn More
+                    </Button>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
