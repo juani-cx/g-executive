@@ -19,7 +19,6 @@ import CatalogGenerator from "@/pages/catalog-generator";
 import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
-import Logo from "@/components/Logo";
 
 function AuthenticatedRouter() {
   const [location] = useLocation();
@@ -27,9 +26,6 @@ function AuthenticatedRouter() {
   
   return (
     <div className="relative">
-      {/* Fixed Logo - Outside Animation */}
-      <Logo />
-      
       <AnimatePresence mode="wait" initial={false} onExitComplete={() => setDisplayLocation(location)}>
         <motion.div 
           key={location}
