@@ -59,10 +59,10 @@ export default function Landing() {
       <div className="relative z-10 w-full max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4 tracking-tight">
+          <h1 className="text-5xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
             Promote your product now
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600" style={{ fontWeight: '400' }}>
             Complete multi-channel campaign AI builder for executive people
           </p>
         </div>
@@ -128,10 +128,10 @@ export default function Landing() {
       {/* Content positioned with specific dimensions - No z-index to allow Spline interaction */}
       <div className="absolute left-8 top-1/2 transform -translate-y-1/2" style={{ width: '880px', paddingLeft: '444px', textAlign: 'left' }}>
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4 tracking-tight">
+          <h1 className="text-4xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
             Promote your product now
           </h1>
-          <p className="text-base text-gray-600">
+          <p className="text-base text-gray-600" style={{ fontWeight: '400' }}>
             Complete multi-channel campaign AI builder for executive people
           </p>
         </div>
@@ -219,8 +219,8 @@ export default function Landing() {
           <div className="w-full max-w-screen-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-6xl font-bold text-gray-800 mb-4 tracking-tight">Promote your product now</h1>
-              <p className="text-2xl text-gray-600">Executive campaign AI builder for executive people</p>
+              <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>Promote your product now</h1>
+              <p className="text-2xl text-gray-600" style={{ fontWeight: '400' }}>Executive campaign AI builder for executive people</p>
             </div>
 
             {/* Two main options - Scaled for 4K */}

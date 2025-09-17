@@ -59,13 +59,13 @@ export default function NewLanding() {
       {/* Main Content - Centered */}
       <div className="relative z-10 flex items-center justify-center min-h-screen">
         <div className="text-center w-full px-8">
-          <h1 className="text-[120px] font-bold text-gray-800 tracking-tight leading-none">
+          <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475' }}>
             Promote your product now
           </h1>
           
-          <p className="text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1' }}>
+          <h2 className="text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
             Executive campaign AI builder for executive people
-          </p>
+          </h2>
           
           <div className="flex items-center justify-center gap-8">
             <Button 
