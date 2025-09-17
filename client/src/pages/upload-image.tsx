@@ -159,8 +159,12 @@ export default function UploadImage() {
 
           {activeTab === 'qr' ? (
             <div className="mb-12">
-              {/* QR Code Area */}
-              <div className="w-80 h-80 mx-auto bg-[#4285F4] rounded-3xl flex items-center justify-center mb-8">
+              {/* QR Code Area - Clickable to upload */}
+              <div 
+                className="w-80 h-80 mx-auto bg-[#4285F4] rounded-3xl flex items-center justify-center mb-8 cursor-pointer hover:bg-[#3367D6] transition-colors"
+                onClick={() => document.getElementById('qr-file-upload')?.click()}
+                data-testid="qr-code-upload"
+              >
                 {/* QR Code Pattern */}
                 <svg width="200" height="200" viewBox="0 0 200 200" className="text-white">
                   <rect x="0" y="0" width="30" height="30" fill="currentColor"/>
@@ -240,6 +244,16 @@ export default function UploadImage() {
               <p className="text-lg text-gray-600" style={{ fontWeight: '400' }}>
                 Scan the QR code to visit our<br />upload service
               </p>
+              
+              {/* Hidden file input for QR code upload */}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="qr-file-upload"
+                data-testid="input-qr-file-upload"
+              />
             </div>
           ) : activeTab === 'computer' ? (
             <div className="mb-12">
@@ -258,13 +272,9 @@ export default function UploadImage() {
                 id="file-upload"
                 data-testid="input-file-upload"
               />
-              <label
-                htmlFor="file-upload"
-                className="cursor-pointer inline-block bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors"
-                data-testid="button-choose-file"
-              >
+              <div className="inline-block bg-gray-300 text-gray-500 px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed">
                 Choose File
-              </label>
+              </div>
             </div>
           ) : (
             <div className="mb-12">
@@ -312,15 +322,15 @@ export default function UploadImage() {
             <Button
               variant="ghost"
               size="lg"
-              onClick={() => setActiveTab(activeTab === 'qr' ? 'computer' : 'qr')}
+              onClick={() => setActiveTab('qr')}
               className={`w-24 h-24 rounded-full p-0 transition-all ${
-                activeTab === 'qr' || activeTab === 'computer'
+                activeTab === 'qr'
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
               data-testid="button-toggle-upload"
             >
-              <Upload className={`w-12 h-12 ${
+              <Upload className={`w-16 h-16 ${
                 activeTab === 'qr' || activeTab === 'computer' ? 'text-white' : 'text-gray-600'
               }`} />
             </Button>
@@ -336,7 +346,7 @@ export default function UploadImage() {
               }`}
               data-testid="button-camera-capture"
             >
-              <Camera className={`w-12 h-12 text-gray-600`} />
+              <Camera className={`w-16 h-16 text-gray-600`} />
             </Button>
             
             <Button
@@ -350,7 +360,7 @@ export default function UploadImage() {
               }`}
               data-testid="button-ai-generate"
             >
-              <Sparkles className={`w-12 h-12 ${
+              <Sparkles className={`w-16 h-16 ${
                 activeTab === 'ai' ? 'text-white' : 'text-gray-600'
               }`} />
             </Button>
