@@ -77,15 +77,6 @@ export default function NewLanding() {
               Start now
             </Button>
             
-            <Button 
-              variant="outline" 
-              className="border-gray-800 text-gray-800 hover:bg-gray-50 rounded-full font-semibold"
-              style={{ fontSize: '30px', lineHeight: '1', padding: '24px 76px', height: 'auto' }}
-              onClick={() => console.log('How it works clicked')}
-              data-testid="button-how-it-works"
-            >
-              How it works
-            </Button>
           </div>
         </div>
       </div>
