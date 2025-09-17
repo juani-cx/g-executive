@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Shuffle } from "lucide-react";
 
 export default function Configure() {
   const [, navigate] = useLocation();
@@ -15,6 +17,11 @@ export default function Configure() {
   const [campaignType, setCampaignType] = useState("");
   const [toneOfVoice, setToneOfVoice] = useState("");
   const [productDescription, setProductDescription] = useState("");
+
+  // Dropdown options
+  const targetAudienceOptions = ["Millennials", "Gen Z", "Professionals", "Parents", "Seniors", "Students"];
+  const campaignTypeOptions = ["Product Launch", "Brand Awareness", "Lead Generation", "Sales Promotion", "Content Marketing", "Social Media"];
+  const toneOfVoiceOptions = ["Professional", "Casual", "Friendly", "Authoritative", "Playful", "Luxury"];
 
   useEffect(() => {
     // Get uploaded image from localStorage
@@ -30,14 +37,35 @@ export default function Configure() {
         setProductDescription(`The image depicts the interior of a car with a focus on the panoramic roof showing a starry night sky.
 The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic feature. The branding indicates this is a Honda Passport vehicle`);
         setTargetAudience("Car enthusiasts");
-        setCampaignType("Product launch");
-        setToneOfVoice("Futuristic");
+        setCampaignType("Product Launch");
+        setToneOfVoice("Playful");
       }, 1500);
     } else {
       // No image uploaded, redirect back
       navigate('/upload');
     }
   }, [navigate]);
+
+  const handleRandomizeAll = () => {
+    // Randomly select options from dropdowns
+    const randomTargetAudience = targetAudienceOptions[Math.floor(Math.random() * targetAudienceOptions.length)];
+    const randomCampaignType = campaignTypeOptions[Math.floor(Math.random() * campaignTypeOptions.length)];
+    const randomToneOfVoice = toneOfVoiceOptions[Math.floor(Math.random() * toneOfVoiceOptions.length)];
+    
+    // Generate random description variations
+    const descriptions = [
+      "Experience innovation like never before with cutting-edge technology that transforms your daily journey into something extraordinary.",
+      "Discover the perfect blend of style, performance, and advanced features designed for the modern lifestyle.",
+      "Revolutionary design meets unparalleled functionality in this groundbreaking product that redefines industry standards.",
+      "Premium quality and exceptional craftsmanship come together to create an unforgettable experience for discerning customers."
+    ];
+    const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
+    
+    setTargetAudience(randomTargetAudience);
+    setCampaignType(randomCampaignType);
+    setToneOfVoice(randomToneOfVoice);
+    setProductDescription(randomDescription);
+  };
 
   const handleCreateCampaign = () => {
     // Store configuration data
@@ -114,50 +142,75 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   <Label htmlFor="target-audience" className="text-lg text-gray-700 mb-2 block">
                     Target audience
                   </Label>
-                  <Input
-                    id="target-audience"
-                    value={targetAudience}
-                    onChange={(e) => setTargetAudience(e.target.value)}
-                    placeholder="Enter target audience"
-                    className="text-base h-12"
-                    data-testid="input-target-audience"
-                  />
+                  <Select value={targetAudience} onValueChange={setTargetAudience}>
+                    <SelectTrigger className="text-base h-12" data-testid="select-target-audience">
+                      <SelectValue placeholder="Select target audience" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {targetAudienceOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 
                 <div>
                   <Label htmlFor="campaign-type" className="text-lg text-gray-700 mb-2 block">
                     Campaign Type
                   </Label>
-                  <Input
-                    id="campaign-type"
-                    value={campaignType}
-                    onChange={(e) => setCampaignType(e.target.value)}
-                    placeholder="Enter campaign type"
-                    className="text-base h-12"
-                    data-testid="input-campaign-type"
-                  />
+                  <Select value={campaignType} onValueChange={setCampaignType}>
+                    <SelectTrigger className="text-base h-12" data-testid="select-campaign-type">
+                      <SelectValue placeholder="Select campaign type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {campaignTypeOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 
                 <div>
                   <Label htmlFor="tone-of-voice" className="text-lg text-gray-700 mb-2 block">
                     Tone of voice
                   </Label>
-                  <Input
-                    id="tone-of-voice"
-                    value={toneOfVoice}
-                    onChange={(e) => setToneOfVoice(e.target.value)}
-                    placeholder="Enter tone"
-                    className="text-base h-12"
-                    data-testid="input-tone-of-voice"
-                  />
+                  <Select value={toneOfVoice} onValueChange={setToneOfVoice}>
+                    <SelectTrigger className="text-base h-12" data-testid="select-tone-of-voice">
+                      <SelectValue placeholder="Select tone" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {toneOfVoiceOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
               {/* Description */}
               <div>
-                <Label htmlFor="product-description" className="text-lg text-gray-700 mb-2 block">
-                  Description of your product
-                </Label>
+                <div className="flex items-center justify-between mb-2">
+                  <Label htmlFor="product-description" className="text-lg text-gray-700">
+                    Description of your product
+                  </Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleRandomizeAll}
+                    className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2"
+                    data-testid="button-randomize-all"
+                  >
+                    <Shuffle className="w-4 h-4" />
+                    Randomize all
+                  </Button>
+                </div>
                 <Textarea
                   id="product-description"
                   value={productDescription}
@@ -169,15 +222,15 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 />
               </div>
 
-              {/* Create Campaign Button */}
+              {/* Create Preview Button */}
               <div className="pt-4">
                 <Button
                   onClick={handleCreateCampaign}
                   disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
                   className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold py-4 text-xl rounded-full transition-all duration-200"
-                  data-testid="button-create-campaign"
+                  data-testid="button-create-preview"
                 >
-                  Create campaign
+                  Create preview
                 </Button>
               </div>
             </div>
