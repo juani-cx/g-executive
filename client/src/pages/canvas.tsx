@@ -474,7 +474,7 @@ export default function CanvasView() {
         </div>
 
         {/* Main Content Area - Single Line Layout */}
-        <div className="flex-1 flex items-center justify-center px-8 pb-20">
+        <div className="flex-1 flex items-center justify-center pb-20" style={{ padding: '0 14rem', marginTop: '-260px' }}>
           <div className="w-full max-w-none">
             <div className="grid grid-cols-4 gap-10 max-w-8xl mx-auto">
               {project.assets.map((card) => (
