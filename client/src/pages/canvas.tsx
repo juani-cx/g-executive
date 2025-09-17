@@ -71,6 +71,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import QRCode from "react-qr-code";
 import { MainMenu } from "@/components/main-menu";
 import MaterialHeader from "@/components/material-header";
 import { useLocation, useRoute } from "wouter";
@@ -238,6 +245,14 @@ export default function CanvasView() {
   // Auto-save state
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "error">("saved");
+  
+  // Asset modal state
+  const [selectedAsset, setSelectedAsset] = useState<AssetCard | null>(null);
+  const [showAssetModal, setShowAssetModal] = useState(false);
+  
+  // QR modal state
+  const [showQRModal, setShowQRModal] = useState(false);
+  const [qrUrl, setQrUrl] = useState("");
   
   // Get URL parameters for collaboration (memoized to prevent re-renders)
   const linkToken = useMemo(() => {
@@ -528,6 +543,21 @@ export default function CanvasView() {
       ...prev,
       assets: prev.assets.filter(asset => asset.id !== cardId)
     } : null);
+  };
+
+  // Handle asset card click to open modal
+  const handleAssetClick = (asset: AssetCard) => {
+    setSelectedAsset(asset);
+    setShowAssetModal(true);
+  };
+
+  // Handle share button click to show QR code
+  const handleShareClick = () => {
+    // Generate a shareable URL for the canvas
+    const currentUrl = window.location.href;
+    const shareUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'shared=true';
+    setQrUrl(shareUrl);
+    setShowQRModal(true);
   };
 
   // Handle mouse wheel zoom
@@ -1250,7 +1280,7 @@ export default function CanvasView() {
           variant="outline" 
           size="sm" 
           className="glass-surface px-4 py-2 gap-2"
-          onClick={() => setShowDownloadModal(true)}
+          onClick={handleShareClick}
         >
           <Share className="w-4 h-4" />
           Share
@@ -1472,12 +1502,16 @@ export default function CanvasView() {
             return (
               <div
                 key={card.id}
-                className="absolute"
+                className="absolute cursor-pointer"
                 style={{
                   left: card.position?.x || (200 + (index * 100)),
                   top: card.position?.y || (150 + Math.floor(index / 2) * 300),
                 }}
                 onMouseDown={(e) => handleCardMouseDown(e, card.id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAssetClick(card);
+                }}
               >
                 <RichAssetCard
                   card={card}
@@ -1667,6 +1701,84 @@ export default function CanvasView() {
 
       {/* Main Menu */}
       <MainMenu isOpen={showMainMenu} onOpenChange={setShowMainMenu} />
+
+      {/* Asset Content Modal */}
+      <Dialog open={showAssetModal} onOpenChange={setShowAssetModal}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-semibold">
+              {selectedAsset?.title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-6 space-y-6">
+            {selectedAsset && (
+              <>
+                {/* Asset Preview */}
+                <div className="bg-gray-50 rounded-lg p-8 text-center">
+                  <div className="text-lg text-gray-600 mb-4">
+                    {selectedAsset.content?.preview || "Preview content for " + selectedAsset.title}
+                  </div>
+                  <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                    {selectedAsset.type === "video" ? "📹 Vertical Video Preview" :
+                     selectedAsset.type === "landing" ? "🌐 Landing Page Hero" :
+                     selectedAsset.type === "banner" ? "📄 Ad Banner Design" :
+                     selectedAsset.type === "linkedin" ? "💼 LinkedIn Image" : 
+                     "🎨 Asset Preview"}
+                  </div>
+                </div>
+                
+                {/* Meta Description */}
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Meta Description</h3>
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="text-gray-700">
+                      {selectedAsset.content?.text || selectedAsset.summary}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Asset Details */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-2">Asset Type</h4>
+                    <p className="text-gray-600 capitalize">{selectedAsset.type}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-2">Status</h4>
+                    <p className="text-gray-600 capitalize">{selectedAsset.status}</p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* QR Code Share Modal */}
+      <Dialog open={showQRModal} onOpenChange={setShowQRModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share Canvas</DialogTitle>
+          </DialogHeader>
+          <div className="mt-6 text-center space-y-4">
+            <p className="text-gray-600">
+              Scan this QR code to access the canvas on your device
+            </p>
+            {qrUrl && (
+              <div className="bg-white p-4 rounded-lg inline-block">
+                <QRCode 
+                  value={qrUrl} 
+                  size={200}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                />
+              </div>
+            )}
+            <p className="text-sm text-gray-500">
+              Anyone with this link can view the canvas
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
