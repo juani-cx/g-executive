@@ -637,21 +637,34 @@ export default function CanvasView() {
             {selectedAsset.type === 'landing' && (
               <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Landing Page Hero Simulation */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-16 text-center">
-                  <h1 className="text-6xl font-bold mb-8 leading-tight">
-                    Transform Your Business
-                  </h1>
-                  <p className="text-2xl mb-12 opacity-90 max-w-4xl mx-auto">
-                    {editContent || "Discover how our AI-powered platform can revolutionize your marketing strategies and drive unprecedented growth."}
-                  </p>
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 rounded-xl font-semibold"
-                  >
-                    Get Started Now
-                  </Button>
+                <div className="bg-white p-16 flex items-center">
+                  <div className="flex-1 text-left">
+                    <h1 className="text-6xl font-bold mb-8 leading-tight text-gray-900">
+                      Transform Your Business
+                    </h1>
+                    <p className="text-2xl mb-12 text-gray-700 max-w-3xl">
+                      {editContent || "Discover how our AI-powered platform can revolutionize your marketing strategies and drive unprecedented growth."}
+                    </p>
+                    <Button 
+                      size="lg" 
+                      className="bg-blue-600 text-white hover:bg-blue-700 text-xl px-12 py-6 rounded-xl font-semibold"
+                    >
+                      Get Started Now
+                    </Button>
+                  </div>
+                  {/* Image on the right */}
+                  <div className="w-80 h-64 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-16">
+                    <div className="text-center">
+                      <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                        <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                      </div>
+                      <div className="text-lg font-semibold text-gray-800">Campaign AI</div>
+                      <div className="text-sm text-gray-600">Landing Page</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="h-24 bg-gray-50"></div>
               </div>
             )}
 
@@ -676,20 +689,31 @@ export default function CanvasView() {
                     <p className="text-lg text-gray-800 leading-relaxed mb-6">
                       {editContent || "🚀 Excited to share how AI is transforming marketing! Our latest campaign generated 3x more engagement using intelligent targeting and personalized content creation. The future of marketing is here! #AI #Marketing #Innovation"}
                     </p>
-                    {/* Campaign Performance Dashboard Image */}
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 mb-6 border border-blue-200">
-                      <div className="text-center mb-4">
-                        <h4 className="text-lg font-semibold text-gray-800 mb-3">📊 Campaign Performance Dashboard</h4>
-                        <div className="bg-white rounded-lg p-4 shadow-sm">
-                          {/* Chart bars */}
-                          <div className="flex items-end justify-center space-x-3 h-24">
-                            <div className="bg-blue-500 rounded-t" style={{height: '60%', width: '16px'}}></div>
-                            <div className="bg-blue-600 rounded-t" style={{height: '85%', width: '16px'}}></div>
-                            <div className="bg-blue-700 rounded-t" style={{height: '100%', width: '16px'}}></div>
-                            <div className="bg-blue-800 rounded-t" style={{height: '75%', width: '16px'}}></div>
-                            <div className="bg-indigo-600 rounded-t" style={{height: '90%', width: '16px'}}></div>
+                    {/* Image on the right */}
+                    <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                      <div className="flex items-center">
+                        <div className="flex-1">
+                          <div className="bg-white rounded-lg p-4 shadow-sm">
+                            {/* Chart bars */}
+                            <div className="flex items-end justify-center space-x-3 h-24 mb-3">
+                              <div className="bg-blue-500 rounded-t" style={{height: '60%', width: '16px'}}></div>
+                              <div className="bg-blue-600 rounded-t" style={{height: '85%', width: '16px'}}></div>
+                              <div className="bg-blue-700 rounded-t" style={{height: '100%', width: '16px'}}></div>
+                              <div className="bg-blue-800 rounded-t" style={{height: '75%', width: '16px'}}></div>
+                              <div className="bg-indigo-600 rounded-t" style={{height: '90%', width: '16px'}}></div>
+                            </div>
+                            <div className="text-sm text-gray-600 text-center">3x Engagement Increase</div>
                           </div>
-                          <div className="mt-3 text-sm text-gray-600 text-center">3x Engagement Increase</div>
+                        </div>
+                        <div className="w-32 h-24 bg-blue-50 rounded-lg flex items-center justify-center ml-6">
+                          <div className="text-center">
+                            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mb-2 mx-auto">
+                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                              </svg>
+                            </div>
+                            <div className="text-xs text-gray-700 font-medium">LinkedIn</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -716,31 +740,36 @@ export default function CanvasView() {
             )}
 
             {selectedAsset.type === 'video' && (
-              <div className="w-full max-w-lg mx-auto">
+              <div className="w-full max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Vertical Video Player Simulation */}
-                <div className="bg-black rounded-3xl overflow-hidden shadow-2xl aspect-[9/16] relative">
-                  <div className="absolute inset-0 bg-gradient-to-b from-purple-600 to-pink-600 flex items-center justify-center">
-                    <div className="text-center text-white p-8">
-                      <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mb-8 mx-auto">
-                        <div className="w-0 h-0 border-l-[24px] border-l-white border-y-[12px] border-y-transparent ml-2"></div>
-                      </div>
-                      <h2 className="text-3xl font-bold mb-4">Vertical Video</h2>
-                      <p className="text-lg opacity-90 mb-8 leading-relaxed">
-                        {editContent || "Transform your content strategy with AI-powered video creation"}
-                      </p>
-                      <div className="text-sm opacity-75">
-                        Perfect for TikTok, Instagram Reels & YouTube Shorts
-                      </div>
+                <div className="bg-white p-16 flex items-center">
+                  <div className="flex-1">
+                    <h2 className="text-5xl font-bold mb-6 text-gray-900">Vertical Video Content</h2>
+                    <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                      {editContent || "Transform your content strategy with AI-powered video creation that engages your audience across all platforms."}
+                    </p>
+                    <div className="text-lg text-gray-600 mb-8">
+                      Perfect for TikTok, Instagram Reels & YouTube Shorts
+                    </div>
+                    {/* Video Controls */}
+                    <div className="flex space-x-6 text-gray-600">
+                      <button className="flex items-center space-x-2">❤️ <span>12.5K</span></button>
+                      <button className="flex items-center space-x-2">💬 <span>234</span></button>
+                      <button className="flex items-center space-x-2">🔄 <span>89</span></button>
+                      <button>📤</button>
                     </div>
                   </div>
-                  {/* Video Controls */}
-                  <div className="absolute bottom-6 left-6 right-6 text-white">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex space-x-4">
-                        <button>❤️ 12.5K</button>
-                        <button>💬 234</button>
-                        <button>🔄 89</button>
-                        <button>📤</button>
+                  {/* Image on the right */}
+                  <div className="w-64 ml-16">
+                    <div className="bg-gray-100 rounded-3xl aspect-[9/16] relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <div className="w-0 h-0 border-l-[20px] border-l-white border-y-[10px] border-y-transparent ml-1"></div>
+                          </div>
+                          <div className="text-sm font-semibold text-gray-800">Campaign AI</div>
+                          <div className="text-xs text-gray-600">Video</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -749,29 +778,31 @@ export default function CanvasView() {
             )}
 
             {selectedAsset.type === 'banner' && (
-              <div className="w-full max-w-5xl mx-auto">
+              <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Ad Banner Simulation */}
-                <div className="bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-3xl shadow-2xl overflow-hidden">
-                  <div className="flex items-center h-64">
-                    <div className="flex-1 p-12">
-                      <h2 className="text-4xl font-bold mb-4">
-                        Special Limited Offer!
-                      </h2>
-                      <p className="text-xl mb-6 opacity-90">
-                        {editContent || "Get 50% off your first month - Transform your marketing with AI-powered campaigns"}
-                      </p>
-                      <Button 
-                        size="lg" 
-                        className="bg-white text-green-600 hover:bg-gray-100 text-lg px-8 py-4 rounded-xl font-semibold"
-                      >
-                        Claim Offer Now →
-                      </Button>
-                    </div>
-                    <div className="w-64 h-full bg-white/10 flex items-center justify-center">
-                      <div className="text-center opacity-75">
-                        <div className="text-6xl mb-4">🎯</div>
-                        <div className="text-lg">Marketing AI</div>
+                <div className="bg-white p-16 flex items-center">
+                  <div className="flex-1">
+                    <h2 className="text-5xl font-bold mb-6 text-gray-900">
+                      Special Limited Offer!
+                    </h2>
+                    <p className="text-xl mb-8 text-gray-700 leading-relaxed">
+                      {editContent || "Get 50% off your first month - Transform your marketing with AI-powered campaigns that deliver results."}
+                    </p>
+                    <Button 
+                      size="lg" 
+                      className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-4 rounded-xl font-semibold"
+                    >
+                      Claim Offer Now →
+                    </Button>
+                  </div>
+                  {/* Image on the right */}
+                  <div className="w-80 h-64 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-16">
+                    <div className="text-center">
+                      <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                        <div className="text-4xl text-white">🎯</div>
                       </div>
+                      <div className="text-lg font-semibold text-gray-800">Campaign AI</div>
+                      <div className="text-sm text-gray-600">Ad Banner</div>
                     </div>
                   </div>
                 </div>
