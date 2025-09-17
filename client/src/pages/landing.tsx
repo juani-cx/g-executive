@@ -179,14 +179,9 @@ export default function Landing() {
 
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
-      {/* Persistent Header with Logo - Always Visible */}
+      {/* Persistent Header - Always Visible */}
       <div className="absolute top-6 left-6 z-50">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">AI</span>
-          </div>
-          <span className="text-xl font-semibold text-gray-800">Campaign AI Platform</span>
-        </div>
+        <span className="text-2xl font-normal text-gray-900">Google</span>
       </div>
 
       {/* Demo Navigation Links - Centered */}
