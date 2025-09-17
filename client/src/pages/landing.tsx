@@ -25,10 +25,16 @@ export default function Landing() {
 
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
     setSelectedOption(optionType);
-    // Store the selected type for the prompt screen
+    // Store the selected type
     localStorage.setItem('selectedAppType', optionType);
-    // Navigate to the prompt input screen
-    navigate('/prompt-input');
+    
+    if (optionType === 'marketing') {
+      // Navigate to the new upload flow for marketing campaigns
+      navigate('/upload');
+    } else {
+      // Navigate to the existing prompt input screen for catalog
+      navigate('/prompt-input');
+    }
   };
 
   const renderDemo2Prompt = () => (

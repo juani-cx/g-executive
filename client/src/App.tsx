@@ -9,6 +9,9 @@ import Login from "@/pages/login";
 import Landing from "@/pages/landing";
 import NewLanding from "@/pages/new-landing";
 import PromptInput from "@/pages/prompt-input";
+import UploadImage from "@/pages/upload-image";
+import Configure from "@/pages/configure";
+import Preview from "@/pages/preview";
 import Home from "@/pages/home";
 import CanvasView from "@/pages/canvas";
 import CampaignGenerator from "@/pages/campaign-generator";
@@ -36,6 +39,9 @@ function AuthenticatedRouter() {
           <Route path="/" component={NewLanding} />
           <Route path="/homepage" component={Landing} />
           <Route path="/prompt-input" component={PromptInput} />
+          <Route path="/upload" component={UploadImage} />
+          <Route path="/configure" component={Configure} />
+          <Route path="/preview" component={Preview} />
           <Route path="/home" component={Home} />
           <Route path="/canvas" component={CanvasView} />
           <Route path="/canvas/:id" component={CanvasView} />

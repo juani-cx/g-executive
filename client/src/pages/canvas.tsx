@@ -642,6 +642,35 @@ export default function CanvasView() {
       return;
     }
     
+    // Check for finalCampaign data from new flow
+    const finalCampaign = localStorage.getItem('finalCampaign');
+    if (finalCampaign) {
+      try {
+        const campaignData = JSON.parse(finalCampaign);
+        if (campaignData && typeof campaignData === 'object') {
+          const newProject: Project = {
+            id: Date.now().toString(),
+            title: campaignData.selectedOption?.title || 'New Marketing Campaign',
+            prompt: campaignData.productDescription || 'Create marketing campaign',
+            createdAt: new Date(),
+            assets: DEFAULT_CARDS.map((card, index) => ({
+              ...card,
+              id: `card-${index}`,
+              createdAt: new Date(),
+            })),
+          };
+          setProject(newProject);
+          
+          // Clear the finalCampaign data
+          localStorage.removeItem('finalCampaign');
+          return;
+        }
+      } catch (error) {
+        console.error('Failed to parse finalCampaign data:', error);
+        localStorage.removeItem('finalCampaign');
+      }
+    }
+    
     // Fallback to prompt-based initialization
     const prompt = localStorage.getItem('campaignPrompt');
     if (prompt) {
