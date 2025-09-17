@@ -49,7 +49,7 @@ const DEFAULT_CARDS: AssetCard[] = [
     type: "video",
     title: "Vertical Video",
     summary: "Engaging vertical video content with meta description for social media platforms",
-    status: "ready",
+    status: "generating",
     version: 1,
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
@@ -235,6 +235,7 @@ export default function CanvasView() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showFullPagePreview, setShowFullPagePreview] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -276,6 +277,27 @@ export default function CanvasView() {
       });
     }
   }, [campaignData]);
+
+  // Simulate video generation completion after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (project) {
+        setProject(prevProject => {
+          if (!prevProject) return prevProject;
+          return {
+            ...prevProject,
+            assets: prevProject.assets.map(asset => 
+              asset.id === "1" && asset.status === "generating" 
+                ? { ...asset, status: "ready" } 
+                : asset
+            )
+          };
+        });
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [project?.assets[0]?.status]);
 
   // Timeout functionality
   useEffect(() => {
@@ -324,21 +346,31 @@ export default function CanvasView() {
   };
 
   const handleNavigatePrevious = () => {
-    if (!project) return;
+    if (!project || isTransitioning) return;
     
+    setIsTransitioning(true);
     const prevIndex = currentPreviewIndex > 0 ? currentPreviewIndex - 1 : project.assets.length - 1;
-    setCurrentPreviewIndex(prevIndex);
-    setSelectedAsset(project.assets[prevIndex]);
-    setEditContent(project.assets[prevIndex].content?.text || "");
+    
+    setTimeout(() => {
+      setCurrentPreviewIndex(prevIndex);
+      setSelectedAsset(project.assets[prevIndex]);
+      setEditContent(project.assets[prevIndex].content?.text || "");
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const handleNavigateNext = () => {
-    if (!project) return;
+    if (!project || isTransitioning) return;
     
+    setIsTransitioning(true);
     const nextIndex = currentPreviewIndex < project.assets.length - 1 ? currentPreviewIndex + 1 : 0;
-    setCurrentPreviewIndex(nextIndex);
-    setSelectedAsset(project.assets[nextIndex]);
-    setEditContent(project.assets[nextIndex].content?.text || "");
+    
+    setTimeout(() => {
+      setCurrentPreviewIndex(nextIndex);
+      setSelectedAsset(project.assets[nextIndex]);
+      setEditContent(project.assets[nextIndex].content?.text || "");
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const handleKeyPress = (key: string) => {
@@ -444,29 +476,35 @@ export default function CanvasView() {
         {/* Main Content Area - Single Line Layout */}
         <div className="flex-1 flex items-center justify-center px-8 pb-20">
           <div className="w-full max-w-none">
-            <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-4 gap-10 max-w-8xl mx-auto">
               {project.assets.map((card) => (
                 <Card 
                   key={card.id}
-                  className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:ring-1 hover:ring-gray-300"
+                  className="cursor-pointer transition-all duration-200 hover:shadow-xl shadow-md hover:ring-1 hover:ring-gray-300 w-full"
                   onClick={() => handleAssetClick(card)}
                   data-testid={`card-asset-${card.id}`}
                 >
                   <CardContent className="p-8">
-                    {/* Image - Same as preview page */}
-                    <div className="w-full h-48 bg-gray-100 rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
-                      <img 
-                        src={card.previewImage} 
-                        alt={card.title}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          objectFit: 'cover'
-                        }}
-                      />
+                    {/* Image with Spinner for generating status */}
+                    <div className="w-full h-48 bg-gray-100 rounded-2xl overflow-hidden mb-6 flex items-center justify-center relative">
+                      {card.status === 'generating' ? (
+                        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                        </div>
+                      ) : (
+                        <img 
+                          src={card.previewImage} 
+                          alt={card.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      )}
                     </div>
                     
-                    {/* Style Badge - Same as preview page */}
+                    {/* Style Badge */}
                     <div className="mb-4">
                       <span className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
                         {card.type === 'video' ? 'Video' : 
@@ -476,17 +514,17 @@ export default function CanvasView() {
                       </span>
                     </div>
                     
-                    {/* Title - Same as preview page */}
+                    {/* Title */}
                     <h3 className="text-2xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
                       {card.title}
                     </h3>
                     
-                    {/* Description - Same as preview page */}
+                    {/* Description */}
                     <p className="text-base text-gray-600 mb-6" style={{ fontWeight: '400' }}>
                       {card.summary}
                     </p>
                     
-                    {/* Learn More Button - Same as preview page */}
+                    {/* Learn More Button */}
                     <Button 
                       variant="outline" 
                       className="text-gray-700 border-gray-300 hover:bg-gray-50"
@@ -530,45 +568,72 @@ export default function CanvasView() {
       {/* Full Page Preview */}
       {showFullPagePreview && selectedAsset && (
         <div className="fixed inset-0 bg-white z-50 overflow-hidden">
-          {/* Navigation Header */}
-          <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-10">
+          {/* Google Logo - Top Left */}
+          <div className="absolute top-8 left-8 z-10">
+            <img src="/Google_logo.svg" alt="Google" className="h-8" />
+          </div>
+
+          {/* Navigation Header - Top Right */}
+          <div className="absolute top-8 right-8 z-10">
             <Button
               variant="outline"
               size="lg"
               onClick={() => setShowFullPagePreview(false)}
-              className="bg-white/90 backdrop-blur-sm border-gray-300"
+              className="bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50"
               data-testid="button-close-preview"
             >
               ← Back to Canvas
             </Button>
-            <div className="text-lg font-medium text-gray-700 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
-              {selectedAsset.title} ({currentPreviewIndex + 1} of {project.assets.length})
-            </div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Main Title - Centered at Top */}
+          <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-10 text-center">
+            <h1 className="text-5xl font-normal text-gray-900 mb-2" style={{ fontWeight: '500' }}>
+              {selectedAsset.type === 'video' ? 'TikTok' : 
+               selectedAsset.type === 'landing' ? 'Landing Page' : 
+               selectedAsset.type === 'linkedin' ? 'LinkedIn' : 
+               selectedAsset.type === 'banner' ? 'Ad Banner' : selectedAsset.title}
+            </h1>
+            <p className="text-lg text-gray-600">
+              {currentPreviewIndex + 1}/{project.assets.length}
+            </p>
+          </div>
+
+          {/* Navigation Arrows - Positioned closer to content */}
           <Button
             variant="outline"
             size="lg"
             onClick={handleNavigatePrevious}
-            className="absolute left-8 top-1/2 transform -translate-y-1/2 z-10 w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm border-gray-300"
+            disabled={isTransitioning}
+            className="absolute left-1/4 top-1/2 transform -translate-y-1/2 -translate-x-8 z-10 w-16 h-16 rounded-full bg-white shadow-lg border-gray-300 hover:shadow-xl transition-all disabled:opacity-50"
             data-testid="button-navigate-previous"
           >
-            ←
+            <span className="text-2xl">←</span>
           </Button>
           
           <Button
             variant="outline"
             size="lg"
             onClick={handleNavigateNext}
-            className="absolute right-8 top-1/2 transform -translate-y-1/2 z-10 w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm border-gray-300"
+            disabled={isTransitioning}
+            className="absolute right-1/4 top-1/2 transform -translate-y-1/2 translate-x-8 z-10 w-16 h-16 rounded-full bg-white shadow-lg border-gray-300 hover:shadow-xl transition-all disabled:opacity-50"
             data-testid="button-navigate-next"
           >
-            →
+            <span className="text-2xl">→</span>
           </Button>
 
-          {/* Preview Content */}
-          <div className="w-full h-full flex items-center justify-center pt-24 pb-16">
+          {/* Share Button - Bottom Center */}
+          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10">
+            <Button 
+              variant="outline" 
+              className="px-8 py-3 bg-white/90 backdrop-blur-sm border-gray-300 hover:bg-gray-50"
+            >
+              Share
+            </Button>
+          </div>
+
+          {/* Preview Content with Transition */}
+          <div className={`w-full h-full flex items-center justify-center pt-40 pb-24 transition-all duration-300 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
             {selectedAsset.type === 'landing' && (
               <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Landing Page Hero Simulation */}
