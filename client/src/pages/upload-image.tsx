@@ -187,10 +187,8 @@ export default function UploadImage() {
   return (
     <div className="h-screen max-h-screen dotted-background overflow-hidden">
       {/* Header */}
-      <div className="absolute top-8 left-8 z-10">
-        <div className="flex items-center gap-4">
-          <img src="/Google_logo.svg" alt="Google" className="h-10" />
-        </div>
+      <div className="absolute top-6 left-6 z-50">
+        <span className="text-2xl font-normal text-gray-900">Google</span>
       </div>
 
       <div className="absolute top-8 right-8 z-10">
