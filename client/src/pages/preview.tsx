@@ -128,8 +128,10 @@ export default function Preview() {
                     <img 
                       src={option.id === 'option1' ? config.uploadedImage : config.uploadedImage} 
                       alt={`Generated campaign preview ${option.id}`}
-                      className="max-w-full max-h-full object-contain"
                       style={{
+                        width: '100%',
+                        height: 'auto',
+                        objectFit: 'cover',
                         filter: option.id === 'option1' ? 'sepia(0.3) hue-rotate(200deg)' : 'sepia(0.2) hue-rotate(90deg)'
                       }}
                       data-testid={`img-preview-${option.id}`}
