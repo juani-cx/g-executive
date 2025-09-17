@@ -46,7 +46,7 @@ const DEFAULT_CARDS: AssetCard[] = [
       preview: "9:16 vertical video preview with compelling visuals",
       text: "Meta description: Captivating vertical video designed for maximum engagement on mobile platforms. Optimized for TikTok, Instagram Reels, and YouTube Shorts with compelling storytelling and clear call-to-action.",
     },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3EVertical Video%3C/text%3E%3C/svg%3E"
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grad1)'/%3E%3Crect x='130' y='30' width='60' height='120' rx='15' fill='%23ffffff' opacity='0.9'/%3E%3Ctext x='50%25' y='25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='12' fill='white' font-weight='600'%3EVertical Video Content%3C/text%3E%3Ccircle cx='160' cy='90' r='15' fill='white' opacity='0.8'/%3E%3Cpolygon points='155,85 155,95 167,90' fill='%23667eea'/%3E%3C/svg%3E"
   },
   {
     id: "2",
@@ -62,7 +62,7 @@ const DEFAULT_CARDS: AssetCard[] = [
       preview: "Hero section with compelling headline and CTA",
       text: "Meta description: Conversion-optimized hero section featuring bold headline, value proposition, and strategic call-to-action button. Designed to capture attention and drive user engagement from first page visit.",
     },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3ELanding Page%3C/text%3E%3C/svg%3E"
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3Crect x='0' y='0' width='100%25' height='50' fill='%234285F4'/%3E%3Ctext x='50%25' y='30' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='16' fill='white' font-weight='bold'%3EYour Brand%3C/text%3E%3Crect x='40' y='70' width='240' height='15' rx='7' fill='%23f1f3f4'/%3E%3Crect x='40' y='95' width='200' height='10' rx='5' fill='%23f1f3f4'/%3E%3Crect x='40' y='115' width='180' height='10' rx='5' fill='%23f1f3f4'/%3E%3Crect x='40' y='145' width='120' height='25' rx='12' fill='%234285F4'/%3E%3Ctext x='100' y='158' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='10' fill='white' font-weight='600'%3ECTA Button%3C/text%3E%3C/svg%3E"
   },
   {
     id: "3",
@@ -78,7 +78,7 @@ const DEFAULT_CARDS: AssetCard[] = [
       preview: "Professional LinkedIn post visual",
       text: "Meta description: Business-focused LinkedIn image designed for professional networking and thought leadership. Optimized for LinkedIn's algorithm with industry-appropriate design and engagement-driving elements.",
     },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3ELinkedIn Image%3C/text%3E%3C/svg%3E"
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%230077b5'/%3E%3Crect x='20' y='20' width='280' height='140' rx='8' fill='white'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23ddd'/%3E%3Crect x='75' y='40' width='120' height='8' rx='4' fill='%23ddd'/%3E%3Crect x='75' y='55' width='80' height='6' rx='3' fill='%23ccc'/%3E%3Crect x='30' y='80' width='260' height='6' rx='3' fill='%23f0f0f0'/%3E%3Crect x='30' y='95' width='240' height='6' rx='3' fill='%23f0f0f0'/%3E%3Crect x='30' y='110' width='200' height='6' rx='3' fill='%23f0f0f0'/%3E%3Crect x='30' y='135' width='60' height='18' rx='9' fill='%230077b5'/%3E%3Ctext x='60' y='145' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='8' fill='white' font-weight='600'%3ELike%3C/text%3E%3C/svg%3E"
   },
   {
     id: "4",
@@ -94,7 +94,7 @@ const DEFAULT_CARDS: AssetCard[] = [
       preview: "Professional banner ad with brand elements",
       text: "Meta description: Strategic advertising banner optimized for display campaigns across web and social platforms. Features brand-consistent design, clear messaging, and compelling visuals to drive click-through rates.",
     },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3EAd Banner%3C/text%3E%3C/svg%3E"
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='adGrad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b6b;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ffd93d;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23adGrad)'/%3E%3Crect x='20' y='30' width='80' height='80' rx='10' fill='white' opacity='0.9'/%3E%3Ctext x='160' y='70' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='18' fill='white' font-weight='bold'%3ESpecial Offer%3C/text%3E%3Ctext x='160' y='95' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='white'%3E50%25 OFF%3C/text%3E%3Crect x='220' y='120' width='80' height='25' rx='12' fill='white'/%3E%3Ctext x='260' y='133' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='10' fill='%23ff6b6b' font-weight='600'%3EShop Now%3C/text%3E%3C/svg%3E"
   },
 ];
 
