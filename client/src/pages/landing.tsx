@@ -1,8 +1,8 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
-import campaignImage from "@assets/campaign_1758138693441.png";
-import catalogImage from "@assets/catalog_1758138693441.png";
+import campaignImage from "@assets/campaign_1758139095122.png";
+import catalogImage from "@assets/catalog_1758139095122.png";
 import Logo from "@/components/Logo";
 
 export default function Landing() {
