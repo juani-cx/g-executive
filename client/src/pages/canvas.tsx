@@ -8,7 +8,6 @@ import DownloadModal from "@/components/canvas/DownloadModal";
 import PresenceIndicators, { LiveCursor } from "@/components/collaboration/presence-indicators";
 import { useCollaboration } from "@/hooks/useCollaboration";
 import RichAssetCard from "@/components/canvas/RichAssetCard";
-import AssetDrawer from "@/components/canvas/AssetDrawer";
 import { mockCanvasCards } from "@/lib/mockData";
 import { CanvasCard } from "@/types/canvas";
 import { 
@@ -214,7 +213,6 @@ export default function CanvasView() {
   const [project, setProject] = useState<Project | null>(null);
   const [viewport, setViewport] = useState({ x: 0, y: 0, zoom: 1 });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [tool, setTool] = useState<"hand" | "select" | "text" | "shape" | "image" | "comment">("select");
   const [canvasElements, setCanvasElements] = useState<CanvasElement[]>([]);
   const [editingText, setEditingText] = useState<string | null>(null);
@@ -260,13 +258,15 @@ export default function CanvasView() {
     return urlParams.get('token');
   }, []);
   
-  // Initialize collaboration
-  const collaboration = useCollaboration({
+  // Initialize collaboration - memoize to prevent infinite loops
+  const displayName = useMemo(() => `User ${Math.floor(Math.random() * 1000)}`, []); // Stable name
+  const collabConfig = useMemo(() => ({
     canvasId: campaignId ? parseInt(campaignId) : 0,
     linkToken: linkToken || undefined,
-    displayName: `User ${Math.floor(Math.random() * 1000)}`, // In production, get from auth
+    displayName, // In production, get from auth
     enabled: !!campaignId
-  });
+  }), [campaignId, linkToken, displayName]);
+  const collaboration = useCollaboration(collabConfig);
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -367,7 +367,7 @@ export default function CanvasView() {
         canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
       };
     }
-  }, [collaboration.isConnected]); // Removed collaboration.updateCursor to prevent infinite loop
+  }, [collaboration.isConnected]); // Restored collaboration dependency now that it's stable
 
   // Helper function to generate unique IDs
   const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -819,7 +819,7 @@ export default function CanvasView() {
       };
       setProject(newProject);
     }
-  }, [campaignData, campaignId]); // Removed setLocation to prevent infinite loop
+  }, [campaignId]); // Only depend on campaignId to prevent infinite loop
 
   const handleCanvasMouseDown = (e: React.MouseEvent) => {
     if (isPanning || tool === "hand" || e.button === 1) { // Middle mouse button or spacebar panning
@@ -1101,44 +1101,22 @@ export default function CanvasView() {
 
   return (
     <div className="min-h-screen relative overflow-hidden dotted-background">
-      {/* Floating Header - Miro Style */}
-      <div className="fixed top-6 left-6 z-30">
-        <div className="clean-card rounded-2xl px-4 py-3">
-          <div className="flex items-center space-x-4">
-            {/* Menu Icon */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="w-8 h-8 p-0"
-              onClick={() => setShowMainMenu(true)}
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <line x1="3" y1="12" x2="21" y2="12"/>
-                <line x1="3" y1="18" x2="21" y2="18"/>
-              </svg>
-            </Button>
-
-            {/* Logo */}
-            <img 
-              src="/google-logo.png" 
-              alt="Google" 
-              className="h-8 w-auto"
-            />
-
-            {/* Project Title */}
-            <span className="text-gray-800 font-medium">{project?.prompt || project?.title || "New Campaign"}</span>
-
-            {/* More Options */}
-            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="1"/>
-                <circle cx="19" cy="12" r="1"/>
-                <circle cx="5" cy="12" r="1"/>
-              </svg>
-            </Button>
-          </div>
+      {/* Header with Logo */}
+      <div className="absolute top-8 left-8 z-10">
+        <div className="flex items-center gap-4">
+          <img src="/Google_logo.svg" alt="Google" className="h-10" />
         </div>
+      </div>
+
+      <div className="absolute top-8 right-8 z-10">
+        <Button 
+          variant="outline" 
+          className="text-gray-600 border-gray-300 hover:bg-gray-50"
+          onClick={() => setLocation('/')}
+          data-testid="button-back-to-home"
+        >
+          Back to home
+        </Button>
       </div>
       
       {/* Floating Canvas Toolbar - Left Side (Miro Style) */}
@@ -1515,7 +1493,7 @@ export default function CanvasView() {
               >
                 <RichAssetCard
                   card={card}
-                  onExpand={() => setExpandedCard(card.id)}
+                  onExpand={() => {}} // No longer needed - modal handles everything
                   onDuplicate={() => console.log('Duplicate', card.id)}
                   onExport={() => console.log('Export', card.id)}
                   onDelete={() => console.log('Delete', card.id)}
@@ -1550,15 +1528,6 @@ export default function CanvasView() {
         })) || []}
       />
 
-      {/* Rich Asset Drawer */}
-      <AssetDrawer
-        card={project?.assets.find(c => c.id === expandedCard) || null}
-        open={!!expandedCard}
-        onClose={() => setExpandedCard(null)}
-        onApplyAI={(prompt) => console.log('Apply AI:', prompt)}
-        onSaveManual={(data) => console.log('Save manual:', data)}
-        onExport={() => console.log('Export')}
-      />
 
       {/* View Switcher */}
       <div className="fixed bottom-6 left-6 z-40">

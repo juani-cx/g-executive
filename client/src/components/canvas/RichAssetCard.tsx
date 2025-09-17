@@ -98,241 +98,46 @@ export default function RichAssetCard({
   const overflowCount = Math.max(0, (card.collaborators || []).length - 3);
 
   return (
-    <motion.div
-      className="relative group"
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div
-        className="md-card md-state-layer w-80 min-h-fit p-4 cursor-pointer"
-        onClick={onExpand}
-        onKeyDown={handleKeyDown}
-        role="button"
-        tabIndex={0}
-        aria-label={`${card.title}, ${card.status}, ${(card.counts?.comments || 0)} comments, edited ${card.lastEditedAt ? formatDistanceToNow(new Date(card.lastEditedAt)) : 'recently'} ago`}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-2">
-            <IconComponent className="w-4 h-4" style={{ color: 'var(--md-sys-color-primary)' }} />
-            <span className="md-typescale-title-medium text-gray-900 truncate">{card.title}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Badge className={`${getStatusColor(card.status)} text-white text-xs px-2 py-1`}>
-              {card.status}
-            </Badge>
-            <span className="md-typescale-body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>v{card.version}</span>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="w-6 h-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <MoreVertical className="w-3 h-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={onDuplicate}>
-                  <Copy className="w-4 h-4 mr-2" />
-                  Duplicate
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={onExport}>
-                  <Download className="w-4 h-4 mr-2" />
-                  Export
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={onDelete} className="text-red-400">
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-
-        {/* Preview Image */}
-        <div className="mb-3 rounded-lg overflow-hidden" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+    <div className="w-80 bg-white rounded-lg shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 hover:shadow-xl">
+      <div className="p-8">
+        {/* Image */}
+        <div className="w-full h-48 bg-gray-100 rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
           <img 
-            src={card.thumbnailUrl || "/api/placeholder/320/120"}
+            src={card.thumbnailUrl || "/api/placeholder/320/192"}
             alt={`${card.type} preview`}
-            className="w-full h-20 object-cover"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover'
+            }}
           />
         </div>
-
-        {/* Status Indicator */}
-        {card.status === "generating" && (
-          <div className="mb-3 flex items-center justify-center">
-            <Loader2 className="w-4 h-4 animate-spin text-sky-400 mr-2" />
-            <span className="text-xs text-sky-400">Generating...</span>
-          </div>
-        )}
-        {card.status === "error" && (
-          <div className="mb-3 flex items-center justify-center">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={(e) => {
-                e.stopPropagation();
-                onRetry?.();
-              }}
-              className="text-rose-400 hover:text-rose-300 text-xs"
-            >
-              <RotateCcw className="w-3 h-3 mr-1" />
-              Retry
-            </Button>
-          </div>
-        )}
-
-        {/* Summary */}
-        <div className="mb-3">
-          <p 
-            className="md-typescale-body-medium line-clamp-2 leading-relaxed"
-            style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
-            dangerouslySetInnerHTML={{ __html: formatSummary(card.summary) }}
-          />
+        
+        {/* Style Badge */}
+        <div className="mb-4">
+          <span className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+            {card.type.charAt(0).toUpperCase() + card.type.slice(1)}
+          </span>
         </div>
-
-        {/* Badges Row */}
-        <div className="flex items-center space-x-3 mb-3 md-typescale-body-medium">
-          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-            <Image className="w-3 h-3" />
-            <span>{card.counts?.images || 0}</span>
-          </div>
-          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-            <Layers className="w-3 h-3" />
-            <span>{card.counts?.sections || 0}</span>
-          </div>
-          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-            <Type className="w-3 h-3" />
-            <span>{formatCount(card.counts?.words || 0)}</span>
-          </div>
-          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-            <GitBranch className="w-3 h-3" />
-            <span>{card.counts?.variants || 0}</span>
-          </div>
-          <div className="flex items-center space-x-1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-            <Sparkles className="w-3 h-3" />
-            <span>{card.counts?.aiEdits || 0}</span>
-          </div>
-          
-          {/* Social Extras */}
-          {card.hashtags && card.hashtags.length > 0 && (
-            <div className="flex items-center space-x-1">
-              {card.hashtags.slice(0, 2).map((tag, i) => (
-                <Badge key={i} variant="outline" className="text-xs px-1 py-0 text-sky-400 border-sky-400/30">
-                  {tag}
-                </Badge>
-              ))}
-              {card.hashtags.length > 2 && (
-                <span className="text-xs text-gray-500">+{card.hashtags.length - 2}</span>
-              )}
-            </div>
-          )}
-          
-          {card.aspect && (
-            <Badge variant="outline" className="text-xs px-1 py-0 text-violet-400 border-violet-400/30">
-              {card.aspect}
-            </Badge>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {/* Collaborators */}
-            <div className="flex items-center -space-x-1">
-              {displayCollaborators.map((collaborator, i) => (
-                <Avatar 
-                  key={collaborator.id} 
-                  className={`w-6 h-6 border-2 ${
-                    collaborator.active 
-                      ? 'border-violet-400 ring-2 ring-violet-400/30' 
-                      : 'border-gray-400'
-                  } transition-all duration-200`}
-                >
-                  <AvatarImage src={collaborator.avatarUrl} alt={collaborator.name} />
-                  <AvatarFallback className="text-xs bg-gray-200 text-gray-700">
-                    {collaborator.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-              ))}
-              {overflowCount > 0 && (
-                <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
-                  <span className="text-xs text-gray-600">+{overflowCount}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Comments */}
-            {(card.counts?.comments || 0) > 0 && (
-              <div className="flex items-center space-x-1 text-gray-600">
-                <MessageCircle className="w-3 h-3" />
-                <span className="text-xs">{card.counts?.comments || 0}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Last Edited */}
-          <div className="flex items-center space-x-1 text-gray-500">
-            <Clock className="w-3 h-3" />
-            <span className="text-xs">
-              {card.lastEditedAt ? formatDistanceToNow(new Date(card.lastEditedAt), { addSuffix: true }) : 'recently'}
-            </span>
-          </div>
-        </div>
+        
+        {/* Title */}
+        <h3 className="text-2xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
+          {card.title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-base text-gray-600 mb-6" style={{ fontWeight: '400' }}>
+          {card.summary}
+        </p>
+        
+        {/* Learn More Button */}
+        <Button 
+          variant="outline" 
+          className="text-gray-700 border-gray-300 hover:bg-gray-50"
+        >
+          Learn More
+        </Button>
       </div>
-
-      {/* Hover Actions */}
-      <AnimatePresence>
-        {isHovered && card.status !== "generating" && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-black/80 backdrop-blur rounded-full px-3 py-1"
-          >
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="h-8 px-3 text-xs text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                onExpand();
-              }}
-            >
-              <Maximize2 className="w-3 h-3 mr-1" />
-              Expand
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="h-8 px-3 text-xs text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDuplicate?.();
-              }}
-            >
-              <Copy className="w-3 h-3 mr-1" />
-              Duplicate
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="h-8 px-3 text-xs text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                onExport?.();
-              }}
-            >
-              <Download className="w-3 h-3 mr-1" />
-              Export
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
