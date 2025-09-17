@@ -1,4 +1,4 @@
-export type CardType = "slides" | "landing" | "linkedin" | "instagram" | "twitter" | "facebook" | "email" | "ads" | "blog" | "youtube" | "press" | "config";
+export type CardType = "slides" | "landing" | "linkedin" | "instagram" | "twitter" | "facebook" | "email" | "ads" | "blog" | "youtube" | "press" | "config" | "video" | "banner";
 export type CardStatus = "generating" | "ready" | "draft" | "error";
 
 export interface Collaborator {

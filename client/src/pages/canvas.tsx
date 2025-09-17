@@ -135,9 +135,9 @@ const CARD_TEMPLATES = [
 
 const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
   {
-    type: "slides",
-    title: "Presentation Slides",
-    summary: "Professional presentation slides",
+    type: "video",
+    title: "Vertical Video",
+    summary: "Engaging vertical video content with meta description for social media platforms",
     status: "generating",
     position: { x: 100, y: 100 },
     size: { width: 320, height: 240 },
@@ -145,11 +145,15 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
     lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "9:16 vertical video preview with compelling visuals",
+      text: "Meta description: Captivating vertical video designed for maximum engagement on mobile platforms. Optimized for TikTok, Instagram Reels, and YouTube Shorts with compelling storytelling and clear call-to-action.",
+    },
   },
   {
     type: "landing",
-    title: "Landing Page",
-    summary: "Conversion-focused landing page",
+    title: "Landing Page Hero",
+    summary: "High-converting landing page hero section with meta description",
     status: "generating", 
     position: { x: 500, y: 100 },
     size: { width: 320, height: 240 },
@@ -157,11 +161,15 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
     lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "Hero section with compelling headline and CTA",
+      text: "Meta description: Conversion-optimized hero section featuring bold headline, value proposition, and strategic call-to-action button. Designed to capture attention and drive user engagement from first page visit.",
+    },
   },
   {
-    type: "linkedin",
-    title: "LinkedIn Post",
-    summary: "Professional LinkedIn content",
+    type: "banner",
+    title: "Ad Banner",
+    summary: "Eye-catching advertising banner with meta description",
     status: "generating",
     position: { x: 100, y: 400 },
     size: { width: 320, height: 240 },
@@ -169,11 +177,15 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
     lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "Professional banner ad with brand elements",
+      text: "Meta description: Strategic advertising banner optimized for display campaigns across web and social platforms. Features brand-consistent design, clear messaging, and compelling visuals to drive click-through rates.",
+    },
   },
   {
-    type: "instagram",
-    title: "Instagram Post",
-    summary: "Engaging Instagram visual content",
+    type: "linkedin",
+    title: "LinkedIn Image",
+    summary: "Professional LinkedIn post image with meta description",
     status: "generating",
     position: { x: 500, y: 400 },
     size: { width: 320, height: 240 },
@@ -181,6 +193,10 @@ const DEFAULT_CARDS: Omit<AssetCard, "id" | "createdAt">[] = [
     counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
     collaborators: [],
     lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "Professional LinkedIn post visual",
+      text: "Meta description: Business-focused LinkedIn image designed for professional networking and thought leadership. Optimized for LinkedIn's algorithm with industry-appropriate design and engagement-driving elements.",
+    },
   },
 ];
 
