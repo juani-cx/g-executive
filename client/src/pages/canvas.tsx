@@ -844,7 +844,7 @@ export default function CanvasView() {
 
       {/* Asset Content Modal with Virtual Keyboard */}
       <Dialog open={showAssetModal} onOpenChange={setShowAssetModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto dotted-background">
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold flex items-center gap-2">
               <Edit className="w-5 h-5" />
@@ -855,11 +855,11 @@ export default function CanvasView() {
             {selectedAsset && (
               <>
                 {/* Asset Preview */}
-                <div className="bg-gray-50 rounded-lg p-8 text-center">
+                <div className="bg-gray-50 rounded-lg p-6 text-center">
                   <img 
                     src={selectedAsset.previewImage} 
                     alt={selectedAsset.title}
-                    className="w-full max-w-md mx-auto h-64 object-cover rounded-lg"
+                    className="w-full max-w-sm mx-auto h-48 object-cover rounded-lg"
                   />
                 </div>
                 
@@ -875,7 +875,7 @@ export default function CanvasView() {
                       }}
                       onSelect={(e) => setCursorPosition((e.target as HTMLTextAreaElement).selectionStart || 0)}
                       placeholder="Edit your content here..."
-                      className="min-h-32 text-lg"
+                      className="min-h-24 text-base"
                       data-testid="textarea-content-edit"
                       onClick={() => setShowVirtualKeyboard(true)}
                     />
