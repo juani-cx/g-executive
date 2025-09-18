@@ -373,9 +373,10 @@
     @apply border-border;
   }
   
-  /* Prevent scrolling globally for 4K screen usage */
+  /* Controlled viewport for better responsive handling */
   html {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   html, body {
@@ -383,7 +384,8 @@
     font-family: 'Google Sans', 'Google Sans Text', 'Roboto', system-ui, sans-serif;
     height: 100vh;
     max-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
   }
   

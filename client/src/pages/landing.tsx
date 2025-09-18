@@ -28,7 +28,7 @@ export default function Landing() {
       <TopNavigation isLandingPage={true} />
 
       {/* Main Content Container */}
-      <div className="flex items-center justify-center p-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)' }}>
+      <div className="flex items-center justify-center p-4 sm:p-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto' }}>
         <div className="w-full max-w-6xl text-center">
           {/* Title Section */}
           <div className="mb-12">
