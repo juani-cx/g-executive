@@ -250,31 +250,31 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   data-testid="textarea-product-description"
                 />
               </div>
+              
+              {/* Buttons Row - Below input */}
+              <div className="mt-6 flex gap-4 justify-center">
+                <Button
+                  onClick={handleCreateCampaign}
+                  disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
+                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
+                  data-testid="button-create-preview"
+                >
+                  Create preview
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleRandomizeAll}
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 text-lg rounded-full"
+                  data-testid="button-randomize-all"
+                >
+                  Randomize all
+                </Button>
+              </div>
             </div>
             </div>
             
-          </div>
-          
-          {/* Buttons Row - Bottom of form */}
-          <div className="mt-8 flex gap-4 justify-center">
-            <Button
-              onClick={handleCreateCampaign}
-              disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
-              className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
-              data-testid="button-create-preview"
-            >
-              Create preview
-            </Button>
-            
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleRandomizeAll}
-              className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 text-lg rounded-full"
-              data-testid="button-randomize-all"
-            >
-              Randomize all
-            </Button>
           </div>
         </div>
       </div>
