@@ -207,7 +207,7 @@ export default function UploadImage() {
               {/* Image Upload Area - Clickable to upload */}
               <div 
                 className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200"
-                style={{ height: '640px' }}
+                style={{ height: '580px' }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
@@ -250,7 +250,7 @@ export default function UploadImage() {
               </div>
             </div>
           ) : (
-            <div className="mb-12 w-full max-w-6xl mx-auto">
+            <div className="mb-12 w-full max-w-7xl mx-auto">
               {/* Category Tabs */}
               <div className="flex justify-center mb-8">
                 <div className="bg-gray-100 rounded-full p-2 flex gap-2">
@@ -333,7 +333,7 @@ export default function UploadImage() {
                 )}
 
                 {/* Cards Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   {getCardsForCategory(selectedCategory)
                     .slice(currentCardIndex, currentCardIndex + 4)
                     .map((card, index) => (
@@ -347,9 +347,9 @@ export default function UploadImage() {
                       }`}
                       data-testid={`card-video-${currentCardIndex + index}`}
                     >
-                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '580px' }}>
                         {/* Video Area */}
-                        <div className="w-full h-48 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+                        <div className="w-full bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden" style={{ height: '440px' }}>
                           <div className="absolute inset-0 flex items-center justify-center">
                             {/* Animated gradient background similar to attached image */}
                             <div className="w-full h-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative">
@@ -366,7 +366,7 @@ export default function UploadImage() {
                         </div>
                         
                         {/* Card Content */}
-                        <div className="p-6">
+                        <div className="p-6 flex flex-col justify-center" style={{ height: '140px' }}>
                           <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontWeight: '475' }}>
                             {card.title}
                           </h3>
