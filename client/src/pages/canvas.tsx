@@ -664,31 +664,31 @@ export default function CanvasView() {
             {selectedAsset.type === 'landing' && (
               <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Landing Page Hero Simulation */}
-                <div className="bg-white p-16 flex items-center">
+                <div className="bg-white p-12 flex items-center">
                   <div className="flex-1 text-left">
-                    <h1 className="text-6xl font-bold mb-8 leading-tight text-gray-900">
+                    <h1 className="text-4xl font-bold mb-6 leading-tight text-gray-900">
                       Transform Your Business
                     </h1>
-                    <p className="text-2xl mb-12 text-gray-700 max-w-3xl">
+                    <p className="text-lg mb-8 text-gray-700 max-w-2xl">
                       {editContent || "Discover how our AI-powered platform can revolutionize your marketing strategies and drive unprecedented growth."}
                     </p>
                     <Button 
                       size="lg" 
-                      className="bg-blue-600 text-white hover:bg-blue-700 text-xl px-12 py-6 rounded-xl font-semibold"
+                      className="bg-blue-600 text-white hover:bg-blue-700 text-base px-8 py-4 rounded-xl font-semibold"
                     >
                       Get Started Now
                     </Button>
                   </div>
                   {/* Image on the right */}
-                  <div className="w-80 h-64 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-16">
+                  <div className="w-96 h-80 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-12">
                     <div className="text-center">
-                      <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                        <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <div className="w-32 h-32 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                       </div>
-                      <div className="text-lg font-semibold text-gray-800">Campaign AI</div>
-                      <div className="text-sm text-gray-600">Landing Page</div>
+                      <div className="text-xl font-semibold text-gray-800">Campaign AI</div>
+                      <div className="text-base text-gray-600">Landing Page</div>
                     </div>
                   </div>
                 </div>
@@ -807,29 +807,29 @@ export default function CanvasView() {
             {selectedAsset.type === 'banner' && (
               <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Ad Banner Simulation */}
-                <div className="bg-white p-16 flex items-center">
+                <div className="bg-white p-12 flex items-center">
                   <div className="flex-1">
-                    <h2 className="text-5xl font-bold mb-6 text-gray-900">
+                    <h2 className="text-3xl font-bold mb-4 text-gray-900">
                       Special Limited Offer!
                     </h2>
-                    <p className="text-xl mb-8 text-gray-700 leading-relaxed">
+                    <p className="text-lg mb-6 text-gray-700 leading-relaxed">
                       {editContent || "Get 50% off your first month - Transform your marketing with AI-powered campaigns that deliver results."}
                     </p>
                     <Button 
                       size="lg" 
-                      className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-4 rounded-xl font-semibold"
+                      className="bg-blue-600 text-white hover:bg-blue-700 text-base px-6 py-3 rounded-xl font-semibold"
                     >
                       Claim Offer Now →
                     </Button>
                   </div>
                   {/* Image on the right */}
-                  <div className="w-80 h-64 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-16">
+                  <div className="w-96 h-80 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl flex items-center justify-center ml-12">
                     <div className="text-center">
-                      <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                        <div className="text-4xl text-white">🎯</div>
+                      <div className="w-32 h-32 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <div className="text-6xl text-white">🎯</div>
                       </div>
-                      <div className="text-lg font-semibold text-gray-800">Campaign AI</div>
-                      <div className="text-sm text-gray-600">Ad Banner</div>
+                      <div className="text-xl font-semibold text-gray-800">Campaign AI</div>
+                      <div className="text-base text-gray-600">Ad Banner</div>
                     </div>
                   </div>
                 </div>
@@ -843,26 +843,26 @@ export default function CanvasView() {
       <Dialog open={showAssetModal} onOpenChange={setShowAssetModal}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto dotted-background">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold flex items-center gap-2">
-              <Edit className="w-5 h-5" />
+            <DialogTitle className="text-xl font-semibold flex items-center gap-2">
+              <Edit className="w-4 h-4" />
               Edit {selectedAsset?.title}
             </DialogTitle>
           </DialogHeader>
-          <div className="mt-6 space-y-6">
+          <div className="mt-3 space-y-4">
             {selectedAsset && (
               <>
                 {/* Asset Preview */}
-                <div className="bg-gray-50 rounded-lg p-6 text-center">
+                <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <img 
                     src={selectedAsset.previewImage} 
                     alt={selectedAsset.title}
-                    className="w-full max-w-sm mx-auto h-48 object-cover rounded-lg"
+                    className="w-full max-w-xs mx-auto h-32 object-cover rounded-lg"
                   />
                 </div>
                 
                 {/* Content Editor */}
                 <div>
-                  <h3 className="text-lg font-medium mb-3">Content</h3>
+                  <h3 className="text-base font-medium mb-2">Content</h3>
                   <div className="relative">
                     <Textarea
                       value={editContent}
@@ -872,7 +872,7 @@ export default function CanvasView() {
                       }}
                       onSelect={(e) => setCursorPosition((e.target as HTMLTextAreaElement).selectionStart || 0)}
                       placeholder="Edit your content here..."
-                      className="min-h-24 text-base"
+                      className="min-h-20 text-sm"
                       data-testid="textarea-content-edit"
                       onClick={() => setShowVirtualKeyboard(true)}
                     />
