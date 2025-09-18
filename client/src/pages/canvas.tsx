@@ -47,22 +47,6 @@ const CARD_TEMPLATES = [
 const DEFAULT_CARDS: AssetCard[] = [
   {
     id: "1",
-    type: "video",
-    title: "Vertical Video",
-    summary: "Engaging vertical video content with meta description for social media platforms",
-    status: "generating",
-    version: 1,
-    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
-    collaborators: [],
-    lastEditedAt: new Date().toISOString(),
-    content: {
-      preview: "9:16 vertical video preview with compelling visuals",
-      text: "Meta description: Captivating vertical video designed for maximum engagement on mobile platforms. Optimized for TikTok, Instagram Reels, and YouTube Shorts with compelling storytelling and clear call-to-action.",
-    },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23campaignGrad1)' rx='12'/%3E%3Ctext x='50%25' y='20' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='11' font-weight='600' fill='white'%3ECampaign AI Platform%3C/text%3E%3Crect x='130' y='35' width='60' height='110' rx='15' fill='%23ffffff' opacity='0.95'/%3E%3Ccircle cx='160' cy='90' r='18' fill='%234285f4'/%3E%3Cpolygon points='153,83 153,97 170,90' fill='white'/%3E%3Ctext x='50%25' y='165' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' fill='white' font-weight='500'%3EAI Video Content%3C/text%3E%3C/svg%3E"
-  },
-  {
-    id: "2",
     type: "landing",
     title: "Landing Page Hero",
     summary: "High-converting landing page hero section with meta description",
@@ -78,23 +62,7 @@ const DEFAULT_CARDS: AssetCard[] = [
     previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad2' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23ffffff' rx='12'/%3E%3Crect x='0' y='0' width='100%25' height='55' fill='url(%23campaignGrad2)'/%3E%3Ctext x='50%25' y='32' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='white' font-weight='bold'%3ECampaign AI Platform%3C/text%3E%3Crect x='40' y='75' width='240' height='12' rx='6' fill='%23f1f3f4'/%3E%3Crect x='40' y='95' width='200' height='8' rx='4' fill='%23f1f3f4'/%3E%3Crect x='40' y='110' width='180' height='8' rx='4' fill='%23f1f3f4'/%3E%3Crect x='40' y='140' width='140' height='28' rx='14' fill='url(%23campaignGrad2)'/%3E%3Ctext x='110' y='156' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='11' fill='white' font-weight='600'%3EStart Campaign%3C/text%3E%3C/svg%3E"
   },
   {
-    id: "3",
-    type: "linkedin",
-    title: "LinkedIn Image",
-    summary: "Professional LinkedIn post image with meta description",
-    status: "ready",
-    version: 1,
-    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
-    collaborators: [],
-    lastEditedAt: new Date().toISOString(),
-    content: {
-      preview: "Professional LinkedIn post visual",
-      text: "Meta description: Business-focused LinkedIn image designed for professional networking and thought leadership. Optimized for LinkedIn's algorithm with industry-appropriate design and engagement-driving elements.",
-    },
-    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad3' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23campaignGrad3)' rx='12'/%3E%3Crect x='15' y='15' width='290' height='150' rx='8' fill='white'/%3E%3Ccircle cx='45' cy='45' r='12' fill='%234285f4'/%3E%3Ctext x='45' y='49' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='8' font-weight='bold' fill='white'%3ECB%3C/text%3E%3Crect x='65' y='35' width='100' height='6' rx='3' fill='%23333'/%3E%3Crect x='65' y='45' width='70' height='4' rx='2' fill='%23666'/%3E%3Crect x='25' y='65' width='270' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='75' width='250' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='85' width='220' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='105' width='270' height='35' rx='6' fill='%23f8faff'/%3E%3Crect x='45' y='115' width='12' height='15' fill='%234285f4' rx='2'/%3E%3Crect x='65' y='120' width='12' height='10' fill='%236366f1' rx='2'/%3E%3Crect x='85' y='112' width='12' height='18' fill='%234285f4' rx='2'/%3E%3Crect x='105' y='117' width='12' height='13' fill='%236366f1' rx='2'/%3E%3Ctext x='160' y='127' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' fill='%23666'%3E📊 Campaign Dashboard%3C/text%3E%3Crect x='25' y='150' width='50' height='12' rx='6' fill='%234285f4'/%3E%3Ctext x='50' y='157' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='7' fill='white' font-weight='600'%3ELike%3C/text%3E%3C/svg%3E"
-  },
-  {
-    id: "4",
+    id: "2",
     type: "banner",
     title: "Ad Banner",
     summary: "Eye-catching advertising banner with meta description",
@@ -108,6 +76,38 @@ const DEFAULT_CARDS: AssetCard[] = [
       text: "Meta description: Strategic advertising banner optimized for display campaigns across web and social platforms. Features brand-consistent design, clear messaging, and compelling visuals to drive click-through rates.",
     },
     previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad4' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23campaignGrad4)' rx='12'/%3E%3Crect x='15' y='25' width='90' height='90' rx='12' fill='white' opacity='0.95'/%3E%3Ctext x='60' y='50' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' font-weight='600' fill='%234285f4'%3ECampaign%3C/text%3E%3Ctext x='60' y='65' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' font-weight='600' fill='%234285f4'%3EAI%3C/text%3E%3Ctext x='60' y='80' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='8' font-weight='500' fill='%236366f1'%3EPlatform%3C/text%3E%3Ctext x='180' y='50' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='16' fill='white' font-weight='bold'%3ECampaign Launch%3C/text%3E%3Ctext x='180' y='75' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='18' fill='white' font-weight='bold'%3E50%25 OFF%3C/text%3E%3Crect x='140' y='100' width='80' height='20' rx='10' fill='white'/%3E%3Ctext x='180' y='112' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='8' fill='%234285f4' font-weight='600'%3EStart Campaign%3C/text%3E%3Ccircle cx='250' cy='70' r='15' fill='white' fill-opacity='0.2'/%3E%3Ctext x='250' y='75' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='white'%3E🎯%3C/text%3E%3C/svg%3E"
+  },
+  {
+    id: "3",
+    type: "linkedin",
+    title: "Social Post",
+    summary: "Professional social media post with meta description",
+    status: "ready",
+    version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "Professional social media post visual",
+      text: "Meta description: Business-focused social media image designed for professional networking and thought leadership. Optimized for social algorithms with industry-appropriate design and engagement-driving elements.",
+    },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad3' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23campaignGrad3)' rx='12'/%3E%3Crect x='15' y='15' width='290' height='150' rx='8' fill='white'/%3E%3Ccircle cx='45' cy='45' r='12' fill='%234285f4'/%3E%3Ctext x='45' y='49' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='8' font-weight='bold' fill='white'%3ECB%3C/text%3E%3Crect x='65' y='35' width='100' height='6' rx='3' fill='%23333'/%3E%3Crect x='65' y='45' width='70' height='4' rx='2' fill='%23666'/%3E%3Crect x='25' y='65' width='270' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='75' width='250' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='85' width='220' height='5' rx='2' fill='%23f0f0f0'/%3E%3Crect x='25' y='105' width='270' height='35' rx='6' fill='%23f8faff'/%3E%3Crect x='45' y='115' width='12' height='15' fill='%234285f4' rx='2'/%3E%3Crect x='65' y='120' width='12' height='10' fill='%236366f1' rx='2'/%3E%3Crect x='85' y='112' width='12' height='18' fill='%234285f4' rx='2'/%3E%3Crect x='105' y='117' width='12' height='13' fill='%236366f1' rx='2'/%3E%3Ctext x='160' y='127' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' fill='%23666'%3E📊 Campaign Dashboard%3C/text%3E%3Crect x='25' y='150' width='50' height='12' rx='6' fill='%234285f4'/%3E%3Ctext x='50' y='157' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='7' fill='white' font-weight='600'%3ELike%3C/text%3E%3C/svg%3E"
+  },
+  {
+    id: "4",
+    type: "video",
+    title: "Vertical Video",
+    summary: "Engaging vertical video content with meta description for social media platforms",
+    status: "generating",
+    version: 1,
+    counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
+    collaborators: [],
+    lastEditedAt: new Date().toISOString(),
+    content: {
+      preview: "9:16 vertical video preview with compelling visuals",
+      text: "Meta description: Captivating vertical video designed for maximum engagement on mobile platforms. Optimized for TikTok, Instagram Reels, and YouTube Shorts with compelling storytelling and clear call-to-action.",
+    },
+    previewImage: "data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='campaignGrad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234285f4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23campaignGrad1)' rx='12'/%3E%3Ctext x='50%25' y='20' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='11' font-weight='600' fill='white'%3ECampaign AI Platform%3C/text%3E%3Crect x='130' y='35' width='60' height='110' rx='15' fill='%23ffffff' opacity='0.95'/%3E%3Ccircle cx='160' cy='90' r='18' fill='%234285f4'/%3E%3Cpolygon points='153,83 153,97 170,90' fill='white'/%3E%3Ctext x='50%25' y='165' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='9' fill='white' font-weight='500'%3EAI Video Content%3C/text%3E%3C/svg%3E"
   },
 ];
 
@@ -186,28 +186,28 @@ function TimeoutModal({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className="max-w-lg bg-white" onPointerDownOutside={(e) => e.preventDefault()}>
+      <DialogContent className="max-w-sm bg-white dotted-background" onPointerDownOutside={(e) => e.preventDefault()}>
         <DialogHeader className="sr-only">
           <DialogTitle>Session Timeout</DialogTitle>
         </DialogHeader>
-        <div className="text-center py-8">
+        <div className="text-center py-4">
           {/* Placeholder Image */}
-          <div className="w-32 h-32 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-            <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
-              <div className="w-6 h-6 bg-gray-400 rounded-full"></div>
+          <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+              <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
             </div>
           </div>
           
-          <h2 className="text-2xl font-medium text-gray-800 mb-4">Are you still there?</h2>
-          <p className="text-lg text-gray-600 mb-6">
+          <h2 className="text-xl font-medium text-gray-800 mb-3">Are you still there?</h2>
+          <p className="text-base text-gray-600 mb-4">
             Your experience will time out in{' '}
-            <span className="inline-block bg-gray-800 text-white px-3 py-1 rounded-full font-mono">
+            <span className="inline-block bg-gray-800 text-white px-2 py-1 rounded-full font-mono text-sm">
               0:{timeLeft.toString().padStart(2, '0')}
             </span>
           </p>
           <Button
             onClick={onExtend}
-            className="bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 px-8 py-3 rounded-full text-lg"
+            className="bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full text-sm"
             data-testid="button-extend-session"
           >
             I'm still here!
@@ -516,10 +516,10 @@ export default function CanvasView() {
                     {/* Style Badge */}
                     <div className="mb-4">
                       <span className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                        {card.type === 'video' ? 'Video' : 
-                         card.type === 'landing' ? 'Landing' : 
-                         card.type === 'linkedin' ? 'LinkedIn' : 
-                         card.type === 'banner' ? 'Banner' : 'Description'}
+                        {card.type === 'landing' ? 'Landing Page' : 
+                         card.type === 'banner' ? 'Ad Banner' : 
+                         card.type === 'linkedin' ? 'Social Post' : 
+                         card.type === 'video' ? 'Vertical Video' : 'Description'}
                       </span>
                     </div>
                     
@@ -596,10 +596,10 @@ export default function CanvasView() {
           {/* Main Title - Centered at Top */}
           <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-10 text-center">
             <h1 className="text-5xl font-normal text-gray-900 mb-2" style={{ fontWeight: '500' }}>
-              {selectedAsset.type === 'video' ? 'TikTok' : 
-               selectedAsset.type === 'landing' ? 'Landing Page' : 
-               selectedAsset.type === 'linkedin' ? 'LinkedIn' : 
-               selectedAsset.type === 'banner' ? 'Ad Banner' : selectedAsset.title}
+              {selectedAsset.type === 'landing' ? 'Landing Page' : 
+               selectedAsset.type === 'banner' ? 'Ad Banner' : 
+               selectedAsset.type === 'linkedin' ? 'Social Post' : 
+               selectedAsset.type === 'video' ? 'Vertical Video' : selectedAsset.title}
             </h1>
             <p className="text-lg text-gray-600">
               {currentPreviewIndex + 1}/{project.assets.length}
@@ -926,22 +926,22 @@ export default function CanvasView() {
 
       {/* QR Code Share Modal */}
       <Dialog open={showQRModal} onOpenChange={setShowQRModal}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-xs dotted-background">
           <DialogHeader>
-            <DialogTitle>Share Canvas</DialogTitle>
+            <DialogTitle className="text-lg">Share Canvas</DialogTitle>
           </DialogHeader>
-          <div className="mt-6 text-center space-y-4">
-            <p className="text-gray-600">
-              Scan this QR code to access the canvas on your device
+          <div className="mt-4 text-center space-y-3">
+            <p className="text-sm text-gray-600">
+              Scan this QR code to access the canvas
             </p>
-            <div className="bg-white p-4 rounded-lg inline-block">
+            <div className="bg-white p-3 rounded-lg inline-block">
               <QRCode 
                 value={window.location.href} 
-                size={200}
+                size={140}
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               />
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-xs text-gray-500">
               Anyone with this link can view the canvas
             </p>
           </div>
@@ -950,26 +950,26 @@ export default function CanvasView() {
 
       {/* Add New Asset Modal */}
       <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[70vh] overflow-y-auto dotted-background">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold">Add New Asset</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">Add New Asset</DialogTitle>
           </DialogHeader>
-          <div className="mt-6">
-            <p className="text-gray-600 mb-8">Choose the type of marketing asset you'd like to create:</p>
-            <div className="grid grid-cols-2 gap-6">
+          <div className="mt-4">
+            <p className="text-sm text-gray-600 mb-4">Choose the type of marketing asset you'd like to create:</p>
+            <div className="grid grid-cols-2 gap-4">
               {CARD_TEMPLATES.map((template) => (
                 <div
                   key={template.type}
-                  className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:shadow-lg hover:border-[#4285F4] transition-all duration-200"
+                  className="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:shadow-lg hover:border-[#4285F4] transition-all duration-200"
                   onClick={() => handleAddNewCard(template.type)}
                   data-testid={`template-${template.type}`}
                 >
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold text-gray-900">{template.label}</h3>
-                    <p className="text-gray-600">{template.description}</p>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-semibold text-gray-900">{template.label}</h3>
+                    <p className="text-sm text-gray-600">{template.description}</p>
                     <Button
-                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white"
-                      size="lg"
+                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white text-sm"
+                      size="sm"
                     >
                       Create {template.label}
                     </Button>
