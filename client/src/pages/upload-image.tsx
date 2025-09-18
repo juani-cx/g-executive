@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import QRCode from "react-qr-code";
 
 export default function UploadImage() {
   const [, navigate] = useLocation();
@@ -206,11 +207,18 @@ export default function UploadImage() {
             <div className="mb-12">
               {/* Image Upload Area - Clickable to upload */}
               <div 
-                className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200"
+                className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200 flex items-center justify-center"
                 style={{ height: '400px' }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
+                <div className="bg-white p-6 rounded-2xl">
+                  <QRCode 
+                    value={window.location.href} 
+                    size={200}
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                  />
+                </div>
               </div>
               
               <h2 className="text-3xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
