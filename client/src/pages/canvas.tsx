@@ -460,13 +460,10 @@ export default function CanvasView() {
       {/* Static Centered Grid Layout */}
       <div className="min-h-screen flex flex-col">
         {/* Title Section - Matching Preview Page Style */}
-        <div className="text-center pt-24 pb-16">
+        <div className="text-center pt-24 pb-16" style={{ marginTop: '-80px' }}>
           <h1 className="text-5xl font-normal text-gray-900 mb-4" style={{ fontWeight: '500' }}>
             Canvas
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed" style={{ fontWeight: '400' }}>
-            Review and customize your AI-generated marketing assets. Click on any asset to see the full preview and edit content.
-          </p>
         </div>
 
         {/* Main Content Area - Single Line Layout */}
