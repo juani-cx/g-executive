@@ -59,42 +59,12 @@ function AuthenticatedRouter() {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [location] = useLocation();
-
-  useEffect(() => {
-    // Check if user is already logged in (dummy authentication)
-    const savedAuth = localStorage.getItem('campaign-ai-auth');
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  // Handle login from login page
-  useEffect(() => {
-    const handleLogin = () => {
-      localStorage.setItem('campaign-ai-auth', 'true');
-      setIsAuthenticated(true);
-    };
-
-    // Check if we're coming back from login
-    if (location === '/' && !isAuthenticated) {
-      const auth = localStorage.getItem('campaign-ai-auth');
-      if (auth === 'true') {
-        setIsAuthenticated(true);
-      }
-    }
-  }, [location, isAuthenticated]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="h-screen max-h-screen overflow-hidden">
-          {!isAuthenticated && location !== '/' ? (
-            <Login />
-          ) : (
-            <AuthenticatedRouter />
-          )}
+          <AuthenticatedRouter />
           <Toaster />
         </div>
       </TooltipProvider>
