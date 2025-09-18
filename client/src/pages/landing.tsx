@@ -70,8 +70,8 @@ export default function Landing() {
               borderBottom: '2px solid #000',
               paddingBottom: '16px'
             }}>
-              <h2 className="flex-1 text-center text-2xl font-medium text-black">
-                Marketing Campaign
+              <h2 className="flex-1 text-left text-2xl font-medium text-black">
+                Marketing<br/>Campaign
               </h2>
             </div>
 
@@ -81,7 +81,7 @@ export default function Landing() {
               <div className="w-full" style={{
                 background: '#e6ebf2',
                 borderRadius: '16px',
-                height: '200px',
+                height: '320px',
                 paddingBottom: '8px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -101,7 +101,7 @@ export default function Landing() {
               </div>
               
               {/* Description */}
-              <p className="text-lg text-black leading-relaxed">
+              <p className="text-lg text-black leading-normal">
                 AI transforms your inspiration into complete multi-channel campaigns.
               </p>
             </div>
@@ -128,8 +128,8 @@ export default function Landing() {
               borderBottom: '2px solid #000',
               paddingBottom: '16px'
             }}>
-              <h2 className="flex-1 text-center text-2xl font-medium text-black">
-                Catalog Enrichment
+              <h2 className="flex-1 text-left text-2xl font-medium text-black">
+                Catalog<br/>Enrichment
               </h2>
             </div>
 
@@ -139,7 +139,7 @@ export default function Landing() {
               <div className="w-full" style={{
                 background: '#e6ebf2',
                 borderRadius: '16px',
-                height: '200px',
+                height: '320px',
                 paddingBottom: '8px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -159,7 +159,7 @@ export default function Landing() {
               </div>
               
               {/* Description */}
-              <p className="text-lg text-black leading-relaxed">
+              <p className="text-lg text-black leading-normal">
                 AI generates high-quality SEO metadata instantly.
               </p>
             </div>
