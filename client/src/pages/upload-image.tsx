@@ -207,7 +207,7 @@ export default function UploadImage() {
               {/* Image Upload Area - Clickable to upload */}
               <div 
                 className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200"
-                style={{ height: '580px' }}
+                style={{ height: '400px' }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
@@ -347,13 +347,13 @@ export default function UploadImage() {
                       }`}
                       data-testid={`card-video-${currentCardIndex + index}`}
                     >
-                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '580px' }}>
+                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '400px' }}>
                         {/* Video Area */}
-                        <div className="w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative overflow-hidden" style={{ height: '440px' }}>
+                        <div className="w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative overflow-hidden" style={{ height: '280px' }}>
                         </div>
                         
                         {/* Card Content */}
-                        <div className="p-6 flex flex-col justify-center" style={{ height: '140px' }}>
+                        <div className="p-4 flex flex-col justify-center" style={{ height: '120px' }}>
                           <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontWeight: '475' }}>
                             {card.title}
                           </h3>
