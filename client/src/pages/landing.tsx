@@ -101,7 +101,7 @@ export default function Landing() {
               </div>
               
               {/* Description */}
-              <p className="text-lg text-black leading-normal">
+              <p className="text-lg text-black leading-normal text-left">
                 AI transforms your inspiration into complete multi-channel campaigns.
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function Landing() {
               </div>
               
               {/* Description */}
-              <p className="text-lg text-black leading-normal">
+              <p className="text-lg text-black leading-normal text-left">
                 AI generates high-quality SEO metadata instantly.
               </p>
             </div>
