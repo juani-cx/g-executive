@@ -233,7 +233,6 @@ export default function CanvasView() {
   const [editContent, setEditContent] = useState("");
   const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [showAddModal, setShowAddModal] = useState(false);
   const [showFullPagePreview, setShowFullPagePreview] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -394,34 +393,6 @@ export default function CanvasView() {
 
   const generateId = () => Math.random().toString(36).substr(2, 9);
 
-  const handleAddNewCard = (cardType: string) => {
-    const template = CARD_TEMPLATES.find(t => t.type === cardType);
-    if (!template || !project) return;
-
-    const newCard: AssetCard = {
-      id: generateId(),
-      type: cardType as any,
-      title: template.label,
-      summary: template.description,
-      status: "ready",
-      version: 1,
-      counts: { images: 0, sections: 0, words: 0, variants: 0, aiEdits: 0, comments: 0 },
-      collaborators: [],
-      lastEditedAt: new Date().toISOString(),
-      content: {
-        preview: `Generated ${template.label} content`,
-        text: `AI-generated ${template.label} content for your marketing campaign.`,
-      },
-      previewImage: `data:image/svg+xml,%3Csvg width='320' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='14' fill='%236b7280'%3E${encodeURIComponent(template.label)}%3C/text%3E%3C/svg%3E`
-    };
-
-    setProject({
-      ...project,
-      assets: [...project.assets, newCard]
-    });
-
-    setShowAddModal(false);
-  };
 
   const handleShareClick = () => {
     const currentUrl = window.location.href;
@@ -548,28 +519,17 @@ export default function CanvasView() {
           </div>
         </div>
 
-        {/* Bottom Toolbar - Optimized for Touch */}
+        {/* Bottom Toolbar - Export Only */}
         <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-40">
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-4">
-            <div className="flex items-center space-x-4">
-              <Button
-                size="lg"
-                onClick={() => setShowAddModal(true)}
-                className="w-16 h-16 p-0 rounded-full bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
-                data-testid="button-add-new"
-              >
-                <span className="text-2xl text-gray-600">+</span>
-              </Button>
-              
-              <Button
-                size="lg"
-                onClick={handleShareClick}
-                className="w-16 h-16 p-0 rounded-full bg-white hover:bg-gray-50 border border-gray-200 active:scale-95 transition-all"
-                data-testid="button-share"
-              >
-                <span className="text-2xl text-gray-600">⚡</span>
-              </Button>
-            </div>
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 px-8 py-4">
+            <Button
+              size="lg"
+              onClick={handleShareClick}
+              className="px-8 py-3 bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full text-lg active:scale-95 transition-all"
+              data-testid="button-export"
+            >
+              Export
+            </Button>
           </div>
         </div>
       </div>
@@ -924,15 +884,15 @@ export default function CanvasView() {
         </DialogContent>
       </Dialog>
 
-      {/* QR Code Share Modal */}
+      {/* Export QR Code Modal */}
       <Dialog open={showQRModal} onOpenChange={setShowQRModal}>
         <DialogContent className="max-w-xs dotted-background">
           <DialogHeader>
-            <DialogTitle className="text-lg">Share Canvas</DialogTitle>
+            <DialogTitle className="text-lg">Export Canvas</DialogTitle>
           </DialogHeader>
           <div className="mt-4 text-center space-y-3">
             <p className="text-sm text-gray-600">
-              Scan this QR code to access the canvas
+              Scan this QR code to download your assets
             </p>
             <div className="bg-white p-3 rounded-lg inline-block">
               <QRCode 
@@ -942,44 +902,12 @@ export default function CanvasView() {
               />
             </div>
             <p className="text-xs text-gray-500">
-              Anyone with this link can view the canvas
+              Download all campaign assets via this link
             </p>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Add New Asset Modal */}
-      <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
-        <DialogContent className="max-w-2xl max-h-[70vh] overflow-y-auto dotted-background">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-semibold">Add New Asset</DialogTitle>
-          </DialogHeader>
-          <div className="mt-4">
-            <p className="text-sm text-gray-600 mb-4">Choose the type of marketing asset you'd like to create:</p>
-            <div className="grid grid-cols-2 gap-4">
-              {CARD_TEMPLATES.map((template) => (
-                <div
-                  key={template.type}
-                  className="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:shadow-lg hover:border-[#4285F4] transition-all duration-200"
-                  onClick={() => handleAddNewCard(template.type)}
-                  data-testid={`template-${template.type}`}
-                >
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{template.label}</h3>
-                    <p className="text-sm text-gray-600">{template.description}</p>
-                    <Button
-                      className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white text-sm"
-                      size="sm"
-                    >
-                      Create {template.label}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* Timeout Modal */}
       <TimeoutModal
