@@ -250,7 +250,7 @@ export default function UploadImage() {
               </div>
             </div>
           ) : (
-            <div className="mb-12 w-full max-w-7xl mx-auto">
+            <div className="mb-12 w-full mx-auto" style={{ maxWidth: '72rem' }}>
               {/* Category Tabs */}
               <div className="flex justify-center mb-8">
                 <div className="bg-gray-100 rounded-full p-2 flex gap-2">
@@ -349,20 +349,7 @@ export default function UploadImage() {
                     >
                       <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '580px' }}>
                         {/* Video Area */}
-                        <div className="w-full bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden" style={{ height: '440px' }}>
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            {/* Animated gradient background similar to attached image */}
-                            <div className="w-full h-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative">
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                              {/* Animated orb similar to the image */}
-                              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <div className="w-24 h-24 bg-blue-400 rounded-full opacity-80 animate-pulse" />
-                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                                  <span className="text-blue-600 text-lg font-bold">{card.icon}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        <div className="w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative overflow-hidden" style={{ height: '440px' }}>
                         </div>
                         
                         {/* Card Content */}
