@@ -151,7 +151,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       </div>
 
       {/* Main Content */}
-      <div className="flex items-start justify-center p-8 pt-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)' }}>
+      <div className="flex items-start justify-center p-8 pt-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)', marginTop: '-80px' }}>
         <div className="w-full max-w-none px-16">
           <div className="text-center mb-6">
             <h1 className="text-4xl text-gray-800 mb-2 tracking-tight" style={{ fontWeight: '475' }}>
@@ -165,7 +165,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               {/* Left Column - Image */}
               <div className="flex justify-center">
                 {uploadedImage && (
-                  <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-64 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
@@ -255,8 +255,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
             
           </div>
           
-          {/* Buttons Row - Below the form */}
-          <div className="mt-6 flex gap-4 justify-center">
+          {/* Buttons Row - Bottom of form */}
+          <div className="mt-8 flex gap-4 justify-center">
             <Button
               onClick={handleCreateCampaign}
               disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
