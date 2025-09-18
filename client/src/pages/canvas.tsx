@@ -660,9 +660,9 @@ export default function CanvasView() {
           </div>
 
           {/* Preview Content with Transition */}
-          <div className={`w-full h-full flex items-center justify-center pt-40 pb-24 transition-all duration-300 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
+          <div className={`w-full h-full flex items-center justify-center pb-24 transition-all duration-300 ${isTransitioning ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
             {selectedAsset.type === 'landing' && (
-              <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
+              <div className="w-full max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Landing Page Hero Simulation */}
                 <div className="bg-white p-12 flex items-center">
                   <div className="flex-1 text-left">
@@ -696,7 +696,7 @@ export default function CanvasView() {
             )}
 
             {selectedAsset.type === 'linkedin' && (
-              <div className="w-full max-w-2xl mx-auto">
+              <div className="w-full max-w-4xl mx-auto">
                 {/* LinkedIn Post Simulation */}
                 <div className="bg-white rounded-2xl shadow-2xl border border-gray-200">
                   {/* LinkedIn Header */}
@@ -805,7 +805,7 @@ export default function CanvasView() {
             )}
 
             {selectedAsset.type === 'banner' && (
-              <div className="w-full max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
+              <div className="w-full max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
                 {/* Ad Banner Simulation */}
                 <div className="bg-white p-12 flex items-center">
                   <div className="flex-1">
