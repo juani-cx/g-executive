@@ -128,8 +128,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       fileName
     }));
     
-    // Navigate to preview page
-    navigate('/preview');
+    // Navigate directly to canvas page
+    navigate('/canvas');
   };
 
   return (
