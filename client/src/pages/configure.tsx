@@ -153,19 +153,15 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       {/* Main Content */}
       <div className="flex items-start justify-center p-8 pt-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="w-full max-w-none px-16">
-          <div className="text-center mb-12">
-            <h1 className="text-7xl text-gray-800 mb-6 tracking-tight" style={{ fontWeight: '475' }}>
+          <div className="text-center mb-6">
+            <h1 className="text-4xl text-gray-800 mb-2 tracking-tight" style={{ fontWeight: '475' }}>
               Configure
             </h1>
-            
-            <p className="text-3xl text-gray-600" style={{ fontWeight: '400' }}>
-              Executive campaign AI builder for executive people
-            </p>
           </div>
 
           {/* White card container */}
-          <div className="bg-white rounded-3xl p-12 shadow-lg border border-gray-200 mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
                 {uploadedImage && (
@@ -181,15 +177,15 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-8">
+            <div className="space-y-4">
               {/* Form Fields Row */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="target-audience" className="text-lg text-gray-600 mb-3 block">
+                  <Label htmlFor="target-audience" className="text-sm text-gray-600 mb-2 block">
                     Target audience
                   </Label>
                   <Select value={targetAudience} onValueChange={setTargetAudience}>
-                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-target-audience">
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-target-audience">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -203,11 +199,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="campaign-type" className="text-lg text-gray-600 mb-3 block">
+                  <Label htmlFor="campaign-type" className="text-sm text-gray-600 mb-2 block">
                     Campaign Type
                   </Label>
                   <Select value={campaignType} onValueChange={setCampaignType}>
-                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-campaign-type">
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-campaign-type">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -221,11 +217,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="tone-of-voice" className="text-lg text-gray-600 mb-3 block">
+                  <Label htmlFor="tone-of-voice" className="text-sm text-gray-600 mb-2 block">
                     Tone of voice
                   </Label>
                   <Select value={toneOfVoice} onValueChange={setToneOfVoice}>
-                    <SelectTrigger className="text-lg h-14 bg-gray-50" data-testid="select-tone-of-voice">
+                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-tone-of-voice">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -241,7 +237,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
 
               {/* Description */}
               <div>
-                <Label htmlFor="product-description" className="text-lg text-gray-600 mb-3 block">
+                <Label htmlFor="product-description" className="text-sm text-gray-600 mb-2 block">
                   Description of your product
                 </Label>
                 <Textarea
@@ -249,35 +245,36 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                   value={productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
                   placeholder="AI is analyzing your image..."
-                  className="text-lg min-h-24 resize-none bg-gray-50"
-                  rows={4}
+                  className="text-sm min-h-20 resize-none bg-gray-50"
+                  rows={3}
                   data-testid="textarea-product-description"
                 />
               </div>
             </div>
             </div>
             
-            {/* Buttons Row - Outside the grid, centered */}
-            <div className="mt-12 flex gap-6 justify-center">
-              <Button
-                onClick={handleCreateCampaign}
-                disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-12 py-4 text-xl rounded-full transition-all duration-200"
-                data-testid="button-create-preview"
-              >
-                Create preview
-              </Button>
-              
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleRandomizeAll}
-                className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-8 py-4 text-xl rounded-full"
-                data-testid="button-randomize-all"
-              >
-                Randomize all
-              </Button>
-            </div>
+          </div>
+          
+          {/* Buttons Row - Below the form */}
+          <div className="mt-6 flex gap-4 justify-center">
+            <Button
+              onClick={handleCreateCampaign}
+              disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
+              className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
+              data-testid="button-create-preview"
+            >
+              Create preview
+            </Button>
+            
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleRandomizeAll}
+              className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 text-lg rounded-full"
+              data-testid="button-randomize-all"
+            >
+              Randomize all
+            </Button>
           </div>
         </div>
       </div>
