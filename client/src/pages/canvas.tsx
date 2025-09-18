@@ -454,7 +454,8 @@ export default function CanvasView() {
 
   return (
     <div className="min-h-screen dotted-background overflow-hidden">
-
+      {/* Top Navigation */}
+      <TopNavigation />
 
       {/* Static Centered Grid Layout */}
       <div className="min-h-screen flex flex-col">
