@@ -352,19 +352,22 @@ export default function UploadCampaign() {
                   </div>
                 </div>
 
-                {/* Continue Button */}
-                {selectedImage && (
-                  <div className="text-center">
-                    <Button
-                      size="lg"
-                      onClick={handlePredefinedContinue}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-base font-medium shadow-lg"
-                      data-testid="button-continue-predefined"
-                    >
-                      Continue with this selection
-                    </Button>
-                  </div>
-                )}
+                {/* Continue Button - Always visible */}
+                <div className="text-center">
+                  <Button
+                    size="lg"
+                    onClick={handlePredefinedContinue}
+                    disabled={!selectedImage}
+                    className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-all ${
+                      selectedImage 
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    }`}
+                    data-testid="button-continue-predefined"
+                  >
+                    Continue with this selection
+                  </Button>
+                </div>
               </div>
             )}
           </div>
