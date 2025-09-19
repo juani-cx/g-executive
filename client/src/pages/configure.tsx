@@ -42,7 +42,7 @@ function InlineComboInput({ label, value, onChange, options, placeholder = "", t
   );
 
   return (
-    <div className="flex items-center gap-6 mb-6">
+    <div className="flex items-center gap-6 mb-4">
       <Label className="text-sm text-gray-600 w-32 text-left flex-shrink-0">
         {label}
       </Label>
@@ -289,7 +289,7 @@ export default function Configure() {
               </div>
               
               {/* Buttons Row - Left aligned with more space above */}
-              <div className="mt-20 flex gap-4 justify-start">
+              <div className="mt-12 flex gap-4 justify-start">
                 <Button
                   type="button"
                   variant="outline"
