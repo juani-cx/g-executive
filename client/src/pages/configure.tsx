@@ -248,7 +248,7 @@ export default function Configure() {
           {/* Content Area */}
           <div className="max-w-4xl mx-auto">
             {/* White card container */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl" style={{ marginTop: '-35px' }}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
