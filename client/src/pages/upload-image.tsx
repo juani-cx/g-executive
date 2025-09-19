@@ -6,14 +6,29 @@ import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import QRCode from "react-qr-code";
 
+// Type for card data
+interface CardData {
+  title: string;
+  description: string;
+  icon: string;
+}
+
 export default function UploadImage() {
   const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai'>('qr');
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<'digital' | 'physical' | 'service'>('digital');
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  
+  // Get workflow type from localStorage
+  const workflowType = localStorage.getItem('workflowType') as 'campaign' | 'catalog' || 'campaign';
+  
+  // Dynamic category state based on workflow type
+  const [selectedCampaignCategory, setSelectedCampaignCategory] = useState<'digital' | 'physical' | 'service'>('digital');
+  const [selectedCatalogCategory, setSelectedCatalogCategory] = useState<'retail' | 'technology' | 'construction' | 'tools'>('retail');
+  
+  const selectedCategory = workflowType === 'campaign' ? selectedCampaignCategory : selectedCatalogCategory;
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -131,41 +146,87 @@ export default function UploadImage() {
     }
   };
 
-  // Video cards data for different categories
-  const getCardsForCategory = (category: 'digital' | 'physical' | 'service') => {
-    const cardData = {
-      digital: [
-        { title: 'Mobile App', description: 'Promote your mobile application with engaging visuals', icon: '📱' },
-        { title: 'Software Platform', description: 'Showcase your SaaS or software solution', icon: '💻' },
-        { title: 'Web Service', description: 'Market your online service or platform', icon: '🌐' },
-        { title: 'Digital Tool', description: 'Highlight your productivity or utility tool', icon: '🔧' },
-        { title: 'Gaming App', description: 'Create excitement around your mobile game', icon: '🎮' },
-        { title: 'E-learning Course', description: 'Promote your educational content', icon: '📚' },
-        { title: 'Digital Media', description: 'Showcase your streaming or media service', icon: '🎬' },
-        { title: 'Fintech App', description: 'Market your financial technology solution', icon: '💳' },
-      ],
-      physical: [
-        { title: 'Electronics', description: 'Showcase innovative electronic products', icon: '⚡' },
-        { title: 'Fashion Item', description: 'Highlight clothing and accessories', icon: '👗' },
-        { title: 'Home & Garden', description: 'Present household and garden products', icon: '🏠' },
-        { title: 'Sports Equipment', description: 'Promote fitness and sports gear', icon: '⚽' },
-        { title: 'Food & Beverage', description: 'Market culinary products and drinks', icon: '🍽️' },
-        { title: 'Health & Beauty', description: 'Showcase wellness and cosmetic products', icon: '💄' },
-        { title: 'Automotive', description: 'Present vehicle parts and accessories', icon: '🚗' },
-        { title: 'Books & Media', description: 'Promote physical books and media', icon: '📖' },
-      ],
-      service: [
-        { title: 'Consulting', description: 'Professional advisory and consulting services', icon: '💼' },
-        { title: 'Education', description: 'Training and educational service offerings', icon: '🎓' },
-        { title: 'Healthcare', description: 'Medical and wellness service solutions', icon: '🏥' },
-        { title: 'Legal Services', description: 'Law and legal consultation services', icon: '⚖️' },
-        { title: 'Finance', description: 'Financial planning and advisory services', icon: '📊' },
-        { title: 'Marketing', description: 'Advertising and marketing service solutions', icon: '📈' },
-        { title: 'Real Estate', description: 'Property and real estate services', icon: '🏢' },
-        { title: 'Travel', description: 'Tourism and travel service offerings', icon: '✈️' },
-      ]
-    };
-    return cardData[category];
+  // Video cards data for different categories based on workflow type
+  const getCardsForCategory = (category: string) => {
+    if (workflowType === 'campaign') {
+      const campaignCardData = {
+        digital: [
+          { title: 'Mobile App', description: 'Promote your mobile application with engaging visuals', icon: '📱' },
+          { title: 'Software Platform', description: 'Showcase your SaaS or software solution', icon: '💻' },
+          { title: 'Web Service', description: 'Market your online service or platform', icon: '🌐' },
+          { title: 'Digital Tool', description: 'Highlight your productivity or utility tool', icon: '🔧' },
+          { title: 'Gaming App', description: 'Create excitement around your mobile game', icon: '🎮' },
+          { title: 'E-learning Course', description: 'Promote your educational content', icon: '📚' },
+          { title: 'Digital Media', description: 'Showcase your streaming or media service', icon: '🎬' },
+          { title: 'Fintech App', description: 'Market your financial technology solution', icon: '💳' },
+        ],
+        physical: [
+          { title: 'Electronics', description: 'Showcase innovative electronic products', icon: '⚡' },
+          { title: 'Fashion Item', description: 'Highlight clothing and accessories', icon: '👗' },
+          { title: 'Home & Garden', description: 'Present household and garden products', icon: '🏠' },
+          { title: 'Sports Equipment', description: 'Promote fitness and sports gear', icon: '⚽' },
+          { title: 'Food & Beverage', description: 'Market culinary products and drinks', icon: '🍽️' },
+          { title: 'Health & Beauty', description: 'Showcase wellness and cosmetic products', icon: '💄' },
+          { title: 'Automotive', description: 'Present vehicle parts and accessories', icon: '🚗' },
+          { title: 'Books & Media', description: 'Promote physical books and media', icon: '📖' },
+        ],
+        service: [
+          { title: 'Consulting', description: 'Professional advisory and consulting services', icon: '💼' },
+          { title: 'Education', description: 'Training and educational service offerings', icon: '🎓' },
+          { title: 'Healthcare', description: 'Medical and wellness service solutions', icon: '🏥' },
+          { title: 'Legal Services', description: 'Law and legal consultation services', icon: '⚖️' },
+          { title: 'Finance', description: 'Financial planning and advisory services', icon: '📊' },
+          { title: 'Marketing', description: 'Advertising and marketing service solutions', icon: '📈' },
+          { title: 'Real Estate', description: 'Property and real estate services', icon: '🏢' },
+          { title: 'Travel', description: 'Tourism and travel service offerings', icon: '✈️' },
+        ]
+      };
+      return (campaignCardData as any)[category] || [];
+    } else {
+      const catalogCardData = {
+        retail: [
+          { title: 'Fashion & Apparel', description: 'Clothing, shoes, and fashion accessories', icon: '👗' },
+          { title: 'Electronics Store', description: 'Consumer electronics and gadgets', icon: '📱' },
+          { title: 'Home & Furniture', description: 'Home decor and furniture items', icon: '🏠' },
+          { title: 'Sports & Fitness', description: 'Athletic wear and fitness equipment', icon: '⚽' },
+          { title: 'Beauty & Personal Care', description: 'Cosmetics and personal care products', icon: '💄' },
+          { title: 'Books & Media', description: 'Books, magazines, and entertainment', icon: '📚' },
+          { title: 'Food & Grocery', description: 'Food items and grocery products', icon: '🍽️' },
+          { title: 'Toys & Games', description: 'Toys, games, and hobby items', icon: '🎮' },
+        ],
+        technology: [
+          { title: 'Software Solutions', description: 'Enterprise and consumer software', icon: '💻' },
+          { title: 'Mobile Applications', description: 'iOS and Android applications', icon: '📱' },
+          { title: 'Cloud Services', description: 'Cloud computing and storage solutions', icon: '☁️' },
+          { title: 'AI & Machine Learning', description: 'Artificial intelligence platforms', icon: '🤖' },
+          { title: 'Cybersecurity', description: 'Security software and services', icon: '🔒' },
+          { title: 'IoT Devices', description: 'Internet of Things products', icon: '📡' },
+          { title: 'Development Tools', description: 'Programming and development platforms', icon: '🔧' },
+          { title: 'Data Analytics', description: 'Business intelligence and analytics', icon: '📊' },
+        ],
+        construction: [
+          { title: 'Building Materials', description: 'Concrete, steel, and construction supplies', icon: '🏗️' },
+          { title: 'Heavy Machinery', description: 'Construction equipment and vehicles', icon: '🚜' },
+          { title: 'Safety Equipment', description: 'PPE and safety gear for construction', icon: '⛑️' },
+          { title: 'Electrical Systems', description: 'Wiring and electrical components', icon: '⚡' },
+          { title: 'Plumbing Supplies', description: 'Pipes, fixtures, and plumbing tools', icon: '🔧' },
+          { title: 'Roofing Materials', description: 'Shingles, tiles, and roofing systems', icon: '🏠' },
+          { title: 'Insulation Products', description: 'Thermal and acoustic insulation', icon: '🧱' },
+          { title: 'Concrete Solutions', description: 'Concrete mixes and additives', icon: '⚒️' },
+        ],
+        tools: [
+          { title: 'Power Tools', description: 'Electric drills, saws, and power equipment', icon: '🔌' },
+          { title: 'Hand Tools', description: 'Hammers, screwdrivers, and manual tools', icon: '🔨' },
+          { title: 'Measuring Instruments', description: 'Rulers, levels, and measuring devices', icon: '📏' },
+          { title: 'Workshop Equipment', description: 'Workbenches and shop accessories', icon: '🔧' },
+          { title: 'Garden Tools', description: 'Lawn mowers, pruners, and garden equipment', icon: '🌱' },
+          { title: 'Automotive Tools', description: 'Car repair and maintenance tools', icon: '🚗' },
+          { title: 'Precision Instruments', description: 'Calipers, micrometers, and precision tools', icon: '📐' },
+          { title: 'Safety Tools', description: 'Safety equipment and protective gear', icon: '🦺' },
+        ]
+      };
+      return (catalogCardData as any)[category] || [];
+    }
   };
 
   const handleCardSelect = (index: number) => {
@@ -176,11 +237,12 @@ export default function UploadImage() {
     if (selectedCard !== null) {
       const cards = getCardsForCategory(selectedCategory);
       const selectedCardData = cards[selectedCard];
-      // Store selected card data for next step
+      // Store selected card data and workflow type for next step
       localStorage.setItem('selectedVideoCard', JSON.stringify({
         category: selectedCategory,
         cardIndex: selectedCard,
-        cardData: selectedCardData
+        cardData: selectedCardData,
+        workflowType: workflowType
       }));
       navigate('/configure');
     }
@@ -262,54 +324,125 @@ export default function UploadImage() {
               {/* Category Tabs */}
               <div className="flex justify-center mb-8">
                 <div className="bg-gray-100 rounded-full p-2 flex gap-2">
-                  <Button
-                    variant={selectedCategory === 'digital' ? 'default' : 'ghost'}
-                    onClick={() => {
-                      setSelectedCategory('digital');
-                      setSelectedCard(null);
-                      setCurrentCardIndex(0);
-                    }}
-                    className={`px-6 py-2 rounded-full text-sm font-medium ${
-                      selectedCategory === 'digital'
-                        ? 'bg-[#4285F4] text-white'
-                        : 'text-gray-600 hover:text-gray-800'
-                    }`}
-                    data-testid="button-category-digital"
-                  >
-                    Digital Product
-                  </Button>
-                  <Button
-                    variant={selectedCategory === 'physical' ? 'default' : 'ghost'}
-                    onClick={() => {
-                      setSelectedCategory('physical');
-                      setSelectedCard(null);
-                      setCurrentCardIndex(0);
-                    }}
-                    className={`px-6 py-2 rounded-full text-sm font-medium ${
-                      selectedCategory === 'physical'
-                        ? 'bg-[#4285F4] text-white'
-                        : 'text-gray-600 hover:text-gray-800'
-                    }`}
-                    data-testid="button-category-physical"
-                  >
-                    Physical Product
-                  </Button>
-                  <Button
-                    variant={selectedCategory === 'service' ? 'default' : 'ghost'}
-                    onClick={() => {
-                      setSelectedCategory('service');
-                      setSelectedCard(null);
-                      setCurrentCardIndex(0);
-                    }}
-                    className={`px-6 py-2 rounded-full text-sm font-medium ${
-                      selectedCategory === 'service'
-                        ? 'bg-[#4285F4] text-white'
-                        : 'text-gray-600 hover:text-gray-800'
-                    }`}
-                    data-testid="button-category-service"
-                  >
-                    Service
-                  </Button>
+                  {workflowType === 'campaign' ? (
+                    <>
+                      <Button
+                        variant={selectedCampaignCategory === 'digital' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCampaignCategory('digital');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCampaignCategory === 'digital'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-digital"
+                      >
+                        Digital Product
+                      </Button>
+                      <Button
+                        variant={selectedCampaignCategory === 'physical' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCampaignCategory('physical');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCampaignCategory === 'physical'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-physical"
+                      >
+                        Physical Product
+                      </Button>
+                      <Button
+                        variant={selectedCampaignCategory === 'service' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCampaignCategory('service');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCampaignCategory === 'service'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-service"
+                      >
+                        Service
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant={selectedCatalogCategory === 'retail' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCatalogCategory('retail');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCatalogCategory === 'retail'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-retail"
+                      >
+                        Retail
+                      </Button>
+                      <Button
+                        variant={selectedCatalogCategory === 'technology' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCatalogCategory('technology');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCatalogCategory === 'technology'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-technology"
+                      >
+                        Technology
+                      </Button>
+                      <Button
+                        variant={selectedCatalogCategory === 'construction' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCatalogCategory('construction');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCatalogCategory === 'construction'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-construction"
+                      >
+                        Construction
+                      </Button>
+                      <Button
+                        variant={selectedCatalogCategory === 'tools' ? 'default' : 'ghost'}
+                        onClick={() => {
+                          setSelectedCatalogCategory('tools');
+                          setSelectedCard(null);
+                          setCurrentCardIndex(0);
+                        }}
+                        className={`px-6 py-2 rounded-full text-sm font-medium ${
+                          selectedCatalogCategory === 'tools'
+                            ? 'bg-[#4285F4] text-white'
+                            : 'text-gray-600 hover:text-gray-800'
+                        }`}
+                        data-testid="button-category-tools"
+                      >
+                        Tools
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -344,7 +477,7 @@ export default function UploadImage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   {getCardsForCategory(selectedCategory)
                     .slice(currentCardIndex, currentCardIndex + 4)
-                    .map((card, index) => (
+                    .map((card: CardData, index: number) => (
                     <div
                       key={`${selectedCategory}-${currentCardIndex + index}`}
                       onClick={() => handleCardSelect(currentCardIndex + index)}

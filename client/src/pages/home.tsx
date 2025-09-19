@@ -46,10 +46,11 @@ export default function Home() {
 
   const handleStartCampaign = () => {
     if (campaignPrompt.trim()) {
-      // Store the prompt in localStorage to pass to canvas
+      // Store the prompt and workflow type in localStorage
       localStorage.setItem('campaignPrompt', campaignPrompt.trim());
-      // Navigate directly to canvas (instant redirect)
-      navigate('/canvas');
+      localStorage.setItem('workflowType', activeTab);
+      // Navigate to upload page with workflow context
+      navigate('/upload');
     }
   };
 

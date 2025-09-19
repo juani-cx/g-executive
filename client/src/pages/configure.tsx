@@ -62,15 +62,19 @@ export default function Configure() {
   const [uploadedImage, setUploadedImage] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   
+  // Get workflow type from localStorage
+  const workflowType = localStorage.getItem('workflowType') as 'campaign' | 'catalog' || 'campaign';
+  
   // Form state
   const [targetAudience, setTargetAudience] = useState("");
-  const [campaignType, setCampaignType] = useState("");
+  const [campaignType, setCampaignType] = useState(""); // Used for Campaign workflow (Product Category)
+  const [targetProduct, setTargetProduct] = useState(""); // Used for Catalog workflow  
   const [toneOfVoice, setToneOfVoice] = useState("");
   const [productDescription, setProductDescription] = useState("");
 
   // Dropdown options
   const targetAudienceOptions = ["Millennials", "Gen Z", "Professionals", "Parents", "Seniors", "Students"];
-  const campaignTypeOptions = ["Product Launch", "Brand Awareness", "Lead Generation", "Sales Promotion", "Content Marketing", "Social Media"];
+  const productCategoryOptions = ["Electronics", "Fashion", "Home & Garden", "Sports & Fitness", "Health & Beauty", "Automotive", "Food & Beverage", "Books & Media"];
   const toneOfVoiceOptions = ["Professional", "Casual", "Friendly", "Authoritative", "Playful", "Luxury"];
 
   useEffect(() => {
@@ -87,7 +91,11 @@ export default function Configure() {
         setProductDescription(`The image depicts the interior of a car with a focus on the panoramic roof showing a starry night sky.
 The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic feature. The branding indicates this is a Honda Passport vehicle`);
         setTargetAudience("Car enthusiasts");
-        setCampaignType("Product Launch");
+        if (workflowType === 'campaign') {
+          setCampaignType("Electronics");
+        } else {
+          setTargetProduct("Smart Car Feature");
+        }
         setToneOfVoice("Playful");
       }, 1500);
     } else {
@@ -99,7 +107,6 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
   const handleRandomizeAll = () => {
     // Randomly select options from dropdowns
     const randomTargetAudience = targetAudienceOptions[Math.floor(Math.random() * targetAudienceOptions.length)];
-    const randomCampaignType = campaignTypeOptions[Math.floor(Math.random() * campaignTypeOptions.length)];
     const randomToneOfVoice = toneOfVoiceOptions[Math.floor(Math.random() * toneOfVoiceOptions.length)];
     
     // Generate random description variations
@@ -112,21 +119,36 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
     const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
     
     setTargetAudience(randomTargetAudience);
-    setCampaignType(randomCampaignType);
     setToneOfVoice(randomToneOfVoice);
     setProductDescription(randomDescription);
+    
+    // Handle workflow-specific fields
+    if (workflowType === 'campaign') {
+      const randomCampaignType = productCategoryOptions[Math.floor(Math.random() * productCategoryOptions.length)];
+      setCampaignType(randomCampaignType);
+    } else {
+      const targetProductOptions = ["Smartphone", "Laptop", "Electric Vehicle", "Smart Home System", "Fitness Tracker", "Coffee Maker"];
+      const randomTargetProduct = targetProductOptions[Math.floor(Math.random() * targetProductOptions.length)];
+      setTargetProduct(randomTargetProduct);
+    }
   };
 
   const handleCreateCampaign = () => {
-    // Store configuration data
-    localStorage.setItem('campaignConfig', JSON.stringify({
+    // Store configuration data with workflow-specific fields
+    const configData = {
+      workflowType,
       targetAudience,
-      campaignType,
       toneOfVoice,
       productDescription,
       uploadedImage,
-      fileName
-    }));
+      fileName,
+      ...(workflowType === 'campaign' 
+        ? { productCategory: campaignType }
+        : { targetProduct }
+      )
+    };
+    
+    localStorage.setItem('campaignConfig', JSON.stringify(configData));
     
     // Navigate directly to canvas page
     navigate('/canvas');
@@ -199,21 +221,39 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
                 </div>
                 
                 <div>
-                  <Label htmlFor="campaign-type" className="text-sm text-gray-600 mb-2 block">
-                    Campaign Type
-                  </Label>
-                  <Select value={campaignType} onValueChange={setCampaignType}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-campaign-type">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {campaignTypeOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {workflowType === 'campaign' ? (
+                    <>
+                      <Label htmlFor="product-category" className="text-sm text-gray-600 mb-2 block">
+                        Product Category
+                      </Label>
+                      <Select value={campaignType} onValueChange={setCampaignType}>
+                        <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-product-category">
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {productCategoryOptions.map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </>
+                  ) : (
+                    <>
+                      <Label htmlFor="target-product" className="text-sm text-gray-600 mb-2 block">
+                        Target Product
+                      </Label>
+                      <Input
+                        id="target-product"
+                        value={targetProduct}
+                        onChange={(e) => setTargetProduct(e.target.value)}
+                        placeholder="Enter target product"
+                        className="text-sm h-10 bg-gray-50"
+                        data-testid="input-target-product"
+                      />
+                    </>
+                  )}
                 </div>
                 
                 <div>
@@ -255,7 +295,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               <div className="mt-6 flex gap-4 justify-center">
                 <Button
                   onClick={handleCreateCampaign}
-                  disabled={!targetAudience || !campaignType || !toneOfVoice || !productDescription}
+                  disabled={!targetAudience || (workflowType === 'campaign' ? !campaignType : !targetProduct) || !toneOfVoice || !productDescription}
                   className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
                   data-testid="button-create-preview"
                 >

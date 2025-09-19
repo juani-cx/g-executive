@@ -223,6 +223,9 @@ export default function CanvasView() {
   const [match, params] = useRoute("/canvas/:id");
   const campaignId = params?.id;
   
+  // Get workflow type from localStorage
+  const workflowType = localStorage.getItem('workflowType') as 'campaign' | 'catalog' || 'campaign';
+  
   // State management
   const [project, setProject] = useState<Project | null>(null);
   const [selectedAsset, setSelectedAsset] = useState<AssetCard | null>(null);
@@ -236,6 +239,12 @@ export default function CanvasView() {
   const [showFullPagePreview, setShowFullPagePreview] = useState(false);
   const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Catalog-specific state for editable inputs
+  const [catalogTitle, setCatalogTitle] = useState("");
+  const [catalogDescription, setCatalogDescription] = useState("");
+  const [catalogMetadata, setCatalogMetadata] = useState("");
+  const [catalogAttributes, setCatalogAttributes] = useState("");
 
   // Load campaign data if campaignId is provided
   const { data: campaignData } = useQuery({
@@ -440,8 +449,10 @@ export default function CanvasView() {
         {/* Main Content Area - Single Line Layout */}
         <div className="flex-1 flex items-center justify-center pb-20" style={{ padding: '0 14rem', marginTop: '-260px' }}>
           <div className="w-full max-w-none">
-            <div className="grid grid-cols-4 gap-10 max-w-8xl mx-auto">
-              {project.assets.map((card) => (
+            {workflowType === 'campaign' ? (
+              // Campaign Layout: 4-card grid
+              <div className="grid grid-cols-4 gap-10 max-w-8xl mx-auto">
+                {project.assets.map((card) => (
                 <Card 
                   key={card.id}
                   className="cursor-pointer transition-all duration-200 hover:shadow-xl shadow-md hover:ring-1 hover:ring-gray-300 w-full relative"
@@ -515,7 +526,140 @@ export default function CanvasView() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+              </div>
+            ) : (
+              // Catalog Layout: Single showcase with 2-column layout
+              <div className="max-w-8xl mx-auto">
+                <div className="grid grid-cols-2 gap-12">
+                  {/* Left Column: Showcase */}
+                  <div className="space-y-6">
+                    <Card className="shadow-lg border border-gray-200">
+                      <CardContent className="p-8">
+                        {/* Main showcase content */}
+                        <div className="w-full h-80 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+                          {project?.assets[0]?.previewImage ? (
+                            <img 
+                              src={project.assets[0].previewImage} 
+                              alt="Product Showcase"
+                              className="w-full h-full object-cover rounded-2xl"
+                            />
+                          ) : (
+                            <div className="text-center">
+                              <div className="w-32 h-32 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <div className="text-6xl text-white">📦</div>
+                              </div>
+                              <div className="text-2xl font-semibold text-gray-800">Product Catalog</div>
+                              <div className="text-lg text-gray-600">Showcase</div>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Title and Description */}
+                        <div className="space-y-4">
+                          <h2 className="text-2xl font-bold text-gray-800">
+                            {catalogTitle || "Product Showcase"}
+                          </h2>
+                          <p className="text-gray-600 leading-relaxed">
+                            {catalogDescription || "Eye-catching advertising banner with meta description. This is lorem ipsum text line."}
+                          </p>
+                          <Button 
+                            size="lg" 
+                            className="bg-blue-600 text-white hover:bg-blue-700 text-base px-6 py-3 rounded-xl font-semibold"
+                          >
+                            Discover →
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  {/* Right Column: Editable Inputs */}
+                  <div className="space-y-6">
+                    <Card className="shadow-lg border border-gray-200">
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-4">Product Details</h3>
+                        
+                        <div className="space-y-4">
+                          {/* Product Title */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-600 block mb-2">
+                              Product title
+                            </label>
+                            <Textarea
+                              value={catalogTitle}
+                              onChange={(e) => setCatalogTitle(e.target.value)}
+                              placeholder="Enter product title"
+                              className="min-h-[60px] resize-none"
+                              data-testid="input-catalog-title"
+                            />
+                          </div>
+                          
+                          {/* Description */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-600 block mb-2">
+                              Description
+                            </label>
+                            <Textarea
+                              value={catalogDescription}
+                              onChange={(e) => setCatalogDescription(e.target.value)}
+                              placeholder="Product description"
+                              className="min-h-[80px] resize-none"
+                              data-testid="input-catalog-description"
+                            />
+                          </div>
+                          
+                          {/* SEO Metadata */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-600 block mb-2">
+                              SEO metadata
+                            </label>
+                            <Textarea
+                              value={catalogMetadata}
+                              onChange={(e) => setCatalogMetadata(e.target.value)}
+                              placeholder="SEO keywords and metadata"
+                              className="min-h-[60px] resize-none"
+                              data-testid="input-catalog-metadata"
+                            />
+                          </div>
+                          
+                          {/* Attributes */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-600 block mb-2">
+                              Attributes
+                            </label>
+                            <Textarea
+                              value={catalogAttributes}
+                              onChange={(e) => setCatalogAttributes(e.target.value)}
+                              placeholder="Product attributes and features"
+                              className="min-h-[60px] resize-none"
+                              data-testid="input-catalog-attributes"
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="flex gap-3 mt-6">
+                          <Button
+                            variant="outline"
+                            className="flex-1 text-gray-600 border-gray-300 hover:bg-gray-50"
+                            data-testid="button-catalog-randomize"
+                          >
+                            Randomize
+                          </Button>
+                          <Button
+                            className="flex-1 bg-[#4285F4] hover:bg-[#3367D6] text-white"
+                            onClick={handleShareClick}
+                            data-testid="button-catalog-export"
+                          >
+                            Export assets
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
