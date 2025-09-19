@@ -292,17 +292,12 @@ export default function UploadCatalog() {
                 <div className="bg-white rounded-3xl p-16 shadow-lg inline-block">
                   <div className="bg-gray-100 p-8 rounded-2xl">
                     <div className="w-40 h-40 bg-white rounded-xl flex items-center justify-center">
-                      {/* QR Code placeholder - you can replace this with actual QR code */}
-                      <div className="grid grid-cols-3 gap-1">
-                        {Array.from({ length: 81 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className={`w-1 h-1 ${
-                              Math.random() > 0.5 ? 'bg-black' : 'bg-white'
-                            }`}
-                          />
-                        ))}
-                      </div>
+                      {/* Actual QR Code */}
+                      <img
+                        src="/images/QR_code.svg"
+                        alt="QR Code for uploading"
+                        className="w-32 h-32"
+                      />
                     </div>
                   </div>
                   <div className="mt-6">
