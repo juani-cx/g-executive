@@ -42,8 +42,8 @@ function InlineComboInput({ label, value, onChange, options, placeholder = "", t
   );
 
   return (
-    <div className="flex items-center gap-6 mb-4">
-      <Label className="text-sm text-gray-600 w-32 text-right flex-shrink-0">
+    <div className="flex items-center gap-6 mb-6">
+      <Label className="text-sm text-gray-600 w-32 text-left flex-shrink-0">
         {label}
       </Label>
       <div className="relative flex-1">
@@ -254,7 +254,7 @@ export default function Configure() {
             {/* Right Column - Configuration */}
             <div className="space-y-2">
               {/* Form Fields - Inline Layout */}
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <InlineComboInput
                   label="Product Category"
                   value={campaignType}
@@ -288,8 +288,8 @@ export default function Configure() {
                 />
               </div>
               
-              {/* Buttons Row - Matching design order: Back, Randomize, Create campaign */}
-              <div className="mt-8 flex gap-4 justify-end">
+              {/* Buttons Row - Left aligned with more space above */}
+              <div className="mt-12 flex gap-4 justify-start">
                 <Button
                   type="button"
                   variant="outline"
