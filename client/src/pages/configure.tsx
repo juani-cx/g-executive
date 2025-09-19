@@ -6,7 +6,78 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Shuffle } from "lucide-react";
+import { Shuffle, ChevronDown } from "lucide-react";
+
+// Combo Input Component - allows both dropdown selection and manual input
+function ComboInput({ label, value, onChange, options, placeholder = "Select or type...", testId }: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+  placeholder?: string;
+  testId?: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState(value);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChange(newValue);
+  };
+
+  const handleOptionSelect = (option: string) => {
+    setInputValue(option);
+    onChange(option);
+    setIsOpen(false);
+  };
+
+  const filteredOptions = options.filter(option => 
+    option.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
+  return (
+    <div className="relative">
+      <Label className="text-sm text-gray-600 mb-2 block">
+        {label}
+      </Label>
+      <div className="relative">
+        <Input
+          value={inputValue}
+          onChange={handleInputChange}
+          onFocus={() => setIsOpen(true)}
+          onBlur={() => setTimeout(() => setIsOpen(false), 150)}
+          placeholder={placeholder}
+          className="text-sm h-12 bg-gray-50 pr-8"
+          data-testid={testId}
+        />
+        <ChevronDown 
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+          data-testid={`chevron-${testId}`}
+        />
+        {isOpen && filteredOptions.length > 0 && (
+          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-48 overflow-y-auto">
+            {filteredOptions.map((option, index) => (
+              <div
+                key={index}
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                onMouseDown={() => handleOptionSelect(option)}
+                data-testid={`option-${testId}-${index}`}
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 // Virtual Keyboard Component
 function VirtualKeyboard() {
@@ -67,8 +138,8 @@ export default function Configure() {
   
   // Form state
   const [targetAudience, setTargetAudience] = useState("");
-  const [campaignType, setCampaignType] = useState(""); // Used for Campaign workflow (Product Category)
-  const [targetProduct, setTargetProduct] = useState(""); // Used for Catalog workflow  
+  const [campaignType, setCampaignType] = useState(""); // Product Category
+  const [campaignKind, setCampaignKind] = useState(""); // Campaign Type (Digital/Physical/Service or Retail/Technology/etc)
   const [toneOfVoice, setToneOfVoice] = useState("");
   const [productDescription, setProductDescription] = useState("");
 
@@ -91,11 +162,8 @@ export default function Configure() {
         setProductDescription(`The image depicts the interior of a car with a focus on the panoramic roof showing a starry night sky.
 The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic feature. The branding indicates this is a Honda Passport vehicle`);
         setTargetAudience("Car enthusiasts");
-        if (workflowType === 'campaign') {
-          setCampaignType("Electronics");
-        } else {
-          setTargetProduct("Smart Car Feature");
-        }
+        setCampaignType("Electronics");
+        setCampaignKind(workflowType === 'campaign' ? "Digital" : "Technology");
         setToneOfVoice("Playful");
       }, 1500);
     } else {
@@ -122,15 +190,14 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
     setToneOfVoice(randomToneOfVoice);
     setProductDescription(randomDescription);
     
-    // Handle workflow-specific fields
-    if (workflowType === 'campaign') {
-      const randomCampaignType = productCategoryOptions[Math.floor(Math.random() * productCategoryOptions.length)];
-      setCampaignType(randomCampaignType);
-    } else {
-      const targetProductOptions = ["Smartphone", "Laptop", "Electric Vehicle", "Smart Home System", "Fitness Tracker", "Coffee Maker"];
-      const randomTargetProduct = targetProductOptions[Math.floor(Math.random() * targetProductOptions.length)];
-      setTargetProduct(randomTargetProduct);
-    }
+    // Set product category for both workflows
+    const randomCampaignType = productCategoryOptions[Math.floor(Math.random() * productCategoryOptions.length)];
+    setCampaignType(randomCampaignType);
+    
+    // Set campaign kind based on workflow
+    const campaignKindOptions = workflowType === 'campaign' ? ['Digital', 'Physical', 'Service'] : ['Retail', 'Technology', 'Construction', 'Tools'];
+    const randomCampaignKind = campaignKindOptions[Math.floor(Math.random() * campaignKindOptions.length)];
+    setCampaignKind(randomCampaignKind);
   };
 
   const handleCreateCampaign = () => {
@@ -142,10 +209,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       productDescription,
       uploadedImage,
       fileName,
-      ...(workflowType === 'campaign' 
-        ? { productCategory: campaignType }
-        : { targetProduct }
-      )
+      productCategory: campaignType,
+      campaignType: campaignKind
     };
     
     localStorage.setItem('campaignConfig', JSON.stringify(configData));
@@ -199,83 +264,47 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-4">
-              {/* Form Fields Row */}
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <Label htmlFor="target-audience" className="text-sm text-gray-600 mb-2 block">
-                    Target audience
-                  </Label>
-                  <Select value={targetAudience} onValueChange={setTargetAudience}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-target-audience">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {targetAudienceOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+            <div className="space-y-6">
+              {/* Form Fields - 2x2 Grid */}
+              <div className="grid grid-cols-2 gap-6">
+                <ComboInput
+                  label="Product Category"
+                  value={campaignType}
+                  onChange={setCampaignType}
+                  options={productCategoryOptions}
+                  placeholder="Select or type..."
+                  testId="combo-product-category"
+                />
                 
-                <div>
-                  {workflowType === 'campaign' ? (
-                    <>
-                      <Label htmlFor="product-category" className="text-sm text-gray-600 mb-2 block">
-                        Product Category
-                      </Label>
-                      <Select value={campaignType} onValueChange={setCampaignType}>
-                        <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-product-category">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {productCategoryOptions.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </>
-                  ) : (
-                    <>
-                      <Label htmlFor="target-product" className="text-sm text-gray-600 mb-2 block">
-                        Target Product
-                      </Label>
-                      <Input
-                        id="target-product"
-                        value={targetProduct}
-                        onChange={(e) => setTargetProduct(e.target.value)}
-                        placeholder="Enter target product"
-                        className="text-sm h-10 bg-gray-50"
-                        data-testid="input-target-product"
-                      />
-                    </>
-                  )}
-                </div>
+                <ComboInput
+                  label="Target audience"
+                  value={targetAudience}
+                  onChange={setTargetAudience}
+                  options={targetAudienceOptions}
+                  placeholder="Select or type..."
+                  testId="combo-target-audience"
+                />
                 
-                <div>
-                  <Label htmlFor="tone-of-voice" className="text-sm text-gray-600 mb-2 block">
-                    Tone of voice
-                  </Label>
-                  <Select value={toneOfVoice} onValueChange={setToneOfVoice}>
-                    <SelectTrigger className="text-sm h-10 bg-gray-50" data-testid="select-tone-of-voice">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {toneOfVoiceOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                <ComboInput
+                  label="Tone of voice"
+                  value={toneOfVoice}
+                  onChange={setToneOfVoice}
+                  options={toneOfVoiceOptions}
+                  placeholder="Select or type..."
+                  testId="combo-tone-of-voice"
+                />
+                
+                <ComboInput
+                  label="Campaign Type"
+                  value={campaignKind}
+                  onChange={setCampaignKind}
+                  options={workflowType === 'campaign' ? ['Digital', 'Physical', 'Service'] : ['Retail', 'Technology', 'Construction', 'Tools']}
+                  placeholder="Select or type..."
+                  testId="combo-campaign-type"
+                />
               </div>
 
-              {/* Description */}
+              {/* Description - Full Width Below */}
               <div>
                 <Label htmlFor="product-description" className="text-sm text-gray-600 mb-2 block">
                   Description of your product
@@ -295,11 +324,11 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               <div className="mt-6 flex gap-4 justify-center">
                 <Button
                   onClick={handleCreateCampaign}
-                  disabled={!targetAudience || (workflowType === 'campaign' ? !campaignType : !targetProduct) || !toneOfVoice || !productDescription}
+                  disabled={!targetAudience || !campaignType || !campaignKind || !toneOfVoice}
                   className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
                   data-testid="button-create-preview"
                 >
-                  Create preview
+                  Create campaign
                 </Button>
                 
                 <Button
