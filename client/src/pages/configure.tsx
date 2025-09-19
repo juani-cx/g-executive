@@ -254,7 +254,7 @@ export default function Configure() {
             {/* Right Column - Configuration */}
             <div className="space-y-2">
               {/* Form Fields - Inline Layout */}
-              <div className="space-y-2">
+              <div>
                 <InlineComboInput
                   label="Product Category"
                   value={campaignType}
@@ -289,7 +289,7 @@ export default function Configure() {
               </div>
               
               {/* Buttons Row - Left aligned with more space above */}
-              <div className="mt-12 flex gap-4 justify-start">
+              <div className="mt-20 flex gap-4 justify-start">
                 <Button
                   type="button"
                   variant="outline"
