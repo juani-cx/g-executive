@@ -9,13 +9,14 @@ export default function Landing() {
   const handleOptionSelect = (optionType: 'marketing' | 'catalog') => {
     // Store the selected type
     localStorage.setItem('selectedAppType', optionType);
+    localStorage.setItem('workflowType', optionType === 'marketing' ? 'campaign' : 'catalog');
     
     if (optionType === 'marketing') {
-      // Navigate to the upload flow for marketing campaigns
-      navigate('/upload');
+      // Navigate to the campaign upload page
+      navigate('/upload-campaign');
     } else {
-      // Navigate to the existing prompt input screen for catalog
-      navigate('/prompt-input');
+      // Navigate to the catalog upload page
+      navigate('/upload-catalog');
     }
   };
 
