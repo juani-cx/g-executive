@@ -226,16 +226,29 @@ export default function Configure() {
       </div>
 
       {/* Main Content */}
-      <div className="flex items-start justify-center p-8 pt-8 overflow-y-auto" style={{ height: 'calc(100vh - 120px)', marginTop: '-80px' }}>
-        <div className="w-full max-w-none px-16">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl text-gray-800 mb-2 tracking-tight" style={{ fontWeight: '475' }}>
+      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '-80px' }}>
+        <div className="w-full max-w-6xl text-center">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 
+              className="text-6xl text-gray-800 mb-4 tracking-tight"
+              style={{ fontWeight: '475' }}
+              data-testid="text-main-title"
+            >
               Configure
             </h1>
+            <p 
+              className="text-2xl text-gray-600 mb-16"
+              style={{ fontWeight: '400' }}
+            >
+              Set up your campaign details
+            </p>
           </div>
 
-          {/* White card container */}
-          <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
+          {/* Content Area */}
+          <div className="max-w-4xl mx-auto">
+            {/* White card container */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
@@ -321,7 +334,7 @@ export default function Configure() {
               </div>
             </div>
             </div>
-            
+          </div>
           </div>
         </div>
       </div>
