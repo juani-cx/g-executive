@@ -10,6 +10,8 @@ import Landing from "@/pages/landing";
 import NewLanding from "@/pages/new-landing";
 import PromptInput from "@/pages/prompt-input";
 import UploadImage from "@/pages/upload-image";
+import UploadCampaign from "@/pages/upload-campaign";
+import UploadCatalog from "@/pages/upload-catalog";
 import Configure from "@/pages/configure";
 import Preview from "@/pages/preview";
 import Home from "@/pages/home";
@@ -41,6 +43,8 @@ function AuthenticatedRouter() {
             <Route path="/homepage" component={Landing} />
             <Route path="/prompt-input" component={PromptInput} />
             <Route path="/upload" component={UploadImage} />
+            <Route path="/upload-campaign" component={UploadCampaign} />
+            <Route path="/upload-catalog" component={UploadCatalog} />
             <Route path="/configure" component={Configure} />
             <Route path="/preview" component={Preview} />
             <Route path="/home" component={Home} />

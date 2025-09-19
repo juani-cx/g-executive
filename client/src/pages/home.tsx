@@ -49,8 +49,12 @@ export default function Home() {
       // Store the prompt and workflow type in localStorage
       localStorage.setItem('campaignPrompt', campaignPrompt.trim());
       localStorage.setItem('workflowType', activeTab);
-      // Navigate to upload page with workflow context
-      navigate('/upload');
+      // Navigate to workflow-specific upload page
+      if (activeTab === 'campaign') {
+        navigate('/upload-campaign');
+      } else {
+        navigate('/upload-catalog');
+      }
     }
   };
 
