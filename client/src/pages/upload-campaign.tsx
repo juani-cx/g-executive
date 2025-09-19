@@ -14,7 +14,7 @@ interface CardData {
 
 export default function UploadCampaign() {
   const [, navigate] = useLocation();
-  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('qr');
+  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('computer');
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
@@ -205,44 +205,32 @@ export default function UploadCampaign() {
             </p>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex justify-center mb-12">
-            <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
-              {campaignCategories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
-                    selectedCategory === category.id
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                  }`}
-                  onClick={() => setSelectedCampaignCategory(category.id as any)}
-                  data-testid={`tab-${category.id}`}
-                >
-                  {category.label}
-                </Button>
-              ))}
+          {/* Category Tabs - Only show when in predefined tab */}
+          {activeTab === 'predefined' && (
+            <div className="flex justify-center mb-12">
+              <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
+                {campaignCategories.map((category) => (
+                  <Button
+                    key={category.id}
+                    variant={selectedCategory === category.id ? "default" : "ghost"}
+                    className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+                      selectedCategory === category.id
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                    }`}
+                    onClick={() => setSelectedCampaignCategory(category.id as any)}
+                    data-testid={`tab-${category.id}`}
+                  >
+                    {category.label}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Bottom Action Tabs */}
           <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2">
             <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-lg border">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                  activeTab === 'predefined'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                }`}
-                onClick={() => setActiveTab('predefined')}
-                data-testid="tab-preselected"
-              >
-                I don't want to use my photos
-              </Button>
-              <div className="w-px h-4 bg-gray-200 mx-2"></div>
               <Button
                 variant="ghost"
                 size="sm"
@@ -272,12 +260,26 @@ export default function UploadCampaign() {
                 <Camera className="w-4 h-4" />
                 Take a photo
               </Button>
+              <div className="w-px h-4 bg-gray-200 mx-2"></div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
+                  activeTab === 'predefined'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                }`}
+                onClick={() => setActiveTab('predefined')}
+                data-testid="tab-preselected"
+              >
+                I don't want to use my photos
+              </Button>
             </div>
           </div>
 
           {/* Content Area */}
           <div className="max-w-4xl mx-auto">
-            {activeTab === 'qr' && (
+            {activeTab === 'computer' && (
               <div className="text-center">
                 <div className="bg-white rounded-3xl p-16 shadow-lg inline-block">
                   <div className="bg-gray-100 p-8 rounded-2xl">
@@ -299,6 +301,27 @@ export default function UploadCampaign() {
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">Scan this QR code</h3>
                     <p className="text-gray-600">to upload your image</p>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'ai' && (
+              <div className="text-center">
+                <div className="bg-white rounded-3xl p-12 shadow-lg">
+                  <div className="mb-6">
+                    <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
+                    <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
+                  </div>
+                  
+                  <Button
+                    size="lg"
+                    disabled={true}
+                    className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
+                    data-testid="button-camera-disabled"
+                  >
+                    Camera not available
+                  </Button>
                 </div>
               </div>
             )}
@@ -342,57 +365,6 @@ export default function UploadCampaign() {
                     </Button>
                   </div>
                 )}
-              </div>
-            )}
-
-            {activeTab === 'computer' && (
-              <div className="text-center">
-                <div className="bg-white rounded-3xl p-12 shadow-lg">
-                  <div className="mb-6">
-                    <Upload className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Upload your images</h3>
-                    <p className="text-gray-600">Drop your files here or click to browse</p>
-                  </div>
-                  
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    id="file-upload"
-                    data-testid="input-file-upload"
-                  />
-                  
-                  <Button
-                    size="lg"
-                    onClick={() => document.getElementById('file-upload')?.click()}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold"
-                    data-testid="button-upload"
-                  >
-                    Choose Files
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'ai' && (
-              <div className="text-center">
-                <div className="bg-white rounded-3xl p-12 shadow-lg">
-                  <div className="mb-6">
-                    <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
-                    <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
-                  </div>
-                  
-                  <Button
-                    size="lg"
-                    disabled={true}
-                    className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
-                    data-testid="button-camera-disabled"
-                  >
-                    Camera not available
-                  </Button>
-                </div>
               </div>
             )}
           </div>
