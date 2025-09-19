@@ -3,13 +3,13 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// Textarea removed - no longer needed
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// Note: Select imports removed as we now use InlineComboInput
 import { Shuffle, ChevronDown } from "lucide-react";
 
-// Combo Input Component - allows both dropdown selection and manual input
-function ComboInput({ label, value, onChange, options, placeholder = "Select or type...", testId }: {
+// Inline Combo Input Component - labels on left, inputs on right for compact layout
+function InlineComboInput({ label, value, onChange, options, placeholder = "", testId }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -28,6 +28,7 @@ function ComboInput({ label, value, onChange, options, placeholder = "Select or 
     const newValue = e.target.value;
     setInputValue(newValue);
     onChange(newValue);
+    setIsOpen(true);
   };
 
   const handleOptionSelect = (option: string) => {
@@ -41,18 +42,18 @@ function ComboInput({ label, value, onChange, options, placeholder = "Select or 
   );
 
   return (
-    <div className="relative">
-      <Label className="text-sm text-gray-600 mb-2 block">
+    <div className="flex items-center gap-6 mb-4">
+      <Label className="text-sm text-gray-600 w-32 text-right flex-shrink-0">
         {label}
       </Label>
-      <div className="relative">
+      <div className="relative flex-1">
         <Input
           value={inputValue}
           onChange={handleInputChange}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 150)}
           placeholder={placeholder}
-          className="text-sm h-12 bg-gray-50 pr-8"
+          className="text-sm h-10 bg-gray-50 pr-8"
           data-testid={testId}
         />
         <ChevronDown 
@@ -141,7 +142,7 @@ export default function Configure() {
   const [campaignType, setCampaignType] = useState(""); // Product Category
   const [campaignKind, setCampaignKind] = useState(""); // Campaign Type (Digital/Physical/Service or Retail/Technology/etc)
   const [toneOfVoice, setToneOfVoice] = useState("");
-  const [productDescription, setProductDescription] = useState("");
+  // Product description removed per new design
 
   // Dropdown options
   const targetAudienceOptions = ["Millennials", "Gen Z", "Professionals", "Parents", "Seniors", "Students"];
@@ -159,8 +160,6 @@ export default function Configure() {
       
       // Simulate AI analysis of the image
       setTimeout(() => {
-        setProductDescription(`The image depicts the interior of a car with a focus on the panoramic roof showing a starry night sky.
-The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic feature. The branding indicates this is a Honda Passport vehicle`);
         setTargetAudience("Car enthusiasts");
         setCampaignType("Electronics");
         setCampaignKind(workflowType === 'campaign' ? "Digital" : "Technology");
@@ -168,7 +167,7 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       }, 1500);
     } else {
       // No image uploaded, redirect back
-      navigate('/upload');
+      navigate(`/upload-${workflowType}`);
     }
   }, [navigate]);
 
@@ -177,18 +176,8 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
     const randomTargetAudience = targetAudienceOptions[Math.floor(Math.random() * targetAudienceOptions.length)];
     const randomToneOfVoice = toneOfVoiceOptions[Math.floor(Math.random() * toneOfVoiceOptions.length)];
     
-    // Generate random description variations
-    const descriptions = [
-      "Experience innovation like never before with cutting-edge technology that transforms your daily journey into something extraordinary.",
-      "Discover the perfect blend of style, performance, and advanced features designed for the modern lifestyle.",
-      "Revolutionary design meets unparalleled functionality in this groundbreaking product that redefines industry standards.",
-      "Premium quality and exceptional craftsmanship come together to create an unforgettable experience for discerning customers."
-    ];
-    const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
-    
     setTargetAudience(randomTargetAudience);
     setToneOfVoice(randomToneOfVoice);
-    setProductDescription(randomDescription);
     
     // Set product category for both workflows
     const randomCampaignType = productCategoryOptions[Math.floor(Math.random() * productCategoryOptions.length)];
@@ -206,7 +195,6 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
       workflowType,
       targetAudience,
       toneOfVoice,
-      productDescription,
       uploadedImage,
       fileName,
       productCategory: campaignType,
@@ -264,81 +252,71 @@ The text "NOW WITH UFO ROOF" is shown, implying an enhanced or futuristic featur
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-6">
-              {/* Form Fields - 2x2 Grid */}
-              <div className="grid grid-cols-2 gap-6">
-                <ComboInput
+            <div className="space-y-2">
+              {/* Form Fields - Inline Layout */}
+              <div className="space-y-1">
+                <InlineComboInput
                   label="Product Category"
                   value={campaignType}
                   onChange={setCampaignType}
                   options={productCategoryOptions}
-                  placeholder="Select or type..."
                   testId="combo-product-category"
                 />
                 
-                <ComboInput
+                <InlineComboInput
                   label="Target audience"
                   value={targetAudience}
                   onChange={setTargetAudience}
                   options={targetAudienceOptions}
-                  placeholder="Select or type..."
                   testId="combo-target-audience"
                 />
                 
-                <ComboInput
+                <InlineComboInput
                   label="Tone of voice"
                   value={toneOfVoice}
                   onChange={setToneOfVoice}
                   options={toneOfVoiceOptions}
-                  placeholder="Select or type..."
                   testId="combo-tone-of-voice"
                 />
                 
-                <ComboInput
+                <InlineComboInput
                   label="Campaign Type"
                   value={campaignKind}
                   onChange={setCampaignKind}
                   options={workflowType === 'campaign' ? ['Digital', 'Physical', 'Service'] : ['Retail', 'Technology', 'Construction', 'Tools']}
-                  placeholder="Select or type..."
                   testId="combo-campaign-type"
                 />
               </div>
-
-              {/* Description - Full Width Below */}
-              <div>
-                <Label htmlFor="product-description" className="text-sm text-gray-600 mb-2 block">
-                  Description of your product
-                </Label>
-                <Textarea
-                  id="product-description"
-                  value={productDescription}
-                  onChange={(e) => setProductDescription(e.target.value)}
-                  placeholder="AI is analyzing your image..."
-                  className="text-sm min-h-20 resize-none bg-gray-50"
-                  rows={3}
-                  data-testid="textarea-product-description"
-                />
-              </div>
               
-              {/* Buttons Row - Below input */}
-              <div className="mt-6 flex gap-4 justify-center">
+              {/* Buttons Row - Matching design order: Back, Randomize, Create campaign */}
+              <div className="mt-8 flex gap-4 justify-end">
                 <Button
-                  onClick={handleCreateCampaign}
-                  disabled={!targetAudience || !campaignType || !campaignKind || !toneOfVoice}
-                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-3 text-lg rounded-full transition-all duration-200"
-                  data-testid="button-create-preview"
+                  type="button"
+                  variant="outline"
+                  onClick={() => navigate('/upload-' + workflowType)}
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full"
+                  data-testid="button-back"
                 >
-                  Create campaign
+                  Back
                 </Button>
                 
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handleRandomizeAll}
-                  className="text-gray-600 border-gray-300 hover:bg-gray-50 gap-2 px-6 py-3 text-lg rounded-full"
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full"
                   data-testid="button-randomize-all"
                 >
-                  Randomize all
+                  Randomize
+                </Button>
+                
+                <Button
+                  onClick={handleCreateCampaign}
+                  disabled={!targetAudience || !campaignType || !campaignKind || !toneOfVoice}
+                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-2 rounded-full transition-all duration-200"
+                  data-testid="button-create-campaign"
+                >
+                  Create campaign
                 </Button>
               </div>
             </div>
