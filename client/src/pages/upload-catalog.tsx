@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
-import QRCode from "react-qr-code";
 
 // Type for card data
 interface CardData {
@@ -163,82 +162,100 @@ export default function UploadCatalog() {
   const visibleCards = currentCards.slice(startIndex, startIndex + 4);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="dotted-background overflow-hidden" style={{ 
+      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      height: '100vh'
+    }}>
       {/* Top Navigation */}
       <TopNavigation />
       
       {/* Main Content */}
-      <div className="pt-24 pb-12 px-8">
-        <div className="max-w-6xl mx-auto">
+      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '-80px' }}>
+        <div className="w-full max-w-6xl text-center">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-normal text-gray-900 mb-4" style={{ fontWeight: '475' }}>
+          <div className="mb-8">
+            <h1 
+              className="text-6xl text-gray-800 mb-4 tracking-tight"
+              style={{ fontWeight: '475' }}
+              data-testid="text-main-title"
+            >
               Select an image
             </h1>
-            <p className="text-xl text-gray-600" style={{ fontWeight: '400' }}>
+            <p 
+              className="text-2xl text-gray-600 mb-16"
+              style={{ fontWeight: '400' }}
+            >
               Choose the product type you want to promote
             </p>
           </div>
 
           {/* Category Tabs */}
           <div className="flex justify-center mb-12">
-            <div className="flex space-x-2 bg-white rounded-full p-2 shadow-lg">
+            <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
               {catalogCategories.map((category) => (
                 <Button
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className={`rounded-full px-6 py-3 text-base font-medium transition-all ${
+                  className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
                     selectedCategory === category.id
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-600 hover:text-blue-600"
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                   }`}
                   onClick={() => setSelectedCatalogCategory(category.id as any)}
                   data-testid={`tab-${category.id}`}
                 >
-                  <span className="mr-2">{category.icon}</span>
+                  <span className="mr-1">{category.icon}</span>
                   {category.label}
                 </Button>
               ))}
             </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="flex justify-center mb-8">
-            <div className="flex bg-gray-100 rounded-full p-1">
+          {/* Bottom Action Tabs */}
+          <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2">
+            <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-lg border">
               <Button
-                variant={activeTab === 'qr' ? 'default' : 'ghost'}
-                className={`rounded-full px-6 py-2 text-sm font-medium ${
+                variant="ghost"
+                size="sm"
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
                   activeTab === 'qr'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
                 onClick={() => setActiveTab('qr')}
                 data-testid="tab-preselected"
               >
+                <Sparkles className="w-4 h-4" />
                 I don't have photos
               </Button>
+              <div className="w-px h-4 bg-gray-200 mx-2"></div>
               <Button
-                variant={activeTab === 'computer' ? 'default' : 'ghost'}
-                className={`rounded-full px-6 py-2 text-sm font-medium ${
+                variant="ghost"
+                size="sm"
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
                   activeTab === 'computer'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
                 onClick={() => setActiveTab('computer')}
                 data-testid="tab-upload"
               >
+                <Upload className="w-4 h-4" />
                 Upload your images
               </Button>
+              <div className="w-px h-4 bg-gray-200 mx-2"></div>
               <Button
-                variant={activeTab === 'ai' ? 'default' : 'ghost'}
-                className={`rounded-full px-6 py-2 text-sm font-medium ${
+                variant="ghost"
+                size="sm"
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
                   activeTab === 'ai'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
                 onClick={() => setActiveTab('ai')}
                 data-testid="tab-ai"
               >
+                <Camera className="w-4 h-4" />
                 Take a photo
               </Button>
             </div>
@@ -249,25 +266,30 @@ export default function UploadCatalog() {
             {activeTab === 'qr' && (
               <div>
                 {/* Cards Grid */}
-                <div className="relative">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div className="relative mb-12">
+                  <div className="grid grid-cols-4 gap-4">
                     {visibleCards.map((card, index) => {
                       const cardIndex = startIndex + index;
                       return (
                         <div
                           key={cardIndex}
-                          className={`bg-white rounded-2xl p-6 cursor-pointer transition-all duration-200 ${
+                          className={`h-40 rounded-2xl cursor-pointer transition-all duration-200 flex flex-col items-center justify-center text-center p-4 ${
                             selectedCard === cardIndex
-                              ? 'ring-2 ring-blue-500 shadow-lg transform scale-105'
-                              : 'shadow-md hover:shadow-lg hover:transform hover:scale-102'
+                              ? 'ring-2 ring-white shadow-2xl transform scale-105'
+                              : 'hover:transform hover:scale-105 hover:shadow-xl'
                           }`}
+                          style={{
+                            background: selectedCard === cardIndex 
+                              ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                              : 'linear-gradient(135deg, #4285F4 0%, #3367D6 100%)'
+                          }}
                           onClick={() => setSelectedCard(cardIndex)}
                           data-testid={`card-${cardIndex}`}
                         >
-                          <div className="text-center">
-                            <div className="text-4xl mb-3">{card.icon}</div>
-                            <h3 className="font-semibold text-gray-900 mb-2">{card.title}</h3>
-                            <p className="text-sm text-gray-600">{card.description}</p>
+                          <div className="text-white">
+                            <div className="text-2xl mb-2">{card.icon}</div>
+                            <h3 className="font-semibold text-sm mb-1">{card.title}</h3>
+                            <p className="text-xs opacity-90">{card.description}</p>
                           </div>
                         </div>
                       );
@@ -280,7 +302,7 @@ export default function UploadCatalog() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="absolute left-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg"
+                        className="absolute left-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-50"
                         onClick={prevCard}
                         data-testid="button-prev-cards"
                       >
@@ -289,7 +311,7 @@ export default function UploadCatalog() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="absolute right-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg"
+                        className="absolute right-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-50"
                         onClick={nextCard}
                         data-testid="button-next-cards"
                       >
@@ -305,7 +327,7 @@ export default function UploadCatalog() {
                     size="lg"
                     disabled={selectedCard === null}
                     onClick={handleContinue}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-base font-medium shadow-lg disabled:opacity-50"
                     data-testid="button-continue"
                   >
                     Continue with this selection
