@@ -14,10 +14,19 @@ interface CardData {
 
 export default function UploadCatalog() {
   const [, navigate] = useLocation();
-  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai'>('qr');
+  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('qr');
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Predefined mood images
+  const moodImages = [
+    { id: 1, src: '/img-refs/mood01.png', alt: 'Mood 1' },
+    { id: 2, src: '/img-refs/mood02.png', alt: 'Mood 2' },
+    { id: 3, src: '/img-refs/mood03.png', alt: 'Mood 3' },
+    { id: 4, src: '/img-refs/mood04.png', alt: 'Mood 4' },
+  ];
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   
   // Catalog workflow - fixed to catalog
@@ -84,6 +93,20 @@ export default function UploadCatalog() {
     if (selectedCard !== null) {
       // Store card selection for configuration page
       localStorage.setItem('selectedCardIndex', selectedCard.toString());
+      localStorage.setItem('selectedCategory', selectedCategory);
+      localStorage.setItem('workflowType', workflowType);
+      navigate('/configure');
+    }
+  };
+
+  const handleImageSelect = (imageId: number, imageSrc: string) => {
+    setSelectedImage(imageSrc);
+    setSelectedCard(imageId);
+  };
+
+  const handlePredefinedContinue = () => {
+    if (selectedImage) {
+      localStorage.setItem('uploadedImage', selectedImage);
       localStorage.setItem('selectedCategory', selectedCategory);
       localStorage.setItem('workflowType', workflowType);
       navigate('/configure');
@@ -218,15 +241,14 @@ export default function UploadCatalog() {
                 variant="ghost"
                 size="sm"
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                  activeTab === 'qr'
+                  activeTab === 'predefined'
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
-                onClick={() => setActiveTab('qr')}
+                onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"
               >
-                <Sparkles className="w-4 h-4" />
-                I don't have photos
+                I don't want to use my photos
               </Button>
               <div className="w-px h-4 bg-gray-200 mx-2"></div>
               <Button
@@ -264,75 +286,70 @@ export default function UploadCatalog() {
           {/* Content Area */}
           <div className="max-w-4xl mx-auto">
             {activeTab === 'qr' && (
+              <div className="text-center">
+                <div className="bg-white rounded-3xl p-16 shadow-lg inline-block">
+                  <div className="bg-gray-100 p-8 rounded-2xl">
+                    <div className="w-40 h-40 bg-white rounded-xl flex items-center justify-center">
+                      {/* QR Code placeholder - you can replace this with actual QR code */}
+                      <div className="grid grid-cols-3 gap-1">
+                        {Array.from({ length: 81 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className={`w-1 h-1 ${
+                              Math.random() > 0.5 ? 'bg-black' : 'bg-white'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Scan this QR code</h3>
+                    <p className="text-gray-600">to upload your image</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'predefined' && (
               <div>
-                {/* Cards Grid */}
+                {/* Predefined Images Grid */}
                 <div className="relative mb-12">
                   <div className="grid grid-cols-4 gap-4">
-                    {visibleCards.map((card, index) => {
-                      const cardIndex = startIndex + index;
-                      return (
-                        <div
-                          key={cardIndex}
-                          className={`h-40 rounded-2xl cursor-pointer transition-all duration-200 flex flex-col items-center justify-center text-center p-4 ${
-                            selectedCard === cardIndex
-                              ? 'ring-2 ring-white shadow-2xl transform scale-105'
-                              : 'hover:transform hover:scale-105 hover:shadow-xl'
-                          }`}
-                          style={{
-                            background: selectedCard === cardIndex 
-                              ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                              : 'linear-gradient(135deg, #4285F4 0%, #3367D6 100%)'
-                          }}
-                          onClick={() => setSelectedCard(cardIndex)}
-                          data-testid={`card-${cardIndex}`}
-                        >
-                          <div className="text-white">
-                            <div className="text-2xl mb-2">{card.icon}</div>
-                            <h3 className="font-semibold text-sm mb-1">{card.title}</h3>
-                            <p className="text-xs opacity-90">{card.description}</p>
-                          </div>
-                        </div>
-                      );
-                    })}
+                    {moodImages.map((image) => (
+                      <div
+                        key={image.id}
+                        className={`h-40 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                          selectedImage === image.src
+                            ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
+                            : 'hover:transform hover:scale-105 hover:shadow-xl'
+                        }`}
+                        onClick={() => handleImageSelect(image.id, image.src)}
+                        data-testid={`image-${image.id}`}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
                   </div>
-
-                  {/* Navigation Arrows */}
-                  {currentCards.length > 4 && (
-                    <>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="absolute left-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-50"
-                        onClick={prevCard}
-                        data-testid="button-prev-cards"
-                      >
-                        <ChevronLeft className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="absolute right-[-60px] top-1/2 transform -translate-y-1/2 rounded-full bg-white shadow-lg hover:bg-gray-50"
-                        onClick={nextCard}
-                        data-testid="button-next-cards"
-                      >
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
                 </div>
 
                 {/* Continue Button */}
-                <div className="text-center">
-                  <Button
-                    size="lg"
-                    disabled={selectedCard === null}
-                    onClick={handleContinue}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-base font-medium shadow-lg disabled:opacity-50"
-                    data-testid="button-continue"
-                  >
-                    Continue with this selection
-                  </Button>
-                </div>
+                {selectedImage && (
+                  <div className="text-center">
+                    <Button
+                      size="lg"
+                      onClick={handlePredefinedContinue}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-base font-medium shadow-lg"
+                      data-testid="button-continue-predefined"
+                    >
+                      Continue with this selection
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -371,39 +388,17 @@ export default function UploadCatalog() {
                 <div className="bg-white rounded-3xl p-12 shadow-lg">
                   <div className="mb-6">
                     <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Generate with AI</h3>
-                    <p className="text-gray-600 mb-6">Describe what you want to create</p>
-                  </div>
-                  
-                  <div className="max-w-md mx-auto mb-6">
-                    <Input
-                      type="text"
-                      placeholder="Describe your image..."
-                      value={aiPrompt}
-                      onChange={(e) => setAiPrompt(e.target.value)}
-                      className="w-full px-4 py-3 text-base border-2 border-gray-200 rounded-full focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                      data-testid="input-ai-prompt"
-                    />
+                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
+                    <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
                   </div>
                   
                   <Button
                     size="lg"
-                    disabled={!aiPrompt.trim() || isGenerating}
-                    onClick={handleAIGenerate}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold disabled:opacity-50"
-                    data-testid="button-generate-ai"
+                    disabled={true}
+                    className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
+                    data-testid="button-camera-disabled"
                   >
-                    {isGenerating ? (
-                      <>
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Generating...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-5 h-5 mr-2" />
-                        Generate Image
-                      </>
-                    )}
+                    Camera not available
                   </Button>
                 </div>
               </div>
