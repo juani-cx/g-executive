@@ -15,6 +15,7 @@ interface AssetCard {
   description: string;
   cta?: string;
   image?: string;
+  isVideo?: boolean;
 }
 
 function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () => void }) {
@@ -37,15 +38,27 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
       </div>
 
       <div className="p-6">
-        {/* Image */}
+        {/* Image or Video */}
         <div className="w-full h-44 bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
           {card.image ? (
-            <img 
-              src={card.image}
-              alt={`${card.type} preview`}
-              className="w-full h-full object-cover"
-              data-testid={`img-${card.type.toLowerCase().replace(' ', '-')}`}
-            />
+            card.isVideo ? (
+              <video 
+                src={card.image}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                data-testid={`video-${card.type.toLowerCase().replace(' ', '-')}`}
+              />
+            ) : (
+              <img 
+                src={card.image}
+                alt={`${card.type} preview`}
+                className="w-full h-full object-cover"
+                data-testid={`img-${card.type.toLowerCase().replace(' ', '-')}`}
+              />
+            )
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
               <div className="text-4xl">🎨</div>
@@ -262,10 +275,10 @@ export default function Canvas() {
     {
       id: "1",
       type: "Landing Page",
-      title: "Landing Page Hero",
+      title: "Landing Page",
       description: "High-converting landing page hero section with meta description",
       cta: "Discover",
-      image: "/api/placeholder/300/200"
+      image: "/landing-page.png"
     },
     {
       id: "2", 
@@ -273,7 +286,7 @@ export default function Canvas() {
       title: "Ad Banner",
       description: "Eye-catching advertising banner with meta description",
       cta: "Campaign Launch 50% OFF",
-      image: "/api/placeholder/300/200"
+      image: "/ad-banner.png"
     },
     {
       id: "3",
@@ -281,15 +294,16 @@ export default function Canvas() {
       title: "Social Post",
       description: "Professional social media post with meta description",
       cta: "Learn More",
-      image: "/api/placeholder/300/200"
+      image: "/instagram-post.png"
     },
     {
       id: "4",
       type: "Vertical Video",
       title: "Vertical Video", 
-      description: "Engaging vertical video content with meta description for social media platforms",
+      description: "Engaging vertical video content with meta description",
       cta: "Learn More",
-      image: "/api/placeholder/300/200"
+      image: "/mood-video.mp4",
+      isVideo: true
     }
   ]);
 
