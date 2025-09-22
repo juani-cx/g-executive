@@ -245,7 +245,7 @@ export default function UploadCatalog() {
 
           {/* Category Tabs - Only show when in predefined tab */}
           {activeTab === 'predefined' && (
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center">
               <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
                 {catalogCategories.map((category) => (
                   <Button
