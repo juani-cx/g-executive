@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -16,8 +17,8 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
     ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
   ];
 
-  return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[200] ${
+  return createPortal(
+    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9999] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: '2rem' }}>
       <div className="p-6" style={{ width: '900px' }}>
@@ -41,7 +42,8 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
