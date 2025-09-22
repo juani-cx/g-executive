@@ -20,7 +20,7 @@ interface AssetCard {
 function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () => void }) {
   return (
     <div 
-      className="w-80 bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 hover:shadow-xl relative group"
+      className="w-80 bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
@@ -53,32 +53,15 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
           )}
         </div>
         
-        {/* Type Badge */}
-        <div className="mb-3">
-          <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">
-            {card.type}
-          </span>
-        </div>
-        
         {/* Title */}
-        <h3 className="text-xl text-gray-800 mb-3" style={{ fontWeight: '500' }}>
+        <h3 className="text-xl text-gray-800 mb-3 text-left" style={{ fontWeight: '500' }}>
           {card.title}
         </h3>
         
         {/* Description */}
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2" style={{ fontWeight: '400' }}>
+        <p className="text-sm text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
           {card.description}
         </p>
-        
-        {/* Learn More Button */}
-        <Button 
-          variant="outline" 
-          size="sm"
-          className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full"
-          data-testid={`button-learn-more-${card.type.toLowerCase().replace(' ', '-')}`}
-        >
-          Learn More
-        </Button>
       </div>
     </div>
   );
