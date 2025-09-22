@@ -116,9 +116,14 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* Targeted 4K Scaling - Only specific components */
+/* Smart 4K Scaling - Zoom-based approach for all content */
 @media (min-width: 2560px) {
-  /* Landing page specific */
+  body {
+    zoom: 1.25;
+    transform-origin: top left;
+  }
+  
+  /* Landing page specific enhancements */
   .landing-title {
     font-size: clamp(120px, 10vw, 200px) !important;
   }
@@ -129,23 +134,14 @@ body {
     font-size: clamp(30px, 3vw, 50px) !important;
     padding: clamp(24px, 2.5vw, 40px) clamp(76px, 8vw, 120px) !important;
   }
-  
-  /* Specific page title scaling */
-  .page-title {
-    font-size: clamp(2.5rem, 4vw, 5rem) !important;
-  }
-  .page-subtitle {
-    font-size: clamp(1.25rem, 2vw, 2.5rem) !important;
-  }
-  
-  /* Card component scaling */
-  .homepage-card {
-    transform: scale(1.15);
-    transform-origin: center;
-  }
 }
 
 @media (min-width: 3840px) {
+  body {
+    zoom: 1.4;
+    transform-origin: top left;
+  }
+  
   /* Landing page specific for 4K */
   .landing-title {
     font-size: clamp(140px, 8vw, 180px) !important;
@@ -156,20 +152,6 @@ body {
   .landing-button {
     font-size: clamp(35px, 2.5vw, 45px) !important;
     padding: clamp(28px, 2vw, 36px) clamp(80px, 6vw, 100px) !important;
-  }
-  
-  /* Specific page title scaling for 4K */
-  .page-title {
-    font-size: clamp(3.5rem, 5vw, 6rem) !important;
-  }
-  .page-subtitle {
-    font-size: clamp(1.5rem, 2.5vw, 3rem) !important;
-  }
-  
-  /* Enhanced card scaling for 4K */
-  .homepage-card {
-    transform: scale(1.25);
-    transform-origin: center;
   }
 }
 
