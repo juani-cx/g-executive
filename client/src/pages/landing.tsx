@@ -21,164 +21,282 @@ export default function Landing() {
   };
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ 
+    <div className="dotted-background" style={{ 
       fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      height: '100vh'
+      height: '100vh',
+      width: '100%',
+      overflow: 'hidden',
+      position: 'relative'
     }}>
       {/* Top Navigation */}
       <TopNavigation isLandingPage={true} />
 
-      {/* Main Content Container */}
-      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '-80px' }}>
-        <div className="w-full max-w-6xl text-center">
-          {/* Title Section */}
-          <div className="mb-8">
-            <h1 
-              className="text-6xl text-gray-800 mb-4 tracking-tight"
-              style={{ fontWeight: '475' }}
-              data-testid="text-main-title"
-            >
-              Promote your product now
-            </h1>
-            <p 
-              className="text-2xl text-gray-600 mb-16"
-              style={{ fontWeight: '400' }}
-            >
-              Executive campaign AI builder for executive people
-            </p>
-          </div>
+      {/* Main Container - Fixed dimensions based on Figma */}
+      <div style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '24px 56px',
+        boxSizing: 'border-box',
+        paddingTop: '80px' // Account for top navigation
+      }}>
+        
+        {/* Title Section - Reduced spacing */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '16px',
+          width: '100%',
+          maxWidth: '1808px',
+          padding: '20px 0',
+          marginBottom: '32px'
+        }}>
+          <h1 style={{
+            color: '#000',
+            textAlign: 'center',
+            fontFamily: 'Google Sans',
+            fontSize: '48px',
+            fontWeight: '500',
+            lineHeight: '36px',
+            margin: 0
+          }} data-testid="text-main-title">
+            Promote your product now
+          </h1>
+          <p style={{
+            color: '#5c5c5c',
+            textAlign: 'center',
+            fontFamily: 'Google Sans',
+            fontSize: '24px',
+            fontWeight: '400',
+            lineHeight: '28px',
+            margin: 0
+          }}>
+            Executive campaign AI builder for executive people
+          </p>
+        </div>
 
+        {/* Content Section */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '52px',
+          width: '100%',
+          maxWidth: '1006px',
+          flex: 1
+        }}>
+          
           {/* Cards Container */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Marketing Campaign Card */}
-          <div 
-            className="flex-1 cursor-pointer group"
-            style={{
-              background: '#ffffff',
-              borderRadius: '20px',
-              boxShadow: '0 2px 20px #00000015',
-              padding: '24px 20px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '20px',
-              maxWidth: '420px',
-              margin: '0 auto'
-            }}
-            onClick={() => handleOptionSelect('marketing')}
-            data-testid="card-marketing-option"
-          >
-            {/* Card Title */}
-            <div className="w-full flex justify-center items-center gap-2" style={{
-              borderBottom: '2px solid #000',
-              paddingBottom: '16px'
-            }}>
-              <h2 className="flex-1 text-left text-2xl font-medium text-black">
-                Marketing<br/>Campaign
-              </h2>
-            </div>
-
-            {/* Card Content */}
-            <div className="flex flex-col items-start gap-8 w-full">
-              {/* Image Container */}
-              <div className="w-full" style={{
-                background: '#e6ebf2',
-                borderRadius: '12px',
-                height: '240px',
-                paddingBottom: '8px',
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '52px',
+            width: '100%',
+            justifyContent: 'center'
+          }}>
+            
+            {/* Marketing Campaign Card */}
+            <div 
+              style={{
+                background: '#fff',
+                borderRadius: '24px',
                 display: 'flex',
                 flexDirection: 'column',
+                flex: '1 0 0',
+                alignItems: 'flex-start',
+                gap: '24px',
+                width: '100%',
+                minHeight: '74px',
+                padding: '40px 24px',
+                boxShadow: '0 1px 20px #00000029',
+                cursor: 'pointer',
+                maxWidth: '477px'
+              }}
+              onClick={() => handleOptionSelect('marketing')}
+              data-testid="card-marketing-option"
+            >
+              {/* Card Header */}
+              <div style={{
+                borderBottom: '1.5px solid #000',
+                display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                overflow: 'hidden'
+                gap: '4px',
+                width: '100%',
+                paddingBottom: '24px',
+                boxSizing: 'border-box'
               }}>
-                <img 
-                  src={campaignImage} 
-                  alt="Marketing Campaign"
-                  className="object-contain"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%'
-                  }}
-                />
+                <span style={{
+                  color: '#000',
+                  flex: '1 0 0',
+                  fontFamily: 'Google Sans',
+                  fontSize: '28px',
+                  fontWeight: '500',
+                  lineHeight: '27.5px'
+                }}>Marketing Campaign</span>
               </div>
-              
-              {/* Description */}
-              <p className="text-lg text-black leading-normal text-left">
-                AI transforms your inspiration into complete multi-channel campaigns.
-              </p>
-            </div>
-          </div>
 
-          {/* Catalog Enrichment Card */}
-          <div 
-            className="flex-1 cursor-pointer group"
-            style={{
-              background: '#ffffff',
-              borderRadius: '20px',
-              boxShadow: '0 2px 20px #00000015',
-              padding: '24px 20px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '20px',
-              maxWidth: '420px',
-              margin: '0 auto'
-            }}
-            onClick={() => handleOptionSelect('catalog')}
-            data-testid="card-catalog-option"
-          >
-            {/* Card Title */}
-            <div className="w-full flex justify-center items-center gap-2" style={{
-              borderBottom: '2px solid #000',
-              paddingBottom: '16px'
-            }}>
-              <h2 className="flex-1 text-left text-2xl font-medium text-black">
-                Catalog<br/>Enrichment
-              </h2>
-            </div>
-
-            {/* Card Content */}
-            <div className="flex flex-col items-start gap-8 w-full">
-              {/* Image Container */}
-              <div className="w-full" style={{
-                background: '#e6ebf2',
-                borderRadius: '12px',
-                height: '240px',
-                paddingBottom: '8px',
+              {/* Card Content */}
+              <div style={{
                 display: 'flex',
                 flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '16px',
+                width: '100%'
+              }}>
+                {/* Image Container */}
+                <div style={{
+                  background: '#e6ebf2',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '200px', // Reduced height
+                  paddingBottom: '4px',
+                  overflow: 'hidden',
+                  boxSizing: 'border-box'
+                }}>
+                  <img 
+                    src={campaignImage} 
+                    alt="Marketing Campaign"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                      maxHeight: '100%'
+                    }}
+                  />
+                </div>
+                
+                {/* Description */}
+                <span style={{
+                  color: '#000',
+                  fontFamily: 'Google Sans',
+                  fontSize: '24px',
+                  fontWeight: '400',
+                  lineHeight: '28px'
+                }}>
+                  AI transforms your inspiration into complete multi-channel campaigns.
+                </span>
+              </div>
+            </div>
+
+            {/* Catalog Enrichment Card */}
+            <div 
+              style={{
+                background: '#fff',
+                borderRadius: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                flex: '1 0 0',
+                alignItems: 'flex-start',
+                gap: '24px',
+                width: '100%',
+                minHeight: '74px',
+                padding: '40px 24px',
+                boxShadow: '0 1px 20px #00000029',
+                cursor: 'pointer',
+                maxWidth: '477px'
+              }}
+              onClick={() => handleOptionSelect('catalog')}
+              data-testid="card-catalog-option"
+            >
+              {/* Card Header */}
+              <div style={{
+                borderBottom: '1.5px solid #000',
+                display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                overflow: 'hidden'
+                gap: '4px',
+                width: '100%',
+                paddingBottom: '24px',
+                boxSizing: 'border-box'
               }}>
-                <img 
-                  src={catalogImage} 
-                  alt="Catalog Enrichment"
-                  className="object-contain"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%'
-                  }}
-                />
+                <span style={{
+                  color: '#000',
+                  flex: '1 0 0',
+                  fontFamily: 'Google Sans',
+                  fontSize: '28px',
+                  fontWeight: '500',
+                  lineHeight: '27.5px'
+                }}>Catalog Enrichment</span>
               </div>
-              
-              {/* Description */}
-              <p className="text-lg text-black leading-normal text-left">
-                AI generates high-quality SEO metadata instantly.
-              </p>
+
+              {/* Card Content */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '16px',
+                width: '100%'
+              }}>
+                {/* Image Container */}
+                <div style={{
+                  background: '#e6ebf2',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '200px', // Reduced height
+                  paddingBottom: '4px',
+                  overflow: 'hidden',
+                  boxSizing: 'border-box'
+                }}>
+                  <img 
+                    src={catalogImage} 
+                    alt="Catalog Enrichment"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                      maxHeight: '100%'
+                    }}
+                  />
+                </div>
+                
+                {/* Description */}
+                <span style={{
+                  color: '#000',
+                  fontFamily: 'Google Sans',
+                  fontSize: '24px',
+                  fontWeight: '400',
+                  lineHeight: '28px'
+                }}>
+                  AI generates high-quality SEO metadata instantly.
+                </span>
+              </div>
             </div>
-          </div>
           </div>
           
           {/* Footer CTA */}
-          <p 
-            className="text-xl text-gray-600"
-            style={{ fontWeight: '400' }}
-            data-testid="text-footer-cta"
-          >
-            Choose an experience to get started
-          </p>
+          <div style={{
+            borderBottom: '0.5px solid #e5e8eb',
+            borderRadius: '12px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            padding: '6px 20px',
+            boxSizing: 'border-box'
+          }}>
+            <span style={{
+              color: '#5c5c5c',
+              fontFamily: 'Google Sans',
+              fontSize: '24px',
+              fontWeight: '400',
+              lineHeight: '28px'
+            }} data-testid="text-footer-cta">
+              Choose an experience to get started
+            </span>
+          </div>
         </div>
       </div>
     </div>
