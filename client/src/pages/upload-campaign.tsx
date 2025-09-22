@@ -266,9 +266,9 @@ export default function UploadCampaign() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            minHeight: 'calc(100vh - 300px)',
-            justifyContent: 'space-between',
-            marginTop: '-50px'
+            height: 'calc(100vh - 380px)',
+            justifyContent: 'center',
+            position: 'relative'
           }}>
             {activeTab === 'computer' && (
               <div style={{
@@ -387,55 +387,57 @@ export default function UploadCampaign() {
               </div>
             )}
 
-            {/* Bottom Action Tabs - Fixed to bottom */}
-            <div style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '24px',
-              paddingBottom: '20px'
-            }}>
-              <Button
-                variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
-                  activeTab === 'computer'
-                    ? 'text-blue-600'
-                    : 'text-gray-600'
-                }`}
-                onClick={() => setActiveTab('computer')}
-                data-testid="tab-upload"
-              >
-                <Upload style={{ width: '1.8rem', height: '1.8rem' }} />
-                Upload your images
-              </Button>
-              <Button
-                variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
-                  activeTab === 'ai'
-                    ? 'text-blue-600'
-                    : 'text-gray-600'
-                }`}
-                onClick={() => setActiveTab('ai')}
-                data-testid="tab-ai"
-              >
-                <Camera style={{ width: '1.8rem', height: '1.8rem' }} />
-                Take a photo
-              </Button>
-              <Button
-                variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
-                  activeTab === 'predefined'
-                    ? 'text-blue-600'
-                    : 'text-gray-600'
-                }`}
-                onClick={() => setActiveTab('predefined')}
-                data-testid="tab-preselected"
-              >
-                <XCircle style={{ width: '1.8rem', height: '1.8rem' }} />
-                I don't want to use my photos
-              </Button>
-            </div>
+          </div>
+          
+          {/* Bottom Action Tabs - Fixed to bottom */}
+          <div style={{
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '24px',
+            paddingBottom: '20px',
+            marginTop: '20px'
+          }}>
+            <Button
+              variant="ghost"
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+                activeTab === 'computer'
+                  ? 'text-blue-600'
+                  : 'text-gray-600'
+              }`}
+              onClick={() => setActiveTab('computer')}
+              data-testid="tab-upload"
+            >
+              <Upload style={{ width: '1.8rem', height: '1.8rem' }} />
+              Upload your images
+            </Button>
+            <Button
+              variant="ghost"
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+                activeTab === 'ai'
+                  ? 'text-blue-600'
+                  : 'text-gray-600'
+              }`}
+              onClick={() => setActiveTab('ai')}
+              data-testid="tab-ai"
+            >
+              <Camera style={{ width: '1.8rem', height: '1.8rem' }} />
+              Take a photo
+            </Button>
+            <Button
+              variant="ghost"
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+                activeTab === 'predefined'
+                  ? 'text-blue-600'
+                  : 'text-gray-600'
+              }`}
+              onClick={() => setActiveTab('predefined')}
+              data-testid="tab-preselected"
+            >
+              <XCircle style={{ width: '1.8rem', height: '1.8rem' }} />
+              I don't want to use my photos
+            </Button>
           </div>
         </div>
       </div>
