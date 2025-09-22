@@ -101,9 +101,9 @@ function VirtualKeyboard() {
   ];
 
   return (
-    <div className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+    <div className={`fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    }`}>
+    }`} style={{ bottom: 'calc(2rem - 35px)' }}>
       <div className="p-6" style={{ width: '900px' }}>
         <div className="space-y-3">
           {keyboardKeys.map((row, rowIndex) => (
@@ -279,7 +279,7 @@ export default function Configure() {
           {/* Content Area */}
           <div className="max-w-4xl mx-auto">
             {/* White card container */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl" style={{ marginTop: '-35px' }}>
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
