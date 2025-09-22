@@ -116,12 +116,8 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* Global 4K Scaling - Apply to all content */
+/* Targeted 4K Scaling - Only specific components */
 @media (min-width: 2560px) {
-  html {
-    font-size: 1.2rem;
-  }
-  
   /* Landing page specific */
   .landing-title {
     font-size: clamp(120px, 10vw, 200px) !important;
@@ -134,19 +130,22 @@ body {
     padding: clamp(24px, 2.5vw, 40px) clamp(76px, 8vw, 120px) !important;
   }
   
-  /* General content scaling */
-  h1 { font-size: clamp(3rem, 4vw, 6rem) !important; }
-  h2 { font-size: clamp(2rem, 3vw, 4rem) !important; }
-  h3 { font-size: clamp(1.5rem, 2vw, 3rem) !important; }
-  p, div { font-size: clamp(1rem, 1.5vw, 2rem) !important; }
-  button { font-size: clamp(1rem, 1.5vw, 2rem) !important; }
+  /* Specific page title scaling */
+  .page-title {
+    font-size: clamp(2.5rem, 4vw, 5rem) !important;
+  }
+  .page-subtitle {
+    font-size: clamp(1.25rem, 2vw, 2.5rem) !important;
+  }
+  
+  /* Card component scaling */
+  .homepage-card {
+    transform: scale(1.15);
+    transform-origin: center;
+  }
 }
 
 @media (min-width: 3840px) {
-  html {
-    font-size: 1.4rem;
-  }
-  
   /* Landing page specific for 4K */
   .landing-title {
     font-size: clamp(140px, 8vw, 180px) !important;
@@ -159,15 +158,19 @@ body {
     padding: clamp(28px, 2vw, 36px) clamp(80px, 6vw, 100px) !important;
   }
   
-  /* Enhanced general content scaling for 4K */
-  h1 { font-size: clamp(4rem, 5vw, 7rem) !important; }
-  h2 { font-size: clamp(2.5rem, 3.5vw, 5rem) !important; }
-  h3 { font-size: clamp(2rem, 2.5vw, 3.5rem) !important; }
-  p, div { font-size: clamp(1.2rem, 2vw, 2.5rem) !important; }
-  button { font-size: clamp(1.2rem, 2vw, 2.5rem) !important; }
+  /* Specific page title scaling for 4K */
+  .page-title {
+    font-size: clamp(3.5rem, 5vw, 6rem) !important;
+  }
+  .page-subtitle {
+    font-size: clamp(1.5rem, 2.5vw, 3rem) !important;
+  }
   
-  /* Card and component scaling */
-  .card, .w-80 { transform: scale(1.3); transform-origin: center; }
+  /* Enhanced card scaling for 4K */
+  .homepage-card {
+    transform: scale(1.25);
+    transform-origin: center;
+  }
 }
 
 /* Custom animations */
