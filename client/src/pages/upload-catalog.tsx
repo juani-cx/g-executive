@@ -259,7 +259,6 @@ export default function UploadCatalog() {
                     onClick={() => setSelectedCatalogCategory(category.id as any)}
                     data-testid={`tab-${category.id}`}
                   >
-                    <span className="mr-1">{category.icon}</span>
                     {category.label}
                   </Button>
                 ))}
