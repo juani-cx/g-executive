@@ -259,75 +259,57 @@ export default function UploadCampaign() {
             </div>
           )}
 
-          {/* Bottom Action Tabs */}
-          <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2">
-            <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-lg border">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                  activeTab === 'computer'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                }`}
-                onClick={() => setActiveTab('computer')}
-                data-testid="tab-upload"
-              >
-                <Upload className="w-4 h-4" />
-                Upload your images
-              </Button>
-              <div className="w-px h-4 bg-gray-200 mx-2"></div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                  activeTab === 'ai'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                }`}
-                onClick={() => setActiveTab('ai')}
-                data-testid="tab-ai"
-              >
-                <Camera className="w-4 h-4" />
-                Take a photo
-              </Button>
-              <div className="w-px h-4 bg-gray-200 mx-2"></div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                  activeTab === 'predefined'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                }`}
-                onClick={() => setActiveTab('predefined')}
-                data-testid="tab-preselected"
-              >
-                I don't want to use my photos
-              </Button>
-            </div>
-          </div>
-
           {/* Content Area */}
-          <div className="max-w-4xl mx-auto">
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '40px'
+          }}>
             {activeTab === 'computer' && (
-              <div className="text-center">
-                <div className="bg-white rounded-3xl p-16 shadow-lg inline-block">
-                  <div className="bg-gray-100 p-8 rounded-2xl">
-                    <div className="w-40 h-40 bg-white rounded-xl flex items-center justify-center">
-                      {/* Actual QR Code */}
-                      <img
-                        src="/images/QR_code.svg"
-                        alt="QR Code for uploading"
-                        className="w-32 h-32"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Scan this QR code</h3>
-                    <p className="text-gray-600">to upload your image</p>
-                  </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '40px'
+              }}>
+                {/* QR Component - Exact Figma specs */}
+                <div style={{
+                  boxSizing: 'border-box',
+                  background: '#e6ebf2',
+                  border: '36.5px solid #fff',
+                  borderRadius: '20px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '4px',
+                  width: '535px',
+                  height: '455.5px',
+                  overflow: 'hidden',
+                  boxShadow: '0 21.78px 32.09px #0000001a'
+                }}>
+                  <div style={{
+                    aspectRatio: '1',
+                    background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
+                    flexShrink: '0',
+                    width: '285px',
+                    height: '285px'
+                  }} />
                 </div>
+                {/* Text below QR - Exact Figma specs */}
+                <span style={{
+                  color: '#1f3251',
+                  textAlign: 'center',
+                  width: '293.511px',
+                  fontFamily: 'Google Sans',
+                  fontSize: '27px',
+                  fontStyle: 'normal',
+                  fontWeight: '500',
+                  lineHeight: 'normal',
+                  display: 'inline-block'
+                }}>
+                  Scan this QR code&#x2028;to upload your image
+                </span>
               </div>
             )}
 
@@ -396,6 +378,57 @@ export default function UploadCampaign() {
                 </div>
               </div>
             )}
+
+            {/* Bottom Action Tabs - Moved below content */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '24px',
+              marginTop: '60px'
+            }}>
+              <Button
+                variant="ghost"
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                  activeTab === 'computer'
+                    ? 'text-blue-600'
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}
+                onClick={() => setActiveTab('computer')}
+                data-testid="tab-upload"
+              >
+                <Upload className="w-6 h-6" />
+                Upload your images
+              </Button>
+              <Button
+                variant="ghost"
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                  activeTab === 'ai'
+                    ? 'text-blue-600'
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}
+                onClick={() => setActiveTab('ai')}
+                data-testid="tab-ai"
+              >
+                <Camera className="w-6 h-6" />
+                Take a photo
+              </Button>
+              <Button
+                variant="ghost"
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                  activeTab === 'predefined'
+                    ? 'text-blue-600'
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}
+                onClick={() => setActiveTab('predefined')}
+                data-testid="tab-preselected"
+              >
+                <div className="w-6 h-6 flex items-center justify-center">
+                  🚫
+                </div>
+                I don't want to use my photos
+              </Button>
+            </div>
           </div>
         </div>
       </div>
