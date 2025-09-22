@@ -25,17 +25,7 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
-      {/* Edit Button */}
-      <div className="absolute top-4 right-4 z-10">
-        <Button
-          size="sm"
-          variant="outline"
-          className="bg-white/90 backdrop-blur-sm border-gray-300 text-gray-600 hover:bg-white h-8 px-3 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
-          data-testid={`button-edit-${card.type.toLowerCase().replace(' ', '-')}`}
-        >
-          Edit
-        </Button>
-      </div>
+      {/* Edit Button - Removed hover state for touchscreen */}
 
       <div className="p-6">
         {/* Image or Video */}
