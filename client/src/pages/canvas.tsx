@@ -182,7 +182,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-visible !z-50 top-[2%] translate-y-0">
+      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-visible !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
