@@ -410,7 +410,7 @@ export default function UploadCatalog() {
                 onClick={() => setActiveTab('computer')}
                 data-testid="tab-upload"
               >
-                <Upload className="w-11 h-11" />
+                <Upload style={{ width: '1.8rem', height: '1.8rem' }} />
                 Upload your images
               </Button>
               <Button
@@ -423,7 +423,7 @@ export default function UploadCatalog() {
                 onClick={() => setActiveTab('ai')}
                 data-testid="tab-ai"
               >
-                <Camera className="w-11 h-11" />
+                <Camera style={{ width: '1.8rem', height: '1.8rem' }} />
                 Take a photo
               </Button>
               <Button
@@ -436,7 +436,7 @@ export default function UploadCatalog() {
                 onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"
               >
-                <XCircle className="w-11 h-11" />
+                <XCircle style={{ width: '1.8rem', height: '1.8rem' }} />
                 I don't want to use my photos
               </Button>
             </div>
