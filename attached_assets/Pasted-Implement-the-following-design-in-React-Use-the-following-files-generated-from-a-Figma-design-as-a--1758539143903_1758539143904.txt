@@ -1,0 +1,97 @@
+Implement the following design in React. Use the following files generated from a Figma design as a specification and guide:
+
+```src/styles/BackgroundShadowOverlayBlur.module.css
+.BackgroundShadowOverlayBlur_757_5675 {
+  background: #fff;
+  border-radius: 24px;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  min-height: 74px;
+  padding: 40px 24px;
+  display: flex;
+  box-shadow: 0 1px 20px #00000029;
+}
+.Frame_1171274794_757_5676 {
+  box-sizing: border-box;
+  border-bottom: 1.5px solid #000;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding-bottom: 24px;
+  display: flex;
+}
+.Subtitle_757_5677 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  flex: 1 0 0;
+  font-family: Google Sans;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 27.5px;
+  display: inline-block;
+}
+.Frame_1171274792_757_5678 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  display: flex;
+}
+.Margin_757_5679 {
+  box-sizing: border-box;
+  background: #e6ebf2;
+  border-radius: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 299.5px;
+  padding-bottom: 4px;
+  display: flex;
+  overflow: hidden;
+}
+.Campaign_757_5680 {
+  aspect-ratio: 351/295.5;
+  background: #d3d3d3 url(<path-to-image>) 0 -27.786px/100% 118.782% no-repeat;
+  width: 351px;
+  height: 295.5px;
+}
+.Subtitle_757_5681 {
+  color: var(--stitch-withgoogle-com-black, var(--color-black-solid, #000));
+  width: 408px;
+  font-family: Google Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  display: inline-block;
+}
+
+```
+
+---
+
+```src/components/BackgroundShadowOverlayBlur.tsx
+import React from 'react';
+import styles from '../styles/BackgroundShadowOverlayBlur.module.css';
+
+
+export default function BackgroundShadowOverlayBlur() {
+  return (
+    <div className={styles.BackgroundShadowOverlayBlur_757_5675}>
+      <div className={styles.Frame_1171274794_757_5676}><span className={styles.Subtitle_757_5677}>Marketing
+          Campaign</span></div>
+      <div className={styles.Frame_1171274792_757_5678}>
+        <div className={styles.Margin_757_5679}>
+          <div className={styles.Campaign_757_5680}></div>
+        </div><span className={styles.Subtitle_757_5681}>AI transforms your inspiration into complete multi-channel campaigns.</span>
+      </div>
+    </div>
+  );
+}
+```
+

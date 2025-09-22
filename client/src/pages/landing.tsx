@@ -127,7 +127,7 @@ export default function Landing() {
                 alignItems: 'center',
                 gap: '4px',
                 width: '100%',
-                paddingBottom: '0',
+                paddingBottom: '24px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -137,7 +137,7 @@ export default function Landing() {
                   fontSize: '28px',
                   fontWeight: '500',
                   lineHeight: '27.5px'
-                }}>Marketing Campaign</span>
+                }}>Marketing<br/>Campaign</span>
               </div>
 
               {/* Card Content */}
@@ -215,7 +215,7 @@ export default function Landing() {
                 alignItems: 'center',
                 gap: '4px',
                 width: '100%',
-                paddingBottom: '0',
+                paddingBottom: '24px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -225,7 +225,7 @@ export default function Landing() {
                   fontSize: '28px',
                   fontWeight: '500',
                   lineHeight: '27.5px'
-                }}>Catalog Enrichment</span>
+                }}>Catalog<br/>Enrichment</span>
               </div>
 
               {/* Card Content */}
@@ -278,7 +278,7 @@ export default function Landing() {
           
           {/* Footer CTA */}
           <div style={{
-            borderBottom: '0.5px solid #e5e8eb',
+            border: 'none',
             borderRadius: '12px',
             display: 'flex',
             justifyContent: 'center',
