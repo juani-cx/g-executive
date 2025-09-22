@@ -271,38 +271,38 @@ export default function UploadCampaign() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '40px'
+                gap: '24px'
               }}>
-                {/* QR Component - Exact Figma specs */}
+                {/* QR Component - Scaled for 1080px viewport */}
                 <div style={{
                   boxSizing: 'border-box',
                   background: '#e6ebf2',
-                  border: '36.5px solid #fff',
-                  borderRadius: '20px',
+                  border: '27px solid #fff',
+                  borderRadius: '15px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: '4px',
-                  width: '535px',
-                  height: '455.5px',
+                  width: '400px',
+                  height: '340px',
                   overflow: 'hidden',
-                  boxShadow: '0 21.78px 32.09px #0000001a'
+                  boxShadow: '0 16px 24px #0000001a'
                 }}>
                   <div style={{
                     aspectRatio: '1',
                     background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
                     flexShrink: '0',
-                    width: '285px',
-                    height: '285px'
+                    width: '214px',
+                    height: '214px'
                   }} />
                 </div>
-                {/* Text below QR - Exact Figma specs */}
+                {/* Text below QR - Scaled proportionally */}
                 <span style={{
                   color: '#1f3251',
                   textAlign: 'center',
-                  width: '293.511px',
+                  width: '220px',
                   fontFamily: 'Google Sans',
-                  fontSize: '27px',
+                  fontSize: '20px',
                   fontStyle: 'normal',
                   fontWeight: '500',
                   lineHeight: 'normal',
@@ -385,7 +385,7 @@ export default function UploadCampaign() {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '24px',
-              marginTop: '60px'
+              marginTop: '40px'
             }}>
               <Button
                 variant="ghost"
