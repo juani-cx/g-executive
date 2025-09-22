@@ -17,7 +17,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
   ];
 
   return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[100] ${
+    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[200] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: '2rem' }}>
       <div className="p-6" style={{ width: '900px' }}>
@@ -180,12 +180,12 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[450px] p-0 overflow-hidden !z-50 top-[8%] translate-y-0">
-        {/* Navigation Arrows */}
+      <DialogContent className="max-w-4xl w-full h-[450px] p-0 overflow-visible !z-50 top-[8%] translate-y-0">
+        {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
             onClick={() => onNavigate('prev')}
-            className="absolute left-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-50"
+            className="fixed left-[calc(50%-650px)] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60]"
             data-testid="button-prev-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +196,7 @@ function EditModal({
         {cards && currentIndex < cards.length - 1 && (
           <button
             onClick={() => onNavigate('next')}
-            className="absolute right-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-50"
+            className="fixed right-[calc(50%-650px)] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60]"
             data-testid="button-next-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
