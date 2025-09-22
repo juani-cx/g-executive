@@ -111,21 +111,24 @@ body {
   }
 }
 
-/* 4K and Large Screen Responsive Support */
+/* 
+4K and Large Screen Responsive Support
 .landing-main {
   height: calc(100vh - 120px);
 }
 
 /* 4K Transform Scaling */
+/*
 @media (min-width: 3500px) {
   #root {
     transform: scale(2.0);
     transform-origin: top left;
-    width: 50%; /* Compensate for 2x scale */
-    height: 50%; /* Compensate for 2x scale */
+    width: 50%; /* Compensate for 2x scale;
+    height: 50%; /* Compensate for 2x scale;
   }
   
   /* Fix virtual keyboard positioning on 4K */
+/*
   .virtual-keyboard {
     --tw-scale-x: 0.5;
     --tw-scale-y: 0.5;
@@ -134,6 +137,7 @@ body {
     z-index: 9999 !important;
   }
 }
+ */
 
 /* Custom animations */
 @keyframes fade-in {
@@ -141,6 +145,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -247,33 +252,33 @@ body {
   --surface-elevated: #ffffff;
   --surface-high: #ffffff;
   --backdrop: #f5f5f5;
-  
+
   /* Text Colors */
   --text-primary: #2c3e50;
   --text-secondary: #7f8c8d;
   --text-muted: #95a5a6;
   --text-inverse: #ffffff;
-  
+
   /* Border Colors */
   --border: #e1e5e9;
   --border-strong: #d5dbdb;
-  
+
   /* Material Design 3 Light Theme */
   --md-sys-color-primary: hsl(256, 100%, 67%);
   --md-sys-color-on-primary: hsl(0, 0%, 100%);
   --md-sys-color-primary-container: hsl(256, 100%, 95%);
   --md-sys-color-on-primary-container: hsl(258, 100%, 12%);
-  
+
   --md-sys-color-secondary: hsl(285, 26%, 64%);
   --md-sys-color-on-secondary: hsl(0, 0%, 100%);
   --md-sys-color-secondary-container: hsl(285, 100%, 95%);
   --md-sys-color-on-secondary-container: hsl(279, 100%, 16%);
-  
+
   --md-sys-color-tertiary: hsl(345, 82%, 65%);
   --md-sys-color-on-tertiary: hsl(0, 0%, 100%);
   --md-sys-color-tertiary-container: hsl(345, 100%, 95%);
   --md-sys-color-on-tertiary-container: hsl(340, 100%, 16%);
-  
+
   --md-sys-color-surface: hsl(0, 0%, 99%);
   --md-sys-color-surface-dim: hsl(0, 0%, 87%);
   --md-sys-color-surface-bright: hsl(0, 0%, 99%);
@@ -282,17 +287,17 @@ body {
   --md-sys-color-surface-container: hsl(0, 0%, 94%);
   --md-sys-color-surface-container-high: hsl(0, 0%, 92%);
   --md-sys-color-surface-container-highest: hsl(0, 0%, 90%);
-  
+
   --md-sys-color-on-surface: hsl(0, 0%, 10%);
   --md-sys-color-on-surface-variant: hsl(220, 7%, 43%);
   --md-sys-color-outline: hsl(220, 9%, 69%);
   --md-sys-color-outline-variant: hsl(220, 17%, 85%);
-  
+
   --md-sys-color-error: hsl(0, 68%, 42%);
   --md-sys-color-on-error: hsl(0, 0%, 100%);
   --md-sys-color-error-container: hsl(0, 100%, 95%);
   --md-sys-color-on-error-container: hsl(0, 93%, 16%);
-  
+
   /* Legacy mappings for compatibility */
   --background: var(--md-sys-color-surface);
   --foreground: var(--md-sys-color-on-surface);
@@ -314,7 +319,7 @@ body {
   --destructive-foreground: var(--md-sys-color-on-error);
   --ring: var(--md-sys-color-primary);
   --radius: 0.75rem;
-  
+
   /* Material Design 3 Elevation */
   --md-sys-elevation-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   --md-sys-elevation-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
@@ -335,17 +340,17 @@ body {
   --md-sys-color-on-primary: hsl(258, 87%, 21%);
   --md-sys-color-primary-container: hsl(258, 100%, 30%);
   --md-sys-color-on-primary-container: hsl(270, 100%, 90%);
-  
+
   --md-sys-color-secondary: hsl(285, 37%, 78%);
   --md-sys-color-on-secondary: hsl(279, 36%, 25%);
   --md-sys-color-secondary-container: hsl(279, 33%, 36%);
   --md-sys-color-on-secondary-container: hsl(285, 82%, 86%);
-  
+
   --md-sys-color-tertiary: hsl(345, 46%, 78%);
   --md-sys-color-on-tertiary: hsl(340, 60%, 20%);
   --md-sys-color-tertiary-container: hsl(340, 52%, 30%);
   --md-sys-color-on-tertiary-container: hsl(345, 82%, 86%);
-  
+
   --md-sys-color-surface: hsl(330, 9%, 6%);
   --md-sys-color-surface-dim: hsl(330, 9%, 6%);
   --md-sys-color-surface-bright: hsl(330, 5%, 24%);
@@ -354,17 +359,17 @@ body {
   --md-sys-color-surface-container: hsl(330, 6%, 14%);
   --md-sys-color-surface-container-high: hsl(330, 5%, 18%);
   --md-sys-color-surface-container-highest: hsl(330, 5%, 22%);
-  
+
   --md-sys-color-on-surface: hsl(330, 20%, 95%);
   --md-sys-color-on-surface-variant: hsl(330, 11%, 77%);
   --md-sys-color-outline: hsl(330, 5%, 56%);
   --md-sys-color-outline-variant: hsl(330, 6%, 25%);
-  
+
   --md-sys-color-error: hsl(0, 86%, 75%);
   --md-sys-color-on-error: hsl(0, 93%, 16%);
   --md-sys-color-error-container: hsl(0, 93%, 16%);
   --md-sys-color-on-error-container: hsl(0, 100%, 95%);
-  
+
   /* Legacy mappings for compatibility */
   --background: var(--md-sys-color-surface);
   --foreground: var(--md-sys-color-on-surface);
@@ -397,14 +402,15 @@ body {
   * {
     @apply border-border;
   }
-  
+
   /* Controlled viewport for better responsive handling */
   html {
     overflow-x: hidden;
     overflow-y: auto;
   }
 
-  html, body {
+  html,
+  body {
     @apply font-sans antialiased text-foreground dotted-background;
     font-family: 'Google Sans', 'Google Sans Text', 'Roboto', system-ui, sans-serif;
     height: 100vh;
@@ -413,7 +419,7 @@ body {
     overflow-y: auto;
     position: relative;
   }
-  
+
   body::before {
     content: '';
     position: fixed;
@@ -421,22 +427,22 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
       radial-gradient(circle at 60% 120%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 120% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
     animation: float 20s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
   }
-  
+
   .dark body {
-    background: 
+    background:
       radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
       radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%),
-      linear-gradient(135deg, 
-        rgba(15, 23, 42, 0.95) 0%, 
-        rgba(30, 41, 59, 0.9) 50%, 
+      linear-gradient(135deg,
+        rgba(15, 23, 42, 0.95) 0%,
+        rgba(30, 41, 59, 0.9) 50%,
         rgba(51, 65, 85, 0.95) 100%);
   }
 }
@@ -445,50 +451,50 @@ body {
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.4s ease-out;
   }
-  
+
   .animate-pulse-glow {
     animation: pulseGlow 2s ease-in-out infinite;
   }
-  
+
   .animate-shimmer {
     animation: shimmer 1.5s ease-in-out infinite;
   }
-  
+
   .animate-bounce-gentle {
     animation: bounceGentle 1s ease-in-out infinite;
   }
-  
+
   /* Glass Morphism Utilities */
   .glass-surface {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(31, 38, 135, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
-  
+
   .glass-elevated {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
       0 12px 40px rgba(31, 38, 135, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
-  
+
   .glass-high {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 
+    box-shadow:
       0 16px 48px rgba(31, 38, 135, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
@@ -497,102 +503,115 @@ body {
   .surface-elevation-1 {
     @apply glass-surface;
   }
-  
+
   .surface-elevation-2 {
     @apply glass-elevated;
   }
-  
+
   .surface-elevation-3 {
     @apply glass-high;
   }
-  
+
   .gradient-background {
-    background: 
+    background:
       radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
       radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-      linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(248, 250, 252, 0.05) 50%, 
+      linear-gradient(135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(248, 250, 252, 0.05) 50%,
         rgba(241, 245, 249, 0.1) 100%);
   }
-  
+
   .fab-style {
     background: linear-gradient(135deg, var(--glass-primary) 0%, var(--glass-secondary) 100%);
     color: var(--glass-text-inverse);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(99, 102, 241, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
   }
-  
+
   /* Removed hover state for touchscreen */
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes slideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(40px); 
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes float {
-  0%, 100% { 
-    transform: translate(0, 0) rotate(0deg); 
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
   }
-  33% { 
-    transform: translate(30px, -30px) rotate(1deg); 
+
+  33% {
+    transform: translate(30px, -30px) rotate(1deg);
   }
-  66% { 
-    transform: translate(-20px, 20px) rotate(-1deg); 
+
+  66% {
+    transform: translate(-20px, 20px) rotate(-1deg);
   }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { 
-    box-shadow: 
+
+  0%,
+  100% {
+    box-shadow:
       0 8px 32px rgba(99, 102, 241, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3); 
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
-  50% { 
-    box-shadow: 
+
+  50% {
+    box-shadow:
       0 12px 40px rgba(99, 102, 241, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5); 
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
 }
 
 @keyframes shimmer {
-  0% { 
-    background-position: -200px 0; 
+  0% {
+    background-position: -200px 0;
   }
-  100% { 
-    background-position: calc(200px + 100%) 0; 
+
+  100% {
+    background-position: calc(200px + 100%) 0;
   }
 }
 
 @keyframes bounceGentle {
-  0%, 100% { 
-    transform: translateY(0); 
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  50% { 
-    transform: translateY(-5px); 
+
+  50% {
+    transform: translateY(-5px);
   }
 }
 
@@ -628,7 +647,8 @@ body {
 }
 
 /* Material Design 3 Typography System with Google Sans */
-body, * {
+body,
+* {
   font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -758,11 +778,30 @@ body, * {
 }
 
 /* Font Weight Utilities */
-.font-thin { font-weight: 100; }
-.font-extralight { font-weight: 200; }
-.font-light { font-weight: 300; }
-.font-normal { font-weight: 400; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
+.font-thin {
+  font-weight: 100;
+}
 
+.font-extralight {
+  font-weight: 200;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
