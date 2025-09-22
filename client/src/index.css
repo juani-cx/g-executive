@@ -131,6 +131,7 @@ body {
     --tw-scale-y: 0.5;
     transform-origin: center bottom !important;
     bottom: 1rem !important;
+    z-index: 100 !important;
   }
 }
 

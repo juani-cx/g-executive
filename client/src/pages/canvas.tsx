@@ -113,12 +113,18 @@ function EditModal({
   isOpen, 
   onClose, 
   card, 
-  onSave 
+  onSave,
+  cards,
+  currentIndex,
+  onNavigate
 }: { 
   isOpen: boolean; 
   onClose: () => void; 
   card: AssetCard | null; 
   onSave: (updatedCard: AssetCard) => void;
+  cards: AssetCard[];
+  currentIndex: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -174,7 +180,30 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[350px] p-0 overflow-hidden !z-50">
+      <DialogContent className="max-w-4xl w-full h-[450px] p-0 overflow-hidden !z-50 top-[8%] translate-y-0">
+        {/* Navigation Arrows */}
+        {cards && currentIndex > 0 && (
+          <button
+            onClick={() => onNavigate('prev')}
+            className="absolute left-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-50"
+            data-testid="button-prev-asset"
+          >
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 13L1 7L7 1" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
+        {cards && currentIndex < cards.length - 1 && (
+          <button
+            onClick={() => onNavigate('next')}
+            className="absolute right-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-50"
+            data-testid="button-next-asset"
+          >
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L7 7L1 13" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
         <div className="flex h-full">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
@@ -224,13 +253,13 @@ function EditModal({
           </div>
 
           {/* Right Side - Edit Form */}
-          <div className="w-1/2 p-4 flex flex-col">
-            <DialogHeader className="mb-3">
+          <div className="w-1/2 p-6 flex flex-col">
+            <DialogHeader className="mb-4">
               <DialogTitle className="text-lg font-semibold">{card.type}</DialogTitle>
               <p className="text-sm text-gray-600">AI content generated for your campaign</p>
             </DialogHeader>
 
-            <div className="flex-1 space-y-4">
+            <div className="flex-1 space-y-6 py-2">
               <div>
                 <Label htmlFor="title" className="text-sm font-medium text-gray-700">
                   Title
@@ -273,7 +302,7 @@ function EditModal({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2 mt-3 pt-3 border-t">
+            <div className="flex gap-2 mt-6 pt-4 border-t">
               <Button
                 variant="outline"
                 onClick={onClose}
@@ -308,6 +337,7 @@ function EditModal({
 export default function Canvas() {
   const [, navigate] = useLocation();
   const [selectedCard, setSelectedCard] = useState<AssetCard | null>(null);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(false);
   
@@ -349,10 +379,20 @@ export default function Canvas() {
   ]);
 
   const handleCardClick = (card: AssetCard) => {
+    const index = cards.findIndex(c => c.id === card.id);
+    setCurrentCardIndex(index);
     setSelectedCard(card);
     setIsModalOpen(true);
     // Show keyboard after modal opens
     setTimeout(() => setShowKeyboard(true), 300);
+  };
+
+  const handleNavigate = (direction: 'prev' | 'next') => {
+    const newIndex = direction === 'prev' ? currentCardIndex - 1 : currentCardIndex + 1;
+    if (newIndex >= 0 && newIndex < cards.length) {
+      setCurrentCardIndex(newIndex);
+      setSelectedCard(cards[newIndex]);
+    }
   };
 
   const handleSaveCard = (updatedCard: AssetCard) => {
@@ -460,6 +500,9 @@ export default function Canvas() {
         }}
         card={selectedCard}
         onSave={handleSaveCard}
+        cards={cards}
+        currentIndex={currentCardIndex}
+        onNavigate={handleNavigate}
       />
       
       {/* Virtual Keyboard */}
