@@ -264,9 +264,8 @@ export default function UploadCampaign() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '24px',
-            minHeight: '600px',
-            justifyContent: 'center',
+            minHeight: 'calc(100vh - 300px)',
+            justifyContent: 'space-between',
             marginTop: '-50px'
           }}>
             {activeTab === 'computer' && (
@@ -274,7 +273,9 @@ export default function UploadCampaign() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '24px'
+                justifyContent: 'center',
+                gap: '24px',
+                flex: 1
               }}>
                 {/* QR Component - Scaled for 1080px viewport */}
                 <div style={{
@@ -317,7 +318,7 @@ export default function UploadCampaign() {
             )}
 
             {activeTab === 'ai' && (
-              <div className="text-center">
+              <div className="text-center flex-1 flex items-center justify-center">
                 <div className="bg-white rounded-3xl p-12 shadow-lg">
                   <div className="mb-6">
                     <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -338,7 +339,7 @@ export default function UploadCampaign() {
             )}
 
             {activeTab === 'predefined' && (
-              <div>
+              <div className="flex-1 flex items-center justify-center">
                 {/* Predefined Images Grid */}
                 <div className="relative mb-12">
                   <div className="grid grid-cols-4 gap-4">
@@ -384,14 +385,14 @@ export default function UploadCampaign() {
               </div>
             )}
 
-            {/* Bottom Action Tabs - Relative positioning to prevent bleeding */}
+            {/* Bottom Action Tabs - Fixed to bottom */}
             <div style={{
               position: 'relative',
-              marginTop: '48px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '24px'
+              gap: '24px',
+              paddingBottom: '40px'
             }}>
               <Button
                 variant="ghost"
