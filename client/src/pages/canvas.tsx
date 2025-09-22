@@ -83,7 +83,7 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
               <img 
                 src={card.image}
                 alt={`${card.type} preview`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
                 data-testid={`img-${card.type.toLowerCase().replace(' ', '-')}`}
               />
             )
@@ -195,7 +195,7 @@ function EditModal({
                     <img 
                       src={card.image}
                       alt={card.type}
-                      className="w-full h-full object-cover max-w-[300px] max-h-[200px]"
+                      className="w-full h-full object-cover object-top max-w-[300px] max-h-[200px]"
                       data-testid="img-modal-preview"
                     />
                   )
