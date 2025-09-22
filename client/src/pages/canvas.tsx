@@ -17,7 +17,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
   ];
 
   return (
-    <div className={`fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+    <div className={`fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[60] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: '2rem' }}>
       <div className="p-6" style={{ width: '900px' }}>
@@ -174,11 +174,11 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[600px] p-0 overflow-hidden" style={{ marginTop: '-10vh' }}>
+      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-hidden" style={{ marginTop: '-15vh' }}>
         <div className="flex h-full">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
-            <div className="p-6 flex-1 flex flex-col">
+            <div className="p-4 flex-1 flex flex-col">
               <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-sm flex items-center justify-center">
                 {card.image ? (
                   card.isVideo ? (
@@ -206,10 +206,10 @@ function EditModal({
                 )}
               </div>
               
-              <div className="mt-6 text-center">
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">{card.type} Title</h4>
-                <p className="text-sm text-gray-600 mb-2">{title || card.title}</p>
-                <p className="text-xs text-gray-500 mb-4">{description || card.description}</p>
+              <div className="mt-3 text-center">
+                <h4 className="text-base font-semibold text-gray-800 mb-1">{card.type} Title</h4>
+                <p className="text-sm text-gray-600 mb-1">{title || card.title}</p>
+                <p className="text-xs text-gray-500 mb-2">{description || card.description}</p>
                 {(cta || card.cta) && (
                   <Button 
                     size="sm" 
@@ -224,13 +224,13 @@ function EditModal({
           </div>
 
           {/* Right Side - Edit Form */}
-          <div className="w-1/2 p-6 flex flex-col">
-            <DialogHeader className="mb-6">
-              <DialogTitle className="text-xl font-semibold">{card.type}</DialogTitle>
+          <div className="w-1/2 p-4 flex flex-col">
+            <DialogHeader className="mb-3">
+              <DialogTitle className="text-lg font-semibold">{card.type}</DialogTitle>
               <p className="text-sm text-gray-600">AI content generated for your campaign</p>
             </DialogHeader>
 
-            <div className="flex-1 space-y-6">
+            <div className="flex-1 space-y-4">
               <div>
                 <Label htmlFor="title" className="text-sm font-medium text-gray-700">
                   Title
@@ -273,11 +273,11 @@ function EditModal({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3 mt-6 pt-6 border-t">
+            <div className="flex gap-2 mt-3 pt-3 border-t">
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="text-gray-600 border-gray-300 hover:bg-gray-50"
+                className="text-gray-600 border-gray-300 text-sm py-2"
                 data-testid="button-back"
               >
                 Back
@@ -285,14 +285,14 @@ function EditModal({
               <Button
                 variant="outline"
                 onClick={handleRandomize}
-                className="text-gray-600 border-gray-300 hover:bg-gray-50"
+                className="text-gray-600 border-gray-300 text-sm py-2"
                 data-testid="button-randomize"
               >
                 Randomize
               </Button>
               <Button
                 onClick={handleSave}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2"
                 data-testid="button-export-assets"
               >
                 Export assets
