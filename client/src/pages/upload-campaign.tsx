@@ -392,7 +392,7 @@ export default function UploadCampaign() {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '24px',
-              paddingBottom: '40px'
+              paddingBottom: '20px'
             }}>
               <Button
                 variant="ghost"
@@ -404,7 +404,7 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('computer')}
                 data-testid="tab-upload"
               >
-                <Upload className="w-11 h-11" />
+                <Upload className="w-16 h-16" />
                 Upload your images
               </Button>
               <Button
@@ -417,7 +417,7 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('ai')}
                 data-testid="tab-ai"
               >
-                <Camera className="w-11 h-11" />
+                <Camera className="w-16 h-16" />
                 Take a photo
               </Button>
               <Button
@@ -430,7 +430,7 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"
               >
-                <XCircle className="w-11 h-11" />
+                <XCircle className="w-16 h-16" />
                 I don't want to use my photos
               </Button>
             </div>
