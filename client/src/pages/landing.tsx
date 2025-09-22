@@ -52,7 +52,7 @@ export default function Landing() {
           gap: '16px',
           width: '100%',
           maxWidth: '1808px',
-          padding: '20px 0',
+          padding: '0',
           marginBottom: '32px'
         }}>
           <h1 style={{

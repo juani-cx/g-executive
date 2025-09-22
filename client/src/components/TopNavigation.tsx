@@ -25,7 +25,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
 
   return (
     <div className="w-full flex justify-between items-center" style={{
-      padding: isLandingPage ? '48px 112px 24px' : '32px 32px 24px'
+      padding: isLandingPage ? '48px 112px 0' : '32px 32px 0'
     }}>
       {/* Left side - Logo */}
       <div className="flex items-center">

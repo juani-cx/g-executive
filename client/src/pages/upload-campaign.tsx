@@ -189,7 +189,7 @@ export default function UploadCampaign() {
       <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '0' }}>
         <div className="w-full max-w-6xl text-center">
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-0">
             <h1 
               className="text-6xl text-gray-800 mb-4 tracking-tight"
               style={{ fontWeight: '475' }}
