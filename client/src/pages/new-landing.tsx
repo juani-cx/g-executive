@@ -39,8 +39,8 @@ export default function NewLanding() {
       <TopNavigation isLandingPage={true} />
 
       {/* Main Content - Centered */}
-      <div className="relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
-        <div className="text-center w-full px-8">
+      <div className="landing-main relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
+        <div className="landing-content text-center w-full px-8">
           <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
             Promote your product now
           </h1>

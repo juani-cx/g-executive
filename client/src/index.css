@@ -100,6 +100,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 4K and Large Screen Support */
+@media (min-width: 2560px) {
+  .landing-content {
+    transform: scale(1.4);
+    transform-origin: center;
+  }
+  .landing-main {
+    height: calc(100vh - 140px) !important;
+  }
+}
+
+@media (min-width: 3200px) {
+  .landing-content {
+    transform: scale(1.6);
+    transform-origin: center;
+  }
+  .landing-main {
+    height: calc(100vh - 160px) !important;
+  }
+}
+
+@media (min-width: 3840px) {
+  .landing-content {
+    transform: scale(1.8);
+    transform-origin: center;
+  }
+  .landing-main {
+    height: calc(100vh - 180px) !important;
+  }
+}
+
+/* Smooth scaling transitions */
+.landing-content {
+  transition: transform 0.3s ease-in-out;
+}
+
 /* Custom animations */
 @keyframes fade-in {
   from {
