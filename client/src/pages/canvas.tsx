@@ -174,7 +174,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[350px] p-0 overflow-hidden" style={{ position: 'fixed', top: '15%', transform: 'translateX(-50%)', left: '50%' }}>
+      <DialogContent className="max-w-4xl w-full h-[350px] p-0 overflow-hidden !z-50">
         <div className="flex h-full">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
