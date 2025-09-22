@@ -41,17 +41,17 @@ export default function NewLanding() {
       {/* Main Content - Centered */}
       <div className="landing-main relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="landing-content text-center w-full px-8">
-          <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
+          <h1 className="landing-title text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
             Promote your product now
           </h1>
           
-          <h2 className="text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
+          <h2 className="landing-subtitle text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
             Executive campaign AI builder for executive people
           </h2>
           
           <div className="flex items-center justify-center gap-8">
             <Button 
-              className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
+              className="landing-button bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
               style={{ fontSize: '30px', lineHeight: '1', padding: '24px 76px', height: 'auto' }}
               onClick={handleStartNow}
               data-testid="button-start-now"
