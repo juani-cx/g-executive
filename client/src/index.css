@@ -124,6 +124,14 @@ body {
     width: 50%; /* Compensate for 2x scale */
     height: 50%; /* Compensate for 2x scale */
   }
+  
+  /* Fix virtual keyboard positioning on 4K */
+  .virtual-keyboard {
+    --tw-scale-x: 0.5;
+    --tw-scale-y: 0.5;
+    transform-origin: center bottom !important;
+    bottom: 1rem !important;
+  }
 }
 
 /* Custom animations */
