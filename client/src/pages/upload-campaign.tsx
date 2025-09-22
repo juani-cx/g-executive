@@ -186,21 +186,52 @@ export default function UploadCampaign() {
       <TopNavigation />
       
       {/* Main Content */}
-      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '0' }}>
-        <div className="w-full max-w-6xl text-center">
+      <div style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '24px 56px',
+        boxSizing: 'border-box',
+        paddingTop: '0'
+      }}>
+        <div style={{
+          width: '100%',
+          textAlign: 'center'
+        }}>
           {/* Header */}
-          <div className="mb-0">
-            <h1 
-              className="text-6xl text-gray-800 mb-4 tracking-tight"
-              style={{ fontWeight: '475' }}
-              data-testid="text-main-title"
-            >
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '16px',
+            width: '100%',
+            maxWidth: '1808px',
+            padding: '0',
+            marginBottom: '32px'
+          }}>
+            <h1 style={{
+              color: '#000',
+              textAlign: 'center',
+              fontFamily: 'Google Sans',
+              fontSize: '48px',
+              fontWeight: '500',
+              lineHeight: '36px',
+              margin: 0
+            }} data-testid="text-main-title">
               Select an image
             </h1>
-            <p 
-              className="text-2xl text-gray-600 mb-16"
-              style={{ fontWeight: '400' }}
-            >
+            <p style={{
+              color: '#5c5c5c',
+              textAlign: 'center',
+              fontFamily: 'Google Sans',
+              fontSize: '24px',
+              fontWeight: '400',
+              lineHeight: '28px',
+              margin: 0
+            }}>
               Choose the product type you want to promote
             </p>
           </div>
