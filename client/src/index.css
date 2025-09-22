@@ -116,11 +116,13 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* Smart 4K Scaling - Zoom-based approach for all content */
+/* 4K Transform Scaling - Works across all browsers */
 @media (min-width: 2560px) {
-  body {
-    zoom: 1.25;
+  #root {
+    transform: scale(1.25);
     transform-origin: top left;
+    width: 80%; /* Compensate for scale */
+    height: 80%; /* Compensate for scale */
   }
   
   /* Landing page specific enhancements */
@@ -137,9 +139,11 @@ body {
 }
 
 @media (min-width: 3840px) {
-  body {
-    zoom: 1.4;
+  #root {
+    transform: scale(1.5);
     transform-origin: top left;
+    width: 66.67%; /* Compensate for 1.5x scale */
+    height: 66.67%; /* Compensate for 1.5x scale */
   }
   
   /* Landing page specific for 4K */
