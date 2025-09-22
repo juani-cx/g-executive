@@ -21,7 +21,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
     <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9999] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: '2rem' }}>
-      <div className="p-6 bg-white border border-gray-300 rounded-2xl shadow-lg" style={{ width: '900px' }}>
+      <div className="p-6" style={{ width: '900px' }}>
         <div className="space-y-3">
           {keyboardKeys.map((row, rowIndex) => (
             <div key={rowIndex} className="flex justify-center gap-3">
@@ -29,7 +29,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
                 <div
                   key={keyIndex}
                   className={`
-                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer transition-colors shadow-sm
+                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer transition-colors border border-gray-200
                     ${key === '⎵' ? 'px-20 py-4' : key === '123?' || key === '🔍' ? 'px-6 py-4' : 'w-14 h-14'}
                     ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
                   `}
@@ -206,7 +206,7 @@ function EditModal({
             </svg>
           </button>
         )}
-        <div className="flex h-full">
+        <div className="flex h-full bg-white border border-gray-200 rounded-lg">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-4 flex-1 flex flex-col">
