@@ -111,24 +111,20 @@ body {
   }
 }
 
-/* 
-4K and Large Screen Responsive Support
+/* 4K and Large Screen Responsive Support */
 .landing-main {
   height: calc(100vh - 120px);
 }
 
-/* 4K Transform Scaling */
-/*
+/* 4K Transform Scaling - commented out for now
 @media (min-width: 3500px) {
   #root {
     transform: scale(2.0);
     transform-origin: top left;
-    width: 50%; /* Compensate for 2x scale;
-    height: 50%; /* Compensate for 2x scale;
+    width: 50%;
+    height: 50%;
   }
   
-  /* Fix virtual keyboard positioning on 4K */
-/*
   .virtual-keyboard {
     --tw-scale-x: 0.5;
     --tw-scale-y: 0.5;
@@ -137,7 +133,7 @@ body {
     z-index: 9999 !important;
   }
 }
- */
+*/
 
 /* Custom animations */
 @keyframes fade-in {
