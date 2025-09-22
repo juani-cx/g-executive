@@ -210,12 +210,12 @@ function EditModal({
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-4 flex-1 flex flex-col">
-              <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-sm flex items-center justify-center">
+              <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-sm">
                 {card.image ? (
                   card.isVideo ? (
                     <video 
                       src={card.image}
-                      className="w-full h-full object-cover max-w-[300px] max-h-[200px]"
+                      className="w-full h-full object-cover object-top"
                       autoPlay
                       muted
                       loop
@@ -226,18 +226,18 @@ function EditModal({
                     <img 
                       src={card.image}
                       alt={card.type}
-                      className="w-full h-full object-cover object-top max-w-[300px] max-h-[200px]"
+                      className="w-full h-full object-cover object-top"
                       data-testid="img-modal-preview"
                     />
                   )
                 ) : (
-                  <div className="w-full h-40 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-xl">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-xl">
                     <div className="text-4xl">🎨</div>
                   </div>
                 )}
               </div>
               
-              <div className="mt-3 text-center">
+              <div className="mt-3 text-left">
                 <h4 className="text-base font-semibold text-gray-800 mb-1">{card.type} Title</h4>
                 <p className="text-sm text-gray-600 mb-1">{title || card.title}</p>
                 <p className="text-xs text-gray-500 mb-2">{description || card.description}</p>
@@ -258,7 +258,6 @@ function EditModal({
           <div className="w-1/2 p-6 flex flex-col">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-lg font-semibold">{card.type}</DialogTitle>
-              <p className="text-sm text-gray-600">AI content generated for your campaign</p>
             </DialogHeader>
 
             <div className="flex-1 space-y-6 py-2">
