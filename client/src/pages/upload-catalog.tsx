@@ -254,7 +254,7 @@ export default function UploadCatalog() {
                     className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
                       selectedCategory === category.id
                         ? "bg-blue-600 text-white shadow-sm"
-                        : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        : "text-gray-600"
                     }`}
                     onClick={() => setSelectedCatalogCategory(category.id as any)}
                     data-testid={`tab-${category.id}`}
@@ -356,7 +356,7 @@ export default function UploadCatalog() {
                         className={`h-56 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
                           selectedImage === image.src
                             ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
-                            : 'hover:transform hover:scale-105 hover:shadow-xl'
+                            : ''
                         }`}
                         onClick={() => handleImageSelect(image.id, image.src)}
                         data-testid={`image-${image.id}`}
@@ -405,10 +405,10 @@ export default function UploadCatalog() {
             }}>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
                   activeTab === 'computer'
                     ? 'text-blue-600'
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-600'
                 }`}
                 onClick={() => setActiveTab('computer')}
                 data-testid="tab-upload"
@@ -418,10 +418,10 @@ export default function UploadCatalog() {
               </Button>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
                   activeTab === 'ai'
                     ? 'text-blue-600'
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-600'
                 }`}
                 onClick={() => setActiveTab('ai')}
                 data-testid="tab-ai"
@@ -431,10 +431,10 @@ export default function UploadCatalog() {
               </Button>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
                   activeTab === 'predefined'
                     ? 'text-blue-600'
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-600'
                 }`}
                 onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"

@@ -52,7 +52,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="w-[60px] h-[60px] rounded-full border-2 p-0 hover:bg-gray-50"
+              className="w-[60px] h-[60px] rounded-full border-2 p-0"
               style={{ borderColor: '#bec6d1b3' }}
               data-testid="button-settings"
             >
