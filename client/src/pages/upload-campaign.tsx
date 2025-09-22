@@ -264,7 +264,9 @@ export default function UploadCampaign() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '40px'
+            gap: '24px',
+            minHeight: '500px',
+            justifyContent: 'center'
           }}>
             {activeTab === 'computer' && (
               <div style={{
