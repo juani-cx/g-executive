@@ -745,3 +745,13 @@ body, * {
 .font-medium { font-weight: 500; }
 .font-semibold { font-weight: 600; }
 .font-bold { font-weight: 700; }
+
+/* Large Screen Media Query - Scale 2x for screens wider than 3500px */
+@media (min-width: 3500px) {
+  body {
+    transform: scale(2);
+    transform-origin: center top;
+    width: 50%;
+    margin: 0 auto;
+  }
+}
