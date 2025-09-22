@@ -178,9 +178,9 @@ export default function UploadCampaign() {
   const visibleCards = currentCards.slice(startIndex, startIndex + 4);
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ 
+    <div className="dotted-background" style={{ 
       fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      height: '100vh'
+      minHeight: '100vh'
     }}>
       {/* Top Navigation */}
       <TopNavigation />
@@ -188,7 +188,7 @@ export default function UploadCampaign() {
       {/* Main Content */}
       <div style={{
         width: '100%',
-        height: '100%',
+        minHeight: 'calc(100vh - 120px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -384,12 +384,10 @@ export default function UploadCampaign() {
               </div>
             )}
 
-            {/* Bottom Action Tabs - Fixed absolute position */}
+            {/* Bottom Action Tabs - Relative positioning to prevent bleeding */}
             <div style={{
-              position: 'absolute',
-              bottom: '48px',
-              left: '50%',
-              transform: 'translateX(-50%)',
+              position: 'relative',
+              marginTop: '48px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',

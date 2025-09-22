@@ -255,7 +255,7 @@ export default function UploadImage() {
       <TopNavigation />
 
       {/* Main Content */}
-      <div className="flex items-center justify-center p-8" style={{ height: 'calc(100vh - 120px)' }}>
+      <div className="flex items-center justify-center p-8" style={{ minHeight: 'calc(100vh - 120px)', height: 'auto' }}>
         <div className="text-center w-full" style={{ maxWidth: '72rem' }}>
           <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
             Upload your image
