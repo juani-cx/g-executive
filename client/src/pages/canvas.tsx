@@ -182,7 +182,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[450px] p-0 overflow-visible !z-50 top-[8%] translate-y-0">
+      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-visible !z-50 top-[2%] translate-y-0">
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
@@ -209,8 +209,8 @@ function EditModal({
         <div className="flex h-full bg-white border border-gray-200 rounded-lg">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
-            <div className="p-4 flex-1 flex flex-col">
-              <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-sm">
+            <div className="p-4 h-full flex flex-col">
+              <div className="h-[280px] bg-white rounded-xl overflow-hidden shadow-sm flex items-start">
                 {card.image ? (
                   card.isVideo ? (
                     <video 
@@ -237,14 +237,14 @@ function EditModal({
                 )}
               </div>
               
-              <div className="mt-3 text-left">
-                <h4 className="text-base font-semibold text-gray-800 mb-1">{card.type} Title</h4>
-                <p className="text-sm text-gray-600 mb-1">{title || card.title}</p>
-                <p className="text-xs text-gray-500 mb-2">{description || card.description}</p>
+              <div className="mt-3 text-left flex-shrink-0">
+                <h4 className="text-sm font-semibold text-gray-800 mb-1">{card.type} Title</h4>
+                <p className="text-xs text-gray-600 mb-1 line-clamp-2">{title || card.title}</p>
+                <p className="text-xs text-gray-500 mb-2 line-clamp-2">{description || card.description}</p>
                 {(cta || card.cta) && (
                   <Button 
                     size="sm" 
-                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white"
+                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1"
                     data-testid="button-preview-cta"
                   >
                     {cta || card.cta}
@@ -255,12 +255,12 @@ function EditModal({
           </div>
 
           {/* Right Side - Edit Form */}
-          <div className="w-1/2 p-6 flex flex-col">
+          <div className="w-1/2 p-4 flex flex-col h-full">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-lg font-semibold">{card.type}</DialogTitle>
             </DialogHeader>
 
-            <div className="flex-1 space-y-6 py-2">
+            <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
                 <Label htmlFor="title" className="text-sm font-medium text-gray-700">
                   Title
@@ -282,8 +282,8 @@ function EditModal({
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  rows={3}
-                  className="mt-1 resize-none"
+                  rows={2}
+                  className="mt-1 resize-none text-sm"
                   data-testid="textarea-description"
                 />
               </div>
@@ -303,7 +303,7 @@ function EditModal({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2 mt-6 pt-4 border-t">
+            <div className="flex gap-2 mt-4 pt-3 border-t flex-shrink-0">
               <Button
                 variant="outline"
                 onClick={onClose}
