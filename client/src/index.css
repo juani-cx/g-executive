@@ -116,46 +116,13 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* 4K Transform Scaling - Works across all browsers */
-@media (min-width: 2560px) {
+/* 4K Transform Scaling */
+@media (min-width: 3500px) {
   #root {
-    transform: scale(1.25);
+    transform: scale(2.0);
     transform-origin: top left;
-    width: 80%; /* Compensate for scale */
-    height: 80%; /* Compensate for scale */
-  }
-  
-  /* Landing page specific enhancements */
-  .landing-title {
-    font-size: clamp(120px, 10vw, 200px) !important;
-  }
-  .landing-subtitle {
-    font-size: clamp(54px, 5vw, 90px) !important;
-  }
-  .landing-button {
-    font-size: clamp(30px, 3vw, 50px) !important;
-    padding: clamp(24px, 2.5vw, 40px) clamp(76px, 8vw, 120px) !important;
-  }
-}
-
-@media (min-width: 3840px) {
-  #root {
-    transform: scale(1.5);
-    transform-origin: top left;
-    width: 66.67%; /* Compensate for 1.5x scale */
-    height: 66.67%; /* Compensate for 1.5x scale */
-  }
-  
-  /* Landing page specific for 4K */
-  .landing-title {
-    font-size: clamp(140px, 8vw, 180px) !important;
-  }
-  .landing-subtitle {
-    font-size: clamp(60px, 4vw, 80px) !important;
-  }
-  .landing-button {
-    font-size: clamp(35px, 2.5vw, 45px) !important;
-    padding: clamp(28px, 2vw, 36px) clamp(80px, 6vw, 100px) !important;
+    width: 50%; /* Compensate for 2x scale */
+    height: 50%; /* Compensate for 2x scale */
   }
 }
 
