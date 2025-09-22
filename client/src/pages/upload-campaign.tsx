@@ -271,81 +271,51 @@ export default function UploadCampaign() {
             marginTop: '-50px'
           }}>
             {activeTab === 'computer' && (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="text-center">
-                  {/* Upload Input */}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    id="file-upload"
-                    data-testid="input-file-upload"
-                  />
-                  
-                  {/* Upload Box */}
-                  <label
-                    htmlFor="file-upload"
-                    className="cursor-pointer block bg-white rounded-3xl p-12 shadow-lg border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all"
-                    data-testid="label-upload-area"
-                  >
-                    <div className="mb-6">
-                      <Upload className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">Upload your images</h3>
-                      <p className="text-gray-600 mb-4">Choose an image from your computer</p>
-                      <p className="text-sm text-gray-500">Supports JPG, PNG and other image formats</p>
-                    </div>
-                    
-                    <Button
-                      type="button"
-                      size="lg"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold pointer-events-none"
-                      data-testid="button-upload-trigger"
-                    >
-                      Browse Files
-                    </Button>
-                  </label>
-                  
-                  {/* Alternative: QR Code option */}
-                  <div className="mt-8 pt-8 border-t border-gray-200">
-                    <div style={{
-                      boxSizing: 'border-box',
-                      background: '#e6ebf2',
-                      border: '20px solid #fff',
-                      borderRadius: '15px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      gap: '4px',
-                      width: '280px',
-                      height: '240px',
-                      overflow: 'hidden',
-                      boxShadow: '0 8px 16px #0000001a',
-                      margin: '0 auto'
-                    }}>
-                      <div style={{
-                        aspectRatio: '1',
-                        background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
-                        flexShrink: '0',
-                        width: '160px',
-                        height: '160px'
-                      }} />
-                    </div>
-                    <span style={{
-                      color: '#1f3251',
-                      textAlign: 'center',
-                      fontFamily: 'Google Sans',
-                      fontSize: '16px',
-                      fontStyle: 'normal',
-                      fontWeight: '500',
-                      lineHeight: 'normal',
-                      display: 'inline-block',
-                      marginTop: '16px'
-                    }}>
-                      Or scan this QR code to upload from mobile
-                    </span>
-                  </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '24px',
+                flex: 1
+              }}>
+                {/* QR Component - Scaled for 1080px viewport */}
+                <div style={{
+                  boxSizing: 'border-box',
+                  background: '#e6ebf2',
+                  border: '27px solid #fff',
+                  borderRadius: '15px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '4px',
+                  width: '400px',
+                  height: '340px',
+                  overflow: 'hidden',
+                  boxShadow: '0 16px 24px #0000001a'
+                }}>
+                  <div style={{
+                    aspectRatio: '1',
+                    background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
+                    flexShrink: '0',
+                    width: '214px',
+                    height: '214px'
+                  }} />
                 </div>
+                {/* Text below QR - Scaled proportionally */}
+                <span style={{
+                  color: '#1f3251',
+                  textAlign: 'center',
+                  width: '220px',
+                  fontFamily: 'Google Sans',
+                  fontSize: '20px',
+                  fontStyle: 'normal',
+                  fontWeight: '500',
+                  lineHeight: 'normal',
+                  display: 'inline-block'
+                }}>
+                  Scan this QR code&#x2028;to upload your image
+                </span>
               </div>
             )}
 
@@ -371,9 +341,9 @@ export default function UploadCampaign() {
             )}
 
             {activeTab === 'predefined' && (
-              <div className="flex-1 flex items-center justify-center">
+              <div className="flex-1 flex flex-col items-center justify-center">
                 {/* Predefined Images Grid */}
-                <div className="relative mb-12">
+                <div className="relative mb-8">
                   <div className="grid grid-cols-4 gap-4">
                     {moodImages.map((image) => (
                       <div
@@ -398,7 +368,7 @@ export default function UploadCampaign() {
                   </div>
                 </div>
 
-                {/* Continue Button - Always visible */}
+                {/* Continue Button - Below images */}
                 <div className="text-center">
                   <Button
                     size="lg"
