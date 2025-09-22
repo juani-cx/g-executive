@@ -335,7 +335,7 @@ export default function Canvas() {
       title: "Social Post",
       description: "Professional social media post with meta description",
       cta: "Learn More",
-      image: "/instagram-post.png"
+      image: "/social-post.png"
     },
     {
       id: "4",
