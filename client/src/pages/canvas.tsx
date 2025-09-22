@@ -29,7 +29,7 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
 
       <div className="p-6">
         {/* Image or Video */}
-        <div className="w-full h-44 bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
+        <div className="w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
           {card.image ? (
             card.isVideo ? (
               <video 
@@ -143,12 +143,24 @@ function EditModal({
             <div className="p-6 flex-1 flex flex-col">
               <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-sm flex items-center justify-center">
                 {card.image ? (
-                  <img 
-                    src={card.image}
-                    alt={card.type}
-                    className="w-full h-full object-cover max-w-[300px] max-h-[200px]"
-                    data-testid="img-modal-preview"
-                  />
+                  card.isVideo ? (
+                    <video 
+                      src={card.image}
+                      className="w-full h-full object-cover max-w-[300px] max-h-[200px]"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      data-testid="video-modal-preview"
+                    />
+                  ) : (
+                    <img 
+                      src={card.image}
+                      alt={card.type}
+                      className="w-full h-full object-cover max-w-[300px] max-h-[200px]"
+                      data-testid="img-modal-preview"
+                    />
+                  )
                 ) : (
                   <div className="w-full h-40 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-xl">
                     <div className="text-4xl">🎨</div>
