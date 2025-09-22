@@ -381,17 +381,20 @@ export default function UploadCampaign() {
               </div>
             )}
 
-            {/* Bottom Action Tabs - Moved below content */}
+            {/* Bottom Action Tabs - Fixed absolute position */}
             <div style={{
+              position: 'absolute',
+              bottom: '48px',
+              left: '50%',
+              transform: 'translateX(-50%)',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '24px',
-              marginTop: '40px'
+              gap: '24px'
             }}>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
                   activeTab === 'computer'
                     ? 'text-blue-600'
                     : 'text-gray-600 hover:text-blue-600'
@@ -399,12 +402,12 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('computer')}
                 data-testid="tab-upload"
               >
-                <Upload className="w-6 h-6" />
+                <Upload className="w-11 h-11" />
                 Upload your images
               </Button>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
                   activeTab === 'ai'
                     ? 'text-blue-600'
                     : 'text-gray-600 hover:text-blue-600'
@@ -412,12 +415,12 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('ai')}
                 data-testid="tab-ai"
               >
-                <Camera className="w-6 h-6" />
+                <Camera className="w-11 h-11" />
                 Take a photo
               </Button>
               <Button
                 variant="ghost"
-                className={`flex flex-col items-center gap-2 px-6 py-4 text-sm font-medium transition-all hover:bg-gray-50 ${
+                className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all hover:bg-gray-50 ${
                   activeTab === 'predefined'
                     ? 'text-blue-600'
                     : 'text-gray-600 hover:text-blue-600'
@@ -425,7 +428,7 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"
               >
-                <XCircle className="w-6 h-6" />
+                <XCircle className="w-11 h-11" />
                 I don't want to use my photos
               </Button>
             </div>
