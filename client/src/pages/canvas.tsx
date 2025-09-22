@@ -7,6 +7,44 @@ import { Label } from "@/components/ui/label";
 import TopNavigation from "@/components/TopNavigation";
 import { useLocation } from "wouter";
 
+// Virtual Keyboard Component
+function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
+  const keyboardKeys = [
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '@'],
+    ['↑', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', '⌫'],
+    ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
+  ];
+
+  return (
+    <div className={`fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+    }`} style={{ bottom: '2rem' }}>
+      <div className="p-6" style={{ width: '900px' }}>
+        <div className="space-y-3">
+          {keyboardKeys.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex justify-center gap-3">
+              {row.map((key, keyIndex) => (
+                <div
+                  key={keyIndex}
+                  className={`
+                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer transition-colors border border-gray-200
+                    ${key === '⎵' ? 'px-20 py-4' : key === '123?' || key === '🔍' ? 'px-6 py-4' : 'w-14 h-14'}
+                    ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
+                  `}
+                  data-testid={`key-${key}`}
+                >
+                  {key}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Asset Card Component
 interface AssetCard {
   id: string;
@@ -136,7 +174,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[600px] p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl w-full h-[600px] p-0 overflow-hidden" style={{ marginTop: '-10vh' }}>
         <div className="flex h-full">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
@@ -271,6 +309,7 @@ export default function Canvas() {
   const [, navigate] = useLocation();
   const [selectedCard, setSelectedCard] = useState<AssetCard | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(false);
   
   // Initialize cards with content from reference images
   const [cards, setCards] = useState<AssetCard[]>([
@@ -312,6 +351,8 @@ export default function Canvas() {
   const handleCardClick = (card: AssetCard) => {
     setSelectedCard(card);
     setIsModalOpen(true);
+    // Show keyboard after modal opens
+    setTimeout(() => setShowKeyboard(true), 300);
   };
 
   const handleSaveCard = (updatedCard: AssetCard) => {
@@ -413,10 +454,16 @@ export default function Canvas() {
       {/* Edit Modal */}
       <EditModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setShowKeyboard(false);
+        }}
         card={selectedCard}
         onSave={handleSaveCard}
       />
+      
+      {/* Virtual Keyboard */}
+      <VirtualKeyboard isVisible={showKeyboard} />
     </div>
   );
 }
