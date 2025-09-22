@@ -40,7 +40,7 @@ export default function Landing() {
         alignItems: 'center',
         padding: '24px 56px',
         boxSizing: 'border-box',
-        paddingTop: '80px' // Account for top navigation
+        paddingTop: '0'
       }}>
         
         {/* Title Section - Reduced spacing */}
@@ -127,7 +127,7 @@ export default function Landing() {
                 alignItems: 'center',
                 gap: '4px',
                 width: '100%',
-                paddingBottom: '24px',
+                paddingBottom: '0',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -215,7 +215,7 @@ export default function Landing() {
                 alignItems: 'center',
                 gap: '4px',
                 width: '100%',
-                paddingBottom: '24px',
+                paddingBottom: '0',
                 boxSizing: 'border-box'
               }}>
                 <span style={{

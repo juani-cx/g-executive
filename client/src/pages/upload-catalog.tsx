@@ -193,7 +193,7 @@ export default function UploadCatalog() {
       <TopNavigation />
       
       {/* Main Content */}
-      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '-80px' }}>
+      <div className="flex items-start justify-center p-4 sm:p-8 overflow-y-auto pt-16" style={{ height: 'calc(100vh - 120px)', minHeight: 'auto', marginTop: '0' }}>
         <div className="w-full max-w-6xl text-center">
           {/* Header */}
           <div className="mb-8">

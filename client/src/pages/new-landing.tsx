@@ -41,7 +41,7 @@ export default function NewLanding() {
       {/* Main Content - Centered */}
       <div className="relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="text-center w-full px-8">
-          <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '-80px' }}>
+          <h1 className="text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
             Promote your product now
           </h1>
           
