@@ -265,8 +265,9 @@ export default function UploadCampaign() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '24px',
-            minHeight: '500px',
-            justifyContent: 'center'
+            minHeight: '600px',
+            justifyContent: 'center',
+            marginTop: '-50px'
           }}>
             {activeTab === 'computer' && (
               <div style={{
@@ -344,7 +345,7 @@ export default function UploadCampaign() {
                     {moodImages.map((image) => (
                       <div
                         key={image.id}
-                        className={`h-40 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                        className={`h-56 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
                           selectedImage === image.src
                             ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                             : 'hover:transform hover:scale-105 hover:shadow-xl'
@@ -356,6 +357,8 @@ export default function UploadCampaign() {
                           src={image.src}
                           alt={image.alt}
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     ))}
