@@ -232,7 +232,7 @@ export default function UploadCampaign() {
               lineHeight: '28px',
               margin: 0
             }}>
-              Choose the product type you want to promote
+              Choose the mood of your campaign for AI inspiration
             </p>
           </div>
 
