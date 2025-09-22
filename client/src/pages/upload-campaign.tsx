@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
-import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight, XCircle } from "lucide-react";
 
 // Type for card data
 interface CardData {
@@ -423,9 +423,7 @@ export default function UploadCampaign() {
                 onClick={() => setActiveTab('predefined')}
                 data-testid="tab-preselected"
               >
-                <div className="w-6 h-6 flex items-center justify-center">
-                  🚫
-                </div>
+                <XCircle className="w-6 h-6" />
                 I don't want to use my photos
               </Button>
             </div>
