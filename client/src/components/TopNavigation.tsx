@@ -36,7 +36,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
       <div className="flex items-center gap-5">
         <Button 
           variant="outline"
-          className="rounded-full border-4 text-[20px] font-medium leading-[24px] text-[#1f2937]"
+          className="rounded-full border text-[20px] font-normal leading-[24px] text-[#1f2937]"
           style={{
             borderColor: '#bec6d1b3',
             padding: '16px 48px'
@@ -51,12 +51,11 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant="outline"
-              className="w-[60px] h-[60px] rounded-full border-2 p-0"
-              style={{ borderColor: '#bec6d1b3' }}
+              variant="ghost"
+              className="w-[25px] h-[25px] rounded-full p-0"
               data-testid="button-settings"
             >
-              <Settings className="w-8 h-8 text-gray-600" />
+              <Settings className="w-[25px] h-[25px] text-gray-600" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
