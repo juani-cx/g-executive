@@ -192,22 +192,18 @@ export default function CatalogCanvas() {
                 <div style={{
                   width: '100%',
                   height: '240px',
-                  backgroundColor: '#f8f9fa',
                   borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '2px dashed #d1d5db',
-                  marginBottom: '16px'
+                  marginBottom: '16px',
+                  overflow: 'hidden'
                 }}>
                   <img
                     src="/img-refs/mood01.png"
                     alt="Product preview"
                     style={{
-                      maxWidth: '100%',
-                      maxHeight: '100%',
-                      objectFit: 'contain',
-                      borderRadius: '4px'
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '8px'
                     }}
                     data-testid="img-product-preview"
                   />
