@@ -109,7 +109,8 @@ export default function UploadCatalog() {
       localStorage.setItem('uploadedImage', selectedImage);
       localStorage.setItem('selectedCategory', selectedCategory);
       localStorage.setItem('workflowType', workflowType);
-      navigate('/configure');
+      // Navigate to loading page first, which will redirect to catalog canvas
+      navigate('/loading');
     }
   };
 
