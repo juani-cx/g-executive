@@ -260,7 +260,7 @@ export default function UploadCampaign() {
           {/* Category Tabs - Always reserve consistent space */}
           <div className="flex justify-center mb-8" style={{ height: '64px' }}>
             {activeTab === 'predefined' && (
-              <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
+              <div className="flex items-center bg-white rounded-full shadow-lg" style={{ padding: '0.25rem 0.5rem' }}>
                 {campaignCategories.map((category) => (
                   <Button
                     key={category.id}
@@ -270,7 +270,7 @@ export default function UploadCampaign() {
                         ? "bg-blue-600 text-white shadow-sm"
                         : "text-gray-600"
                     }`}
-                    style={{ padding: '0.25rem 0.5rem' }}
+                    style={{ padding: '0.25rem 1.5rem' }}
                     onClick={() => setSelectedCampaignCategory(category.id as any)}
                     data-testid={`tab-${category.id}`}
                   >
