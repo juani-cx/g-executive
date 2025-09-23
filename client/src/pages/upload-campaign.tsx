@@ -49,7 +49,7 @@ export default function UploadCampaign() {
   
   // Campaign workflow - fixed to campaign
   const workflowType = 'campaign';
-  const [selectedCampaignCategory, setSelectedCampaignCategory] = useState<'digital' | 'physical' | 'service'>('digital');
+  const [selectedCampaignCategory, setSelectedCampaignCategory] = useState<'digital' | 'physical' | 'service'>('physical');
   
   const selectedCategory = selectedCampaignCategory;
   
@@ -155,8 +155,8 @@ export default function UploadCampaign() {
 
   // Campaign categories
   const campaignCategories = [
-    { id: 'digital', label: 'Digital', icon: '💻' },
     { id: 'physical', label: 'Physical', icon: '📦' },
+    { id: 'digital', label: 'Digital', icon: '💻' },
     { id: 'service', label: 'Service', icon: '🛠️' }
   ];
 
@@ -265,11 +265,12 @@ export default function UploadCampaign() {
                   <Button
                     key={category.id}
                     variant={selectedCategory === category.id ? "default" : "ghost"}
-                    className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-full text-sm font-medium transition-all ${
                       selectedCategory === category.id
                         ? "bg-blue-600 text-white shadow-sm"
                         : "text-gray-600"
                     }`}
+                    style={{ padding: '0.25rem 0.5rem' }}
                     onClick={() => setSelectedCampaignCategory(category.id as any)}
                     data-testid={`tab-${category.id}`}
                   >
