@@ -39,7 +39,7 @@ export default function NewLanding() {
       <TopNavigation isLandingPage={true} />
 
       {/* Main Content - Centered */}
-      <div className="landing-main relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
+      <div className="landing-main relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)', marginTop: '-120px' }}>
         <div className="landing-content text-center w-full px-8">
           <h1 className="landing-title text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
             Promote your <span className="text-flip">
@@ -52,7 +52,7 @@ export default function NewLanding() {
             </span> now
           </h1>
           
-          <h2 className="landing-subtitle text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
+          <h2 className="landing-subtitle text-gray-600 leading-none" style={{ margin: '32px 44px 58px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
             Executive campaign AI builder for executive people
           </h2>
           

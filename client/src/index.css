@@ -107,6 +107,7 @@
   overflow: hidden;
   position: relative;
   vertical-align: top;
+  margin-top: -16px;
 }
 
 .text-flip-lines {
