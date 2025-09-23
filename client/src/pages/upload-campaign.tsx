@@ -34,11 +34,17 @@ const IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>
   ]
 };
 
-// Preload images for instant switching
+// Preload images for instant switching with proper caching
 const preloadImages = () => {
   Object.values(IMAGE_DATA).flat().forEach(({ src }) => {
     const img = new Image();
+    img.crossOrigin = 'anonymous';
     img.src = src;
+    // Add to browser cache
+    img.onload = () => {
+      // Force cache by creating a blob URL
+      fetch(src).then(response => response.blob()).catch(() => {});
+    };
   });
 };
 
@@ -392,8 +398,9 @@ export default function UploadCampaign() {
                           src={image.src}
                           alt={image.alt}
                           className="w-full h-full object-cover"
-                          loading="lazy"
+                          loading="eager"
                           decoding="async"
+                          style={{ imageRendering: 'optimizeSpeed' }}
                         />
                       </div>
                     ))}

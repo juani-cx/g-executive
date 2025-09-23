@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
@@ -12,6 +12,48 @@ interface CardData {
   icon: string;
 }
 
+// Stable image data - moved outside component to prevent re-creation
+const CATALOG_IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>> = {
+  retail: [
+    { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
+    { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
+    { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
+    { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
+  ],
+  technology: [
+    { id: 1, src: '/img-refs-catalog/tech/tech01.png', alt: 'Technology Product 1' },
+    { id: 2, src: '/img-refs-catalog/tech/tech02.png', alt: 'Technology Product 2' },
+    { id: 3, src: '/img-refs-catalog/tech/tech03.png', alt: 'Technology Product 3' },
+    { id: 4, src: '/img-refs-catalog/tech/tech04.png', alt: 'Technology Product 4' },
+  ],
+  construction: [
+    { id: 1, src: '/img-refs-catalog/construction/construction01.png', alt: 'Construction Product 1' },
+    { id: 2, src: '/img-refs-catalog/construction/construction02.png', alt: 'Construction Product 2' },
+    { id: 3, src: '/img-refs-catalog/construction/construction03.png', alt: 'Construction Product 3' },
+    { id: 4, src: '/img-refs-catalog/construction/construction04.png', alt: 'Construction Product 4' },
+  ],
+  tools: [
+    { id: 1, src: '/img-refs-catalog/others/others01.png', alt: 'Tools Product 1' },
+    { id: 2, src: '/img-refs-catalog/others/others02.png', alt: 'Tools Product 2' },
+    { id: 3, src: '/img-refs-catalog/others/others03.png', alt: 'Tools Product 3' },
+    { id: 4, src: '/img-refs-catalog/others/others04.png', alt: 'Tools Product 4' },
+  ]
+};
+
+// Preload catalog images for instant switching with proper caching
+const preloadCatalogImages = () => {
+  Object.values(CATALOG_IMAGE_DATA).flat().forEach(({ src }) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = src;
+    // Add to browser cache
+    img.onload = () => {
+      // Force cache by creating a blob URL
+      fetch(src).then(response => response.blob()).catch(() => {});
+    };
+  });
+};
+
 export default function UploadCatalog() {
   const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('computer');
@@ -20,46 +62,10 @@ export default function UploadCatalog() {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Category-specific images
-  const getCategoryImages = (category: string) => {
-    switch (category) {
-      case 'retail':
-        return [
-          { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
-          { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
-          { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
-          { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
-        ];
-      case 'technology':
-        return [
-          { id: 1, src: '/img-refs-catalog/tech/tech01.png', alt: 'Technology Product 1' },
-          { id: 2, src: '/img-refs-catalog/tech/tech02.png', alt: 'Technology Product 2' },
-          { id: 3, src: '/img-refs-catalog/tech/tech03.png', alt: 'Technology Product 3' },
-          { id: 4, src: '/img-refs-catalog/tech/tech04.png', alt: 'Technology Product 4' },
-        ];
-      case 'construction':
-        return [
-          { id: 1, src: '/img-refs-catalog/construction/construction01.png', alt: 'Construction Product 1' },
-          { id: 2, src: '/img-refs-catalog/construction/construction02.png', alt: 'Construction Product 2' },
-          { id: 3, src: '/img-refs-catalog/construction/construction03.png', alt: 'Construction Product 3' },
-          { id: 4, src: '/img-refs-catalog/construction/construction04.png', alt: 'Construction Product 4' },
-        ];
-      case 'tools':
-        return [
-          { id: 1, src: '/img-refs-catalog/others/others01.png', alt: 'Tools Product 1' },
-          { id: 2, src: '/img-refs-catalog/others/others02.png', alt: 'Tools Product 2' },
-          { id: 3, src: '/img-refs-catalog/others/others03.png', alt: 'Tools Product 3' },
-          { id: 4, src: '/img-refs-catalog/others/others04.png', alt: 'Tools Product 4' },
-        ];
-      default:
-        return [
-          { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
-          { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
-          { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
-          { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
-        ];
-    }
-  };
+  // Preload all catalog images on component mount for instant tab switching
+  useEffect(() => {
+    preloadCatalogImages();
+  }, []);
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   
@@ -69,8 +75,8 @@ export default function UploadCatalog() {
   
   const selectedCategory = selectedCatalogCategory;
 
-  // Get current category images (reactive)
-  const moodImages = useMemo(() => getCategoryImages(selectedCatalogCategory), [selectedCatalogCategory]);
+  // Get current category images (reactive) - now uses stable reference
+  const moodImages = useMemo(() => CATALOG_IMAGE_DATA[selectedCatalogCategory] || CATALOG_IMAGE_DATA.retail, [selectedCatalogCategory]);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -404,8 +410,9 @@ export default function UploadCatalog() {
                           src={image.src}
                           alt={image.alt}
                           className="w-full h-full object-cover"
-                          loading="lazy"
+                          loading="eager"
                           decoding="async"
+                          style={{ imageRendering: 'optimizeSpeed' }}
                         />
                       </div>
                     ))}
