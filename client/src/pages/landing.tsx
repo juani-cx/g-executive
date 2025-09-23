@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
-import campaignImage from "@assets/campaign_1758139095122.png";
-import catalogImage from "@assets/catalog_1758139095122.png";
+import campaignImage from "@assets/cards-campaign_1758667838885.png";
+import catalogImage from "@assets/cards-catalog_1758667838885.png";
 import TopNavigation from "@/components/TopNavigation";
 
 export default function Landing() {
@@ -157,7 +157,7 @@ export default function Landing() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   width: '100%',
-                  height: '200px', // Reduced height
+                  height: '280px', // Increased height for better visual impact
                   paddingBottom: '4px',
                   overflow: 'hidden',
                   boxSizing: 'border-box'
@@ -245,7 +245,7 @@ export default function Landing() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   width: '100%',
-                  height: '200px', // Reduced height
+                  height: '280px', // Increased height for better visual impact
                   paddingBottom: '4px',
                   overflow: 'hidden',
                   boxSizing: 'border-box'
