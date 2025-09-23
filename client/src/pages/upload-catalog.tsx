@@ -119,7 +119,7 @@ export default function UploadCatalog() {
         localStorage.setItem('uploadedImage', compressedImage);
         localStorage.setItem('selectedCategory', selectedCategory);
         localStorage.setItem('workflowType', workflowType);
-        navigate('/configure');
+        navigate('/configure-catalog');
       } catch (error) {
         console.error('Error compressing image:', error);
       }
@@ -132,7 +132,7 @@ export default function UploadCatalog() {
       localStorage.setItem('selectedCardIndex', selectedCard.toString());
       localStorage.setItem('selectedCategory', selectedCategory);
       localStorage.setItem('workflowType', workflowType);
-      navigate('/configure');
+      navigate('/configure-catalog');
     }
   };
 
@@ -146,8 +146,8 @@ export default function UploadCatalog() {
       localStorage.setItem('uploadedImage', selectedImage);
       localStorage.setItem('selectedCategory', selectedCategory);
       localStorage.setItem('workflowType', workflowType);
-      // Navigate to loading page first, which will redirect to catalog canvas
-      navigate('/loading');
+      // Navigate to configure-catalog page first
+      navigate('/configure-catalog');
     }
   };
 
@@ -161,7 +161,7 @@ export default function UploadCatalog() {
         localStorage.setItem('aiPrompt', aiPrompt);
         localStorage.setItem('selectedCategory', selectedCategory);
         localStorage.setItem('workflowType', workflowType);
-        navigate('/configure');
+        navigate('/configure-catalog');
       } catch (error) {
         console.error('Error generating AI image:', error);
       } finally {

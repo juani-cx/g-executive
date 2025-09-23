@@ -8,7 +8,7 @@ export default function Loading() {
   useEffect(() => {
     // Check workflow type to determine which canvas to navigate to
     const workflowType = localStorage.getItem('workflowType');
-    const targetPath = workflowType === 'catalog' ? '/configure' : '/canvas';
+    const targetPath = workflowType === 'catalog' ? '/catalog-canvas' : '/canvas';
     
     // Redirect after 8 seconds to show full animation
     const timer = setTimeout(() => {

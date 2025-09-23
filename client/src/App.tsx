@@ -13,6 +13,7 @@ import UploadImage from "@/pages/upload-image";
 import UploadCampaign from "@/pages/upload-campaign";
 import UploadCatalog from "@/pages/upload-catalog";
 import Configure from "@/pages/configure";
+import ConfigureCatalog from "@/pages/configure-catalog";
 import Preview from "@/pages/preview";
 import CanvasView from "@/pages/canvas";
 import CatalogCanvas from "@/pages/catalog-canvas";
@@ -47,6 +48,7 @@ function AuthenticatedRouter() {
             <Route path="/upload-campaign" component={UploadCampaign} />
             <Route path="/upload-catalog" component={UploadCatalog} />
             <Route path="/configure" component={Configure} />
+            <Route path="/configure-catalog" component={ConfigureCatalog} />
             <Route path="/preview" component={Preview} />
             <Route path="/loading" component={Loading} />
             <Route path="/canvas" component={CanvasView} />
