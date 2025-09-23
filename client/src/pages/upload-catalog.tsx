@@ -315,9 +315,9 @@ export default function UploadCatalog() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '24px',
-            minHeight: '600px',
-            justifyContent: 'center',
-            marginTop: '-50px'
+            height: '620px',
+            marginTop: '-70px',
+            justifyContent: 'center'
           }}>
             {activeTab === 'computer' && (
               <div style={{
@@ -336,8 +336,9 @@ export default function UploadCatalog() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: '4px',
-                  width: '400px',
-                  height: '380px',
+                  width: '460px',
+                  height: '474px',
+                  padding: '24px',
                   overflow: 'hidden',
                   boxShadow: '0 16px 24px #0000001a'
                 }}>
@@ -346,8 +347,8 @@ export default function UploadCatalog() {
                     background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
                     flexShrink: '0',
                     width: '90%',
-                    height: 'auto',
-                    borderRadius: '14px'
+                    height: '364px',
+                    borderRadius: '16px'
                   }} />
                 </div>
                 {/* Text below QR - Scaled proportionally */}
