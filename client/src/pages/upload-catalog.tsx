@@ -314,18 +314,13 @@ export default function UploadCatalog() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '24px',
             height: '620px',
             marginTop: '-70px',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            position: 'relative'
           }}>
             {activeTab === 'computer' && (
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '24px'
-              }}>
+              <div className="flex-1 flex flex-col items-center justify-center">
                 {/* QR Component - Scaled for 1080px viewport */}
                 <div style={{
                   boxSizing: 'border-box',
@@ -369,7 +364,7 @@ export default function UploadCatalog() {
             )}
 
             {activeTab === 'ai' && (
-              <div className="text-center">
+              <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="bg-white rounded-3xl p-12 shadow-lg">
                   <div className="mb-6">
                     <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -390,14 +385,14 @@ export default function UploadCatalog() {
             )}
 
             {activeTab === 'predefined' && (
-              <div>
+              <div className="flex-1 flex flex-col items-center justify-center">
                 {/* Predefined Images Grid */}
-                <div className="relative mb-12">
-                  <div className="grid grid-cols-4 gap-4">
+                <div className="relative" style={{ marginTop: '60px', marginBottom: '60px' }}>
+                  <div className="grid grid-cols-4 gap-6">
                     {moodImages.map((image) => (
                       <div
                         key={image.id}
-                        className={`h-56 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                        className={`h-72 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
                           selectedImage === image.src
                             ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                             : ''
