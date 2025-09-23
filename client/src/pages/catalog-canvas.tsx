@@ -186,6 +186,14 @@ export default function CatalogCanvas() {
                   }}>
                     SEO Attributes
                   </h2>
+                  <p style={{
+                    color: '#6b7280',
+                    fontSize: '14px',
+                    margin: 0,
+                    textAlign: 'left'
+                  }}>
+                    Optimize your product for search engines and better discoverability
+                  </p>
                 </div>
 
                 {/* Product Image/Video Display */}
@@ -208,16 +216,6 @@ export default function CatalogCanvas() {
                     data-testid="img-product-preview"
                   />
                 </div>
-
-                <p style={{
-                  color: '#6b7280',
-                  fontSize: '14px',
-                  marginBottom: '20px',
-                  margin: 0,
-                  textAlign: 'left'
-                }}>
-                  Optimize your product for search engines and better discoverability
-                </p>
 
                 {/* Alt Image Text - Moved to left column */}
                 <div style={{ marginTop: '20px' }}>
