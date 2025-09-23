@@ -203,8 +203,13 @@ export default function Configure() {
     
     localStorage.setItem('campaignConfig', JSON.stringify(configData));
     
-    // Navigate to loading page which will redirect to canvas
-    navigate('/loading');
+    // Navigate to appropriate destination based on workflow type
+    if (workflowType === 'catalog') {
+      navigate('/catalog-canvas');
+    } else {
+      // Campaign workflow goes through loading page
+      navigate('/loading');
+    }
   };
 
   return (
@@ -300,7 +305,7 @@ export default function Configure() {
               {/* Form Fields - Inline Layout */}
               <div>
                 <InlineComboInput
-                  label="Product Category"
+                  label={workflowType === 'catalog' ? "Target product" : "Product Category"}
                   value={campaignType}
                   onChange={setCampaignType}
                   options={productCategoryOptions}
