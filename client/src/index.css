@@ -172,56 +172,87 @@ body {
   position: fixed; 
 }
 
-/* Loading page Google logo animations */
-@keyframes dotPulse {
-  0%, 30% {
+/* Loading page Google logo looping animations */
+:root {
+  --gCycle: 3.6s;
+}
+
+@keyframes dotLoop {
+  0%, 12% {
     transform: scale(1);
     opacity: 1;
   }
-  15% {
-    transform: scale(1.2);
-    opacity: 0.8;
+  8% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  24% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  72% {
+    transform: scale(0.95);
+    opacity: 0;
   }
   100% {
     transform: scale(1);
-    opacity: 0;
+    opacity: 1;
   }
 }
 
-@keyframes circleReveal {
+@keyframes circleLoop {
   0% {
-    stroke-dasharray: 200;
     stroke-dashoffset: 200;
     opacity: 0;
   }
   20% {
+    stroke-dashoffset: 200;
+    opacity: 1;
+  }
+  45% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  80% {
+    stroke-dashoffset: 200;
     opacity: 1;
   }
   100% {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 0;
-    opacity: 1;
+    stroke-dashoffset: 200;
+    opacity: 0;
   }
 }
 
-@keyframes gLineReveal {
-  0% {
-    stroke-dasharray: 100;
+@keyframes gLineLoop {
+  0%, 40% {
     stroke-dashoffset: 100;
     opacity: 0;
   }
-  20% {
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  65% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  80% {
+    stroke-dashoffset: 100;
     opacity: 1;
   }
   100% {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 0;
-    opacity: 1;
+    stroke-dashoffset: 100;
+    opacity: 0;
   }
 }
 
 .google-logo-svg .dot {
-  animation: dotPulse 1.2s ease-in-out forwards;
+  animation: dotLoop var(--gCycle) cubic-bezier(0.4,0,0.2,1) infinite both;
+  transform-origin: center;
 }
 
 .google-logo-svg .dotBlue {
@@ -229,46 +260,46 @@ body {
 }
 
 .google-logo-svg .dotRed {
-  animation-delay: 0.15s;
+  animation-delay: 0.05s;
 }
 
 .google-logo-svg .dotYellow {
-  animation-delay: 0.3s;
+  animation-delay: 0.1s;
 }
 
 .google-logo-svg .dotGreen {
-  animation-delay: 0.45s;
+  animation-delay: 0.15s;
 }
 
 .google-logo-svg .circle {
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
   opacity: 0;
-  animation: circleReveal 1s ease-in-out forwards;
+  animation: circleLoop var(--gCycle) cubic-bezier(0.4,0,0.2,1) infinite both;
 }
 
 .google-logo-svg #blueG {
-  animation-delay: 1.2s;
+  animation-delay: 0.45s;
 }
 
 .google-logo-svg #redG {
-  animation-delay: 1.4s;
+  animation-delay: 0.75s;
 }
 
 .google-logo-svg #yellowG {
-  animation-delay: 1.6s;
+  animation-delay: 1.05s;
 }
 
 .google-logo-svg #greenG {
-  animation-delay: 1.8s;
+  animation-delay: 1.35s;
 }
 
 .google-logo-svg #gLine {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  animation: gLineReveal 0.8s ease-in-out forwards;
-  animation-delay: 2.5s;
+  animation: gLineLoop var(--gCycle) cubic-bezier(0.4,0,0.2,1) infinite both;
+  animation-delay: 1.5s;
 }
 
 /* Clean card styles */
