@@ -137,7 +137,7 @@ export default function Landing() {
                   fontSize: '28px',
                   fontWeight: '500',
                   lineHeight: '27.5px'
-                }}>Marketing<br/>Campaign</span>
+                }}>Launch<br/>your campaign</span>
               </div>
 
               {/* Card Content */}
@@ -225,7 +225,7 @@ export default function Landing() {
                   fontSize: '28px',
                   fontWeight: '500',
                   lineHeight: '27.5px'
-                }}>Catalog<br/>Enrichment</span>
+                }}>Launch a product</span>
               </div>
 
               {/* Card Content */}
