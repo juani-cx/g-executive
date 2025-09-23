@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
@@ -12,6 +12,36 @@ interface CardData {
   icon: string;
 }
 
+// Stable image data - moved outside component to prevent re-creation
+const IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>> = {
+  digital: [
+    { id: 1, src: '/img-refs/digital/digital1.png', alt: 'Digital 1' },
+    { id: 2, src: '/img-refs/digital/digital2.png', alt: 'Digital 2' },
+    { id: 3, src: '/img-refs/digital/digital3.png', alt: 'Digital 3' },
+    { id: 4, src: '/img-refs/digital/digital4.png', alt: 'Digital 4' },
+  ],
+  physical: [
+    { id: 1, src: '/img-refs/physical/physical_1.png', alt: 'Physical 1' },
+    { id: 2, src: '/img-refs/physical/physical_2.png', alt: 'Physical 2' },
+    { id: 3, src: '/img-refs/physical/physical_3.png', alt: 'Physical 3' },
+    { id: 4, src: '/img-refs/physical/physical_4.png', alt: 'Physical 4' },
+  ],
+  service: [
+    { id: 1, src: '/img-refs/service/service1.png', alt: 'Service 1' },
+    { id: 2, src: '/img-refs/service/service2.png', alt: 'Service 2' },
+    { id: 3, src: '/img-refs/service/service3.png', alt: 'Service 3' },
+    { id: 4, src: '/img-refs/service/service4.png', alt: 'Service 4' },
+  ]
+};
+
+// Preload images for instant switching
+const preloadImages = () => {
+  Object.values(IMAGE_DATA).flat().forEach(({ src }) => {
+    const img = new Image();
+    img.src = src;
+  });
+};
+
 export default function UploadCampaign() {
   const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('computer');
@@ -20,29 +50,14 @@ export default function UploadCampaign() {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Function to get images based on selected category
+  // Preload all images on component mount for instant tab switching
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
+  // Function to get images based on selected category - now uses stable data
   const getMoodImages = (category: string) => {
-    const imagesByCategory: Record<string, Array<{ id: number; src: string; alt: string }>> = {
-      digital: [
-        { id: 1, src: '/img-refs/digital/digital1.png', alt: 'Digital 1' },
-        { id: 2, src: '/img-refs/digital/digital2.png', alt: 'Digital 2' },
-        { id: 3, src: '/img-refs/digital/digital3.png', alt: 'Digital 3' },
-        { id: 4, src: '/img-refs/digital/digital4.png', alt: 'Digital 4' },
-      ],
-      physical: [
-        { id: 1, src: '/img-refs/physical/physical_1.png', alt: 'Physical 1' },
-        { id: 2, src: '/img-refs/physical/physical_2.png', alt: 'Physical 2' },
-        { id: 3, src: '/img-refs/physical/physical_3.png', alt: 'Physical 3' },
-        { id: 4, src: '/img-refs/physical/physical_4.png', alt: 'Physical 4' },
-      ],
-      service: [
-        { id: 1, src: '/img-refs/service/service1.png', alt: 'Service 1' },
-        { id: 2, src: '/img-refs/service/service2.png', alt: 'Service 2' },
-        { id: 3, src: '/img-refs/service/service3.png', alt: 'Service 3' },
-        { id: 4, src: '/img-refs/service/service4.png', alt: 'Service 4' },
-      ]
-    };
-    return imagesByCategory[category] || imagesByCategory.digital;
+    return IMAGE_DATA[category] || IMAGE_DATA.digital;
   };
   
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -53,8 +68,8 @@ export default function UploadCampaign() {
   
   const selectedCategory = selectedCampaignCategory;
   
-  // Get mood images for the currently selected category (reactive)
-  const moodImages = useMemo(() => getMoodImages(selectedCategory), [selectedCategory]);
+  // Get mood images for the currently selected category (reactive) - now uses stable reference
+  const moodImages = useMemo(() => IMAGE_DATA[selectedCategory] || IMAGE_DATA.digital, [selectedCategory]);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
