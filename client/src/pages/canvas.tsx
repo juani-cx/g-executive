@@ -187,7 +187,7 @@ function EditModal({
         {cards && currentIndex > 0 && (
           <button
             onClick={() => onNavigate('prev')}
-            className="fixed left-[calc(50%-650px)] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-prev-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,7 +198,7 @@ function EditModal({
         {cards && currentIndex < cards.length - 1 && (
           <button
             onClick={() => onNavigate('next')}
-            className="fixed right-[calc(50%-650px)] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-next-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,7 +244,7 @@ function EditModal({
                 {(cta || card.cta) && (
                   <Button 
                     size="sm" 
-                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1 rounded-full"
+                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
                     data-testid="button-preview-cta"
                   >
                     {cta || card.cta}
@@ -269,7 +269,7 @@ function EditModal({
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="mt-1"
+                  className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-title"
                 />
               </div>
@@ -283,7 +283,7 @@ function EditModal({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
-                  className="mt-1 resize-none text-sm"
+                  className="mt-1 resize-none text-sm focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="textarea-description"
                 />
               </div>
@@ -296,7 +296,7 @@ function EditModal({
                   id="cta"
                   value={cta}
                   onChange={(e) => setCta(e.target.value)}
-                  className="mt-1"
+                  className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-cta"
                 />
               </div>
@@ -307,7 +307,7 @@ function EditModal({
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full"
+                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
                 data-testid="button-back"
               >
                 Back
@@ -315,14 +315,14 @@ function EditModal({
               <Button
                 variant="outline"
                 onClick={handleRandomize}
-                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full"
+                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
                 data-testid="button-randomize"
               >
                 Randomize
               </Button>
               <Button
                 onClick={handleSave}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2 rounded-full"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
                 data-testid="button-export-assets"
               >
                 Export assets
@@ -476,7 +476,7 @@ export default function Canvas() {
           <div className="mb-8">
             <Button
               onClick={handleExportAll}
-              className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
+              className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
               data-testid="button-export-all"
             >
               Export assets
@@ -570,7 +570,7 @@ export default function Canvas() {
             {/* Close Button */}
             <Button
               onClick={() => setIsExportModalOpen(false)}
-              className="mt-8 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
+              className="mt-8 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
               data-testid="button-close-export-modal"
             >
               Close
