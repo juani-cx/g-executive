@@ -445,7 +445,7 @@ export default function UploadCatalog() {
           }}>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
                 activeTab === 'computer'
                   ? 'text-blue-600'
                   : 'text-gray-600'
@@ -458,7 +458,7 @@ export default function UploadCatalog() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
                 activeTab === 'ai'
                   ? 'text-blue-600'
                   : 'text-gray-600'
@@ -471,7 +471,7 @@ export default function UploadCatalog() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
                 activeTab === 'predefined'
                   ? 'text-blue-600'
                   : 'text-gray-600'
