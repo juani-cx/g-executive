@@ -182,12 +182,12 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[500px] p-0 overflow-hidden !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
+      <DialogContent className="max-w-4xl w-full h-[500px] p-0 overflow-visible !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
             onClick={() => onNavigate('prev')}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
+            className="absolute left-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-prev-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,7 +198,7 @@ function EditModal({
         {cards && currentIndex < cards.length - 1 && (
           <button
             onClick={() => onNavigate('next')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
+            className="absolute right-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-next-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -206,7 +206,7 @@ function EditModal({
             </svg>
           </button>
         )}
-        <div className="flex h-full bg-white rounded-lg">
+        <div className="flex h-full bg-white rounded-lg overflow-hidden">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-4 h-full flex flex-col">
