@@ -15,6 +15,7 @@ import UploadCatalog from "@/pages/upload-catalog";
 import Configure from "@/pages/configure";
 import Preview from "@/pages/preview";
 import CanvasView from "@/pages/canvas";
+import Loading from "@/pages/loading";
 import CampaignGenerator from "@/pages/campaign-generator";
 import CatalogGenerator from "@/pages/catalog-generator";
 import OutputHub from "@/pages/output-hub";
@@ -46,6 +47,7 @@ function AuthenticatedRouter() {
             <Route path="/upload-catalog" component={UploadCatalog} />
             <Route path="/configure" component={Configure} />
             <Route path="/preview" component={Preview} />
+            <Route path="/loading" component={Loading} />
             <Route path="/canvas" component={CanvasView} />
             <Route path="/canvas/:id" component={CanvasView} />
             <Route path="/campaign-generator" component={CampaignGenerator} />

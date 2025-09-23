@@ -203,8 +203,8 @@ export default function Configure() {
     
     localStorage.setItem('campaignConfig', JSON.stringify(configData));
     
-    // Navigate directly to canvas page
-    navigate('/canvas');
+    // Navigate to loading page which will redirect to canvas
+    navigate('/loading');
   };
 
   return (
