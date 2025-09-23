@@ -10,13 +10,14 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
+import { useTimeoutSettings } from "@/contexts/TimeoutContext";
 
 interface TopNavigationProps {
   isLandingPage?: boolean;
 }
 
 export default function TopNavigation({ isLandingPage = false }: TopNavigationProps) {
-  const [timeoutEnabled, setTimeoutEnabled] = useState(true);
+  const { timeoutEnabled, setTimeoutEnabled } = useTimeoutSettings();
   const [guidedVersion, setGuidedVersion] = useState(false);
 
   const handleHowItWorks = () => {
@@ -63,7 +64,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               className="flex items-center justify-between p-3"
               onSelect={(e) => e.preventDefault()}
             >
-              <span>Timeout</span>
+              <span>Auto-Timeout (Off by default)</span>
               <Switch
                 checked={timeoutEnabled}
                 onCheckedChange={setTimeoutEnabled}

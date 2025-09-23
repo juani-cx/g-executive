@@ -23,10 +23,25 @@ import CatalogGenerator from "@/pages/catalog-generator";
 import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
+import { TimeoutProvider, useTimeoutSettings } from "@/contexts/TimeoutContext";
+import { useTimeout } from "@/hooks/useTimeout";
+import TimeoutModal from "@/components/TimeoutModal";
 
 function AuthenticatedRouter() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
+  const timeoutSettings = useTimeoutSettings();
+  
+  const handleTimeout = () => {
+    setLocation('/');
+  };
+  
+  const {
+    showTimeoutModal,
+    handleStayHere,
+    handleGoHome,
+    handleModalClose
+  } = useTimeout(timeoutSettings, handleTimeout);
   
   return (
     <div className="relative">
@@ -60,6 +75,14 @@ function AuthenticatedRouter() {
             <Route path="/executive/:linkId" component={ExecutiveView} />
             <Route component={NotFound} />
           </Switch>
+          
+          {/* Timeout Modal */}
+          <TimeoutModal
+            isOpen={showTimeoutModal}
+            onClose={handleModalClose}
+            onStayHere={handleStayHere}
+            onGoHome={handleGoHome}
+          />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -67,14 +90,15 @@ function AuthenticatedRouter() {
 }
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="h-screen max-h-screen overflow-hidden">
-          <AuthenticatedRouter />
-          <Toaster />
-        </div>
+        <TimeoutProvider>
+          <div className="h-screen max-h-screen overflow-hidden">
+            <AuthenticatedRouter />
+            <Toaster />
+          </div>
+        </TimeoutProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
