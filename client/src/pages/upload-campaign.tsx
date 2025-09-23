@@ -20,13 +20,31 @@ export default function UploadCampaign() {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Predefined mood images
-  const moodImages = [
-    { id: 1, src: '/img-refs/mood01.png', alt: 'Mood 1' },
-    { id: 2, src: '/img-refs/mood02.png', alt: 'Mood 2' },
-    { id: 3, src: '/img-refs/mood03.png', alt: 'Mood 3' },
-    { id: 4, src: '/img-refs/mood04.png', alt: 'Mood 4' },
-  ];
+  // Function to get images based on selected category
+  const getMoodImages = (category: string) => {
+    const imagesByCategory: Record<string, Array<{ id: number; src: string; alt: string }>> = {
+      digital: [
+        { id: 1, src: '/img-refs/digital/digital1.png', alt: 'Digital 1' },
+        { id: 2, src: '/img-refs/digital/digital2.png', alt: 'Digital 2' },
+        { id: 3, src: '/img-refs/digital/digital3.png', alt: 'Digital 3' },
+        { id: 4, src: '/img-refs/digital/digital4.png', alt: 'Digital 4' },
+      ],
+      physical: [
+        { id: 1, src: '/img-refs/physical/physical_1.png', alt: 'Physical 1' },
+        { id: 2, src: '/img-refs/physical/physical_2.png', alt: 'Physical 2' },
+        { id: 3, src: '/img-refs/physical/physical_3.png', alt: 'Physical 3' },
+        { id: 4, src: '/img-refs/physical/physical_4.png', alt: 'Physical 4' },
+      ],
+      service: [
+        { id: 1, src: '/img-refs/service/service1.png', alt: 'Service 1' },
+        { id: 2, src: '/img-refs/service/service2.png', alt: 'Service 2' },
+        { id: 3, src: '/img-refs/service/service3.png', alt: 'Service 3' },
+        { id: 4, src: '/img-refs/service/service4.png', alt: 'Service 4' },
+      ]
+    };
+    return imagesByCategory[category] || imagesByCategory.digital;
+  };
+  
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   
   // Campaign workflow - fixed to campaign
@@ -34,6 +52,9 @@ export default function UploadCampaign() {
   const [selectedCampaignCategory, setSelectedCampaignCategory] = useState<'digital' | 'physical' | 'service'>('digital');
   
   const selectedCategory = selectedCampaignCategory;
+  
+  // Get mood images for the currently selected category
+  const moodImages = getMoodImages(selectedCategory);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
