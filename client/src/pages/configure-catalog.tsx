@@ -64,7 +64,7 @@ function InlineComboInput({ label, value, onChange, options, placeholder = "", t
             {filteredOptions.map((option, index) => (
               <div
                 key={index}
-                className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-left"
                 onMouseDown={() => handleOptionSelect(option)}
                 data-testid={`option-${testId}-${index}`}
               >
@@ -273,10 +273,10 @@ export default function ConfigureCatalog() {
           <div className="max-w-6xl mx-auto">
             {/* White card container */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-[16fr_9fr] gap-8 items-stretch lg:max-h-[375px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[16fr_9fr] gap-8 items-start">
               {/* Left Column - Image */}
-              <div className="flex justify-center min-h-0">
-                <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+              <div className="flex justify-center">
+                <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                   {uploadedImage ? (
                     <img 
                       src={uploadedImage} 
@@ -294,7 +294,7 @@ export default function ConfigureCatalog() {
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-2 min-h-0 overflow-y-auto">
+            <div className="space-y-2">
               {/* Form Fields - Inline Layout */}
               <div>
                 <InlineComboInput
