@@ -5,10 +5,10 @@ export default function Loading() {
   const [, navigate] = useLocation();
 
   useEffect(() => {
-    // Redirect to canvas after 6 seconds to show full animation
+    // Redirect to canvas after 8 seconds to show full animation
     const timer = setTimeout(() => {
       navigate('/canvas');
-    }, 6000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -37,7 +37,7 @@ export default function Loading() {
           xmlns="http://www.w3.org/2000/svg" 
           width="200" 
           height="145"
-          viewBox="200 150 242 145"
+          viewBox="200 140 242 180"
           className="google-logo-svg"
         >
           <defs>
@@ -50,16 +50,16 @@ export default function Loading() {
           <g id="circles">
             {/* Blue arc - top right quadrant */}
             <path id="blueG" className="circle" fill="none" stroke="#4285F4" strokeWidth="28" 
-                  d="M 318 182.9 A 57 57 0 0 1 375.9 240.4"/>
-            {/* Red arc - bottom left quadrant */}
+                  pathLength="200" d="M 318 182.9 A 57 57 0 0 1 375.9 240.4"/>
+            {/* Red arc - top left quadrant */}
             <path id="redG" className="circle" fill="none" stroke="#EA4335" strokeWidth="28" 
-                  d="M 261 240.4 A 57 57 0 0 1 318 297.9"/>
-            {/* Yellow arc - bottom right quadrant */}
+                  pathLength="200" d="M 261 240.4 A 57 57 0 0 1 318 182.9"/>
+            {/* Yellow arc - bottom left quadrant */}
             <path id="yellowG" className="circle" fill="none" stroke="#FBBC05" strokeWidth="28" 
-                  d="M 318 297.9 A 57 57 0 0 1 375.9 240.4"/>
-            {/* Green arc - top left quadrant */}
+                  pathLength="200" d="M 318 297.9 A 57 57 0 0 1 261 240.4"/>
+            {/* Green arc - bottom right quadrant */}
             <path id="greenG" className="circle" fill="none" stroke="#34A853" strokeWidth="28" 
-                  d="M 375.9 240.4 A 57 57 0 0 1 318 182.9"/>
+                  pathLength="200" d="M 375.9 240.4 A 57 57 0 0 1 318 297.9"/>
           </g>
           
           {/* Starting dots */}

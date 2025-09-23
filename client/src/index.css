@@ -174,11 +174,11 @@ body {
 
 /* Loading page Google logo animations */
 @keyframes dotPulse {
-  0%, 20% {
+  0%, 30% {
     transform: scale(1);
     opacity: 1;
   }
-  10% {
+  15% {
     transform: scale(1.2);
     opacity: 0.8;
   }
@@ -190,7 +190,7 @@ body {
 
 @keyframes circleReveal {
   0% {
-    stroke-dasharray: 0 200;
+    stroke-dasharray: 200;
     stroke-dashoffset: 200;
     opacity: 0;
   }
@@ -198,7 +198,7 @@ body {
     opacity: 1;
   }
   100% {
-    stroke-dasharray: 200 0;
+    stroke-dasharray: 200;
     stroke-dashoffset: 0;
     opacity: 1;
   }
@@ -206,20 +206,22 @@ body {
 
 @keyframes gLineReveal {
   0% {
-    stroke-dasharray: 0 100;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
     opacity: 0;
   }
-  80% {
-    opacity: 0;
+  20% {
+    opacity: 1;
   }
   100% {
-    stroke-dasharray: 100 0;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
     opacity: 1;
   }
 }
 
 .google-logo-svg .dot {
-  animation: dotPulse 2s ease-in-out forwards;
+  animation: dotPulse 1.2s ease-in-out forwards;
 }
 
 .google-logo-svg .dotBlue {
@@ -227,45 +229,46 @@ body {
 }
 
 .google-logo-svg .dotRed {
-  animation-delay: 0.2s;
+  animation-delay: 0.15s;
 }
 
 .google-logo-svg .dotYellow {
-  animation-delay: 0.4s;
+  animation-delay: 0.3s;
 }
 
 .google-logo-svg .dotGreen {
-  animation-delay: 0.6s;
+  animation-delay: 0.45s;
 }
 
 .google-logo-svg .circle {
-  stroke-dasharray: 0 200;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
   opacity: 0;
-  animation: circleReveal 2s ease-in-out forwards;
-  pathLength: 200;
+  animation: circleReveal 1s ease-in-out forwards;
 }
 
 .google-logo-svg #blueG {
-  animation-delay: 1.5s;
+  animation-delay: 1.2s;
 }
 
 .google-logo-svg #redG {
-  animation-delay: 1.7s;
+  animation-delay: 1.4s;
 }
 
 .google-logo-svg #yellowG {
-  animation-delay: 1.9s;
+  animation-delay: 1.6s;
 }
 
 .google-logo-svg #greenG {
-  animation-delay: 2.1s;
+  animation-delay: 1.8s;
 }
 
 .google-logo-svg #gLine {
-  stroke-dasharray: 0 100;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
   opacity: 0;
-  animation: gLineReveal 1.5s ease-in-out forwards;
-  animation-delay: 4s;
+  animation: gLineReveal 0.8s ease-in-out forwards;
+  animation-delay: 2.5s;
 }
 
 /* Clean card styles */
