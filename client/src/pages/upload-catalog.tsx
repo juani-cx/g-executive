@@ -20,13 +20,47 @@ export default function UploadCatalog() {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Predefined mood images
-  const moodImages = [
-    { id: 1, src: '/img-refs/mood01.png', alt: 'Mood 1' },
-    { id: 2, src: '/img-refs/mood02.png', alt: 'Mood 2' },
-    { id: 3, src: '/img-refs/mood03.png', alt: 'Mood 3' },
-    { id: 4, src: '/img-refs/mood04.png', alt: 'Mood 4' },
-  ];
+  // Category-specific images
+  const getCategoryImages = (category: string) => {
+    switch (category) {
+      case 'retail':
+        return [
+          { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
+          { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
+          { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
+          { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
+        ];
+      case 'technology':
+        return [
+          { id: 1, src: '/img-refs-catalog/tech/tech01.png', alt: 'Technology Product 1' },
+          { id: 2, src: '/img-refs-catalog/tech/tech02.png', alt: 'Technology Product 2' },
+          { id: 3, src: '/img-refs-catalog/tech/tech03.png', alt: 'Technology Product 3' },
+          { id: 4, src: '/img-refs-catalog/tech/tech04.png', alt: 'Technology Product 4' },
+        ];
+      case 'construction':
+        return [
+          { id: 1, src: '/img-refs-catalog/construction/construction01.png', alt: 'Construction Product 1' },
+          { id: 2, src: '/img-refs-catalog/construction/construction02.png', alt: 'Construction Product 2' },
+          { id: 3, src: '/img-refs-catalog/construction/construction03.png', alt: 'Construction Product 3' },
+          { id: 4, src: '/img-refs-catalog/construction/construction04.png', alt: 'Construction Product 4' },
+        ];
+      case 'tools':
+        return [
+          { id: 1, src: '/img-refs-catalog/others/others01.png', alt: 'Tools Product 1' },
+          { id: 2, src: '/img-refs-catalog/others/others02.png', alt: 'Tools Product 2' },
+          { id: 3, src: '/img-refs-catalog/others/others03.png', alt: 'Tools Product 3' },
+          { id: 4, src: '/img-refs-catalog/others/others04.png', alt: 'Tools Product 4' },
+        ];
+      default:
+        return [
+          { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
+          { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
+          { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
+          { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
+        ];
+    }
+  };
+
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   
   // Catalog workflow - fixed to catalog
@@ -34,6 +68,9 @@ export default function UploadCatalog() {
   const [selectedCatalogCategory, setSelectedCatalogCategory] = useState<'retail' | 'technology' | 'construction' | 'tools'>('retail');
   
   const selectedCategory = selectedCatalogCategory;
+
+  // Get current category images
+  const moodImages = getCategoryImages(selectedCatalogCategory);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -258,7 +295,11 @@ export default function UploadCatalog() {
                         : "text-gray-600"
                     }`}
                     style={{ padding: '0.25rem 1.5rem' }}
-                    onClick={() => setSelectedCatalogCategory(category.id as any)}
+                    onClick={() => {
+                      setSelectedCatalogCategory(category.id as any);
+                      setSelectedImage(null);
+                      setSelectedCard(null);
+                    }}
                     data-testid={`tab-${category.id}`}
                   >
                     {category.label}
