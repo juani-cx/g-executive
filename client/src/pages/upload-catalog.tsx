@@ -244,19 +244,20 @@ export default function UploadCatalog() {
             </p>
           </div>
 
-          {/* Category Tabs - Only show when in predefined tab */}
-          {activeTab === 'predefined' && (
-            <div className="flex justify-center">
-              <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
+          {/* Category Tabs - Always reserve consistent space */}
+          <div className="flex justify-center mb-8" style={{ height: '64px' }}>
+            {activeTab === 'predefined' && (
+              <div className="flex items-center bg-white rounded-full shadow-lg" style={{ padding: '0.25rem 0.5rem' }}>
                 {catalogCategories.map((category) => (
                   <Button
                     key={category.id}
                     variant={selectedCategory === category.id ? "default" : "ghost"}
-                    className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-full text-sm font-medium transition-all ${
                       selectedCategory === category.id
                         ? "bg-blue-600 text-white shadow-sm"
                         : "text-gray-600"
                     }`}
+                    style={{ padding: '0.25rem 1.5rem' }}
                     onClick={() => setSelectedCatalogCategory(category.id as any)}
                     data-testid={`tab-${category.id}`}
                   >
@@ -264,8 +265,8 @@ export default function UploadCatalog() {
                   </Button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Content Area */}
           <div style={{
@@ -392,14 +393,15 @@ export default function UploadCatalog() {
               </div>
             )}
 
-            {/* Bottom Action Tabs - Relative positioning to prevent bleeding */}
+            {/* Bottom Action Tabs - Fixed to bottom */}
             <div style={{
               position: 'relative',
-              marginTop: '48px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '24px'
+              gap: '24px',
+              paddingBottom: '20px',
+              marginTop: '20px'
             }}>
               <Button
                 variant="ghost"
