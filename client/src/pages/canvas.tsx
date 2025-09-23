@@ -517,7 +517,7 @@ export default function Canvas() {
       
       {/* Export Modal */}
       <Dialog open={isExportModalOpen} onOpenChange={setIsExportModalOpen}>
-        <DialogContent className="max-w-lg bg-white p-8">
+        <DialogContent className="max-w-lg bg-white p-8 z-[80]">
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold text-center mb-4" style={{ fontFamily: 'Google Sans' }}>
               Download Your Assets

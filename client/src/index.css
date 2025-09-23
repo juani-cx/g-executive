@@ -160,6 +160,17 @@ body {
   background-size: 40px 40px;
 }
 
+/* Ensure dialog modals appear above all other elements */
+[data-radix-dialog-overlay] { 
+  z-index: 70 !important; 
+  position: fixed; 
+  inset: 0; 
+}
+
+[data-radix-dialog-content] { 
+  z-index: 80 !important; 
+  position: fixed; 
+}
 
 /* Clean card styles */
 .clean-card {
