@@ -270,11 +270,8 @@ export default function UploadCampaign() {
           }}>
             {activeTab === 'computer' && (
               <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '24px',
+                display: 'block',
+                textAlign: 'center',
                 flex: 1
               }}>
                 {/* QR Component - Scaled for 1080px viewport */}
@@ -318,7 +315,7 @@ export default function UploadCampaign() {
             )}
 
             {activeTab === 'ai' && (
-              <div className="text-center flex-1 flex items-center justify-center">
+              <div style={{ display: 'block' }} className="text-center flex-1 flex items-center justify-center">
                 <div className="bg-white rounded-3xl p-12 shadow-lg">
                   <div className="mb-6">
                     <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -339,9 +336,9 @@ export default function UploadCampaign() {
             )}
 
             {activeTab === 'predefined' && (
-              <div className="flex-1 flex flex-col items-center justify-center">
+              <div style={{ display: 'block' }} className="flex-1 flex flex-col items-center justify-center">
                 {/* Predefined Images Grid */}
-                <div className="relative mb-8">
+                <div className="relative" style={{ marginTop: '40px', marginBottom: '56px' }}>
                   <div className="grid grid-cols-4 gap-4">
                     {moodImages.map((image) => (
                       <div

@@ -377,7 +377,7 @@ export default function CatalogGenerator() {
                   </Button>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ marginTop: '40px', marginBottom: '56px' }}>
                   {/* Mock products for demonstration */}
                   {[
                     { name: "Wireless Mouse Pro", description: "Ergonomic design", price: "$79", category: "Accessories" },
