@@ -404,7 +404,13 @@ export default function Canvas() {
   };
 
   const handleExportAll = () => {
-    setIsExportModalOpen(true);
+    if (isModalOpen) {
+      setIsModalOpen(false);
+      setShowKeyboard(false);
+      setTimeout(() => setIsExportModalOpen(true), 200);
+    } else {
+      setIsExportModalOpen(true);
+    }
   };
 
   return (
