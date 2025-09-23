@@ -172,7 +172,53 @@ body {
   position: fixed; 
 }
 
-/* Old Google logo CSS animations removed - now using CodePen iframe */
+/* Simple loading animation from CodePen */
+.loading-circle {
+  position: absolute;
+  display: block;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  animation: speed 2s infinite ease-in-out;
+}
+
+.loading-circle.one {
+  background: #4285f4; /* Google Blue */
+  animation-delay: 1.5s;
+}
+
+.loading-circle.two {
+  background: #ea4335; /* Google Red */
+  animation-delay: 1s;
+}
+
+.loading-circle.three {
+  background: #fbbc05; /* Google Yellow */
+  animation-delay: 0.5s;
+}
+
+.loading-circle.four {
+  background: #34a853; /* Google Green */
+}
+
+@keyframes speed {
+  0% {
+    transform: translate(0%);
+    border-radius: 50%;
+  }
+  25% {
+    transform: translate(150%) scale(0.5);
+    border-radius: 0%;
+  }
+  50% {
+    transform: translate(150%, 150%);
+    border-radius: 50%;
+  }
+  75% {
+    transform: translate(0, 150%) scale(0.5);
+    border-radius: 0%;
+  }
+}
 
 /* Clean card styles */
 .clean-card {
