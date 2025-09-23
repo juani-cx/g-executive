@@ -142,7 +142,7 @@ export default function CatalogCanvas() {
               lineHeight: '36px',
               margin: 0
             }} data-testid="text-main-title">
-              Canvas
+              Export your assets
             </h1>
             <p style={{
               color: '#5c5c5c',
