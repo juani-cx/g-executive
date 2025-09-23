@@ -46,11 +46,6 @@ const preloadCatalogImages = () => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = src;
-    // Add to browser cache
-    img.onload = () => {
-      // Force cache by creating a blob URL
-      fetch(src).then(response => response.blob()).catch(() => {});
-    };
   });
 };
 
