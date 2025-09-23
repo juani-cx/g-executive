@@ -124,10 +124,11 @@ export default function Landing() {
                 borderBottom: '1.5px solid #000',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 gap: '4px',
                 width: '100%',
                 paddingBottom: '24px',
+                paddingTop: '40px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -157,7 +158,7 @@ export default function Landing() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   width: '100%',
-                  height: '280px', // Increased height for better visual impact
+                  height: '360px', // Even taller for maximum visual impact
                   paddingBottom: '4px',
                   overflow: 'hidden',
                   boxSizing: 'border-box'
@@ -212,10 +213,11 @@ export default function Landing() {
                 borderBottom: '1.5px solid #000',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 gap: '4px',
                 width: '100%',
                 paddingBottom: '24px',
+                paddingTop: '40px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -245,7 +247,7 @@ export default function Landing() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   width: '100%',
-                  height: '280px', // Increased height for better visual impact
+                  height: '360px', // Even taller for maximum visual impact
                   paddingBottom: '4px',
                   overflow: 'hidden',
                   boxSizing: 'border-box'
