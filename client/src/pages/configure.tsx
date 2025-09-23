@@ -42,11 +42,11 @@ function InlineComboInput({ label, value, onChange, options, placeholder = "", t
   );
 
   return (
-    <div className="flex items-center gap-6 mb-4">
-      <Label className="text-sm text-gray-600 w-32 text-left flex-shrink-0">
+    <div className="flex flex-col mb-4">
+      <Label className="text-sm text-gray-600 mb-2 text-left">
         {label}
       </Label>
-      <div className="relative flex-1">
+      <div className="relative">
         <Input
           value={inputValue}
           onChange={handleInputChange}
@@ -144,9 +144,9 @@ export default function Configure() {
   const [toneOfVoice, setToneOfVoice] = useState("");
   // Product description removed per new design
 
-  // Dropdown options
+  // Dropdown options from attached images
   const targetAudienceOptions = ["Millennials", "Gen Z", "Professionals", "Parents", "Seniors", "Students"];
-  const productCategoryOptions = ["Electronics", "Fashion", "Home & Garden", "Sports & Fitness", "Health & Beauty", "Automotive", "Food & Beverage", "Books & Media"];
+  const productCategoryOptions = ["Consumer Electronics", "Fashion & Apparel", "Home & Garden", "Sports & Outdoor", "Health & Beauty"];
   const toneOfVoiceOptions = ["Professional", "Casual", "Friendly", "Authoritative", "Playful", "Luxury"];
 
   useEffect(() => {
@@ -160,10 +160,10 @@ export default function Configure() {
       
       // Simulate AI analysis of the image
       setTimeout(() => {
-        setTargetAudience("Car enthusiasts");
-        setCampaignType("Electronics");
-        setCampaignKind(workflowType === 'campaign' ? "Digital" : "Technology");
-        setToneOfVoice("Playful");
+        setTargetAudience("Millennials");
+        setCampaignType("Consumer Electronics");
+        setCampaignKind(workflowType === 'campaign' ? "Product Launch" : "Technology");
+        setToneOfVoice("Professional");
       }, 1500);
     } else {
       // No image uploaded, redirect back
@@ -184,7 +184,7 @@ export default function Configure() {
     setCampaignType(randomCampaignType);
     
     // Set campaign kind based on workflow
-    const campaignKindOptions = workflowType === 'campaign' ? ['Digital', 'Physical', 'Service'] : ['Retail', 'Technology', 'Construction', 'Tools'];
+    const campaignKindOptions = workflowType === 'campaign' ? ['Product Launch', 'Brand Awareness', 'Lead Generation', 'Sales Promotion', 'Content Marketing', 'Social Media'] : ['Retail', 'Technology', 'Construction', 'Tools'];
     const randomCampaignKind = campaignKindOptions[Math.floor(Math.random() * campaignKindOptions.length)];
     setCampaignKind(randomCampaignKind);
   };
@@ -332,7 +332,7 @@ export default function Configure() {
                   label="Campaign Type"
                   value={campaignKind}
                   onChange={setCampaignKind}
-                  options={workflowType === 'campaign' ? ['Digital', 'Physical', 'Service'] : ['Retail', 'Technology', 'Construction', 'Tools']}
+                  options={workflowType === 'campaign' ? ['Product Launch', 'Brand Awareness', 'Lead Generation', 'Sales Promotion', 'Content Marketing', 'Social Media'] : ['Retail', 'Technology', 'Construction', 'Tools']}
                   testId="combo-campaign-type"
                 />
               </div>

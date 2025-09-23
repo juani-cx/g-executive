@@ -40,11 +40,11 @@ function InlineComboInput({ label, value, onChange, options, placeholder = "", t
   );
 
   return (
-    <div className="flex items-center gap-6 mb-4">
-      <Label className="text-sm text-gray-600 w-32 text-left flex-shrink-0">
+    <div className="flex flex-col mb-4">
+      <Label className="text-sm text-gray-600 mb-2 text-left">
         {label}
       </Label>
-      <div className="relative flex-1">
+      <div className="relative">
         <Input
           value={inputValue}
           onChange={handleInputChange}
@@ -154,22 +154,17 @@ export default function ConfigureCatalog() {
     // Allow proceeding without image for card selection and AI generate paths
   }, [navigate]);
 
-  // Catalog-specific options
+  // Catalog-specific options from attached images
   const targetProductOptions = [
-    "Consumer Electronics", "Fashion & Apparel", "Home & Garden", "Sports & Outdoor",
-    "Health & Beauty", "Automotive", "Books & Media", "Food & Beverage",
-    "Industrial Equipment", "Office Supplies", "Toys & Games", "Pet Supplies"
+    "Consumer Electronics", "Fashion & Apparel", "Home & Garden", "Sports & Outdoor", "Health & Beauty"
   ];
 
   const targetAudienceOptions = [
-    "Young Professionals (25-35)", "Families with Children", "Small Business Owners",
-    "Tech Enthusiasts", "Retirees (55+)", "Students & Academics", "Healthcare Workers",
-    "Creative Professionals", "Outdoor Enthusiasts", "Budget-Conscious Shoppers"
+    "Millennials", "Gen Z", "Professionals", "Parents", "Seniors", "Students"
   ];
 
   const toneOfVoiceOptions = [
-    "Professional", "Friendly", "Technical", "Luxury", "Casual", "Authoritative",
-    "Innovative", "Trustworthy", "Energetic", "Sophisticated"
+    "Professional", "Casual", "Friendly", "Authoritative", "Playful", "Luxury"
   ];
 
   const catalogTypeOptions = [
