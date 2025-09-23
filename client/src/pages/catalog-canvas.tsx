@@ -157,18 +157,7 @@ export default function CatalogCanvas() {
             </p>
           </div>
 
-          {/* Export Button - Same position as canvas.tsx */}
-          <div className="mb-8">
-            <Button
-              onClick={handleExport}
-              className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
-              data-testid="button-export-all"
-            >
-              Export assets
-            </Button>
-          </div>
-
-          {/* Main Canvas Area */}
+          {/* Main Canvas Area - More compact layout */}
           <div className="max-w-7xl mx-auto">
             <div style={{
               display: 'flex',
@@ -178,23 +167,30 @@ export default function CatalogCanvas() {
               margin: '0 auto',
               width: '100%'
             }}>
-              {/* Left Side - Video/Image Preview */}
+              {/* Left Side - SEO Attributes with Image and some fields */}
               <div style={{
                 flex: '1',
                 backgroundColor: '#fff',
                 borderRadius: '12px',
                 padding: '24px',
-                border: '1px solid #e5e7eb',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '400px'
+                border: '1px solid #e5e7eb'
               }}>
+                <div style={{ marginBottom: '24px' }}>
+                  <h2 style={{
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    color: '#1f2937',
+                    marginBottom: '8px',
+                    fontFamily: 'Google Sans'
+                  }}>
+                    SEO Attributes
+                  </h2>
+                </div>
+
                 {/* Product Image/Video Display */}
                 <div style={{
                   width: '100%',
-                  height: '300px',
+                  height: '240px',
                   backgroundColor: '#f8f9fa',
                   borderRadius: '8px',
                   display: 'flex',
@@ -215,18 +211,40 @@ export default function CatalogCanvas() {
                     data-testid="img-product-preview"
                   />
                 </div>
-                
+
                 <p style={{
                   color: '#6b7280',
                   fontSize: '14px',
-                  textAlign: 'center',
+                  marginBottom: '20px',
                   margin: 0
                 }}>
-                  Product image preview
+                  Optimize your product for search engines and better discoverability
                 </p>
+
+                {/* Alt Image Text - Moved to left column */}
+                <div style={{ marginTop: '20px' }}>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '6px'
+                  }}>
+                    Alt image text
+                  </label>
+                  <Input
+                    value={altText}
+                    onChange={(e) => setAltText(e.target.value)}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    placeholder="Describe the image for accessibility"
+                    className="w-full"
+                    data-testid="input-alt-text"
+                  />
+                </div>
               </div>
 
-              {/* Right Side - SEO Attributes Form */}
+              {/* Right Side - Form Fields and Actions */}
               <div style={{
                 flex: '1',
                 backgroundColor: '#fff',
@@ -234,28 +252,9 @@ export default function CatalogCanvas() {
                 padding: '32px',
                 border: '1px solid #e5e7eb'
               }}>
-                <div style={{ marginBottom: '24px' }}>
-                  <h2 style={{
-                    fontSize: '24px',
-                    fontWeight: '600',
-                    color: '#1f2937',
-                    marginBottom: '8px',
-                    fontFamily: 'Google Sans'
-                  }}>
-                    SEO Attributes
-                  </h2>
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#6b7280',
-                    margin: 0
-                  }}>
-                    Optimize your product for search engines and better discoverability
-                  </p>
-                </div>
-
                 {/* Form Fields */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  {/* Product Title */}
+                  {/* Product Title - Moved to right column */}
                   <div>
                     <label style={{
                       display: 'block',
@@ -322,29 +321,7 @@ export default function CatalogCanvas() {
                     />
                   </div>
 
-                  {/* Alt Text */}
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '6px'
-                    }}>
-                      Alt image text
-                    </label>
-                    <Input
-                      value={altText}
-                      onChange={(e) => setAltText(e.target.value)}
-                      onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
-                      placeholder="Describe the image for accessibility"
-                      className="w-full"
-                      data-testid="input-alt-text"
-                    />
-                  </div>
-
-                  {/* Tags */}
+                  {/* Attributes */}
                   <div>
                     <label style={{
                       display: 'block',
@@ -366,12 +343,26 @@ export default function CatalogCanvas() {
                     />
                   </div>
 
-                  {/* Randomize Button */}
-                  <div style={{ paddingTop: '16px' }}>
+                  {/* Action Buttons - Moved to right column */}
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '12px', 
+                    paddingTop: '20px',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center'
+                  }}>
+                    <Button
+                      onClick={handleExport}
+                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full flex items-center gap-2"
+                      data-testid="button-export-all"
+                    >
+                      Export assets
+                    </Button>
+                    
                     <Button
                       variant="outline"
                       onClick={handleRandomize}
-                      className="flex items-center gap-2 text-gray-600 border-gray-300 hover:bg-gray-50 w-full"
+                      className="flex items-center gap-2 text-gray-600 border-gray-300 hover:bg-gray-50"
                       data-testid="button-randomize"
                     >
                       <Settings size={16} />
