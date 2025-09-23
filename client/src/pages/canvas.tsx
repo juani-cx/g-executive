@@ -182,7 +182,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-visible !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
+      <DialogContent className="max-w-4xl w-full h-[400px] p-0 overflow-hidden !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
@@ -206,7 +206,7 @@ function EditModal({
             </svg>
           </button>
         )}
-        <div className="flex h-full bg-white border border-gray-200 rounded-lg">
+        <div className="flex h-full bg-white rounded-lg">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-4 h-full flex flex-col">
