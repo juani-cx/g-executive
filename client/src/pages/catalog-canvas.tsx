@@ -93,9 +93,9 @@ export default function CatalogCanvas() {
     setShowKeyboard(true);
   };
 
+  // Keyboard stays visible once shown - no blur handling
   const handleInputBlur = () => {
-    // Delay hiding keyboard to allow for interactions
-    setTimeout(() => setShowKeyboard(false), 300);
+    // Do nothing - keep keyboard visible
   };
 
   return (
@@ -233,7 +233,6 @@ export default function CatalogCanvas() {
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
                     onFocus={handleInputFocus}
-                    onBlur={handleInputBlur}
                     placeholder="Describe the image for accessibility"
                     className="w-full"
                     data-testid="input-alt-text"
@@ -267,7 +266,6 @@ export default function CatalogCanvas() {
                       value={productTitle}
                       onChange={(e) => setProductTitle(e.target.value)}
                       onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
                       placeholder="Enter product title"
                       className="w-full"
                       data-testid="input-product-title"
@@ -290,7 +288,6 @@ export default function CatalogCanvas() {
                       value={productDescription}
                       onChange={(e) => setProductDescription(e.target.value)}
                       onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
                       placeholder="Enter product description"
                       rows={3}
                       className="w-full"
@@ -314,7 +311,6 @@ export default function CatalogCanvas() {
                       value={seoMetadata}
                       onChange={(e) => setSeoMetadata(e.target.value)}
                       onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
                       placeholder="keywords, tags, categories"
                       className="w-full"
                       data-testid="input-seo-metadata"
@@ -337,7 +333,6 @@ export default function CatalogCanvas() {
                       value={tags}
                       onChange={(e) => setTags(e.target.value)}
                       onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
                       placeholder="color, size, material, brand"
                       className="w-full"
                       data-testid="input-attributes"
