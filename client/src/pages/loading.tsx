@@ -5,10 +5,10 @@ export default function Loading() {
   const [, navigate] = useLocation();
 
   useEffect(() => {
-    // Redirect to canvas after 3 seconds
+    // Redirect to canvas after 6 seconds to show full animation
     const timer = setTimeout(() => {
       navigate('/canvas');
-    }, 3000);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -26,36 +26,55 @@ export default function Loading() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Animated Dots */}
-      <div className="dots-container" style={{
+      {/* Google Logo Animation */}
+      <div className="google-logo-container" style={{
+        marginBottom: '48px',
         display: 'flex',
-        gap: '16px',
-        marginBottom: '48px'
+        justifyContent: 'center',
+        alignItems: 'center'
       }}>
-        <div className="dot dot-blue" style={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '50%',
-          backgroundColor: '#4285F4'
-        }} />
-        <div className="dot dot-red" style={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '50%',
-          backgroundColor: '#EA4335'
-        }} />
-        <div className="dot dot-yellow" style={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '50%',
-          backgroundColor: '#FBBC05'
-        }} />
-        <div className="dot dot-green" style={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '50%',
-          backgroundColor: '#34A853'
-        }} />
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="200" 
+          height="145"
+          viewBox="200 150 242 145"
+          className="google-logo-svg"
+        >
+          <defs>
+            <clipPath id="cut-off-gline">
+              <rect x="287.2" y="225.9" width="102.2" height="28.9"/>
+            </clipPath>
+          </defs>
+          
+          {/* Arc segments that form the Google logo */}
+          <g id="circles">
+            {/* Blue arc - top right quadrant */}
+            <path id="blueG" className="circle" fill="none" stroke="#4285F4" strokeWidth="28" 
+                  d="M 318 182.9 A 57 57 0 0 1 375.9 240.4"/>
+            {/* Red arc - bottom left quadrant */}
+            <path id="redG" className="circle" fill="none" stroke="#EA4335" strokeWidth="28" 
+                  d="M 261 240.4 A 57 57 0 0 1 318 297.9"/>
+            {/* Yellow arc - bottom right quadrant */}
+            <path id="yellowG" className="circle" fill="none" stroke="#FBBC05" strokeWidth="28" 
+                  d="M 318 297.9 A 57 57 0 0 1 375.9 240.4"/>
+            {/* Green arc - top left quadrant */}
+            <path id="greenG" className="circle" fill="none" stroke="#34A853" strokeWidth="28" 
+                  d="M 375.9 240.4 A 57 57 0 0 1 318 182.9"/>
+          </g>
+          
+          {/* Starting dots */}
+          <g id="dots">
+            <circle className="dot dotBlue" fill="#4285F4" cx="244.9" cy="240.4" r="14.5"/>
+            <circle className="dot dotRed" fill="#EA4335" cx="302.7" cy="240.4" r="14.5"/>
+            <circle className="dot dotYellow" fill="#FBBC05" cx="360.5" cy="240.4" r="14.5"/>
+            <circle className="dot dotGreen" fill="#34A853" cx="418.3" cy="240.4" r="14.5"/>
+          </g>
+          
+          {/* G line */}
+          <g id="gLineGroup" clipPath="url(#cut-off-gline)">
+            <path id="gLine" fill="none" stroke="#4285F4" strokeWidth="28.91" d="M319 240.4h68"/>
+          </g>
+        </svg>
       </div>
 
       {/* Loading Text */}
