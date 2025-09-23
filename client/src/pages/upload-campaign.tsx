@@ -307,7 +307,8 @@ export default function UploadCampaign() {
                   fontStyle: 'normal',
                   fontWeight: '500',
                   lineHeight: 'normal',
-                  display: 'inline-block'
+                  display: 'inline-block',
+                  marginTop: '40px'
                 }}>
                   Scan this QR code&#x2028;to upload your image
                 </span>
