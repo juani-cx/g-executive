@@ -213,7 +213,7 @@ export default function Configure() {
   };
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ height: '100vh' }}>
+    <div className="dotted-background overflow-y-auto" style={{ minHeight: '100vh' }}>
       {/* Header */}
 
       {/* Top Navigation */}
@@ -285,11 +285,11 @@ export default function Configure() {
           <div className="max-w-6xl mx-auto">
             {/* White card container */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-[16fr_9fr] gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[16fr_9fr] gap-8 items-stretch">
               {/* Left Column - Image */}
-              <div className="flex justify-center">
+              <div className="flex justify-center" style={{ height: '383px' }}>
                 {uploadedImage && (
-                  <div className="w-full h-80 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center" style={{ height: '374px' }}>
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
@@ -301,7 +301,7 @@ export default function Configure() {
               </div>
 
             {/* Right Column - Configuration */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{ height: '383px' }}>
               {/* Form Fields - Inline Layout */}
               <div>
                 <InlineComboInput
