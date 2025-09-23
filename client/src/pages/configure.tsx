@@ -289,7 +289,7 @@ export default function Configure() {
               {/* Left Column - Image */}
               <div className="flex justify-center">
                 {uploadedImage && (
-                  <div className="w-full h-64 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                  <div className="w-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center" style={{ height: '380px' }}>
                     <img 
                       src={uploadedImage} 
                       alt="Uploaded product" 
