@@ -244,7 +244,7 @@ function EditModal({
                 {(cta || card.cta) && (
                   <Button 
                     size="sm" 
-                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1"
+                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1 rounded-full"
                     data-testid="button-preview-cta"
                   >
                     {cta || card.cta}
@@ -307,7 +307,7 @@ function EditModal({
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="text-gray-600 border-gray-300 text-sm py-2"
+                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full"
                 data-testid="button-back"
               >
                 Back
@@ -315,14 +315,14 @@ function EditModal({
               <Button
                 variant="outline"
                 onClick={handleRandomize}
-                className="text-gray-600 border-gray-300 text-sm py-2"
+                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full"
                 data-testid="button-randomize"
               >
                 Randomize
               </Button>
               <Button
                 onClick={handleSave}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2 rounded-full"
                 data-testid="button-export-assets"
               >
                 Export assets
