@@ -337,7 +337,7 @@ export default function UploadCatalog() {
                   alignItems: 'center',
                   gap: '4px',
                   width: '400px',
-                  height: '340px',
+                  height: '380px',
                   overflow: 'hidden',
                   boxShadow: '0 16px 24px #0000001a'
                 }}>
@@ -345,8 +345,9 @@ export default function UploadCatalog() {
                     aspectRatio: '1',
                     background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
                     flexShrink: '0',
-                    width: '214px',
-                    height: '214px'
+                    width: '90%',
+                    height: 'auto',
+                    borderRadius: '14px'
                   }} />
                 </div>
                 {/* Text below QR - Scaled proportionally */}
