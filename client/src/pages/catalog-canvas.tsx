@@ -355,21 +355,21 @@ export default function CatalogCanvas() {
                     alignItems: 'center'
                   }}>
                     <Button
+                      variant="outline"
+                      onClick={handleRandomize}
+                      className="flex items-center gap-2 text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full"
+                      data-testid="button-randomize"
+                    >
+                      <Settings size={16} />
+                      Randomize
+                    </Button>
+                    
+                    <Button
                       onClick={handleExport}
                       className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full flex items-center gap-2"
                       data-testid="button-export-all"
                     >
                       Export assets
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      onClick={handleRandomize}
-                      className="flex items-center gap-2 text-gray-600 border-gray-300 hover:bg-gray-50"
-                      data-testid="button-randomize"
-                    >
-                      <Settings size={16} />
-                      Randomize
                     </Button>
                   </div>
                 </div>
