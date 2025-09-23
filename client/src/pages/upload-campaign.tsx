@@ -236,9 +236,9 @@ export default function UploadCampaign() {
             </p>
           </div>
 
-          {/* Category Tabs - Always reserve space to prevent layout shift */}
-          <div className="flex justify-center mb-8" style={{ height: '48px', display: 'flex', alignItems: 'center' }}>
-            {activeTab === 'predefined' ? (
+          {/* Category Tabs - Only show when in predefined tab */}
+          {activeTab === 'predefined' && (
+            <div className="flex justify-center mb-8">
               <div className="flex items-center bg-white rounded-full px-1 py-1 shadow-lg">
                 {campaignCategories.map((category) => (
                   <Button
@@ -256,10 +256,8 @@ export default function UploadCampaign() {
                   </Button>
                 ))}
               </div>
-            ) : (
-              <div style={{ height: '40px' }}></div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Content Area */}
           <div style={{
