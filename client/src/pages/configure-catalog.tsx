@@ -270,13 +270,13 @@ export default function ConfigureCatalog() {
           </div>
 
           {/* Content Area */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* White card container */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[16fr_9fr] gap-8 items-stretch">
               {/* Left Column - Image */}
               <div className="flex justify-center">
-                <div className="w-full h-64 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+                <div className="w-full h-64 lg:h-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
                   {uploadedImage ? (
                     <img 
                       src={uploadedImage} 
