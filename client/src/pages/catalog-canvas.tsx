@@ -181,7 +181,8 @@ export default function CatalogCanvas() {
                     fontWeight: '600',
                     color: '#1f2937',
                     marginBottom: '8px',
-                    fontFamily: 'Google Sans'
+                    fontFamily: 'Google Sans',
+                    textAlign: 'left'
                   }}>
                     SEO Attributes
                   </h2>
@@ -216,7 +217,8 @@ export default function CatalogCanvas() {
                   color: '#6b7280',
                   fontSize: '14px',
                   marginBottom: '20px',
-                  margin: 0
+                  margin: 0,
+                  textAlign: 'left'
                 }}>
                   Optimize your product for search engines and better discoverability
                 </p>
@@ -228,7 +230,8 @@ export default function CatalogCanvas() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: '#374151',
-                    marginBottom: '6px'
+                    marginBottom: '4px',
+                    textAlign: 'left'
                   }}>
                     Alt image text
                   </label>
@@ -253,7 +256,7 @@ export default function CatalogCanvas() {
                 border: '1px solid #e5e7eb'
               }}>
                 {/* Form Fields */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {/* Product Title - Moved to right column */}
                   <div>
                     <label style={{
@@ -261,7 +264,8 @@ export default function CatalogCanvas() {
                       fontSize: '14px',
                       fontWeight: '500',
                       color: '#374151',
-                      marginBottom: '6px'
+                      marginBottom: '4px',
+                      textAlign: 'left'
                     }}>
                       Product title
                     </label>
@@ -283,7 +287,8 @@ export default function CatalogCanvas() {
                       fontSize: '14px',
                       fontWeight: '500',
                       color: '#374151',
-                      marginBottom: '6px'
+                      marginBottom: '4px',
+                      textAlign: 'left'
                     }}>
                       Description
                     </label>
@@ -306,7 +311,8 @@ export default function CatalogCanvas() {
                       fontSize: '14px',
                       fontWeight: '500',
                       color: '#374151',
-                      marginBottom: '6px'
+                      marginBottom: '4px',
+                      textAlign: 'left'
                     }}>
                       SEO metadata
                     </label>
@@ -328,7 +334,8 @@ export default function CatalogCanvas() {
                       fontSize: '14px',
                       fontWeight: '500',
                       color: '#374151',
-                      marginBottom: '6px'
+                      marginBottom: '4px',
+                      textAlign: 'left'
                     }}>
                       Attributes
                     </label>
@@ -347,7 +354,7 @@ export default function CatalogCanvas() {
                   <div style={{ 
                     display: 'flex', 
                     gap: '12px', 
-                    paddingTop: '20px',
+                    paddingTop: '16px',
                     justifyContent: 'flex-start',
                     alignItems: 'center'
                   }}>
