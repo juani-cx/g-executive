@@ -96,7 +96,8 @@ export default function Landing() {
             alignItems: 'flex-start',
             gap: '52px',
             width: '100%',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginTop: '40px'
           }}>
             
             {/* Marketing Campaign Card */}
@@ -124,11 +125,10 @@ export default function Landing() {
                 borderBottom: '1.5px solid #000',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'flex-start',
+                alignItems: 'center',
                 gap: '4px',
                 width: '100%',
                 paddingBottom: '24px',
-                paddingTop: '40px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
@@ -213,11 +213,10 @@ export default function Landing() {
                 borderBottom: '1.5px solid #000',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'flex-start',
+                alignItems: 'center',
                 gap: '4px',
                 width: '100%',
                 paddingBottom: '24px',
-                paddingTop: '40px',
                 boxSizing: 'border-box'
               }}>
                 <span style={{
