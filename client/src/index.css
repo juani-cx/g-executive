@@ -100,6 +100,67 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Text Flip Animation - Based on CodePen */
+.text-flip {
+  display: inline-block;
+  height: 1.2em;
+  overflow: hidden;
+  position: relative;
+  vertical-align: top;
+}
+
+.text-flip-lines {
+  display: block;
+  animation: text-flip-show 6s linear infinite;
+  will-change: transform;
+}
+
+.text-flip-lines > span {
+  display: block;
+  line-height: 1.2em;
+  padding: 0;
+  margin: 0;
+}
+
+/* Different colors for each word */
+.text-flip-lines > span:nth-child(1) {
+  color: #4285F4; /* Google Blue - product */
+}
+
+.text-flip-lines > span:nth-child(2) {
+  color: #34A853; /* Google Green - service */
+}
+
+.text-flip-lines > span:nth-child(3) {
+  color: #EA4335; /* Google Red - brand */
+}
+
+.text-flip-lines > span:nth-child(4) {
+  color: #4285F4; /* Google Blue - product (duplicate for seamless loop) */
+}
+
+@keyframes text-flip-show {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(0); }
+  30% { transform: translateY(-1.2em); }
+  50% { transform: translateY(-1.2em); }
+  55% { transform: translateY(-2.4em); }
+  75% { transform: translateY(-2.4em); }
+  80% { transform: translateY(-3.6em); }
+  100% { transform: translateY(-3.6em); }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .text-flip-lines {
+    animation: none;
+  }
+  
+  .text-flip-lines > span:not(:first-child) {
+    display: none;
+  }
+}
+
 /* Base responsive scaling for touch screens */
 body {
   font-size: 16px;

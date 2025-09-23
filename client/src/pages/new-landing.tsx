@@ -42,7 +42,14 @@ export default function NewLanding() {
       <div className="landing-main relative z-10 flex items-center justify-center" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="landing-content text-center w-full px-8">
           <h1 className="landing-title text-[120px] text-gray-800 tracking-tight leading-none" style={{ fontWeight: '475', marginTop: '0' }}>
-            Promote your product now
+            Promote your <span className="text-flip">
+              <span className="text-flip-lines">
+                <span>product</span>
+                <span>service</span>
+                <span>brand</span>
+                <span>product</span>
+              </span>
+            </span> now
           </h1>
           
           <h2 className="landing-subtitle text-gray-600 leading-none" style={{ margin: '44px', fontSize: '54px', lineHeight: '1', fontWeight: '400' }}>
