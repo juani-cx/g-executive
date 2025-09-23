@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'wouter';
+import GoogleLogoAnimation from '@/components/GoogleLogoAnimation';
 
 export default function Loading() {
   const [, navigate] = useLocation();
@@ -27,65 +28,8 @@ export default function Loading() {
       overflowX: 'hidden',
       overflowY: 'auto'
     }}>
-      {/* Google Logo Animation */}
-      <div className="google-logo-container" style={{
-        marginBottom: '48px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'visible'
-      }}>
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="200" 
-          height="145"
-          viewBox="200 140 242 180"
-          className="google-logo-svg"
-          style={{ overflow: 'visible' }}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <defs>
-            <clipPath id="cut-off-gline" clipPathUnits="userSpaceOnUse">
-              <rect x="287.2" y="225.9" width="102.2" height="28.9"/>
-            </clipPath>
-          </defs>
-          
-          {/* Arc segments that form the Google logo with gap for "G" */}
-          <g id="circles">
-            {/* Blue arc - top to near-right above center (creates gap) */}
-            <path id="blueG" className="circle" fill="none" stroke="#4285F4" strokeWidth="28" 
-                  strokeLinecap="round" strokeLinejoin="round" pathLength="200" 
-                  d="M 318 182.9 A 57 57 0 0 1 364.7 207.7"/>
-            {/* Red arc - left to top */}
-            <path id="redG" className="circle" fill="none" stroke="#EA4335" strokeWidth="28" 
-                  strokeLinecap="round" strokeLinejoin="round" pathLength="200" 
-                  d="M 261 240.4 A 57 57 0 0 1 318 182.9"/>
-            {/* Yellow arc - bottom to left */}
-            <path id="yellowG" className="circle" fill="none" stroke="#FBBC05" strokeWidth="28" 
-                  strokeLinecap="round" strokeLinejoin="round" pathLength="200" 
-                  d="M 318 297.9 A 57 57 0 0 1 261 240.4"/>
-            {/* Green arc - near-right below center to bottom (creates gap) */}
-            <path id="greenG" className="circle" fill="none" stroke="#34A853" strokeWidth="28" 
-                  strokeLinecap="round" strokeLinejoin="round" pathLength="200" 
-                  d="M 364.7 273.1 A 57 57 0 0 1 318 297.9"/>
-          </g>
-          
-          {/* Starting dots */}
-          <g id="dots">
-            <circle className="dot dotBlue" fill="#4285F4" cx="244.9" cy="240.4" r="14.5"/>
-            <circle className="dot dotRed" fill="#EA4335" cx="302.7" cy="240.4" r="14.5"/>
-            <circle className="dot dotYellow" fill="#FBBC05" cx="360.5" cy="240.4" r="14.5"/>
-            <circle className="dot dotGreen" fill="#34A853" cx="418.3" cy="240.4" r="14.5"/>
-          </g>
-          
-          {/* G line */}
-          <g id="gLineGroup" clipPath="url(#cut-off-gline)">
-            <path id="gLine" fill="none" stroke="#4285F4" strokeWidth="28.91" 
-                  strokeLinecap="round" strokeLinejoin="round" pathLength="100" 
-                  d="M319 240.4h68"/>
-          </g>
-        </svg>
-      </div>
+      {/* Google Logo Animation - Direct CodePen Embed */}
+      <GoogleLogoAnimation />
 
       {/* Loading Text */}
       <h1 style={{
