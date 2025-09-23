@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
@@ -53,8 +53,8 @@ export default function UploadCampaign() {
   
   const selectedCategory = selectedCampaignCategory;
   
-  // Get mood images for the currently selected category
-  const moodImages = getMoodImages(selectedCategory);
+  // Get mood images for the currently selected category (reactive)
+  const moodImages = useMemo(() => getMoodImages(selectedCategory), [selectedCategory]);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {

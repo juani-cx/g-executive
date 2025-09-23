@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
@@ -69,8 +69,8 @@ export default function UploadCatalog() {
   
   const selectedCategory = selectedCatalogCategory;
 
-  // Get current category images
-  const moodImages = getCategoryImages(selectedCatalogCategory);
+  // Get current category images (reactive)
+  const moodImages = useMemo(() => getCategoryImages(selectedCatalogCategory), [selectedCatalogCategory]);
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
