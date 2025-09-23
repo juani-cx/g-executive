@@ -284,7 +284,7 @@ export default function UploadCatalog() {
           {/* Category Tabs - Always reserve consistent space */}
           <div className="flex justify-center mb-8" style={{ height: '64px' }}>
             {activeTab === 'predefined' && (
-              <div className="flex items-center bg-white rounded-full shadow-lg" style={{ padding: '0.25rem 0.5rem' }}>
+              <div className="flex items-center bg-white rounded-full shadow-lg" style={{ padding: '0.25rem 0.5rem', zIndex: 20, position: 'relative' }}>
                 {catalogCategories.map((category) => (
                   <Button
                     key={category.id}
