@@ -233,12 +233,9 @@ export default function UploadCampaign() {
         boxSizing: 'border-box',
         paddingTop: '0'
       }}>
-        <div style={{
-          width: '100%',
-          textAlign: 'center'
-        }}>
+        <div className="w-full text-center flex flex-col items-center">
           {/* Header */}
-          <div className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8">
+          <div className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8 mx-auto">
             <h1 className="text-black text-center text-5xl font-medium leading-9 m-0" data-testid="text-main-title">
               Select an image
             </h1>
@@ -303,7 +300,7 @@ export default function UploadCampaign() {
 
             {/* Predefined Images Tab Content */}
             <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
-              <div className="relative my-15">
+              <div className="relative mb-8">
                 <div className="grid grid-cols-4 gap-6">
                   {moodImages.map((image) => (
                     <div
@@ -328,7 +325,7 @@ export default function UploadCampaign() {
                 </div>
               </div>
 
-              <div className="text-center">
+              <div className="text-center mt-8">
                 <Button
                   size="lg"
                   onClick={handlePredefinedContinue}
