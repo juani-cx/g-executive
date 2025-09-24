@@ -150,6 +150,14 @@ export default function ConfigureCatalog() {
     if (storedImage) {
       setUploadedImage(storedImage);
       setFileName(storedFileName);
+      
+      // Simulate AI analysis of the image and auto-prefill fields
+      setTimeout(() => {
+        setTargetProduct("Fashion & Apparel");
+        setTargetAudience("Millennials");
+        setToneOfVoice("Professional");
+        setCatalogType("Product Photography");
+      }, 1500);
     }
     // Allow proceeding without image for card selection and AI generate paths
   }, [navigate]);
