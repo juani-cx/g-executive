@@ -283,171 +283,114 @@ export default function UploadCatalog() {
           </div>
 
           {/* Category Tabs - Always reserve consistent space */}
-          <div className="flex justify-center mb-8" style={{ height: '64px' }}>
-            {activeTab === 'predefined' && (
-              <div className="flex items-center bg-white rounded-full shadow-lg" style={{ padding: '0.25rem 0.5rem', zIndex: 20, position: 'relative' }}>
-                {catalogCategories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "ghost"}
-                    className={`rounded-full text-sm font-medium transition-all ${
-                      selectedCategory === category.id
-                        ? "bg-blue-600 text-white shadow-sm"
-                        : "text-gray-600"
-                    }`}
-                    style={{ padding: '0.25rem 1.5rem' }}
-                    onClick={() => {
-                      setSelectedCatalogCategory(category.id as any);
-                      setSelectedImage(null);
-                      setSelectedCard(null);
-                    }}
-                    data-testid={`tab-${category.id}`}
-                  >
-                    {category.label}
-                  </Button>
-                ))}
-              </div>
-            )}
+          <div className="flex justify-center mb-8 h-16">
+            <div className={`flex items-center bg-white rounded-full shadow-lg px-2 py-1 relative z-20 ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
+              {catalogCategories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant={selectedCategory === category.id ? "default" : "ghost"}
+                  className={`rounded-full text-sm font-medium transition-colors px-6 py-1 ${
+                    selectedCategory === category.id
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "text-gray-600"
+                  }`}
+                  onClick={() => {
+                    setSelectedCatalogCategory(category.id as any);
+                    setSelectedImage(null);
+                    setSelectedCard(null);
+                  }}
+                  data-testid={`tab-${category.id}`}
+                >
+                  {category.label}
+                </Button>
+              ))}
+            </div>
           </div>
 
-          {/* Content Area */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            height: '620px',
-            marginTop: '-70px',
-            justifyContent: 'center',
-            position: 'relative'
-          }}>
-            {activeTab === 'computer' && (
-              <div className="flex-1 flex flex-col items-center justify-center">
-                {/* QR Component - Scaled for 1080px viewport */}
-                <div style={{
-                  boxSizing: 'border-box',
-                  background: '#e6ebf2',
-                  border: '27px solid #fff',
-                  borderRadius: '15px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '4px',
-                  width: '460px',
-                  height: '474px',
-                  padding: '24px',
-                  overflow: 'hidden',
-                  boxShadow: '0 16px 24px #0000001a'
-                }}>
-                  <div style={{
-                    aspectRatio: '1',
-                    background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
-                    flexShrink: '0',
-                    width: '90%',
-                    height: '364px',
-                    borderRadius: '16px'
-                  }} />
-                </div>
-                {/* Text below QR - Scaled proportionally */}
-                <span style={{
-                  color: '#1f3251',
-                  textAlign: 'center',
-                  width: '220px',
-                  fontFamily: 'Google Sans',
-                  fontSize: '20px',
-                  fontStyle: 'normal',
-                  fontWeight: '500',
-                  lineHeight: 'normal',
-                  display: 'inline-block'
-                }}>
-                  Scan this QR code&#x2028;to upload your image
-                </span>
+          {/* Content Area - All tabs pre-rendered, shown/hidden via CSS */}
+          <div className="flex flex-col items-center justify-center relative" style={{ height: '620px', marginTop: '-70px' }}>
+            
+            {/* QR Tab Content */}
+            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'computer' ? 'block' : 'hidden'}`}>
+              <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
+                <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
               </div>
-            )}
+              <span className="text-blue-900 text-center text-xl font-medium mt-10 block w-56">
+                Scan this QR code to upload your image
+              </span>
+            </div>
 
-            {activeTab === 'ai' && (
-              <div className="flex-1 flex flex-col items-center justify-center">
-                <div className="bg-white rounded-3xl p-12 shadow-lg">
-                  <div className="mb-6">
-                    <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
-                    <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
-                  </div>
-                  
-                  <Button
-                    size="lg"
-                    disabled={true}
-                    className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
-                    data-testid="button-camera-disabled"
-                  >
-                    Camera not available
-                  </Button>
+            {/* Camera Tab Content */}
+            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'ai' ? 'block' : 'hidden'}`}>
+              <div className="bg-white rounded-3xl p-12 shadow-lg">
+                <div className="mb-6">
+                  <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
+                  <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
+                </div>
+                
+                <Button
+                  size="lg"
+                  disabled={true}
+                  className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
+                  data-testid="button-camera-disabled"
+                >
+                  Camera not available
+                </Button>
+              </div>
+            </div>
+
+            {/* Predefined Images Tab Content */}
+            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
+              <div className="relative my-15">
+                <div className="grid grid-cols-4 gap-6">
+                  {moodImages.map((image) => (
+                    <div
+                      key={image.id}
+                      className={`h-72 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                        selectedImage === image.src
+                          ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
+                          : ''
+                      }`}
+                      onClick={() => handleImageSelect(image.id, image.src)}
+                      data-testid={`image-${image.id}`}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
-            )}
 
-            {activeTab === 'predefined' && (
-              <div className="flex-1 flex flex-col items-center justify-center">
-                {/* Predefined Images Grid */}
-                <div className="relative" style={{ marginTop: '60px', marginBottom: '60px' }}>
-                  <div className="grid grid-cols-4 gap-6">
-                    {moodImages.map((image) => (
-                      <div
-                        key={image.id}
-                        className={`h-72 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
-                          selectedImage === image.src
-                            ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
-                            : ''
-                        }`}
-                        onClick={() => handleImageSelect(image.id, image.src)}
-                        data-testid={`image-${image.id}`}
-                      >
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full h-full object-cover"
-                          loading="eager"
-                          decoding="async"
-                          style={{ imageRendering: 'optimizeSpeed' }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Continue Button - Always visible */}
-                <div className="text-center">
-                  <Button
-                    size="lg"
-                    onClick={handlePredefinedContinue}
-                    disabled={!selectedImage}
-                    className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-all ${
-                      selectedImage 
-                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                    data-testid="button-continue-predefined"
-                  >
-                    Continue with this selection
-                  </Button>
-                </div>
+              <div className="text-center">
+                <Button
+                  size="lg"
+                  onClick={handlePredefinedContinue}
+                  disabled={!selectedImage}
+                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-all ${
+                    selectedImage 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                  data-testid="button-continue-predefined"
+                >
+                  Continue with this selection
+                </Button>
               </div>
-            )}
+            </div>
 
           </div>
           
           {/* Bottom Action Tabs - Fixed to bottom */}
-          <div style={{
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '24px',
-            paddingBottom: '20px',
-            marginTop: '20px'
-          }}>
+          <div className="relative flex justify-center items-center gap-6 pb-5 mt-5">
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
                 activeTab === 'computer'
                   ? 'text-blue-600'
                   : 'text-gray-600'
@@ -455,12 +398,12 @@ export default function UploadCatalog() {
               onClick={() => setActiveTab('computer')}
               data-testid="tab-upload"
             >
-              <Upload style={{ width: '1.8rem', height: '1.8rem' }} />
+              <Upload className="w-7 h-7" />
               Upload your images
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
                 activeTab === 'ai'
                   ? 'text-blue-600'
                   : 'text-gray-600'
@@ -468,12 +411,12 @@ export default function UploadCatalog() {
               onClick={() => setActiveTab('ai')}
               data-testid="tab-ai"
             >
-              <Camera style={{ width: '1.8rem', height: '1.8rem' }} />
+              <Camera className="w-7 h-7" />
               Take a photo
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-all w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
                 activeTab === 'predefined'
                   ? 'text-blue-600'
                   : 'text-gray-600'
@@ -481,7 +424,7 @@ export default function UploadCatalog() {
               onClick={() => setActiveTab('predefined')}
               data-testid="tab-preselected"
             >
-              <XCircle style={{ width: '1.8rem', height: '1.8rem' }} />
+              <XCircle className="w-7 h-7" />
               I don't want to use my photos
             </Button>
           </div>
