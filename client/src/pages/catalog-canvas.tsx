@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import TopNavigation from "@/components/TopNavigation";
-import { ChevronLeft, Settings, Download } from "lucide-react";
+import { ChevronLeft, Settings, Download, ZoomIn } from "lucide-react";
 import QRCode from "react-qr-code";
 
 // Virtual Keyboard Component
@@ -58,6 +58,7 @@ export default function CatalogCanvas() {
   
   // Modal and keyboard states
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(false);
 
   // Auto-fill form fields when component mounts (simulating AI analysis)
@@ -210,6 +211,7 @@ export default function CatalogCanvas() {
 
                 {/* Product Image/Video Display */}
                 <div style={{
+                  position: 'relative',
                   width: '100%',
                   height: '240px',
                   borderRadius: '8px',
@@ -227,6 +229,34 @@ export default function CatalogCanvas() {
                     }}
                     data-testid="img-product-preview"
                   />
+                  {/* Magnify button */}
+                  <button
+                    onClick={() => setIsImageModalOpen(true)}
+                    style={{
+                      position: 'absolute',
+                      bottom: '8px',
+                      right: '8px',
+                      width: '32px',
+                      height: '32px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                    }}
+                    data-testid="button-magnify"
+                  >
+                    <ZoomIn size={16} color="#374151" />
+                  </button>
                 </div>
 
                 {/* Alt Image Text - Moved to left column */}
@@ -433,6 +463,39 @@ export default function CatalogCanvas() {
               onClick={() => setIsExportModalOpen(false)}
               className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
               data-testid="button-close-export-modal"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Image Modal */}
+      <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
+        <DialogContent className="max-w-4xl bg-white p-4 z-[80]">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-normal text-center mb-4" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
+              Product Image
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src="/img-refs/mood01.png"
+              alt="Product preview - full size"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '70vh',
+                objectFit: 'contain',
+                borderRadius: '8px'
+              }}
+              data-testid="img-product-fullsize"
+            />
+            
+            <Button
+              onClick={() => setIsImageModalOpen(false)}
+              className="mt-6 bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
+              data-testid="button-close-image-modal"
             >
               Close
             </Button>
