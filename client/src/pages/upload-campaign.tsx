@@ -238,37 +238,11 @@ export default function UploadCampaign() {
           textAlign: 'center'
         }}>
           {/* Header */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '16px',
-            width: '100%',
-            maxWidth: '1808px',
-            padding: '0',
-            marginBottom: '32px'
-          }}>
-            <h1 style={{
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '48px',
-              fontWeight: '500',
-              lineHeight: '36px',
-              margin: 0
-            }} data-testid="text-main-title">
+          <div className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8">
+            <h1 className="text-black text-center text-5xl font-medium leading-9 m-0" data-testid="text-main-title">
               Select an image
             </h1>
-            <p style={{
-              color: '#5c5c5c',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '24px',
-              fontWeight: '400',
-              lineHeight: '28px',
-              margin: 0
-            }}>
+            <p className="text-gray-600 text-center text-2xl font-normal leading-7 m-0">
               Choose the mood of your campaign for AI inspiration
             </p>
           </div>
@@ -334,7 +308,7 @@ export default function UploadCampaign() {
                   {moodImages.map((image) => (
                     <div
                       key={image.id}
-                      className={`h-72 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                      className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
                         selectedImage === image.src
                           ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                           : ''
@@ -359,7 +333,7 @@ export default function UploadCampaign() {
                   size="lg"
                   onClick={handlePredefinedContinue}
                   disabled={!selectedImage}
-                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-all ${
+                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-colors ${
                     selectedImage 
                       ? 'bg-blue-600 hover:bg-blue-700 text-white'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'

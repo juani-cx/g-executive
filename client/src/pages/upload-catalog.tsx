@@ -347,7 +347,7 @@ export default function UploadCatalog() {
                   {moodImages.map((image) => (
                     <div
                       key={image.id}
-                      className={`h-72 rounded-2xl cursor-pointer transition-all duration-200 overflow-hidden ${
+                      className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
                         selectedImage === image.src
                           ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                           : ''
@@ -372,7 +372,7 @@ export default function UploadCatalog() {
                   size="lg"
                   onClick={handlePredefinedContinue}
                   disabled={!selectedImage}
-                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-all ${
+                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-colors ${
                     selectedImage 
                       ? 'bg-blue-600 hover:bg-blue-700 text-white'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
