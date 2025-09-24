@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import TopNavigation from "@/components/TopNavigation";
 import { useLocation } from "wouter";
+import { ZoomIn } from "lucide-react";
 
 // Virtual Keyboard Component
 function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
@@ -131,6 +132,7 @@ function EditModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [cta, setCta] = useState("");
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   useEffect(() => {
     if (card) {
@@ -182,7 +184,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-full h-[500px] p-0 overflow-visible !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
+      <DialogContent className="max-w-4xl w-full h-[440px] p-0 overflow-visible !z-50 top-[2%] translate-y-0" style={{ marginTop: '110px' }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
@@ -210,7 +212,7 @@ function EditModal({
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-4 h-full flex flex-col">
-              <div className="h-[280px] bg-white rounded-xl overflow-hidden shadow-sm flex items-start">
+              <div className="relative h-[280px] bg-white rounded-xl overflow-hidden shadow-sm flex items-start">
                 {card.image ? (
                   card.isVideo ? (
                     <video 
@@ -234,6 +236,36 @@ function EditModal({
                   <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-xl">
                     <div className="text-4xl">🎨</div>
                   </div>
+                )}
+                {/* Magnify button */}
+                {card.image && !card.isVideo && (
+                  <button
+                    onClick={() => setIsImageModalOpen(true)}
+                    style={{
+                      position: 'absolute',
+                      bottom: '8px',
+                      right: '8px',
+                      width: '32px',
+                      height: '32px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                    }}
+                    data-testid="button-magnify-canvas"
+                  >
+                    <ZoomIn size={16} color="#374151" />
+                  </button>
                 )}
               </div>
               
@@ -331,6 +363,41 @@ function EditModal({
           </div>
         </div>
       </DialogContent>
+
+      {/* Full-screen Image Modal */}
+      <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
+        <DialogContent className="max-w-4xl bg-white p-4 z-[90]">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-normal text-center mb-2 mt-5" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
+              {card?.type} Image
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="flex flex-col items-center justify-center">
+            {card?.image && (
+              <img
+                src={card.image}
+                alt={`${card.type} - full size`}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '70vh',
+                  objectFit: 'contain',
+                  borderRadius: '8px'
+                }}
+                data-testid="img-canvas-fullsize"
+              />
+            )}
+            
+            <Button
+              onClick={() => setIsImageModalOpen(false)}
+              className="mt-6 bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
+              data-testid="button-close-canvas-image-modal"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 }
