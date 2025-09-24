@@ -242,42 +242,13 @@ export default function UploadCatalog() {
         boxSizing: 'border-box',
         paddingTop: '0'
       }}>
-        <div style={{
-          width: '100%',
-          textAlign: 'center'
-        }}>
+        <div className="w-full text-center flex flex-col items-center">
           {/* Header */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '16px',
-            width: '100%',
-            maxWidth: '1808px',
-            padding: '0',
-            marginBottom: '32px'
-          }}>
-            <h1 style={{
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '48px',
-              fontWeight: '500',
-              lineHeight: '36px',
-              margin: 0
-            }} data-testid="text-main-title">
+          <div className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8 mx-auto">
+            <h1 className="text-black text-center text-5xl font-medium leading-9 m-0" data-testid="text-main-title">
               Select an image
             </h1>
-            <p style={{
-              color: '#5c5c5c',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '24px',
-              fontWeight: '400',
-              lineHeight: '28px',
-              margin: 0
-            }}>
+            <p className="text-gray-600 text-center text-2xl font-normal leading-7 m-0">
               Choose the product type you want to promote
             </p>
           </div>
@@ -307,11 +278,11 @@ export default function UploadCatalog() {
             </div>
           </div>
 
-          {/* Content Area - All tabs pre-rendered, shown/hidden via CSS */}
-          <div className="flex flex-col items-center justify-center relative" style={{ height: '620px', marginTop: '-70px' }}>
+          {/* Content Area - All tabs pre-rendered, position absolute for instant switching */}
+          <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-70px' }}>
             
             {/* QR Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'computer' ? 'block' : 'hidden'}`}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'computer' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
                 <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
               </div>
@@ -321,7 +292,7 @@ export default function UploadCatalog() {
             </div>
 
             {/* Camera Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'ai' ? 'block' : 'hidden'}`}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'ai' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               <div className="bg-white rounded-3xl p-12 shadow-lg">
                 <div className="mb-6">
                   <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -341,8 +312,8 @@ export default function UploadCatalog() {
             </div>
 
             {/* Predefined Images Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
-              <div className="relative my-15">
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'predefined' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+              <div className="relative mb-8">
                 <div className="grid grid-cols-4 gap-6">
                   {moodImages.map((image) => (
                     <div
@@ -367,7 +338,7 @@ export default function UploadCatalog() {
                 </div>
               </div>
 
-              <div className="text-center">
+              <div className="text-center mt-8">
                 <Button
                   size="lg"
                   onClick={handlePredefinedContinue}
