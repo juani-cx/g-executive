@@ -265,91 +265,96 @@ export default function UploadCampaign() {
             </div>
           </div>
 
-          {/* Content Area - Horizontal sliding container */}
-          <div className="relative w-full overflow-hidden" style={{ height: '620px', marginTop: '-70px' }}>
-            <div 
-              className="flex transition-transform duration-300 ease-out w-300vw"
-              style={{ 
-                transform: `translateX(${
-                  activeTab === 'computer' ? '0%' : 
-                  activeTab === 'ai' ? '-33.33%' : 
-                  '-66.66%'
-                })` 
-              }}
-            >
-              {/* QR Tab Content */}
-              <div className="w-full flex-shrink-0 flex flex-col items-center justify-center">
-                <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
-                  <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
+          {/* Content Area - Fade transitions with image preloading */}
+          <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-70px' }}>
+            
+            {/* QR Tab Content */}
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'computer' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+              <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
+                <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
+              </div>
+              <span className="text-blue-900 text-center text-xl font-medium mt-10 block w-56">
+                Scan this QR code to upload your image
+              </span>
+            </div>
+
+            {/* Camera Tab Content */}
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'ai' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+              <div className="bg-white rounded-3xl p-12 shadow-lg">
+                <div className="mb-6">
+                  <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
+                  <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
                 </div>
-                <span className="text-blue-900 text-center text-xl font-medium mt-10 block w-56">
-                  Scan this QR code to upload your image
-                </span>
+                
+                <Button
+                  size="lg"
+                  disabled={true}
+                  className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
+                  data-testid="button-camera-disabled"
+                >
+                  Camera not available
+                </Button>
+              </div>
+            </div>
+
+            {/* Predefined Images Tab Content */}
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+              <div className="relative mb-8">
+                <div className="grid grid-cols-4 gap-6">
+                  {moodImages.map((image) => (
+                    <div
+                      key={image.id}
+                      className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
+                        selectedImage === image.src
+                          ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
+                          : ''
+                      }`}
+                      onClick={() => handleImageSelect(image.id, image.src)}
+                      data-testid={`image-${image.id}`}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                        style={{ imageRendering: 'optimizeSpeed' }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* Camera Tab Content */}
-              <div className="w-full flex-shrink-0 flex flex-col items-center justify-center">
-                <div className="bg-white rounded-3xl p-12 shadow-lg">
-                  <div className="mb-6">
-                    <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">Take a photo</h3>
-                    <p className="text-gray-600 mb-6">Camera functionality coming soon</p>
-                  </div>
-                  
-                  <Button
-                    size="lg"
-                    disabled={true}
-                    className="bg-gray-400 text-white px-8 py-3 rounded-full text-lg font-semibold cursor-not-allowed"
-                    data-testid="button-camera-disabled"
-                  >
-                    Camera not available
-                  </Button>
-                </div>
+              <div className="text-center mt-8">
+                <Button
+                  size="lg"
+                  onClick={handlePredefinedContinue}
+                  disabled={!selectedImage}
+                  className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-colors ${
+                    selectedImage 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                  data-testid="button-continue-predefined"
+                >
+                  Continue with this selection
+                </Button>
               </div>
+            </div>
 
-              {/* Predefined Images Tab Content */}
-              <div className="w-full flex-shrink-0 flex flex-col items-center justify-center">
-                <div className="relative mb-8">
-                  <div className="grid grid-cols-4 gap-6">
-                    {moodImages.map((image) => (
-                      <div
-                        key={image.id}
-                        className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
-                          selectedImage === image.src
-                            ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
-                            : ''
-                        }`}
-                        onClick={() => handleImageSelect(image.id, image.src)}
-                        data-testid={`image-${image.id}`}
-                      >
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full h-full object-cover"
-                          loading="eager"
-                          decoding="async"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="text-center mt-8">
-                  <Button
-                    size="lg"
-                    onClick={handlePredefinedContinue}
-                    disabled={!selectedImage}
-                    className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-colors ${
-                      selectedImage 
-                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                    data-testid="button-continue-predefined"
-                  >
-                    Continue with this selection
-                  </Button>
-                </div>
-              </div>
+            {/* Hidden preload container for images */}
+            <div className="absolute top-0 left-0 opacity-0 pointer-events-none" style={{ zIndex: -1 }}>
+              {moodImages.map((image) => (
+                <img
+                  key={`preload-${image.id}`}
+                  src={image.src}
+                  alt=""
+                  loading="eager"
+                  decoding="async"
+                  style={{ width: '1px', height: '1px' }}
+                />
+              ))}
             </div>
 
           </div>
