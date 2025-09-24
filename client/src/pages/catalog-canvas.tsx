@@ -259,26 +259,55 @@ export default function CatalogCanvas() {
                   </button>
                 </div>
 
-                {/* Alt Image Text - Moved to left column */}
-                <div style={{ marginTop: '20px' }}>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '4px',
-                    textAlign: 'left'
+                {/* Ad Preview */}
+                <div style={{
+                  marginTop: '20px',
+                  padding: '16px',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '8px',
+                    gap: '6px'
                   }}>
-                    Alt image text
-                  </label>
-                  <Input
-                    value={altText}
-                    onChange={(e) => setAltText(e.target.value)}
-                    onFocus={handleInputFocus}
-                    placeholder="Describe the image for accessibility"
-                    className="w-full"
-                    data-testid="input-alt-text"
-                  />
+                    <span style={{
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      color: '#fff',
+                      backgroundColor: '#4285F4',
+                      padding: '2px 6px',
+                      borderRadius: '4px'
+                    }}>
+                      Ad
+                    </span>
+                    <span style={{
+                      fontSize: '12px',
+                      color: '#6b7280'
+                    }}>
+                      example.com
+                    </span>
+                  </div>
+                  <h3 style={{
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    color: '#4285F4',
+                    marginBottom: '4px',
+                    textDecoration: 'underline',
+                    cursor: 'pointer'
+                  }}>
+                    {productTitle || 'Product Title'}
+                  </h3>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#6b7280',
+                    margin: 0,
+                    lineHeight: '1.4'
+                  }}>
+                    {productDescription || 'Product description will appear here...'}
+                  </p>
                 </div>
               </div>
 
@@ -331,7 +360,7 @@ export default function CatalogCanvas() {
                       onChange={(e) => setProductDescription(e.target.value)}
                       onFocus={handleInputFocus}
                       placeholder="Enter product description"
-                      rows={3}
+                      rows={2}
                       className="w-full"
                       data-testid="textarea-description"
                     />
@@ -356,6 +385,28 @@ export default function CatalogCanvas() {
                       placeholder="keywords, tags, categories"
                       className="w-full"
                       data-testid="input-seo-metadata"
+                    />
+                  </div>
+
+                  {/* Alt Image Text - Moved from left column */}
+                  <div>
+                    <label style={{
+                      display: 'block',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#374151',
+                      marginBottom: '4px',
+                      textAlign: 'left'
+                    }}>
+                      Alt image text
+                    </label>
+                    <Input
+                      value={altText}
+                      onChange={(e) => setAltText(e.target.value)}
+                      onFocus={handleInputFocus}
+                      placeholder="Describe the image for accessibility"
+                      className="w-full"
+                      data-testid="input-alt-text"
                     />
                   </div>
 
