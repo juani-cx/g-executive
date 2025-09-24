@@ -475,7 +475,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('computer')}
               data-testid="tab-upload"
             >
-              <Upload className="w-10 h-10" />
+              <Upload className="w-12 h-12" />
               Upload your images
             </Button>
             <Button
@@ -488,7 +488,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('ai')}
               data-testid="tab-ai"
             >
-              <Camera className="w-10 h-10" />
+              <Camera className="w-12 h-12" />
               Take a photo
             </Button>
             <Button
@@ -501,7 +501,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('predefined')}
               data-testid="tab-preselected"
             >
-              <XCircle className="w-10 h-10" />
+              <XCircle className="w-12 h-12" />
               I don't want to use my photos
             </Button>
           </div>
