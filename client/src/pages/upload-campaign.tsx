@@ -15,10 +15,10 @@ interface CardData {
 // Stable image data - moved outside component to prevent re-creation
 const IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>> = {
   digital: [
-    { id: 1, src: '/img-refs/digital/digital1.png', alt: 'Digital 1' },
-    { id: 2, src: '/img-refs/digital/digital2.png', alt: 'Digital 2' },
-    { id: 3, src: '/img-refs/digital/digital3.png', alt: 'Digital 3' },
-    { id: 4, src: '/img-refs/digital/digital4.png', alt: 'Digital 4' },
+    { id: 1, src: '/img-refs/digital/digital1.jpg', alt: 'Digital 1' },
+    { id: 2, src: '/img-refs/digital/digital2.jpg', alt: 'Digital 2' },
+    { id: 3, src: '/img-refs/digital/digital3.jpg', alt: 'Digital 3' },
+    { id: 4, src: '/img-refs/digital/digital4.jpg', alt: 'Digital 4' },
   ],
   physical: [
     { id: 1, src: '/img-refs/physical/physical_1.png', alt: 'Physical 1' },
