@@ -265,11 +265,11 @@ export default function UploadCampaign() {
             </div>
           </div>
 
-          {/* Content Area - All tabs pre-rendered, shown/hidden via CSS */}
-          <div className="flex flex-col items-center justify-center relative" style={{ height: '620px', marginTop: '-70px' }}>
+          {/* Content Area - All tabs pre-rendered, position absolute for instant switching */}
+          <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-70px' }}>
             
             {/* QR Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'computer' ? 'block' : 'hidden'}`}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'computer' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
                 <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
               </div>
@@ -279,7 +279,7 @@ export default function UploadCampaign() {
             </div>
 
             {/* Camera Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'ai' ? 'block' : 'hidden'}`}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'ai' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               <div className="bg-white rounded-3xl p-12 shadow-lg">
                 <div className="mb-6">
                   <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -299,7 +299,7 @@ export default function UploadCampaign() {
             </div>
 
             {/* Predefined Images Tab Content */}
-            <div className={`flex-1 flex flex-col items-center justify-center ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
+            <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-100 ${activeTab === 'predefined' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               <div className="relative mb-8">
                 <div className="grid grid-cols-4 gap-6">
                   {moodImages.map((image) => (
