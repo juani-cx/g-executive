@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import TopNavigation from "@/components/TopNavigation";
 import { ChevronLeft, Settings, Download, ZoomIn } from "lucide-react";
-import QRCode from "react-qr-code";
+import { ExportQRModal } from "@/components/ExportQRModal";
 
 // Virtual Keyboard Component
 function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
@@ -417,58 +417,13 @@ export default function CatalogCanvas() {
       {/* Virtual Keyboard */}
       <VirtualKeyboard isVisible={showKeyboard} />
       
-      {/* Export Modal - Same as canvas.tsx */}
-      <Dialog open={isExportModalOpen} onOpenChange={setIsExportModalOpen}>
-        <DialogContent className="max-w-lg bg-white p-8 z-[80]">
-          <DialogHeader>
-            <DialogTitle className="text-3xl font-normal text-center mb-4 mt-6" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
-              Download Your Assets
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="flex flex-col items-center justify-center text-center">
-            {/* QR Component - Same styling as upload page */}
-            <div style={{
-              boxSizing: 'border-box',
-              background: '#e6ebf2',
-              border: '27px solid #fff',
-              borderRadius: '15px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '4px',
-              width: '400px',
-              height: '340px',
-              margin: '16px 0'
-            }}>
-              <QRCode
-                value="https://example.com/download-catalog-assets"
-                size={200}
-                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                viewBox="0 0 256 256"
-              />
-            </div>
-
-            <p style={{
-              color: '#5c5c5c',
-              fontSize: '18px',
-              marginBottom: '12px',
-              fontFamily: 'Google Sans',
-              fontWeight: 400
-            }}>
-              Scan to download your catalog assets
-            </p>
-
-            <Button
-              onClick={() => setIsExportModalOpen(false)}
-              className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
-              data-testid="button-close-export-modal"
-            >
-              Close
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* Export Modal */}
+      <ExportQRModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        qrUrl="https://example.com/download-catalog-assets"
+        description="Scan to download your catalog assets"
+      />
 
       {/* Image Modal */}
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>

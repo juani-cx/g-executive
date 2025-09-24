@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import TopNavigation from "@/components/TopNavigation";
 import { useLocation } from "wouter";
 import { ZoomIn } from "lucide-react";
+import { ExportQRModal } from "@/components/ExportQRModal";
 
 // Virtual Keyboard Component
 function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
@@ -583,68 +584,12 @@ export default function Canvas() {
       <VirtualKeyboard isVisible={showKeyboard} />
       
       {/* Export Modal */}
-      <Dialog open={isExportModalOpen} onOpenChange={setIsExportModalOpen}>
-        <DialogContent className="max-w-lg bg-white p-8 z-[80]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold text-center mb-4" style={{ fontFamily: 'Google Sans' }}>
-              Download Your Assets
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="flex flex-col items-center justify-center text-center">
-            {/* QR Component - Same styling as upload page */}
-            <div style={{
-              boxSizing: 'border-box',
-              background: '#e6ebf2',
-              border: '27px solid #fff',
-              borderRadius: '15px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '4px',
-              width: '400px',
-              height: '380px',
-              overflow: 'hidden',
-              boxShadow: '0 16px 24px #0000001a',
-              margin: '0 auto'
-            }}>
-              <div style={{
-                aspectRatio: '1',
-                background: '#d3d3d3 url(/images/QR_code.svg) 50% / cover no-repeat',
-                flexShrink: '0',
-                width: '90%',
-                height: 'auto',
-                borderRadius: '14px'
-              }} />
-            </div>
-            
-            {/* Text below QR - Same styling as upload page */}
-            <span style={{
-              color: '#1f3251',
-              textAlign: 'center',
-              width: '220px',
-              fontFamily: 'Google Sans',
-              fontSize: '20px',
-              fontStyle: 'normal',
-              fontWeight: '500',
-              lineHeight: 'normal',
-              display: 'inline-block',
-              marginTop: '40px'
-            }}>
-              Scan this QR code to download your assets
-            </span>
-            
-            {/* Close Button */}
-            <Button
-              onClick={() => setIsExportModalOpen(false)}
-              className="mt-8 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
-              data-testid="button-close-export-modal"
-            >
-              Close
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ExportQRModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        qrUrl="https://example.com/download-campaign-assets"
+        description="Scan to download your campaign assets"
+      />
     </div>
   );
 }
