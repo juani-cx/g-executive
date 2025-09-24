@@ -185,7 +185,7 @@ export default function UploadCatalog() {
 
 
           {/* Content Area - Fade transitions with image preloading */}
-          <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-70px' }}>
+          <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-28px' }}>
             
             {/* QR Tab Content */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'computer' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
