@@ -168,7 +168,7 @@ export default function ConfigureCatalog() {
   ];
 
   const catalogTypeOptions = [
-    "Retail", "Technology", "Construction", "Tools"
+    "Product Photography", "Portrait Photography", "Lifestyle Photography", "Commercial Photography", "Fashion Photography", "Food Photography", "Event Photography", "Architectural Photography"
   ];
 
   const handleRandomizeAll = () => {
@@ -322,7 +322,7 @@ export default function ConfigureCatalog() {
                 />
                 
                 <InlineComboInput
-                  label="Catalog Type"
+                  label="Photography type"
                   value={catalogType}
                   onChange={setCatalogType}
                   options={catalogTypeOptions}
