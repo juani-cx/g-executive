@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,6 +59,18 @@ export default function CatalogCanvas() {
   // Modal and keyboard states
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(false);
+
+  // Auto-fill form fields when component mounts (simulating AI analysis)
+  useEffect(() => {
+    // Simulate AI analysis delay and automatically fill the form fields
+    setTimeout(() => {
+      setProductTitle('Premium Wireless Bluetooth Headphones');
+      setProductDescription('Experience superior sound quality with these premium wireless headphones featuring advanced noise cancellation technology, 30-hour battery life, and comfortable over-ear design perfect for music lovers and professionals.');
+      setSeoMetadata('wireless headphones, bluetooth, noise cancelling, premium audio, music, professional');
+      setAltText('Premium wireless bluetooth headphones with over-ear design and noise cancellation');
+      setTags('wireless, bluetooth, headphones, noise-cancelling, premium, black, over-ear, 30hr-battery');
+    }, 1500);
+  }, []);
 
   const handleBack = () => {
     navigate('/upload-catalog');
