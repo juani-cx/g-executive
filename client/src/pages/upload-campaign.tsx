@@ -343,7 +343,7 @@ export default function UploadCampaign() {
               <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
                 <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
               </div>
-              <span className="text-blue-900 text-center text-xl font-medium mt-10 block w-56">
+              <span className="text-gray-700 text-center text-xl font-medium mt-10 block w-56">
                 Scan this QR code to upload your image
               </span>
             </div>
@@ -475,7 +475,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('computer')}
               data-testid="tab-upload"
             >
-              <Upload className="w-7 h-7" />
+              <Upload className="w-10 h-10" />
               Upload your images
             </Button>
             <Button
@@ -488,7 +488,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('ai')}
               data-testid="tab-ai"
             >
-              <Camera className="w-7 h-7" />
+              <Camera className="w-10 h-10" />
               Take a photo
             </Button>
             <Button
@@ -501,7 +501,7 @@ export default function UploadCampaign() {
               onClick={() => setActiveTab('predefined')}
               data-testid="tab-preselected"
             >
-              <XCircle className="w-7 h-7" />
+              <XCircle className="w-10 h-10" />
               I don't want to use my photos
             </Button>
           </div>
