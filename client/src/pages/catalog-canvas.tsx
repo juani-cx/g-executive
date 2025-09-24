@@ -391,7 +391,7 @@ export default function CatalogCanvas() {
       <Dialog open={isExportModalOpen} onOpenChange={setIsExportModalOpen}>
         <DialogContent className="max-w-lg bg-white p-8 z-[80]">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold text-center mb-4" style={{ fontFamily: 'Google Sans' }}>
+            <DialogTitle className="text-3xl font-normal text-center mb-4 mt-6" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
               Download Your Assets
             </DialogTitle>
           </DialogHeader>
@@ -409,7 +409,7 @@ export default function CatalogCanvas() {
               gap: '4px',
               width: '400px',
               height: '340px',
-              margin: '24px 0'
+              margin: '16px 0'
             }}>
               <QRCode
                 value="https://example.com/download-catalog-assets"
@@ -421,16 +421,17 @@ export default function CatalogCanvas() {
 
             <p style={{
               color: '#5c5c5c',
-              fontSize: '16px',
-              marginBottom: '24px',
-              fontFamily: 'Google Sans'
+              fontSize: '18px',
+              marginBottom: '12px',
+              fontFamily: 'Google Sans',
+              fontWeight: 400
             }}>
               Scan to download your catalog assets
             </p>
 
             <Button
               onClick={() => setIsExportModalOpen(false)}
-              className="mt-8 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
+              className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
               data-testid="button-close-export-modal"
             >
               Close
