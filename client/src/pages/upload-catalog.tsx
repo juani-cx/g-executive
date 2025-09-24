@@ -12,37 +12,21 @@ interface CardData {
   icon: string;
 }
 
-// Stable image data - moved outside component to prevent re-creation
-const CATALOG_IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>> = {
-  retail: [
-    { id: 1, src: '/img-refs-catalog/retail/retail01.png', alt: 'Retail Product 1' },
-    { id: 2, src: '/img-refs-catalog/retail/retail02.png', alt: 'Retail Product 2' },
-    { id: 3, src: '/img-refs-catalog/retail/retail03.png', alt: 'Retail Product 3' },
-    { id: 4, src: '/img-refs-catalog/retail/retail04.png', alt: 'Retail Product 4' },
-  ],
-  technology: [
-    { id: 1, src: '/img-refs-catalog/tech/tech01.png', alt: 'Technology Product 1' },
-    { id: 2, src: '/img-refs-catalog/tech/tech02.png', alt: 'Technology Product 2' },
-    { id: 3, src: '/img-refs-catalog/tech/tech03.png', alt: 'Technology Product 3' },
-    { id: 4, src: '/img-refs-catalog/tech/tech04.png', alt: 'Technology Product 4' },
-  ],
-  construction: [
-    { id: 1, src: '/img-refs-catalog/construction/construction01.png', alt: 'Construction Product 1' },
-    { id: 2, src: '/img-refs-catalog/construction/construction02.png', alt: 'Construction Product 2' },
-    { id: 3, src: '/img-refs-catalog/construction/construction03.png', alt: 'Construction Product 3' },
-    { id: 4, src: '/img-refs-catalog/construction/construction04.png', alt: 'Construction Product 4' },
-  ],
-  tools: [
-    { id: 1, src: '/img-refs-catalog/others/others01.png', alt: 'Tools Product 1' },
-    { id: 2, src: '/img-refs-catalog/others/others02.png', alt: 'Tools Product 2' },
-    { id: 3, src: '/img-refs-catalog/others/others03.png', alt: 'Tools Product 3' },
-    { id: 4, src: '/img-refs-catalog/others/others04.png', alt: 'Tools Product 4' },
-  ]
-};
+// Catalog image data - 8 product images in single array
+const CATALOG_IMAGES: Array<{ id: number; src: string; alt: string }> = [
+  { id: 1, src: '/img-refs-catalog/product0101.jpg', alt: 'Product 1' },
+  { id: 2, src: '/img-refs-catalog/product0202.jpg', alt: 'Product 2' },
+  { id: 3, src: '/img-refs-catalog/product0303.jpg', alt: 'Product 3' },
+  { id: 4, src: '/img-refs-catalog/product0404.jpg', alt: 'Product 4' },
+  { id: 5, src: '/img-refs-catalog/product0505.jpg', alt: 'Product 5' },
+  { id: 6, src: '/img-refs-catalog/product0606.jpg', alt: 'Product 6' },
+  { id: 7, src: '/img-refs-catalog/product0707.jpg', alt: 'Product 7' },
+  { id: 8, src: '/img-refs-catalog/product0808.jpg', alt: 'Product 8' },
+];
 
 // Preload catalog images for instant switching with proper caching
 const preloadCatalogImages = () => {
-  Object.values(CATALOG_IMAGE_DATA).flat().forEach(({ src }) => {
+  CATALOG_IMAGES.forEach(({ src }) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = src;
@@ -51,7 +35,7 @@ const preloadCatalogImages = () => {
 
 export default function UploadCatalog() {
   const [, navigate] = useLocation();
-  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('computer');
+  const [activeTab, setActiveTab] = useState<'qr' | 'computer' | 'ai' | 'predefined'>('predefined');
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
@@ -66,12 +50,9 @@ export default function UploadCatalog() {
   
   // Catalog workflow - fixed to catalog
   const workflowType = 'catalog';
-  const [selectedCatalogCategory, setSelectedCatalogCategory] = useState<'retail' | 'technology' | 'construction' | 'tools'>('retail');
   
-  const selectedCategory = selectedCatalogCategory;
-
-  // Get current category images (reactive) - now uses stable reference
-  const moodImages = useMemo(() => CATALOG_IMAGE_DATA[selectedCatalogCategory] || CATALOG_IMAGE_DATA.retail, [selectedCatalogCategory]);
+  // Use all 8 catalog images directly
+  const moodImages = CATALOG_IMAGES;
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -118,7 +99,7 @@ export default function UploadCatalog() {
       try {
         const compressedImage = await compressImage(file);
         localStorage.setItem('uploadedImage', compressedImage);
-        localStorage.setItem('selectedCategory', selectedCategory);
+        localStorage.setItem('selectedCategory', 'catalog');
         localStorage.setItem('workflowType', workflowType);
         navigate('/configure-catalog');
       } catch (error) {
@@ -131,7 +112,7 @@ export default function UploadCatalog() {
     if (selectedCard !== null) {
       // Store card selection for configuration page
       localStorage.setItem('selectedCardIndex', selectedCard.toString());
-      localStorage.setItem('selectedCategory', selectedCategory);
+      localStorage.setItem('selectedCategory', 'catalog');
       localStorage.setItem('workflowType', workflowType);
       navigate('/configure-catalog');
     }
@@ -145,7 +126,7 @@ export default function UploadCatalog() {
   const handlePredefinedContinue = () => {
     if (selectedImage) {
       localStorage.setItem('uploadedImage', selectedImage);
-      localStorage.setItem('selectedCategory', selectedCategory);
+      localStorage.setItem('selectedCategory', 'catalog');
       localStorage.setItem('workflowType', workflowType);
       // Navigate to configure-catalog page first
       navigate('/configure-catalog');
@@ -160,7 +141,7 @@ export default function UploadCatalog() {
         await new Promise(resolve => setTimeout(resolve, 2000));
         
         localStorage.setItem('aiPrompt', aiPrompt);
-        localStorage.setItem('selectedCategory', selectedCategory);
+        localStorage.setItem('selectedCategory', 'catalog');
         localStorage.setItem('workflowType', workflowType);
         navigate('/configure-catalog');
       } catch (error) {
@@ -171,57 +152,6 @@ export default function UploadCatalog() {
     }
   };
 
-  // Catalog categories
-  const catalogCategories = [
-    { id: 'retail', label: 'Retail', icon: '🛍️' },
-    { id: 'technology', label: 'Technology', icon: '💻' },
-    { id: 'construction', label: 'Construction', icon: '🏗️' },
-    { id: 'tools', label: 'Tools', icon: '🔧' }
-  ];
-
-  // Sample card data for catalog workflow
-  const getCardsForCategory = (category: string): CardData[] => {
-    const baseCards: Record<string, CardData[]> = {
-      retail: [
-        { title: "Fashion Boutique", description: "Clothing and accessories", icon: "👗" },
-        { title: "Home Goods", description: "Furniture and decor", icon: "🏠" },
-        { title: "Beauty Products", description: "Cosmetics and skincare", icon: "💄" },
-        { title: "Sporting Goods", description: "Athletic equipment", icon: "⚽" }
-      ],
-      technology: [
-        { title: "Smartphones", description: "Mobile devices", icon: "📱" },
-        { title: "Laptops", description: "Computing devices", icon: "💻" },
-        { title: "Smart Home", description: "IoT devices", icon: "🏡" },
-        { title: "Audio Equipment", description: "Headphones and speakers", icon: "🎧" }
-      ],
-      construction: [
-        { title: "Building Materials", description: "Concrete and steel", icon: "🧱" },
-        { title: "Heavy Machinery", description: "Construction equipment", icon: "🚜" },
-        { title: "Safety Equipment", description: "Protective gear", icon: "🦺" },
-        { title: "Electrical Systems", description: "Wiring and components", icon: "⚡" }
-      ],
-      tools: [
-        { title: "Power Tools", description: "Electric equipment", icon: "🔨" },
-        { title: "Hand Tools", description: "Manual equipment", icon: "🛠️" },
-        { title: "Measuring Tools", description: "Precision instruments", icon: "📏" },
-        { title: "Workshop Equipment", description: "Garage and shop tools", icon: "🔧" }
-      ]
-    };
-    return baseCards[category] || baseCards.retail;
-  };
-
-  const currentCards = getCardsForCategory(selectedCategory);
-
-  const nextCard = () => {
-    setCurrentCardIndex((prev) => (prev + 1) % Math.ceil(currentCards.length / 4));
-  };
-
-  const prevCard = () => {
-    setCurrentCardIndex((prev) => (prev - 1 + Math.ceil(currentCards.length / 4)) % Math.ceil(currentCards.length / 4));
-  };
-
-  const startIndex = currentCardIndex * 4;
-  const visibleCards = currentCards.slice(startIndex, startIndex + 4);
 
   return (
     <div className="dotted-background" style={{ 
@@ -253,30 +183,6 @@ export default function UploadCatalog() {
             </p>
           </div>
 
-          {/* Category Tabs - Always reserve consistent space */}
-          <div className="flex justify-center mb-8 h-16">
-            <div className={`flex items-center bg-white rounded-full shadow-lg px-2 py-1 relative z-20 ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
-              {catalogCategories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className={`rounded-full text-sm font-medium transition-colors px-6 py-1 ${
-                    selectedCategory === category.id
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-gray-600"
-                  }`}
-                  onClick={() => {
-                    setSelectedCatalogCategory(category.id as any);
-                    setSelectedImage(null);
-                    setSelectedCard(null);
-                  }}
-                  data-testid={`tab-${category.id}`}
-                >
-                  {category.label}
-                </Button>
-              ))}
-            </div>
-          </div>
 
           {/* Content Area - Fade transitions with image preloading */}
           <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-70px' }}>
@@ -314,11 +220,11 @@ export default function UploadCatalog() {
             {/* Predefined Images Tab Content */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
               <div className="relative mb-8">
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-4 gap-4 max-w-4xl">
                   {moodImages.map((image) => (
                     <div
                       key={image.id}
-                      className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
+                      className={`h-36 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
                         selectedImage === image.src
                           ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                           : ''
@@ -332,7 +238,7 @@ export default function UploadCatalog() {
                         className="w-full h-full object-cover"
                         loading="eager"
                         decoding="async"
-                        style={{ imageRendering: 'optimizeSpeed' }}
+                        style={{ imageRendering: 'auto' }}
                       />
                     </div>
                   ))}
