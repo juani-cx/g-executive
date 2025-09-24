@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef, startTransition } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
@@ -34,13 +34,51 @@ const IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>
   ]
 };
 
-// Preload images for instant switching with proper caching
-const preloadImages = () => {
-  Object.values(IMAGE_DATA).flat().forEach(({ src }) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = src;
-  });
+// Advanced image preloader with decode awareness
+const useImagePreloader = () => {
+  const [readyCategories, setReadyCategories] = useState<Set<string>>(new Set());
+  const cacheRef = useRef<Map<string, Promise<HTMLImageElement>>>(new Map());
+  
+  const preloadAndDecodeImages = useCallback(async (category: string) => {
+    if (readyCategories.has(category)) return;
+    
+    const images = IMAGE_DATA[category] || [];
+    const decodePromises = images.map(({ src }) => {
+      if (!cacheRef.current.has(src)) {
+        const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = async () => {
+            try {
+              // Use decode() for proper paint timing
+              await img.decode();
+              resolve(img);
+            } catch (e) {
+              // Fallback for older browsers
+              resolve(img);
+            }
+          };
+          img.onerror = reject;
+          img.src = src;
+        });
+        cacheRef.current.set(src, promise);
+      }
+      return cacheRef.current.get(src)!;
+    });
+    
+    try {
+      await Promise.all(decodePromises);
+      setReadyCategories(prev => new Set([...Array.from(prev), category]));
+    } catch (error) {
+      console.warn(`Failed to preload images for category: ${category}`, error);
+    }
+  }, [readyCategories]);
+  
+  const isCategoryReady = useCallback((category: string) => {
+    return readyCategories.has(category);
+  }, [readyCategories]);
+  
+  return { preloadAndDecodeImages, isCategoryReady };
 };
 
 export default function UploadCampaign() {
@@ -50,11 +88,17 @@ export default function UploadCampaign() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Preload all images on component mount for instant tab switching
+  // Use the advanced image preloader
+  const { preloadAndDecodeImages, isCategoryReady } = useImagePreloader();
+
+  // Preload all categories on mount
   useEffect(() => {
-    preloadImages();
-  }, []);
+    Object.keys(IMAGE_DATA).forEach(category => {
+      preloadAndDecodeImages(category);
+    });
+  }, [preloadAndDecodeImages]);
 
   // Function to get images based on selected category - now uses stable data
   const getMoodImages = (category: string) => {
@@ -66,11 +110,36 @@ export default function UploadCampaign() {
   // Campaign workflow - fixed to campaign
   const workflowType = 'campaign';
   const [selectedCampaignCategory, setSelectedCampaignCategory] = useState<'digital' | 'physical' | 'service'>('physical');
+  const [previousCategory, setPreviousCategory] = useState<'digital' | 'physical' | 'service'>('physical');
   
   const selectedCategory = selectedCampaignCategory;
   
+  // Smart category switching with decode awareness
+  const handleCategorySwitch = useCallback(async (newCategory: 'digital' | 'physical' | 'service') => {
+    if (newCategory === selectedCampaignCategory || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    // Ensure images are decoded before switching
+    if (!isCategoryReady(newCategory)) {
+      await preloadAndDecodeImages(newCategory);
+    }
+    
+    startTransition(() => {
+      setPreviousCategory(selectedCampaignCategory);
+      setSelectedCampaignCategory(newCategory);
+      setIsTransitioning(false);
+    });
+  }, [selectedCampaignCategory, isTransitioning, isCategoryReady, preloadAndDecodeImages]);
+  
   // Get mood images for the currently selected category (reactive) - now uses stable reference
   const moodImages = useMemo(() => IMAGE_DATA[selectedCategory] || IMAGE_DATA.digital, [selectedCategory]);
+  const previousMoodImages = useMemo(() => IMAGE_DATA[previousCategory] || IMAGE_DATA.digital, [previousCategory]);
+  
+  // Show current images if ready, otherwise show previous to prevent flash
+  const displayImages = isCategoryReady(selectedCategory) ? moodImages : previousMoodImages;
+  const showCurrentImages = isCategoryReady(selectedCategory);
+  const showPreviousImages = !showCurrentImages && isTransitioning;
 
   // Function to compress image before storing
   const compressImage = (file: File): Promise<string> => {
@@ -256,7 +325,8 @@ export default function UploadCampaign() {
                       ? "bg-blue-600 text-white shadow-sm"
                       : "text-gray-600"
                   }`}
-                  onClick={() => setSelectedCampaignCategory(category.id as any)}
+                  onClick={() => handleCategorySwitch(category.id as 'digital' | 'physical' | 'service')}
+                  disabled={isTransitioning}
                   data-testid={`tab-${category.id}`}
                 >
                   {category.label}
@@ -301,26 +371,60 @@ export default function UploadCampaign() {
             {/* Predefined Images Tab Content */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
               <div className="relative mb-8">
-                <div className="grid grid-cols-4 gap-6">
-                  {moodImages.map((image) => (
+                {/* Loading indicator when transitioning */}
+                {isTransitioning && (
+                  <div className="absolute inset-0 bg-white/50 backdrop-blur-sm rounded-2xl z-10 flex items-center justify-center">
+                    <div className="flex items-center gap-2 text-blue-600">
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                      <span className="text-sm font-medium">Loading images...</span>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Current category images */}
+                <div className={`grid grid-cols-4 gap-6 transition-opacity duration-300 ${
+                  showCurrentImages ? 'opacity-100' : 'opacity-50'
+                }`}>
+                  {displayImages.map((image) => (
                     <div
-                      key={image.id}
-                      className={`h-72 rounded-2xl cursor-pointer transition-transform duration-200 overflow-hidden ${
+                      key={`${selectedCategory}-${image.id}`}
+                      className={`h-72 rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden ${
                         selectedImage === image.src
                           ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
-                          : ''
+                          : 'hover:scale-102 hover:shadow-lg'
+                      } ${
+                        isTransitioning ? 'pointer-events-none' : ''
                       }`}
-                      onClick={() => handleImageSelect(image.id, image.src)}
-                      data-testid={`image-${image.id}`}
+                      onClick={() => !isTransitioning && handleImageSelect(image.id, image.src)}
+                      data-testid={`image-${selectedCategory}-${image.id}`}
                     >
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-opacity duration-300"
                         loading="eager"
                         decoding="async"
-                        style={{ imageRendering: 'optimizeSpeed' }}
+                        style={{ imageRendering: 'auto' }}
                       />
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Hidden preloader containers for all categories to force cache */}
+                <div className="absolute -left-[9999px] top-0 opacity-0 pointer-events-none">
+                  {Object.entries(IMAGE_DATA).map(([category, images]) => (
+                    <div key={category}>
+                      {images.map((image) => (
+                        <img
+                          key={image.src}
+                          src={image.src}
+                          alt={image.alt}
+                          width="1"
+                          height="1"
+                          loading="eager"
+                          decoding="async"
+                        />
+                      ))}
                     </div>
                   ))}
                 </div>
