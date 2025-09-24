@@ -27,10 +27,10 @@ const IMAGE_DATA: Record<string, Array<{ id: number; src: string; alt: string }>
     { id: 4, src: '/img-refs/physical/physical04.jpg', alt: 'Physical 4' },
   ],
   service: [
-    { id: 1, src: '/img-refs/service/service1.png', alt: 'Service 1' },
-    { id: 2, src: '/img-refs/service/service2.png', alt: 'Service 2' },
-    { id: 3, src: '/img-refs/service/service3.png', alt: 'Service 3' },
-    { id: 4, src: '/img-refs/service/service4.png', alt: 'Service 4' },
+    { id: 1, src: '/img-refs/service/service01.jpg', alt: 'Service 1' },
+    { id: 2, src: '/img-refs/service/service02.jpg', alt: 'Service 2' },
+    { id: 3, src: '/img-refs/service/service03.jpg', alt: 'Service 3' },
+    { id: 4, src: '/img-refs/service/service04.jpg', alt: 'Service 4' },
   ]
 };
 
