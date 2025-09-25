@@ -131,7 +131,7 @@ export default function NewLanding() {
       {/* Footer */}
       <div
         className="absolute left-1/2 transform -translate-x-1/2 z-10"
-        style="bottom:140px;"
+        style={{ bottom: "140px" }}
       >
         <p className="text-xl text-gray-600">
           Create multi-channel assets in an instant
