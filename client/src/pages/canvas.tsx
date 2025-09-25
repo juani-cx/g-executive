@@ -296,7 +296,7 @@ function EditModal({
             <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
                 <Label htmlFor="title" className="text-sm font-medium text-gray-700">
-                  Title
+                  Caption body
                 </Label>
                 <Input
                   id="title"
@@ -309,13 +309,14 @@ function EditModal({
 
               <div>
                 <Label htmlFor="description" className="text-sm font-medium text-gray-700">
-                  Description
+                  Engagement Prompt
                 </Label>
                 <Textarea
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
+                  placeholder="What color would you choose?"
                   className="mt-1 resize-none text-sm focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="textarea-description"
                 />
@@ -323,12 +324,13 @@ function EditModal({
 
               <div>
                 <Label htmlFor="cta" className="text-sm font-medium text-gray-700">
-                  CTA
+                  Suggested hashtags
                 </Label>
                 <Input
                   id="cta"
                   value={cta}
                   onChange={(e) => setCta(e.target.value)}
+                  placeholder="#product, #brand, #lifestyle, #tech"
                   className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-cta"
                 />
@@ -418,7 +420,7 @@ export default function Canvas() {
       type: "Landing Page",
       title: "Landing Page",
       description: "High-converting landing page hero section with meta description",
-      cta: "Discover",
+      cta: "#landingpage, #conversion, #marketing, #business",
       image: "/landing-page.png"
     },
     {
@@ -426,7 +428,7 @@ export default function Canvas() {
       type: "Ad Banner",
       title: "Ad Banner",
       description: "Eye-catching advertising banner with meta description",
-      cta: "Campaign Launch 50% OFF",
+      cta: "#advertising, #banner, #promotion, #campaign",
       image: "/ad-banner.png"
     },
     {
@@ -434,7 +436,7 @@ export default function Canvas() {
       type: "Social Post", 
       title: "Social Post",
       description: "Professional social media post with meta description",
-      cta: "Learn More",
+      cta: "#socialmedia, #content, #engagement, #brand",
       image: "/social-post.png"
     },
     {
@@ -442,7 +444,7 @@ export default function Canvas() {
       type: "Vertical Video",
       title: "Vertical Video", 
       description: "Engaging vertical video content with meta description",
-      cta: "Learn More",
+      cta: "#video, #vertical, #content, #storytelling",
       image: "/mood-video.mp4",
       isVideo: true
     }
