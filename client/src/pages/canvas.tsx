@@ -319,7 +319,7 @@ function EditModal({
                         <img 
                           src={card.image}
                           alt={card.type}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-top"
                           data-testid="img-modal-preview"
                         />
                       )}
