@@ -304,13 +304,18 @@ export default function Configure() {
             <div className="space-y-2">
               {/* Form Fields - Inline Layout */}
               <div>
-                <InlineComboInput
-                  label={workflowType === 'catalog' ? "Target product" : "Product Category"}
-                  value={campaignType}
-                  onChange={setCampaignType}
-                  options={productCategoryOptions}
-                  testId="combo-product-category"
-                />
+                <div className="flex flex-col mb-4">
+                  <Label className="text-sm text-gray-600 mb-2 text-left">
+                    Product
+                  </Label>
+                  <Input
+                    value={campaignType}
+                    onChange={(e) => setCampaignType(e.target.value)}
+                    placeholder="Enter product name"
+                    className="text-sm h-10 bg-gray-50"
+                    data-testid="input-product"
+                  />
+                </div>
                 
                 <InlineComboInput
                   label="Target audience"
