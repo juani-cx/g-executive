@@ -7,11 +7,11 @@ export default function Logo({ size = "medium", className = "" }: LogoProps) {
   const getSizeClasses = () => {
     switch (size) {
       case "small":
-        return "w-16 h-9";
+        return "w-32 h-auto";
       case "large":
-        return "w-32 h-19";
+        return "w-48 h-auto";
       default:
-        return "w-24 h-14";
+        return "w-40 h-auto";
     }
   };
 
