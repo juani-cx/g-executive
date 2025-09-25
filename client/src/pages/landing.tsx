@@ -77,7 +77,7 @@ export default function Landing() {
             }}
             data-testid="text-main-title"
           >
-            The Gemini launchpad: Campaings and Products
+            The Gemini launchpad: Campaigns and Products
           </h1>
           <p
             style={{
