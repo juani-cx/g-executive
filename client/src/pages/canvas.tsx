@@ -214,91 +214,134 @@ function EditModal({
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
             <div className="p-3 h-full flex flex-col justify-center">
-              {/* Full Instagram Post */}
-              <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(0.85)' }}>
-                {/* Instagram Header */}
-                <div className="flex items-center justify-between p-3 border-b border-gray-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full p-0.5">
-                      <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                        <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+              {card.type === 'Social Post' ? (
+                /* Instagram Style Preview for Social Post */
+                <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(0.85)' }}>
+                  {/* Instagram Header */}
+                  <div className="flex items-center justify-between p-3 border-b border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full p-0.5">
+                        <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
+                          <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+                        </div>
                       </div>
+                      <span className="font-semibold text-sm">Your Company</span>
                     </div>
-                    <span className="font-semibold text-sm">Your Company</span>
-                  </div>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                    <circle cx="12" cy="12" r="1" fill="black"/>
-                    <circle cx="19" cy="12" r="1" fill="black"/>
-                    <circle cx="5" cy="12" r="1" fill="black"/>
-                  </svg>
-                </div>
-
-                {/* Instagram Image */}
-                {card.image ? (
-                  <div className="aspect-square bg-white overflow-hidden">
-                    {card.isVideo ? (
-                      <video 
-                        src={card.image}
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        data-testid="video-modal-preview"
-                      />
-                    ) : (
-                      <img 
-                        src={card.image}
-                        alt={card.type}
-                        className="w-full h-full object-cover"
-                        data-testid="img-modal-preview"
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                    <div className="text-4xl">🎨</div>
-                  </div>
-                )}
-
-                {/* Instagram Interaction Icons */}
-                <div className="p-3">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-4">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                        <path d="M4 12v8a2 2 0 0 0 2 2h8m0-10v8l8-8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                      <circle cx="12" cy="12" r="1" fill="black"/>
+                      <circle cx="19" cy="12" r="1" fill="black"/>
+                      <circle cx="5" cy="12" r="1" fill="black"/>
                     </svg>
                   </div>
 
-                  {/* Instagram Caption */}
-                  <div className="text-left">
-                    <div className="text-sm mb-2">
-                      <span className="font-semibold text-black">Your Company</span>
-                      <span className="text-gray-800 ml-1">{title || card.title}</span>
-                      {description && (
-                        <span className="text-gray-800 ml-1">{description}</span>
+                  {/* Instagram Image */}
+                  {card.image ? (
+                    <div className="aspect-square bg-white overflow-hidden">
+                      {card.isVideo ? (
+                        <video 
+                          src={card.image}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          data-testid="video-modal-preview"
+                        />
+                      ) : (
+                        <img 
+                          src={card.image}
+                          alt={card.type}
+                          className="w-full h-full object-cover"
+                          data-testid="img-modal-preview"
+                        />
                       )}
                     </div>
-                    
-                    {/* Hashtags in blue */}
-                    {(cta || card.cta) && (
-                      <div className="text-sm">
-                        <span className="text-blue-600">{cta || card.cta}</span>
+                  ) : (
+                    <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                      <div className="text-4xl">🎨</div>
+                    </div>
+                  )}
+
+                  {/* Instagram Interaction Icons */}
+                  <div className="p-3">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                          <path d="M4 12v8a2 2 0 0 0 2 2h8m0-10v8l8-8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                       </div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+
+                    {/* Instagram Caption */}
+                    <div className="text-left">
+                      <div className="text-sm mb-2">
+                        <span className="font-semibold text-black">Your Company</span>
+                        <span className="text-gray-800 ml-1">{title || card.title}</span>
+                        {description && (
+                          <span className="text-gray-800 ml-1">{description}</span>
+                        )}
+                      </div>
+                      
+                      {/* Hashtags in blue */}
+                      {(cta || card.cta) && (
+                        <div className="text-sm">
+                          <span className="text-blue-600">{cta || card.cta}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                /* Simple Preview for Other Assets */
+                <div className="bg-white rounded-lg shadow-sm p-4 max-w-md mx-auto w-full">
+                  {card.image ? (
+                    <div className="bg-white overflow-hidden rounded-lg mb-4" style={{ aspectRatio: card.type === 'Vertical Video' ? '9/16' : card.type === 'Ad Banner' ? '16/9' : '4/3' }}>
+                      {card.isVideo ? (
+                        <video 
+                          src={card.image}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          data-testid="video-modal-preview"
+                        />
+                      ) : (
+                        <img 
+                          src={card.image}
+                          alt={card.type}
+                          className="w-full h-full object-cover"
+                          data-testid="img-modal-preview"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mb-4" style={{ aspectRatio: card.type === 'Vertical Video' ? '9/16' : card.type === 'Ad Banner' ? '16/9' : '4/3' }}>
+                      <div className="text-4xl">🎨</div>
+                    </div>
+                  )}
+                  
+                  {/* Simple Content Preview */}
+                  <div className="text-left">
+                    <h3 className="font-semibold text-gray-900 mb-2">{title || card.title}</h3>
+                    {description && (
+                      <p className="text-gray-600 text-sm mb-2">{description}</p>
+                    )}
+                    {(cta || card.cta) && (
+                      <p className="text-blue-600 text-sm font-medium">{cta || card.cta}</p>
                     )}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -311,7 +354,7 @@ function EditModal({
             <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
                 <Label htmlFor="title" className="text-sm font-medium text-gray-700">
-                  Caption body
+                  {card.type === 'Social Post' ? 'Caption body' : card.type === 'Ad Banner' ? 'Headline' : 'Title'}
                 </Label>
                 <Input
                   id="title"
@@ -324,14 +367,14 @@ function EditModal({
 
               <div>
                 <Label htmlFor="description" className="text-sm font-medium text-gray-700">
-                  Engagement Prompt
+                  {card.type === 'Social Post' ? 'Engagement Prompt' : 'Description'}
                 </Label>
                 <Textarea
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
-                  placeholder="What color would you choose?"
+                  placeholder={card.type === 'Social Post' ? 'What color would you choose?' : 'Describe your content...'}
                   className="mt-1 resize-none text-sm focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="textarea-description"
                 />
@@ -339,13 +382,13 @@ function EditModal({
 
               <div>
                 <Label htmlFor="cta" className="text-sm font-medium text-gray-700">
-                  Suggested hashtags
+                  {card.type === 'Social Post' ? 'Suggested hashtags' : 'Call-to-action'}
                 </Label>
                 <Input
                   id="cta"
                   value={cta}
                   onChange={(e) => setCta(e.target.value)}
-                  placeholder="#product, #brand, #lifestyle, #tech"
+                  placeholder={card.type === 'Social Post' ? '#product, #brand, #lifestyle, #tech' : 'Learn More'}
                   className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-cta"
                 />
