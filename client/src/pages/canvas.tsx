@@ -271,17 +271,37 @@ function EditModal({
               </div>
               
               <div className="mt-3 text-left flex-shrink-0">
-                <h4 className="text-sm font-semibold text-gray-800 mb-1">{card.type} Title</h4>
-                <p className="text-xs text-gray-600 mb-1 line-clamp-2">{title || card.title}</p>
-                <p className="text-xs text-gray-500 mb-2 line-clamp-2">{description || card.description}</p>
+                {/* Instagram-style interaction icons */}
+                <div className="flex items-center gap-3 mb-3">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h8m0-10v8l8-8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <div className="flex-1"></div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                
+                {/* Company name and caption body inline */}
+                <div className="text-sm mb-2">
+                  <span className="font-semibold text-black">Your Company</span>
+                  <span className="text-gray-800 ml-1">{title || card.title}</span>
+                  {description && (
+                    <span className="text-gray-800 ml-1">{description}</span>
+                  )}
+                </div>
+                
+                {/* Hashtags in blue */}
                 {(cta || card.cta) && (
-                  <Button 
-                    size="sm" 
-                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white text-xs px-3 py-1 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
-                    data-testid="button-preview-cta"
-                  >
-                    {cta || card.cta}
-                  </Button>
+                  <div className="text-sm">
+                    <span className="text-blue-600">{cta || card.cta}</span>
+                  </div>
                 )}
               </div>
             </div>
