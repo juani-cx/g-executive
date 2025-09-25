@@ -14,14 +14,14 @@ interface CardData {
 
 // Catalog image data - 8 product images in single array
 const CATALOG_IMAGES: Array<{ id: number; src: string; alt: string }> = [
-  { id: 1, src: '/img-refs-catalog/product0101.jpg', alt: 'Product 1' },
-  { id: 2, src: '/img-refs-catalog/product0202.jpg', alt: 'Product 2' },
-  { id: 3, src: '/img-refs-catalog/product0303.jpg', alt: 'Product 3' },
-  { id: 4, src: '/img-refs-catalog/product0404.jpg', alt: 'Product 4' },
-  { id: 5, src: '/img-refs-catalog/product0505.jpg', alt: 'Product 5' },
-  { id: 6, src: '/img-refs-catalog/product0606.jpg', alt: 'Product 6' },
-  { id: 7, src: '/img-refs-catalog/product0707.jpg', alt: 'Product 7' },
-  { id: 8, src: '/img-refs-catalog/product0808.jpg', alt: 'Product 8' },
+  { id: 1, src: '/img-refs-catalog/product01.png', alt: 'Product 1' },
+  { id: 2, src: '/img-refs-catalog/product02.png', alt: 'Product 2' },
+  { id: 3, src: '/img-refs-catalog/product03.png', alt: 'Product 3' },
+  { id: 4, src: '/img-refs-catalog/product04.png', alt: 'Product 4' },
+  { id: 5, src: '/img-refs-catalog/product05.png', alt: 'Product 5' },
+  { id: 6, src: '/img-refs-catalog/product06.png', alt: 'Product 6' },
+  { id: 7, src: '/img-refs-catalog/product07.png', alt: 'Product 7' },
+  { id: 8, src: '/img-refs-catalog/product08.png', alt: 'Product 8' },
 ];
 
 // Preload catalog images for instant switching with proper caching

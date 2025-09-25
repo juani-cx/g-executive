@@ -219,7 +219,7 @@ export default function CatalogCanvas() {
                   overflow: 'hidden'
                 }}>
                   <img
-                    src="/img-refs/mood01.png"
+                    src="/img-refs-catalog/product01.png"
                     alt="Product preview"
                     style={{
                       width: '100%',
@@ -487,7 +487,7 @@ export default function CatalogCanvas() {
           
           <div className="flex flex-col items-center justify-center">
             <img
-              src="/img-refs/mood01.png"
+              src="/img-refs-catalog/product01.png"
               alt="Product preview - full size"
               style={{
                 maxWidth: '100%',
