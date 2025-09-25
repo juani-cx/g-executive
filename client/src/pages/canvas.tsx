@@ -135,7 +135,6 @@ function EditModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [cta, setCta] = useState("");
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   useEffect(() => {
     if (card) {
@@ -383,91 +382,6 @@ function EditModal({
         </div>
       </DialogContent>
 
-      {/* Full-screen Image Modal */}
-      <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
-        {/* White overlay backdrop */}
-        <div className="fixed inset-0 bg-white z-[80]" />
-        <DialogContent className={`${card?.type === 'Social Post' ? 'max-w-sm' : 'max-w-4xl'} bg-white p-4 z-[90] border-0 shadow-none`}>
-          <div className="flex flex-col items-center justify-center max-w-md mx-auto">
-            {/* Instagram Header */}
-            <div className="w-full flex items-center justify-between mb-3 px-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full p-0.5">
-                  <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                  </div>
-                </div>
-                <span className="font-semibold text-sm">Your Company</span>
-              </div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                <circle cx="12" cy="12" r="1" fill="black"/>
-                <circle cx="19" cy="12" r="1" fill="black"/>
-                <circle cx="5" cy="12" r="1" fill="black"/>
-              </svg>
-            </div>
-
-            {/* Instagram Image */}
-            {card?.image && (
-              <div className="w-full aspect-square bg-white rounded-lg overflow-hidden mb-3">
-                {card.isVideo ? (
-                  <video 
-                    src={card.image}
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    data-testid="video-canvas-fullsize"
-                  />
-                ) : (
-                  <img
-                    src={card.image}
-                    alt="Social Post"
-                    className="w-full h-full object-cover"
-                    data-testid="img-canvas-fullsize"
-                  />
-                )}
-              </div>
-            )}
-
-            {/* Instagram Interaction Icons */}
-            <div className="w-full flex items-center justify-between mb-3 px-1">
-              <div className="flex items-center gap-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                  <path d="M4 12v8a2 2 0 0 0 2 2h8m0-10v8l8-8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-
-            {/* Instagram Caption */}
-            <div className="w-full text-left mb-4 px-1">
-              <div className="text-sm mb-2">
-                <span className="font-semibold text-black">Your Company</span>
-                <span className="text-gray-800 ml-1">{title || card?.title}</span>
-                {description && (
-                  <span className="text-gray-800 ml-1">{description}</span>
-                )}
-              </div>
-              
-              {/* Hashtags in blue */}
-              {(cta || card?.cta) && (
-                <div className="text-sm">
-                  <span className="text-blue-600">{cta || card?.cta}</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </Dialog>
   );
 }
