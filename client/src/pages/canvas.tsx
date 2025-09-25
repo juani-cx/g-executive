@@ -394,13 +394,9 @@ function EditModal({
 
       {/* Full-screen Image Modal */}
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
-        <DialogContent className={`${card?.type === 'Social Post' ? 'max-w-sm' : 'max-w-4xl'} bg-white p-4 z-[90]`}>
-          <DialogHeader>
-            <DialogTitle className="text-3xl font-normal text-center mb-2 mt-5" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
-              Social Post
-            </DialogTitle>
-          </DialogHeader>
-          
+        {/* White overlay backdrop */}
+        <div className="fixed inset-0 bg-white z-[80]" />
+        <DialogContent className={`${card?.type === 'Social Post' ? 'max-w-sm' : 'max-w-4xl'} bg-white p-4 z-[90] border-0 shadow-none`}>
           <div className="flex flex-col items-center justify-center max-w-md mx-auto">
             {/* Instagram Header */}
             <div className="w-full flex items-center justify-between mb-3 px-3">
@@ -478,14 +474,6 @@ function EditModal({
                 </div>
               )}
             </div>
-            
-            <Button
-              onClick={() => setIsImageModalOpen(false)}
-              className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
-              data-testid="button-close-canvas-image-modal"
-            >
-              Close
-            </Button>
           </div>
         </DialogContent>
       </Dialog>
