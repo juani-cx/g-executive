@@ -12,8 +12,8 @@ export function AppShell({ children, header, footer, className = "" }: AppShellP
     <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100dvh' }}>
       {header && (
         <header 
-          className="shrink-0" 
-          style={{ height: 'var(--header-height)' }}
+          className="shrink-0 relative z-50" 
+          style={{ height: 'auto' }}
         >
           {header}
         </header>

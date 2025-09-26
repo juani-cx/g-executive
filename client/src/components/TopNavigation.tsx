@@ -45,7 +45,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               className="navigation-button font-normal text-[#1f2937] bg-transparent hover:bg-transparent"
               style={{
                 height: 'calc(var(--space-2xl) * 2)',
-                fontSize: 'calc(var(--font-size-lg) * 2)',
+                fontSize: '45px',
                 padding: 'calc(var(--space-sm) * 2) calc(var(--space-md) * 2)'
               }}
               data-testid="button-how-it-works"
@@ -148,7 +148,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               className="navigation-gear w-[36px] h-[36px] rounded-full p-0"
               data-testid="button-settings"
             >
-              <Settings className="navigation-gear-icon w-[72px] h-[72px] text-gray-600" />
+              <Settings className="navigation-gear-icon text-gray-600" style={{ height: 'auto', width: '70px' }} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent 

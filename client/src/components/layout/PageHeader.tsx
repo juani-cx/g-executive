@@ -13,11 +13,13 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <div 
-      className={`w-full flex items-center justify-between px-[var(--space-lg)] ${className}`}
+      className={`w-full flex items-center justify-between px-[var(--space-lg)] relative z-50 ${className}`}
       style={{ 
-        height: '100%',
+        height: 'auto',
         backgroundColor: background,
-        padding: `calc(var(--space-md) * 2) var(--space-xl) 0`
+        padding: `calc(var(--space-md) * 2) var(--space-xl) calc(var(--space-md) * 2)`,
+        position: 'relative',
+        zIndex: 50
       }}
     >
       {children}
