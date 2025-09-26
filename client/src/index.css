@@ -234,13 +234,7 @@ body {
 }
 
 /* Fluid Typography Classes */
-.text-xs { font-size: var(--size-xs); }
-.text-sm { font-size: var(--size-sm); }
-.text-base { font-size: var(--size-base); }
-.text-lg { font-size: var(--size-lg); }
-.text-xl { font-size: var(--size-xl); }
-.text-2xl { font-size: var(--size-2xl); }
-.text-3xl { font-size: var(--size-3xl); }
+/* Removed text class overrides - let Tailwind use default fixed sizes */
 
 /* Fluid Spacing Classes */
 .p-fluid-sm { padding: var(--space-sm); }
@@ -283,7 +277,7 @@ body {
 }
 
 .landing-card-image {
-  height: clamp(200px, 20vw, 400px);
+  height: 300px;
   border-radius: var(--space-sm);
 }
 
@@ -302,7 +296,7 @@ body {
   font-size: var(--size-base);
   padding: var(--space-md) var(--space-xl);
   border-radius: 45px;
-  min-height: clamp(48px, 5vw, 64px);
+  min-height: 48px;
   font-weight: 200;
 }
 
