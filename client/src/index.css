@@ -348,6 +348,18 @@ body {
     font-size: 64px !important;
   }
   
+  /* New-landing "Start now" button scaling */
+  .landing-page .button-large {
+    font-size: 48px !important; /* 2x of 24px */
+    padding: 40px 96px !important; /* 2x of 20px 48px */
+    min-height: 120px !important; /* 2x of 60px */
+  }
+  
+  /* New-landing footer text scaling */
+  .landing-page .footer-text {
+    font-size: 40px !important; /* 2x of 20px */
+  }
+  
   /* Navigation scaling */
   .landing-page [data-testid="button-how-it-works"] {
     font-size: 40px !important;
