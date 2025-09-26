@@ -372,8 +372,8 @@ body {
 }
 
 .virtual-keyboard {
-    --tw-scale-x: 0.55;
-    --tw-scale-y: 0.55;
+    --tw-scale-x: 1.0;
+    --tw-scale-y: 1.0;
     transform-origin: center bottom !important;
     bottom: 1rem !important;
     z-index: 9999 !important;
