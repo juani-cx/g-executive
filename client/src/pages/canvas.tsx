@@ -20,7 +20,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
   ];
 
   return createPortal(
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9999] ${
+    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9998] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: '2rem' }}>
       <div className="p-6" style={{ width: '900px' }}>
@@ -186,7 +186,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${card.type === 'Social Post' ? 'max-w-3xl' : 'max-w-4xl'} w-full h-[520px] p-0 overflow-visible !z-50 top-[2%] translate-y-0`} style={{ marginTop: '110px' }}>
+      <DialogContent className={`${card.type === 'Social Post' ? 'max-w-3xl' : 'max-w-4xl'} w-full h-[520px] p-0 overflow-visible top-[2%] translate-y-0`} style={{ marginTop: '110px', zIndex: 10001 }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
