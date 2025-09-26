@@ -42,12 +42,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
         <Dialog>
           <DialogTrigger asChild>
             <Button 
-              variant="outline"
-              className="rounded-full border text-[20px] font-normal leading-[24px] text-[#1f2937]"
-              style={{
-                borderColor: '#bec6d1b3',
-                padding: '16px 48px'
-              }}
+              variant="ghost"
+              className="h-[25px] text-[14px] font-normal text-[#1f2937] bg-transparent hover:bg-transparent px-3 py-0"
               data-testid="button-how-it-works"
             >
               How it works
