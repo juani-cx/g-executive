@@ -269,15 +269,17 @@ body {
 }
 
 .landing-card-title {
-  font-size: 28px;
-  line-height: 27.5px;
+  font-size: 20px;
+  line-height: 1.2;
   font-weight: 500;
-  padding-bottom: var(--space-lg);
+  padding-bottom: 24px;
+  margin-bottom: 16px;
+  border-bottom: 1.5px solid #000;
 }
 
 .landing-card-description {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 1.4;
   font-weight: 400;
 }
 
@@ -317,14 +319,17 @@ body {
   }
   
   /* Card titles - exact styling for large screens */
-  .landing-page .landing-card .landing-card-title {
+  .landing-page .landing-card-title {
     font-size: 28px !important;
     font-weight: 500 !important;
     line-height: 27.5px !important;
+    padding-bottom: 24px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 1.5px solid #000 !important;
   }
   
   /* Card descriptions - exact styling for large screens */
-  .landing-page .landing-card .landing-card-description {
+  .landing-page .landing-card-description {
     font-size: 24px !important;
     font-weight: 400 !important;
     line-height: 28px !important;
