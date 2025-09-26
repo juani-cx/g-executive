@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 const campaignImage = "/images/cards-campaign.png";
 const catalogImage = "/images/cards-catalog.png";
 import TopNavigation from "@/components/TopNavigation";
+import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 
 export default function Landing() {
   const [, navigate] = useLocation();
@@ -25,19 +26,26 @@ export default function Landing() {
   };
 
   return (
-    <div
+    <AppShell
       className="landing-page dotted-background"
       style={{
         fontFamily:
           'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        minHeight: "100vh",
-        width: "100%",
-        overflow: "auto",
-        position: "relative",
       }}
+      header={
+        <PageHeader>
+          <TopNavigation isLandingPage={true} />
+        </PageHeader>
+      }
+      footer={
+        <PageFooter>
+          <p className="footer-text text-gray-600">
+            Create multi-channel assets in an instant
+          </p>
+        </PageFooter>
+      }
     >
-      {/* Top Navigation */}
-      <TopNavigation isLandingPage={true} />
+      <PageBody>
 
       {/* Main Container - Fixed dimensions based on Figma */}
       <div
@@ -332,6 +340,7 @@ export default function Landing() {
           </div>
         </div>
       </div>
-    </div>
+      </PageBody>
+    </AppShell>
   );
 }
