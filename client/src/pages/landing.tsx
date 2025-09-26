@@ -1,6 +1,7 @@
 import { useLocation } from "wouter";
-import campaignImage from "@assets/cards-campaign_1758667838885.png";
-import catalogImage from "@assets/cards-catalog_1758667838885.png";
+// Use images from public folder
+const campaignImage = "/images/cards-campaign.png";
+const catalogImage = "/images/cards-catalog.png";
 import TopNavigation from "@/components/TopNavigation";
 
 export default function Landing() {
