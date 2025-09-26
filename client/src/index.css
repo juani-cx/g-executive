@@ -317,14 +317,18 @@ body {
     font-size: 48px !important; /* 2x of 24px */
   }
   
-  /* Card titles - exact 2x scaling */
+  /* Card titles - exact styling for large screens */
   .landing-page .landing-card-title {
-    font-size: 40px !important; /* 2x of 20px */
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    line-height: 27.5px !important;
   }
   
-  /* Card descriptions - exact 2x scaling */
+  /* Card descriptions - exact styling for large screens */
   .landing-page .landing-card-description {
-    font-size: 32px !important; /* 2x of 16px */
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    line-height: 28px !important;
   }
   
   /* Footer text - exact 2x scaling */
