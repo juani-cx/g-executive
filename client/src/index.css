@@ -378,13 +378,13 @@ body {
   }
   
   .landing-page .navigation-gear {
-    width: 80px !important; /* 2x of 40px */
-    height: 80px !important; /* 2x of 40px */
+    width: 72px !important; /* 2x of 36px */
+    height: 72px !important; /* 2x of 36px */
   }
   
   .landing-page .navigation-gear-icon {
-    width: 80px !important; /* 2x of 40px */
-    height: 80px !important; /* 2x of 40px */
+    width: 88px !important; /* 2x of 44px */
+    height: 88px !important; /* 2x of 44px */
   }
   
   .landing-page .w-64 {

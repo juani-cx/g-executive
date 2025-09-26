@@ -73,10 +73,10 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="navigation-gear w-[40px] h-[40px] rounded-full p-0"
+              className="navigation-gear w-[36px] h-[36px] rounded-full p-0"
               data-testid="button-settings"
             >
-              <Settings className="navigation-gear-icon w-[40px] h-[40px] text-gray-600" />
+              <Settings className="navigation-gear-icon w-[44px] h-[44px] text-gray-600" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent 
