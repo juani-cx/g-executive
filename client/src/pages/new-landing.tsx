@@ -32,9 +32,9 @@ export default function NewLanding() {
         <div
           className="absolute opacity-100"
           style={{
-            width: "530px",
+            width: "1060px",
             height: "auto",
-            left: "-100px",
+            left: "-200px",
             bottom: "-30%",
           }}
         >
@@ -60,8 +60,8 @@ export default function NewLanding() {
         </div>
         {/* Triangle SVG - Top Right */}
         <div
-          className="absolute top-20 w-72 h-72 opacity-100"
-          style={{ right: "-70px" }}
+          className="absolute top-20 opacity-100"
+          style={{ right: "-140px", width: "576px", height: "576px" }}
         >
           <svg
             width="100%"
