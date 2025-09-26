@@ -1,6 +1,7 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
+import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 
 export default function NewLanding() {
   const [, navigate] = useLocation();
@@ -10,9 +11,20 @@ export default function NewLanding() {
   };
 
   return (
-    <div
-      className="landing-page dotted-background relative overflow-hidden"
-      style={{ height: "100vh" }}
+    <AppShell
+      className="landing-page dotted-background"
+      header={
+        <PageHeader>
+          <TopNavigation isLandingPage={true} />
+        </PageHeader>
+      }
+      footer={
+        <PageFooter>
+          <p className="footer-text text-gray-600">
+            Create multi-channel assets in an instant
+          </p>
+        </PageFooter>
+      }
     >
       {/* Animated SVG Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -73,18 +85,11 @@ export default function NewLanding() {
         </div>
       </div>
 
-      {/* Top Navigation */}
-      <TopNavigation isLandingPage={true} />
-
-      {/* Main Content - Centered */}
-      <div
-        className="landing-main relative z-10 flex items-center justify-center"
-        style={{ height: "calc(100vh - 80px)", marginTop: "10px" }}
-      >
-        <div className="landing-content text-center w-full px-4">
+      <PageBody centerContent={true} padding={false} className="relative z-10">
+        <div className="landing-content text-center w-full" style={{ padding: 'var(--space-md)' }}>
           <h1
             className="landing-title hero-title text-gray-800 tracking-tight leading-none"
-            style={{ fontWeight: "475", marginTop: "0" }}
+            style={{ fontWeight: "475", margin: "0" }}
           >
             Launch a{" "}
             <span className="text-flip">
@@ -101,14 +106,14 @@ export default function NewLanding() {
           <h2
             className="landing-subtitle hero-subtitle text-gray-600 leading-none"
             style={{
-              margin: "32px 44px 58px",
+              margin: "var(--space-lg) var(--space-xl) var(--space-2xl)",
               fontWeight: "400",
             }}
           >
             From inspiration to multi-channel campaign in minutes
           </h2>
 
-          <div className="flex items-center justify-center gap-8">
+          <div className="flex items-center justify-center" style={{ gap: 'var(--space-lg)' }}>
             <Button
               className="landing-button button-large bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
               style={{
@@ -122,17 +127,7 @@ export default function NewLanding() {
             </Button>
           </div>
         </div>
-      </div>
-
-      {/* Footer */}
-      <div
-        className="absolute left-1/2 transform -translate-x-1/2 z-10"
-        style={{ bottom: "140px" }}
-      >
-        <p className="footer-text text-gray-600">
-          Create multi-channel assets in an instant
-        </p>
-      </div>
-    </div>
+      </PageBody>
+    </AppShell>
   );
 }

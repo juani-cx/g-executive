@@ -30,21 +30,24 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
   const [activeHowItWorksTab, setActiveHowItWorksTab] = useState<'campaign' | 'catalog'>('campaign');
 
   return (
-    <div className="w-full flex justify-between items-center top-navigation" style={{
-      padding: isLandingPage ? '24px 56px 0' : '16px 24px 0'
-    }}>
+    <div className="w-full flex justify-between items-center h-full">
       {/* Left side - Logo */}
       <div className="flex items-center">
         <Logo size={isLandingPage ? "large" : "medium"} />
       </div>
       
       {/* Right side - How it works button and settings */}
-      <div className="navigation-right flex items-center gap-6">
+      <div className="navigation-right flex items-center" style={{ gap: 'var(--space-md)' }}>
         <Dialog>
           <DialogTrigger asChild>
             <Button 
               variant="ghost"
-              className="navigation-button h-[40px] text-[18px] font-normal text-[#1f2937] bg-transparent hover:bg-transparent px-4 py-2"
+              className="navigation-button font-normal text-[#1f2937] bg-transparent hover:bg-transparent"
+              style={{
+                height: 'var(--space-2xl)',
+                fontSize: 'var(--font-size-lg)',
+                padding: 'var(--space-sm) var(--space-md)'
+              }}
               data-testid="button-how-it-works"
             >
               How it works

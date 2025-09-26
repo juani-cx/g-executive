@@ -9,6 +9,7 @@ import TopNavigation from "@/components/TopNavigation";
 import { useLocation } from "wouter";
 import { ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
+import { AppShell, PageHeader, PageBody } from "@/components/layout";
 
 // Virtual Keyboard Component
 function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
@@ -63,7 +64,8 @@ interface AssetCard {
 function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () => void }) {
   return (
     <div 
-      className="w-80 bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
+      className="bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
+      style={{ width: 'calc(var(--space-2xl) * 5)' }}
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
@@ -71,7 +73,7 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
 
       <div className="p-6">
         {/* Image or Video */}
-        <div className="w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
+        <div className="w-full bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center" style={{ height: 'calc(var(--space-2xl) * 4)' }}>
           {card.image ? (
             card.isVideo ? (
               <video 
@@ -508,23 +510,16 @@ export default function Canvas() {
   };
 
   return (
-    <div className="dotted-background" style={{ 
-      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      minHeight: '100vh'
-    }}>
-      {/* Top Navigation */}
-      <TopNavigation />
-      
-      {/* Main Content */}
-      <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '24px 56px',
-        boxSizing: 'border-box',
-        paddingTop: '0'
+    <AppShell
+      className="dotted-background"
+      header={
+        <PageHeader>
+          <TopNavigation />
+        </PageHeader>
+      }
+    >
+      <PageBody centerContent={true} className="flex flex-col items-center" style={{
+        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}>
         <div style={{
           width: '100%',
@@ -536,9 +531,9 @@ export default function Canvas() {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '16px',
+            gap: 'var(--space-md)',
             width: '100%',
-            maxWidth: '1808px',
+            maxWidth: 'var(--container-xl)',
             padding: '0',
             marginBottom: '32px'
           }}>
@@ -546,9 +541,9 @@ export default function Canvas() {
               color: '#000',
               textAlign: 'center',
               fontFamily: 'Google Sans',
-              fontSize: '48px',
+              fontSize: 'var(--font-size-3xl)',
               fontWeight: '500',
-              lineHeight: '36px',
+              lineHeight: '1.2',
               margin: 0
             }} data-testid="text-main-title">
               Export your assets
@@ -557,9 +552,9 @@ export default function Canvas() {
               color: '#5c5c5c',
               textAlign: 'center',
               fontFamily: 'Google Sans',
-              fontSize: '24px',
+              fontSize: 'var(--font-size-xl)',
               fontWeight: '400',
-              lineHeight: '28px',
+              lineHeight: '1.4',
               margin: 0
             }}>
               Review, edit and download your assets
@@ -590,7 +585,7 @@ export default function Canvas() {
             </div>
           </div>
         </div>
-      </div>
+      </PageBody>
 
       {/* Edit Modal */}
       <EditModal
@@ -617,6 +612,6 @@ export default function Canvas() {
         qrUrl="https://example.com/download-campaign-assets"
         description="Scan to download your campaign assets"
       />
-    </div>
+    </AppShell>
   );
 }

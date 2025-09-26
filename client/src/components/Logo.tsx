@@ -6,14 +6,14 @@ interface LogoProps {
 }
 
 export default function Logo({ size = "medium", className = "" }: LogoProps) {
-  const getSizeClasses = () => {
+  const getSizeStyles = () => {
     switch (size) {
       case "small":
-        return "w-44 h-auto"; // Increased from w-32 to accommodate full text
+        return { width: 'calc(var(--space-2xl) * 3)', height: 'auto' };
       case "large":
-        return "w-64 h-auto"; // Increased from w-48 to accommodate full text
+        return { width: 'calc(var(--space-2xl) * 4)', height: 'auto' };
       default:
-        return "w-52 h-auto"; // Increased from w-40 to accommodate full text
+        return { width: 'calc(var(--space-2xl) * 3.5)', height: 'auto' };
     }
   };
 
@@ -22,7 +22,8 @@ export default function Logo({ size = "medium", className = "" }: LogoProps) {
       <img 
         src={logoImage} 
         alt="Google Cloud" 
-        className={`${getSizeClasses()} logo-image`}
+        className="logo-image"
+        style={getSizeStyles()}
         data-testid="logo-image"
       />
     </div>

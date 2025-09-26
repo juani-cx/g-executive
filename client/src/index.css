@@ -162,16 +162,9 @@
   }
 }
 
-/* Base responsive scaling for touch screens */
+/* Base responsive scaling using 4K-first design tokens */
 body {
-  font-size: 16px;
-}
-
-/* Responsive scaling for better content fit */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
+  font-size: 1rem; /* Uses the responsive root font-size */
 }
 
 /* Removed - no scaling below 3500px */
@@ -207,36 +200,12 @@ body {
 
 /* Removed - scaling now handled only in landing page specific media query */
 
-/* Fixed Design System - NO scaling for normal screens */
-:root {
-  /* Fixed base sizes - no viewport scaling */
-  --size-xs: 12px;
-  --size-sm: 14px;
-  --size-base: 16px;
-  --size-lg: 18px;
-  --size-xl: 20px;
-  --size-2xl: 24px;
-  --size-3xl: 30px;
-  
-  /* Fixed spacing - no viewport scaling */
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  
-  /* Container widths */
-  --container-sm: min(600px, 90vw);
-  --container-md: min(800px, 90vw);
-  --container-lg: min(1200px, 90vw);
-  --container-xl: min(1400px, 95vw);
-}
+/* Legacy declarations removed - now using 4K-first design tokens */
 
 /* Fluid Typography Classes */
 /* Footer text styling for normal screens */
 .footer-text {
-  font-size: 20px;
+  font-size: var(--font-size-base);
   font-weight: 400;
 }
 
@@ -289,150 +258,81 @@ body {
 }
 
 .hero-title {
-  font-size: 120px;
+  font-size: var(--font-size-4xl);
   line-height: 1.1;
   font-weight: 500;
 }
 
 .hero-subtitle {
-  font-size: 54px;
+  font-size: var(--font-size-3xl);
   line-height: 1.3;
 }
 
 .button-large {
-  font-size: 30px;
-  padding: 16px 32px;
-  border-radius: 35px;
-  min-height: 50px;
+  font-size: var(--font-size-xl);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--space-xl);
+  min-height: var(--space-2xl);
   font-weight: 600;
 }
 
-/* 4K+ scaling for both homepage and new-landing */
-@media screen and (min-width: 3500px) {
-  /* Homepage main title scaling - more reasonable size */
-  .landing-page h1[data-testid="text-main-title"] {
-    font-size: 72px !important; /* 1.5x of 48px */
-    line-height: 1.2 !important;
-  }
+/* 4K-first design tokens - base sizes doubled for 4K displays */
+:root {
+  /* Base font size for 4K displays */
+  font-size: 20px;
   
-  /* Homepage subtitle scaling */
-  .landing-page h1 + p {
-    font-size: 36px !important; /* 1.5x of 24px */
-  }
+  /* Design tokens - 4K first, scaled down for smaller screens */
+  --font-size-xs: clamp(0.7rem, 1.4vw, 1rem);
+  --font-size-sm: clamp(0.8rem, 1.6vw, 1.2rem);
+  --font-size-base: clamp(0.9rem, 1.8vw, 1.5rem);
+  --font-size-lg: clamp(1.2rem, 2.4vw, 2rem);
+  --font-size-xl: clamp(1.5rem, 3vw, 3rem);
+  --font-size-2xl: clamp(2rem, 4vw, 4rem);
+  --font-size-3xl: clamp(2.5rem, 5vw, 6rem);
+  --font-size-4xl: clamp(3rem, 6vw, 12rem);
   
-  /* Card titles scaling - more specific selectors */
-  .landing-page span.landing-card-title {
-    font-size: 42px !important;
-    line-height: 41px !important;
-    font-family: "Google Sans" !important;
-  }
+  /* Spacing tokens */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 1rem);
+  --space-md: clamp(1rem, 2vw, 2rem);
+  --space-lg: clamp(1.5rem, 3vw, 3rem);
+  --space-xl: clamp(2rem, 4vw, 4rem);
+  --space-2xl: clamp(3rem, 6vw, 6rem);
   
-  /* Card descriptions scaling - more specific selectors */
-  .landing-page span.landing-card-description {
-    font-size: 36px !important;
-    line-height: 42px !important;
-    font-family: "Google Sans" !important;
-  }
-  
-  /* Footer text scaling */
-  .landing-page [data-testid="text-footer-cta"] {
-    font-size: 48px !important; /* 2x of 24px */
-  }
-  
-  /* New-landing page scaling */
-  .landing-page .hero-title {
-    font-size: 240px !important; /* 2x of 120px */
-  }
-  
-  .landing-page .hero-subtitle {
-    font-size: 108px !important; /* 2x of 54px */
-  }
-  
-  /* New-landing "Start now" button scaling */
-  .landing-page .button-large {
-    font-size: 60px !important; /* 2x of 30px */
-    padding: 32px 64px !important; /* 2x of 16px 32px */
-    min-height: 100px !important; /* 2x of 50px */
-  }
-  
-  /* New-landing footer text scaling */
-  .landing-page .footer-text {
-    font-size: 40px !important; /* 2x of 20px */
-  }
-  
-  /* Vertical centering for content pages on 4K - NOT the main homepage */
-  .landing-page:not([style*="height: 100vh"]) > div[style*="padding: 24px 56px"] {
-    min-height: calc(100vh - 120px) !important;
-    justify-content: center !important;
-  }
-  
-  /* Header padding scaling for 4K */
-  .landing-page .top-navigation {
-    padding: 48px 112px 0 !important; /* 2x of 24px 56px 0 */
-  }
-  
-  /* Main content area scaling */
-  .landing-page .landing-main {
-    height: calc(100vh - 160px) !important; /* 2x adjustment from 80px */
-    margin-top: 20px !important; /* 2x of 10px */
-  }
-  
-  .landing-page .landing-content {
-    padding-left: 32px !important; /* 2x of 16px (px-4) */
-    padding-right: 32px !important; /* 2x of 16px (px-4) */
-  }
-  
-  /* Logo image width scaling - CSS approach */
-  .landing-page .logo-image {
-    width: auto !important;
-    height: auto !important;
-    transform: scale(2) !important;
-    transform-origin: left center !important;
-  }
-  
-  /* Navigation right elements scaling - CSS approach */
-  .landing-page .navigation-right {
-    gap: 12px !important; /* 2x of 6px */
-    transform: scale(2) !important;
-    transform-origin: right center !important;
-  }
-  
-  /* Reset individual element scaling since we're using transform on parent */
-  .landing-page .navigation-button {
-    height: 40px !important; /* Original size, scaled by parent transform */
-    font-size: 18px !important; /* Original size, scaled by parent transform */
-    padding: 8px 16px !important; /* Original size, scaled by parent transform */
-  }
-  
-  .landing-page .navigation-gear {
-    width: 36px !important; /* Original size, scaled by parent transform */
-    height: 36px !important; /* Original size, scaled by parent transform */
-  }
-  
-  .landing-page .navigation-gear-icon {
-    width: 44px !important; /* Original size, scaled by parent transform */
-    height: 44px !important; /* Original size, scaled by parent transform */
+  /* Layout dimensions */
+  --header-height: clamp(60px, 8vh, 120px);
+  --footer-height: clamp(40px, 5vh, 80px);
+}
+
+/* Responsive font-size adjustments for smaller screens */
+@media screen and (max-width: 2560px) {
+  :root {
+    font-size: 16px;
   }
 }
 
-.virtual-keyboard {
-    --tw-scale-x: 1.0;
-    --tw-scale-y: 1.0;
-    transform-origin: center bottom !important;
-    bottom: 1rem !important;
-    z-index: 9999 !important;
+@media screen and (max-width: 1920px) {
+  :root {
+    font-size: 14px;
+  }
 }
 
-/* Custom animations */
+@media screen and (max-width: 1366px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+/* Virtual keyboard - no transforms */
+
+/* Custom animations - no transforms */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -493,19 +393,27 @@ body {
 
 @keyframes speed {
   0% {
-    transform: translate(0%);
+    left: 0%;
+    top: 0%;
     border-radius: 50%;
   }
   25% {
-    transform: translate(150%) scale(0.5);
+    left: 60%;
+    top: 0%;
+    width: 20%;
+    height: 20%;
     border-radius: 0%;
   }
   50% {
-    transform: translate(150%, 150%);
+    left: 60%;
+    top: 60%;
     border-radius: 50%;
   }
   75% {
-    transform: translate(0, 150%) scale(0.5);
+    left: 0%;
+    top: 60%;
+    width: 20%;
+    height: 20%;
     border-radius: 0%;
   }
 }
