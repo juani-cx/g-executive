@@ -56,9 +56,8 @@ export default function Landing() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          padding: "24px 56px",
+          padding: "0px 56px 24px 56px",
           boxSizing: "border-box",
-          paddingTop: "0",
         }}
       >
         {/* Title Section - Using PageTitle component */}
@@ -87,7 +86,6 @@ export default function Landing() {
               gap: "52px",
               width: "100%",
               justifyContent: "center",
-              marginTop: "40px",
               height: "100%",
             }}
           >
