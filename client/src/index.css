@@ -419,17 +419,6 @@ body {
   z-index: 10000 !important;
 }
 
-/* Fix modal visibility on all screens */
-.dialog-overlay { 
-  z-index: 70 !important; 
-  position: fixed; 
-  inset: 0; 
-}
-
-[data-radix-dialog-content] { 
-  z-index: 80 !important; 
-  position: fixed; 
-}
 
 /* Simple loading animation from CodePen */
 .loading-circle {
