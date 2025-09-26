@@ -38,12 +38,12 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
       </div>
       
       {/* Right side - How it works button and settings */}
-      <div className="flex items-center gap-5">
+      <div className="navigation-right flex items-center gap-6">
         <Dialog>
           <DialogTrigger asChild>
             <Button 
               variant="ghost"
-              className="h-[25px] text-[14px] font-normal text-[#1f2937] bg-transparent hover:bg-transparent px-3 py-0"
+              className="navigation-button h-[40px] text-[18px] font-normal text-[#1f2937] bg-transparent hover:bg-transparent px-4 py-2"
               data-testid="button-how-it-works"
             >
               How it works
@@ -73,10 +73,10 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="w-[25px] h-[25px] rounded-full p-0"
+              className="navigation-gear w-[40px] h-[40px] rounded-full p-0"
               data-testid="button-settings"
             >
-              <Settings className="w-[25px] h-[25px] text-gray-600" />
+              <Settings className="navigation-gear-icon w-[40px] h-[40px] text-gray-600" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent 
