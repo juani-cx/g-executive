@@ -308,7 +308,7 @@ body {
 }
 
 /* Exact 2x scaling ONLY for very large screens 3500px+ - LANDING PAGES ONLY */
-@media screen and (min-width: 3500px) {
+@media screen and (min-width: 1200px) {
   /* Homepage title and subtitle - exact 2x scaling */
   .landing-page h1 {
     font-size: 96px !important; /* 2x of 48px */
