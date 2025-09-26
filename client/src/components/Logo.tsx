@@ -1,3 +1,5 @@
+import logoImage from '@assets/logoGcloud_1758920769431.png';
+
 interface LogoProps {
   size?: "small" | "medium" | "large";
   className?: string;
@@ -17,13 +19,12 @@ export default function Logo({ size = "medium", className = "" }: LogoProps) {
 
   return (
     <div className={className}>
-      <div 
-        className={`${getSizeClasses()} flex items-center text-gray-800 font-semibold tracking-tight`}
-        data-testid="logo-text"
-        style={{ fontFamily: 'Google Sans, sans-serif' }}
-      >
-        <span className="text-2xl lg:text-3xl">Campaign AI Gen</span>
-      </div>
+      <img 
+        src={logoImage} 
+        alt="Google Cloud" 
+        className={`${getSizeClasses()} logo-image`}
+        data-testid="logo-image"
+      />
     </div>
   );
 }

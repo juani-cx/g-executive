@@ -390,6 +390,19 @@ body {
   .landing-page .w-64 {
     width: 32rem !important;
   }
+  
+  /* Logo scaling for 4K */
+  .landing-page .logo-image.w-44 {
+    width: 22rem !important; /* 2x of w-44 (11rem) */
+  }
+  
+  .landing-page .logo-image.w-52 {
+    width: 26rem !important; /* 2x of w-52 (13rem) */
+  }
+  
+  .landing-page .logo-image.w-64 {
+    width: 32rem !important; /* 2x of w-64 (16rem) */
+  }
 }
 
 .virtual-keyboard {
