@@ -307,18 +307,36 @@ body {
   font-weight: 600;
 }
 
-/* 4K+ scaling - use different approach */
+/* 4K+ scaling for both homepage and new-landing */
 @media screen and (min-width: 3500px) {
+  /* Homepage main title scaling */
+  .landing-page h1[data-testid="text-main-title"] {
+    font-size: 96px !important; /* 2x of 48px */
+  }
+  
+  /* Homepage subtitle scaling */
+  .landing-page h1 + p {
+    font-size: 48px !important; /* 2x of 24px */
+  }
+  
+  /* Card titles scaling */
   .landing-page .landing-card-title {
     font-size: 42px !important;
     line-height: 41px !important;
   }
   
+  /* Card descriptions scaling */
   .landing-page .landing-card-description {
     font-size: 36px !important;
     line-height: 42px !important;
   }
   
+  /* Footer text scaling */
+  .landing-page [data-testid="text-footer-cta"] {
+    font-size: 48px !important; /* 2x of 24px */
+  }
+  
+  /* New-landing page scaling */
   .landing-page .hero-title {
     font-size: 240px !important;
   }
@@ -327,6 +345,7 @@ body {
     font-size: 64px !important;
   }
   
+  /* Navigation scaling */
   .landing-page [data-testid="button-how-it-works"] {
     font-size: 40px !important;
     padding: 32px 96px !important;
