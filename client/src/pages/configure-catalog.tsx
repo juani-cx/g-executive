@@ -216,15 +216,11 @@ export default function ConfigureCatalog() {
       
       <div style={{
         width: '100%',
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '24px 56px',
-        boxSizing: 'border-box',
-        paddingTop: '0',
-        transform: 'scale(1.15)',
-        transformOrigin: 'top center'
+        padding: 'clamp(1rem, 3vw, 3.5rem) clamp(1rem, 4vw, 4rem)',
+        boxSizing: 'border-box'
       }}>
         <div className="hidden">
           <Button 
@@ -237,17 +233,15 @@ export default function ConfigureCatalog() {
           </Button>
         </div>
 
-        {/* Main Content - Scaled and Centered */}
+        {/* Main Content - Responsive Centered */}
         <div style={{
           width: '100%',
           minHeight: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '32px',
+          padding: 'clamp(1rem, 2vw, 2rem)',
           boxSizing: 'border-box',
-          transform: 'scale(1.2)',
-          transformOrigin: 'top center',
           maxWidth: '1400px',
           margin: '0 auto'
         }}>
@@ -419,6 +413,8 @@ export default function ConfigureCatalog() {
                 </Button>
               </div>
             </div>
+          </div>
+          </div>
           </div>
           </div>
         </div>
