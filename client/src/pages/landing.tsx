@@ -277,32 +277,6 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Footer CTA */}
-          <div
-            style={{
-              border: "none",
-              borderRadius: "12px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              padding: "6px 20px",
-              boxSizing: "border-box",
-            }}
-          >
-            <span
-              style={{
-                color: "#5c5c5c",
-                fontFamily: "Google Sans",
-                fontSize: "24px",
-                fontWeight: "400",
-                lineHeight: "28px",
-              }}
-              data-testid="text-footer-cta"
-            >
-              Choose an experience to get started
-            </span>
-          </div>
         </div>
       </div>
       </PageBody>
