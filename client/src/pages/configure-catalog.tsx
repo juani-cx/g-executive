@@ -122,14 +122,9 @@ function VirtualKeyboard() {
               ))}
             </div>
           ))}
-        
-        {/* Virtual Keyboard */}
-        <VirtualKeyboard />
         </div>
       </div>
-      </div>
-      </PageBody>
-    </AppShell>
+    </div>
   );
 }
 
@@ -404,10 +399,11 @@ export default function ConfigureCatalog() {
           </div>
           </div>
         </div>
+        </div>
         
         {/* Virtual Keyboard */}
         <VirtualKeyboard />
-      </div>
-    </div>
+      </PageBody>
+    </AppShell>
   );
 }
