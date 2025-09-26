@@ -30,8 +30,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
   const [activeHowItWorksTab, setActiveHowItWorksTab] = useState<'campaign' | 'catalog'>('campaign');
 
   return (
-    <div className="w-full flex justify-between items-center" style={{
-      padding: isLandingPage ? '48px 112px 0' : '32px 32px 0'
+    <div className="w-full flex justify-between items-center top-navigation" style={{
+      padding: isLandingPage ? '24px 56px 0' : '16px 24px 0'
     }}>
       {/* Left side - Logo */}
       <div className="flex items-center">

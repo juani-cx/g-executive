@@ -366,42 +366,52 @@ body {
     justify-content: center !important;
   }
   
-  /* Navigation scaling */
-  .landing-page .navigation-right {
-    gap: 12px !important; /* 2x of 6px */
+  /* Header padding scaling for 4K */
+  .landing-page .top-navigation {
+    padding: 48px 112px 0 !important; /* 2x of 24px 56px 0 */
   }
   
+  /* Main content area scaling */
+  .landing-page .landing-main {
+    height: calc(100vh - 160px) !important; /* 2x adjustment from 80px */
+    margin-top: 20px !important; /* 2x of 10px */
+  }
+  
+  .landing-page .landing-content {
+    padding-left: 32px !important; /* 2x of 16px (px-4) */
+    padding-right: 32px !important; /* 2x of 16px (px-4) */
+  }
+  
+  /* Logo image width scaling - CSS approach */
+  .landing-page .logo-image {
+    width: auto !important;
+    height: auto !important;
+    transform: scale(2) !important;
+    transform-origin: left center !important;
+  }
+  
+  /* Navigation right elements scaling - CSS approach */
+  .landing-page .navigation-right {
+    gap: 12px !important; /* 2x of 6px */
+    transform: scale(2) !important;
+    transform-origin: right center !important;
+  }
+  
+  /* Reset individual element scaling since we're using transform on parent */
   .landing-page .navigation-button {
-    height: 80px !important; /* 2x of 40px */
-    font-size: 36px !important; /* 2x of 18px */
-    padding: 16px 32px !important; /* 2x of 8px 16px */
+    height: 40px !important; /* Original size, scaled by parent transform */
+    font-size: 18px !important; /* Original size, scaled by parent transform */
+    padding: 8px 16px !important; /* Original size, scaled by parent transform */
   }
   
   .landing-page .navigation-gear {
-    width: 72px !important; /* 2x of 36px */
-    height: 72px !important; /* 2x of 36px */
+    width: 36px !important; /* Original size, scaled by parent transform */
+    height: 36px !important; /* Original size, scaled by parent transform */
   }
   
   .landing-page .navigation-gear-icon {
-    width: 88px !important; /* 2x of 44px */
-    height: 88px !important; /* 2x of 44px */
-  }
-  
-  .landing-page .w-64 {
-    width: 32rem !important;
-  }
-  
-  /* Logo scaling for 4K */
-  .landing-page .logo-image.w-44 {
-    width: 22rem !important; /* 2x of w-44 (11rem) */
-  }
-  
-  .landing-page .logo-image.w-52 {
-    width: 26rem !important; /* 2x of w-52 (13rem) */
-  }
-  
-  .landing-page .logo-image.w-64 {
-    width: 32rem !important; /* 2x of w-64 (16rem) */
+    width: 44px !important; /* Original size, scaled by parent transform */
+    height: 44px !important; /* Original size, scaled by parent transform */
   }
 }
 
