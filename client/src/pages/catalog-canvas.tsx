@@ -480,7 +480,7 @@ export default function CatalogCanvas() {
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
         <DialogContent className="max-w-4xl bg-white p-4 z-[80]">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-normal text-center mb-2 mt-5" style={{ fontFamily: 'Google Sans', fontWeight: 400 }}>
+            <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
               Product Image
             </DialogTitle>
           </DialogHeader>

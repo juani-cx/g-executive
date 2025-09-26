@@ -62,7 +62,7 @@ export default function Loading() {
           fontFamily: "Google Sans",
           fontSize: "20px",
           fontWeight: "200",
-          lineHeight: "40px",
+          lineHeight: "32px",
           margin: 0,
           maxWidth: "600px",
           marginTop: "16px",

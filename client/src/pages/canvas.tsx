@@ -348,7 +348,7 @@ function EditModal({
           {/* Right Side - Edit Form */}
           <div className="w-1/2 p-4 flex flex-col h-full">
             <DialogHeader className="mb-4">
-              <DialogTitle className="text-lg font-semibold">{card.type}</DialogTitle>
+              <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>{card.type}</DialogTitle>
             </DialogHeader>
 
             <div className="flex-1 space-y-4 py-2 min-h-0">

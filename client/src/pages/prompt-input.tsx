@@ -148,7 +148,7 @@ export default function PromptInput() {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] opacity-100">
                     <DialogHeader>
-                      <DialogTitle className="text-center">Scan this code to upload your image</DialogTitle>
+                      <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', textAlign: 'center' }}>Scan this code to upload your image</DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-col items-center space-y-4">
                       <div className="bg-white p-6 rounded-lg border border-[#cbcbcb]">

@@ -225,7 +225,7 @@ export default function AssetPreview({
       <Dialog open={!!previewAsset} onOpenChange={() => setPreviewAsset(null)}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
+            <DialogTitle className="flex items-center space-x-2" style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>
               {previewAsset?.type === 'image' ? (
                 <Image className="w-5 h-5" />
               ) : (

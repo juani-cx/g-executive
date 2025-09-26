@@ -126,7 +126,7 @@ export default function ShareModal({ open, onOpenChange, canvasId }: ShareModalP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="glass-surface border-glass-border max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-glass-text-primary flex items-center gap-2">
+          <DialogTitle className="text-glass-text-primary flex items-center gap-2" style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>
             <Users className="w-5 h-5" />
             Share & Collaborate
           </DialogTitle>

@@ -107,7 +107,7 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
 
         {/* Main Content */}
         <div className="relative z-10">
-          <DialogTitle className="text-center text-2xl font-semibold text-gray-900 mb-6">
+          <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', textAlign: 'center', color: '#1f2937' }}>
             Are you still there?
           </DialogTitle>
           

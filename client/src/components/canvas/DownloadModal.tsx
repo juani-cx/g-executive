@@ -122,7 +122,7 @@ export default function DownloadModal({ open, onOpenChange, assets }: DownloadMo
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2" style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>
             <Download className="w-5 h-5" />
             Download Assets
           </DialogTitle>
