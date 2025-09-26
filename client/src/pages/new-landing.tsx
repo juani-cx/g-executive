@@ -79,7 +79,7 @@ export default function NewLanding() {
       {/* Main Content - Centered */}
       <div
         className="landing-main relative z-10 flex items-center justify-center"
-        style={{ height: "calc(100vh - 120px)", marginTop: "-80px" }}
+        style={{ height: "calc(100vh - 120px)", marginTop: "20px" }}
       >
         <div className="landing-content text-center w-full px-8">
           <h1
