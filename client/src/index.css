@@ -308,25 +308,28 @@ body {
 }
 
 /* 4K+ scaling for both homepage and new-landing */
-@media screen and (min-width: 3500px) {
-  /* Homepage main title scaling */
+@media screen and (min-width: 1200px) {
+  /* Homepage main title scaling - more reasonable size */
   .landing-page h1[data-testid="text-main-title"] {
-    font-size: 96px !important; /* 2x of 48px */
+    font-size: 72px !important; /* 1.5x of 48px */
+    line-height: 1.2 !important;
   }
   
   /* Homepage subtitle scaling */
   .landing-page h1 + p {
-    font-size: 48px !important; /* 2x of 24px */
+    font-size: 36px !important; /* 1.5x of 24px */
   }
   
-  /* Card titles scaling */
-  .landing-page .landing-card-title {
+  /* Card titles scaling - try multiple selectors */
+  .landing-page .landing-card-title,
+  .landing-page span.landing-card-title {
     font-size: 42px !important;
     line-height: 41px !important;
   }
   
-  /* Card descriptions scaling */
-  .landing-page .landing-card-description {
+  /* Card descriptions scaling - try multiple selectors */
+  .landing-page .landing-card-description,
+  .landing-page span.landing-card-description {
     font-size: 36px !important;
     line-height: 42px !important;
   }
