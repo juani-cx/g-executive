@@ -120,18 +120,14 @@ export default function Landing() {
           >
             {/* Marketing Campaign Card */}
             <div
+              className="landing-card"
               style={{
                 background: "#fff",
-                borderRadius: "24px",
                 display: "flex",
                 flexDirection: "column",
                 flex: "1 0 0",
                 alignItems: "flex-start",
-                gap: "24px",
                 width: "100%",
-                minHeight: "74px",
-                padding: "40px 24px",
-                boxShadow: "0 1px 20px #00000029",
                 cursor: "pointer",
                 maxWidth: "477px",
               }}
@@ -152,13 +148,11 @@ export default function Landing() {
                 }}
               >
                 <span
+                  className="landing-card-title"
                   style={{
                     color: "#000",
                     flex: "1 0 0",
                     fontFamily: "Google Sans",
-                    fontSize: "28px",
-                    fontWeight: "500",
-                    lineHeight: "27.5px",
                   }}
                 >
                   Launch a<br />
@@ -178,16 +172,14 @@ export default function Landing() {
               >
                 {/* Image Container */}
                 <div
-                  className="landing-card-height"
+                  className="landing-card-height landing-card-image"
                   style={{
                     background: "#e6ebf2",
-                    borderRadius: "12px",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
-                    height: "280px", // Optimized height for better viewport fit
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
@@ -207,12 +199,10 @@ export default function Landing() {
 
                 {/* Description */}
                 <span
+                  className="landing-card-description"
                   style={{
                     color: "#000",
                     fontFamily: "Google Sans",
-                    fontSize: "24px",
-                    fontWeight: "400",
-                    lineHeight: "28px",
                   }}
                 >
                   Transform your inspiration into complete multi-channel
@@ -223,18 +213,14 @@ export default function Landing() {
 
             {/* Catalog Enrichment Card */}
             <div
+              className="landing-card"
               style={{
                 background: "#fff",
-                borderRadius: "24px",
                 display: "flex",
                 flexDirection: "column",
                 flex: "1 0 0",
                 alignItems: "flex-start",
-                gap: "24px",
                 width: "100%",
-                minHeight: "74px",
-                padding: "40px 24px",
-                boxShadow: "0 1px 20px #00000029",
                 cursor: "pointer",
                 maxWidth: "477px",
               }}
@@ -255,13 +241,11 @@ export default function Landing() {
                 }}
               >
                 <span
+                  className="landing-card-title"
                   style={{
                     color: "#000",
                     flex: "1 0 0",
                     fontFamily: "Google Sans",
-                    fontSize: "28px",
-                    fontWeight: "500",
-                    lineHeight: "27.5px",
                   }}
                 >
                   Launch a<br />
@@ -281,16 +265,14 @@ export default function Landing() {
               >
                 {/* Image Container */}
                 <div
-                  className="landing-card-height"
+                  className="landing-card-height landing-card-image"
                   style={{
                     background: "#e6ebf2",
-                    borderRadius: "12px",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
-                    height: "280px", // Optimized height for better viewport fit
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
@@ -310,12 +292,10 @@ export default function Landing() {
 
                 {/* Description */}
                 <span
+                  className="landing-card-description"
                   style={{
                     color: "#000",
                     fontFamily: "Google Sans",
-                    fontSize: "24px",
-                    fontWeight: "400",
-                    lineHeight: "28px",
                   }}
                 >
                   Generate high-quality SEO metadata instantly.

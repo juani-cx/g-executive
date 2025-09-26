@@ -83,7 +83,7 @@ export default function NewLanding() {
       >
         <div className="landing-content text-center w-full px-8">
           <h1
-            className="landing-title text-[120px] text-gray-800 tracking-tight leading-none"
+            className="landing-title hero-title text-gray-800 tracking-tight leading-none"
             style={{ fontWeight: "475", marginTop: "0" }}
           >
             Launch a{" "}
@@ -99,11 +99,9 @@ export default function NewLanding() {
           </h1>
 
           <h2
-            className="landing-subtitle text-gray-600 leading-none"
+            className="landing-subtitle hero-subtitle text-gray-600 leading-none"
             style={{
               margin: "32px 44px 58px",
-              fontSize: "54px",
-              lineHeight: "1",
               fontWeight: "400",
             }}
           >
@@ -112,11 +110,9 @@ export default function NewLanding() {
 
           <div className="flex items-center justify-center gap-8">
             <Button
-              className="landing-button bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
+              className="landing-button button-large bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
               style={{
-                fontSize: "30px",
                 lineHeight: "1",
-                padding: "24px 76px",
                 height: "auto",
               }}
               onClick={handleStartNow}

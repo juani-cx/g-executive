@@ -250,74 +250,102 @@ body {
   }
 }
 
-/* Aggressive individual element scaling for large screens 3600px+ */
-@media (width >= 3600px) {
-  /* Scale individual text elements aggressively */
-  h1 { 
-    font-size: 72px !important; 
-    line-height: 1.2 !important;
-  }
-  h2 { 
-    font-size: 56px !important; 
-    line-height: 1.3 !important;
-  }
-  h3 { 
-    font-size: 40px !important; 
-    line-height: 1.4 !important;
-  }
-  p, span, div { 
-    font-size: 28px !important; 
-    line-height: 1.6 !important;
-  }
+/* Fluid Design System for Large Screens */
+:root {
+  /* Base sizes that scale fluidly */
+  --size-xs: clamp(12px, 1.5vw, 20px);
+  --size-sm: clamp(16px, 2vw, 28px);
+  --size-base: clamp(20px, 2.5vw, 36px);
+  --size-lg: clamp(24px, 3vw, 44px);
+  --size-xl: clamp(32px, 4vw, 56px);
+  --size-2xl: clamp(40px, 5vw, 72px);
+  --size-3xl: clamp(48px, 6vw, 88px);
   
-  /* Scale all buttons and interactive elements */
-  button {
-    font-size: 24px !important;
-    padding: 20px 40px !important;
-    min-height: 70px !important;
-    border-radius: 12px !important;
-  }
+  /* Spacing that scales */
+  --space-xs: clamp(8px, 1vw, 16px);
+  --space-sm: clamp(12px, 1.5vw, 24px);
+  --space-md: clamp(16px, 2vw, 32px);
+  --space-lg: clamp(24px, 3vw, 48px);
+  --space-xl: clamp(32px, 4vw, 64px);
+  --space-2xl: clamp(48px, 6vw, 96px);
   
-  input, select, textarea {
-    font-size: 22px !important;
-    padding: 18px 24px !important;
-    min-height: 60px !important;
-  }
-  
-  /* Scale images and cards */
-  img {
-    transform: scale(1.5) !important;
-    transform-origin: center !important;
-  }
-  
-  /* Scale card containers */
-  [class*="card"], [class*="bg-white"] {
-    transform: scale(1.4) !important;
-    transform-origin: center !important;
-    margin: 40px !important;
-  }
-  
-  /* Change layout to use more vertical space */
-  .grid {
-    gap: 60px !important;
-  }
-  
-  /* Scale specific UI elements */
-  .rounded-3xl {
-    padding: 60px !important;
-  }
-  
-  /* Keep header normal but make navigation larger */
-  nav, header {
-    font-size: 20px !important;
-  }
-  
-  /* Scale the main content containers differently */
-  .max-w-6xl {
-    max-width: none !important;
-    width: 90vw !important;
-    margin: 0 auto !important;
-  }
+  /* Container widths */
+  --container-sm: min(600px, 90vw);
+  --container-md: min(800px, 90vw);
+  --container-lg: min(1200px, 90vw);
+  --container-xl: min(1400px, 95vw);
+}
+
+/* Fluid Typography Classes */
+.text-xs { font-size: var(--size-xs); }
+.text-sm { font-size: var(--size-sm); }
+.text-base { font-size: var(--size-base); }
+.text-lg { font-size: var(--size-lg); }
+.text-xl { font-size: var(--size-xl); }
+.text-2xl { font-size: var(--size-2xl); }
+.text-3xl { font-size: var(--size-3xl); }
+
+/* Fluid Spacing Classes */
+.p-fluid-sm { padding: var(--space-sm); }
+.p-fluid-md { padding: var(--space-md); }
+.p-fluid-lg { padding: var(--space-lg); }
+.p-fluid-xl { padding: var(--space-xl); }
+.p-fluid-2xl { padding: var(--space-2xl); }
+
+.gap-fluid-sm { gap: var(--space-sm); }
+.gap-fluid-md { gap: var(--space-md); }
+.gap-fluid-lg { gap: var(--space-lg); }
+.gap-fluid-xl { gap: var(--space-xl); }
+
+/* Fluid Container Classes */
+.container-fluid-sm { max-width: var(--container-sm); margin: 0 auto; }
+.container-fluid-md { max-width: var(--container-md); margin: 0 auto; }
+.container-fluid-lg { max-width: var(--container-lg); margin: 0 auto; }
+.container-fluid-xl { max-width: var(--container-xl); margin: 0 auto; }
+
+/* Landing Page Specific Fluid Classes */
+.landing-card {
+  border-radius: var(--space-md);
+  padding: var(--space-xl) var(--space-lg);
+  gap: var(--space-lg);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.16);
+}
+
+.landing-card-title {
+  font-size: var(--size-xl);
+  line-height: 1.2;
+  font-weight: 500;
+  padding-bottom: var(--space-lg);
+  border-bottom: 1.5px solid #000;
+}
+
+.landing-card-description {
+  font-size: var(--size-base);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.landing-card-image {
+  height: clamp(200px, 20vw, 400px);
+  border-radius: var(--space-sm);
+}
+
+.hero-title {
+  font-size: var(--size-3xl);
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.hero-subtitle {
+  font-size: var(--size-lg);
+  line-height: 1.4;
+}
+
+.button-large {
+  font-size: var(--size-base);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--space-sm);
+  min-height: clamp(48px, 6vw, 80px);
 }
 
 .virtual-keyboard {
