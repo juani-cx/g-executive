@@ -5,11 +5,12 @@ interface AppShellProps {
   header?: ReactNode;
   footer?: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function AppShell({ children, header, footer, className = "" }: AppShellProps) {
+export function AppShell({ children, header, footer, className = "", style = {} }: AppShellProps) {
   return (
-    <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100dvh' }}>
+    <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100dvh', ...style }}>
       {header && (
         <header 
           className="shrink-0 relative z-50" 

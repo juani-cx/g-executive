@@ -4,6 +4,7 @@ const campaignImage = "/images/cards-campaign.png";
 const catalogImage = "/images/cards-catalog.png";
 import TopNavigation from "@/components/TopNavigation";
 import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageTitle } from "@/components/PageTitle";
 
 export default function Landing() {
   const [, navigate] = useLocation();
@@ -60,48 +61,12 @@ export default function Landing() {
           paddingTop: "0",
         }}
       >
-        {/* Title Section - Reduced spacing */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "16px",
-            width: "100%",
-            maxWidth: "1808px",
-            padding: "0",
-            marginBottom: "32px",
-          }}
-        >
-          <h1
-            style={{
-              color: "#000",
-              textAlign: "center",
-              fontFamily: "Google Sans",
-              fontSize: "48px",
-              fontWeight: "500",
-              lineHeight: "36px",
-              margin: 0,
-            }}
-            data-testid="text-main-title"
-          >
-            The Gemini launchpad: Campaigns and Products
-          </h1>
-          <p
-            style={{
-              color: "#5c5c5c",
-              textAlign: "center",
-              fontFamily: "Google Sans",
-              fontSize: "24px",
-              fontWeight: "400",
-              lineHeight: "28px",
-              margin: 0,
-            }}
-          >
-            Campaign and product listings, built instantly from a single image
-          </p>
-        </div>
+        {/* Title Section - Using PageTitle component */}
+        <PageTitle
+          title="The Gemini launchpad: Campaigns and Products"
+          subtitle="Campaign and product listings, built instantly from a single image"
+          className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
+        />
 
         {/* Content Section */}
         <div

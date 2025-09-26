@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageTitle } from "@/components/PageTitle";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shuffle, ChevronDown } from "lucide-react";
@@ -265,41 +266,12 @@ export default function ConfigureCatalog() {
             width: '100%',
             textAlign: 'center'
           }}>
-          {/* Header */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '16px',
-            width: '100%',
-            maxWidth: '1808px',
-            padding: '0',
-            marginBottom: '16px'
-          }}>
-            <h1 style={{
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '48px',
-              fontWeight: '500',
-              lineHeight: '36px',
-              margin: 0
-            }} data-testid="text-main-title">
-              Configure Catalog
-            </h1>
-            <p style={{
-              color: '#5c5c5c',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '24px',
-              fontWeight: '400',
-              lineHeight: '28px',
-              margin: 0
-            }} data-testid="text-subtitle">
-              Define your catalog targets
-            </p>
-          </div>
+          {/* Header - Using PageTitle component */}
+          <PageTitle
+            title="Configure Catalog"
+            subtitle="Define your catalog targets"
+            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
+          />
 
           {/* Content Area */}
           <div className="max-w-6xl mx-auto">

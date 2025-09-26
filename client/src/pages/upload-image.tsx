@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageTitle } from "@/components/PageTitle";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import QRCode from "react-qr-code";
@@ -273,13 +274,11 @@ export default function UploadImage() {
       {/* Main Content */}
       <div className="flex items-center justify-center p-8" style={{ minHeight: 'calc(100vh - 120px)', height: 'auto' }}>
         <div className="text-center w-full" style={{ maxWidth: '72rem' }}>
-          <h1 className="text-6xl text-gray-800 mb-4 tracking-tight" style={{ fontWeight: '475' }}>
-            Upload your image
-          </h1>
-          
-          <p className="text-2xl text-gray-600 mb-16" style={{ fontWeight: '400' }}>
-            Executive campaign AI builder for executive people
-          </p>
+          <PageTitle
+            title="Upload your image"
+            subtitle="Executive campaign AI builder for executive people"
+            className="mb-16"
+          />
 
           {activeTab === 'qr' ? (
             <div className="mb-12">
