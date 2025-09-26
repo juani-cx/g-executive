@@ -11,7 +11,7 @@ export default function NewLanding() {
 
   return (
     <div
-      className="dotted-background relative overflow-hidden"
+      className="landing-page dotted-background relative overflow-hidden"
       style={{ height: "100vh" }}
     >
       {/* Animated SVG Background Elements */}

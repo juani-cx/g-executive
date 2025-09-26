@@ -383,8 +383,9 @@ body {
     border-radius: clamp(65px, 8vw, 120px);
   }
   
-  /* Footer text styling for large screens */
-  .footer-text {
+  /* Footer text styling for large screens - ONLY on landing pages */
+  .landing-page .footer-text,
+  .landing-container .footer-text {
     width: 100vw !important;
     text-align: center !important;
     font-size: clamp(16px, 2vw, 28px) !important;
@@ -393,27 +394,36 @@ body {
     transform: translateX(-50%) !important;
   }
   
-  /* ULTRA aggressive header scaling - target everything including inline styles */
-  .w-full.flex.justify-between.items-center,
-  .w-full.flex.justify-between.items-center *,
-  [class*="logo"] *, [class*="Logo"] *,
-  [data-testid="button-how-it-works"] {
+  /* Header scaling - ONLY on landing pages */
+  .landing-page .w-full.flex.justify-between.items-center,
+  .landing-page .w-full.flex.justify-between.items-center *,
+  .landing-container .w-full.flex.justify-between.items-center,
+  .landing-container .w-full.flex.justify-between.items-center *,
+  .landing-page [class*="logo"] *, 
+  .landing-page [class*="Logo"] *,
+  .landing-page [data-testid="button-how-it-works"],
+  .landing-container [data-testid="button-how-it-works"] {
     font-size: clamp(40px, 8vw, 120px) !important;
   }
   
-  /* Override any text-[size] Tailwind classes */
-  .text-\[20px\] {
+  /* Override text classes - ONLY on landing pages */
+  .landing-page .text-\[20px\],
+  .landing-container .text-\[20px\] {
     font-size: clamp(40px, 8vw, 120px) !important;
   }
   
-  /* Scale the settings icon */
-  .w-\[25px\].h-\[25px\] {
+  /* Scale icons - ONLY on landing pages */
+  .landing-page .w-\[25px\].h-\[25px\],
+  .landing-container .w-\[25px\].h-\[25px\] {
     width: clamp(40px, 6vw, 80px) !important;
     height: clamp(40px, 6vw, 80px) !important;
   }
   
-  /* Scale background SVGs 2x */
-  .absolute svg, [class*="absolute"] svg {
+  /* Scale background SVGs 2x - ONLY on landing pages */
+  .landing-page .absolute svg, 
+  .landing-page [class*="absolute"] svg,
+  .landing-container .absolute svg, 
+  .landing-container [class*="absolute"] svg {
     transform: scale(2) !important;
     transform-origin: center !important;
   }

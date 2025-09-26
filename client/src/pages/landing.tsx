@@ -26,7 +26,7 @@ export default function Landing() {
 
   return (
     <div
-      className="dotted-background"
+      className="landing-page dotted-background"
       style={{
         fontFamily:
           'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
