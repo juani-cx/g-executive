@@ -89,6 +89,7 @@ export default function Landing() {
               width: "100%",
               justifyContent: "center",
               marginTop: "40px",
+              height: "100%",
             }}
           >
             {/* Marketing Campaign Card */}
@@ -102,7 +103,8 @@ export default function Landing() {
                 alignItems: "flex-start",
                 width: "100%",
                 cursor: "pointer",
-                maxWidth: "477px",
+                maxWidth: "none",
+                height: "100%",
               }}
               onClick={() => handleOptionSelect("marketing")}
               data-testid="card-marketing-option"
@@ -156,6 +158,7 @@ export default function Landing() {
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
+                    height: "100%",
                   }}
                 >
                   <img
@@ -163,9 +166,8 @@ export default function Landing() {
                     alt="Marketing Campaign"
                     style={{
                       width: "100%",
-                      height: "auto",
+                      height: "100%",
                       objectFit: "cover",
-                      maxHeight: "100%",
                     }}
                   />
                 </div>
@@ -195,7 +197,8 @@ export default function Landing() {
                 alignItems: "flex-start",
                 width: "100%",
                 cursor: "pointer",
-                maxWidth: "477px",
+                maxWidth: "none",
+                height: "100%",
               }}
               onClick={() => handleOptionSelect("catalog")}
               data-testid="card-catalog-option"
@@ -249,6 +252,7 @@ export default function Landing() {
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
+                    height: "100%",
                   }}
                 >
                   <img
@@ -256,9 +260,8 @@ export default function Landing() {
                     alt="Catalog Enrichment"
                     style={{
                       width: "100%",
-                      height: "auto",
+                      height: "100%",
                       objectFit: "cover",
-                      maxHeight: "100%",
                     }}
                   />
                 </div>
