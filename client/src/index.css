@@ -360,8 +360,8 @@ body {
     font-size: 40px !important; /* 2x of 20px */
   }
   
-  /* Vertical centering for content pages on 4K */
-  .landing-page > div:first-of-type {
+  /* Vertical centering for content pages on 4K - NOT the main homepage */
+  .landing-page:not([style*="height: 100vh"]) > div[style*="padding: 24px 56px"] {
     min-height: calc(100vh - 120px) !important;
     justify-content: center !important;
   }
