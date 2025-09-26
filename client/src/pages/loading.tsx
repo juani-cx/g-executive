@@ -62,9 +62,10 @@ export default function Loading() {
           fontFamily: "Google Sans",
           fontSize: "20px",
           fontWeight: "200",
-          lineHeight: "24px",
+          lineHeight: "40px",
           margin: 0,
           maxWidth: "600px",
+          marginTop: "16px",
         }}
       >
         AI results can be imperfect or may fail.
