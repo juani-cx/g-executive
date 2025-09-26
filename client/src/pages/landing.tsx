@@ -48,7 +48,7 @@ export default function Landing() {
     >
       <PageBody>
 
-      {/* Main Container - Fixed dimensions based on Figma */}
+      {/* Main Container - Using standardized layout */}
       <div
         style={{
           width: "100%",
@@ -56,8 +56,6 @@ export default function Landing() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          padding: "0px 56px 24px 56px",
-          boxSizing: "border-box",
         }}
       >
         {/* Title Section - Using PageTitle component */}
