@@ -269,15 +269,14 @@ body {
 }
 
 .landing-card-title {
-  font-size: var(--size-xl);
+  font-size: 20px;
   line-height: 1.2;
   font-weight: 500;
   padding-bottom: var(--space-lg);
-  border-bottom: 1.5px solid #000;
 }
 
 .landing-card-description {
-  font-size: var(--size-base);
+  font-size: 16px;
   line-height: 1.4;
   font-weight: 400;
 }
