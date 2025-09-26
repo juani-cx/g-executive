@@ -326,15 +326,12 @@ body {
     --space-2xl: clamp(96px, 12vw, 192px);
   }
   
-  /* Scale header and navigation - ONLY on landing pages */
+  /* Exact 2x scaling for navigation - ONLY on landing pages */
   .landing-page nav, 
   .landing-page header, 
   .landing-page .top-navigation {
-    font-size: clamp(24px, 4vw, 64px) !important;
-  }
-  
-  .landing-page .top-navigation * {
-    font-size: clamp(20px, 3.5vw, 56px) !important;
+    transform: scale(2);
+    transform-origin: top center;
   }
   
   .landing-page .button-large {
