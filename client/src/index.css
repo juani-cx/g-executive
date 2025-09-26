@@ -250,35 +250,44 @@ body {
   }
 }
 
-/* Aggressive scaling for very large screens 3600px+ */
+/* Selective scaling for very large screens 3600px+ */
 @media (width >= 3600px) {
-  html {
-    font-size: 28px !important;
-  }
-  
-  body {
-    font-size: 32px !important;
-  }
-  
-  /* Scale the entire root element for massive screens */
-  #root {
-    transform: scale(2.4) !important;
+  /* Keep header normal but scale main content only */
+  .landing-main, .page-content, .main-content {
+    transform: scale(1.8) !important;
     transform-origin: top center !important;
-    width: 42% !important;
+    max-width: 70vw !important;
     margin: 0 auto !important;
   }
   
-  /* Force larger text sizes */
-  h1 { font-size: 56px !important; }
-  h2 { font-size: 44px !important; }
-  h3 { font-size: 36px !important; }
-  p, span, div { font-size: 24px !important; }
+  /* Larger text for content areas only */
+  .landing-main h1, .page-content h1, .main-content h1 { 
+    font-size: 48px !important; 
+  }
+  .landing-main h2, .page-content h2, .main-content h2 { 
+    font-size: 36px !important; 
+  }
+  .landing-main p, .page-content p, .main-content p { 
+    font-size: 20px !important; 
+  }
   
-  /* Force larger interactive elements */
-  button, input, select, textarea {
-    font-size: 24px !important;
-    padding: 20px 32px !important;
-    min-height: 60px !important;
+  /* Larger buttons and inputs inside content areas */
+  .landing-main button, .page-content button, .main-content button,
+  .landing-main input, .page-content input, .main-content input {
+    font-size: 18px !important;
+    padding: 16px 24px !important;
+    min-height: 50px !important;
+  }
+  
+  /* Keep header at normal size */
+  nav, header, .top-navigation {
+    transform: none !important;
+    font-size: 16px !important;
+  }
+  
+  /* Fix any layout bleeding */
+  * {
+    box-sizing: border-box !important;
   }
 }
 
