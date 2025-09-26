@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
+import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shuffle, ChevronDown } from "lucide-react";
@@ -121,9 +122,14 @@ function VirtualKeyboard() {
               ))}
             </div>
           ))}
+        
+        {/* Virtual Keyboard */}
+        <VirtualKeyboard />
         </div>
       </div>
-    </div>
+      </div>
+      </PageBody>
+    </AppShell>
   );
 }
 
@@ -211,8 +217,22 @@ export default function ConfigureCatalog() {
   };
 
   return (
-    <div className="dotted-background" style={{ minHeight: '100vh' }}>
-      <TopNavigation />
+    <AppShell
+      className="dotted-background"
+      header={
+        <PageHeader>
+          <TopNavigation />
+        </PageHeader>
+      }
+      footer={
+        <PageFooter>
+          <p className="footer-text text-gray-600">
+            Create multi-channel assets in an instant
+          </p>
+        </PageFooter>
+      }
+    >
+      <PageBody>
       
       <div style={{
         width: '100%',

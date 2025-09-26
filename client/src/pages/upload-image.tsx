@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
+import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import QRCode from "react-qr-code";
@@ -249,10 +250,25 @@ export default function UploadImage() {
   };
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ height: '100vh' }}>
-
-      {/* Top Navigation */}
-      <TopNavigation />
+    <AppShell
+      className="dotted-background"
+      style={{
+        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+      header={
+        <PageHeader>
+          <TopNavigation />
+        </PageHeader>
+      }
+      footer={
+        <PageFooter>
+          <p className="footer-text text-gray-600">
+            Create multi-channel assets in an instant
+          </p>
+        </PageFooter>
+      }
+    >
+      <PageBody>
 
       {/* Main Content */}
       <div className="flex items-center justify-center p-8" style={{ minHeight: 'calc(100vh - 120px)', height: 'auto' }}>
@@ -573,7 +589,7 @@ export default function UploadImage() {
           </div>
         </div>
       </div>
-
-    </div>
+      </PageBody>
+    </AppShell>
   );
 }

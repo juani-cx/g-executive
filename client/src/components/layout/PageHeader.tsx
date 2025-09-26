@@ -17,7 +17,7 @@ export function PageHeader({
       style={{ 
         height: '100%',
         backgroundColor: background,
-        padding: `var(--space-md) var(--space-xl) 0`
+        padding: `calc(var(--space-md) * 2) var(--space-xl) 0`
       }}
     >
       {children}
