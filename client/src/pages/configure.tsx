@@ -213,7 +213,7 @@ export default function Configure() {
   };
 
   return (
-    <div className="dotted-background overflow-y-auto" style={{ minHeight: '100vh' }}>
+    <div className="dotted-background" style={{ minHeight: '100vh', overflow: 'auto' }}>
       {/* Header */}
 
       {/* Top Navigation */}

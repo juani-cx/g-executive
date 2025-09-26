@@ -167,9 +167,36 @@ body {
   font-size: 16px;
 }
 
+/* Responsive scaling for better content fit */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
 @media (min-width: 1920px) {
   body {
     font-size: 18px;
+  }
+}
+
+/* Ensure content doesn't overflow viewport */
+.dotted-background {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments for landing page cards */
+@media (max-height: 800px) {
+  .landing-card-height {
+    height: 200px !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .landing-card-height {
+    height: 150px !important;
   }
 }
 

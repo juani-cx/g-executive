@@ -508,9 +508,9 @@ export default function Canvas() {
   };
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ 
+    <div className="dotted-background" style={{ 
       fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      height: '100vh'
+      minHeight: '100vh'
     }}>
       {/* Top Navigation */}
       <TopNavigation />

@@ -29,9 +29,9 @@ export default function Landing() {
       style={{
         fontFamily:
           'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        height: "100vh",
+        minHeight: "100vh",
         width: "100%",
-        overflow: "hidden",
+        overflow: "auto",
         position: "relative",
       }}
     >
@@ -177,6 +177,7 @@ export default function Landing() {
               >
                 {/* Image Container */}
                 <div
+                  className="landing-card-height"
                   style={{
                     background: "#e6ebf2",
                     borderRadius: "12px",
@@ -185,7 +186,7 @@ export default function Landing() {
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
-                    height: "360px", // Even taller for maximum visual impact
+                    height: "280px", // Optimized height for better viewport fit
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
@@ -279,6 +280,7 @@ export default function Landing() {
               >
                 {/* Image Container */}
                 <div
+                  className="landing-card-height"
                   style={{
                     background: "#e6ebf2",
                     borderRadius: "12px",
@@ -287,7 +289,7 @@ export default function Landing() {
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
-                    height: "360px", // Even taller for maximum visual impact
+                    height: "280px", // Optimized height for better viewport fit
                     paddingBottom: "4px",
                     overflow: "hidden",
                     boxSizing: "border-box",
