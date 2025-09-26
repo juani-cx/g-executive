@@ -326,12 +326,20 @@ body {
     --space-2xl: clamp(96px, 12vw, 192px);
   }
   
-  /* Exact 2x scaling for navigation - ONLY on landing pages */
-  .landing-page nav, 
-  .landing-page header, 
-  .landing-page .top-navigation {
-    transform: scale(2);
-    transform-origin: top center;
+  /* Exact 2x scaling for navigation elements - ONLY on landing pages */
+  .landing-page [data-testid="button-how-it-works"] {
+    font-size: 40px !important; /* 2x of 20px */
+    padding: 32px 96px !important; /* 2x of 16px 48px */
+  }
+  
+  .landing-page .w-\[25px\].h-\[25px\] {
+    width: 50px !important; /* 2x of 25px */
+    height: 50px !important; /* 2x of 25px */
+  }
+  
+  /* Logo 2x scaling - large becomes 2x large */
+  .landing-page .w-64 {
+    width: 32rem !important; /* 2x of w-64 (16rem) */
   }
   
   .landing-page .button-large {
