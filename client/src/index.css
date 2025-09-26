@@ -174,11 +174,7 @@ body {
   }
 }
 
-@media (min-width: 1920px) {
-  body {
-    font-size: 18px;
-  }
-}
+/* Removed - no scaling below 3500px */
 
 /* Ensure content doesn't overflow viewport */
 .dotted-background {
@@ -205,50 +201,11 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* Enhanced responsive design for large screens */
-@media (min-width: 2560px) {
-  body {
-    font-size: clamp(16px, 1.25vw, 22px);
-  }
-  
-  /* Better spacing and typography for large screens */
-  .main-content {
-    max-width: 85vw;
-    margin: 0 auto;
-    padding: clamp(1.5rem, 4vw, 6rem);
-  }
-  
-  /* Responsive button and input sizing */
-  button, input, select {
-    font-size: clamp(14px, 1.1vw, 18px);
-    padding: clamp(0.5rem, 1vw, 1.25rem) clamp(0.75rem, 1.5vw, 2rem);
-  }
-}
+/* Removed - no scaling below 3500px */
 
-@media (min-width: 3440px) {
-  body {
-    font-size: 22px;
-  }
-}
+/* Removed - no scaling below 3500px */
 
-/* 4K Responsive Design */
-@media (min-width: 3500px) {
-  body {
-    font-size: clamp(18px, 1.5vw, 28px);
-  }
-  
-  .main-content {
-    max-width: 80vw;
-    margin: 0 auto;
-    padding: clamp(2rem, 5vw, 8rem);
-  }
-  
-  /* Enhanced responsive sizing for very large screens */
-  button, input, select {
-    font-size: clamp(16px, 1.3vw, 24px);
-    padding: clamp(0.75rem, 1.5vw, 2rem) clamp(1rem, 2vw, 3rem);
-  }
-}
+/* Removed - scaling now handled only in landing page specific media query */
 
 /* Fluid Design System - Reasonable scaling for normal screens */
 :root {
@@ -349,8 +306,8 @@ body {
   font-weight: 200;
 }
 
-/* Aggressive scaling ONLY for very large screens 3600px+ - LANDING PAGES ONLY */
-@media (width >= 3600px) {
+/* Aggressive scaling ONLY for very large screens 3500px+ - LANDING PAGES ONLY */
+@media (width >= 3500px) {
   /* Scope ALL custom properties to landing pages only - NO GLOBAL :root */
   .landing-page {
     --size-xs: clamp(18px, 2.5vw, 40px);
