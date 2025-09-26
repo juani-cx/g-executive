@@ -308,7 +308,7 @@ body {
 }
 
 /* 4K+ scaling for both homepage and new-landing */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 3500px) {
   /* Homepage main title scaling - more reasonable size */
   .landing-page h1[data-testid="text-main-title"] {
     font-size: 72px !important; /* 1.5x of 48px */
@@ -320,18 +320,18 @@ body {
     font-size: 36px !important; /* 1.5x of 24px */
   }
   
-  /* Card titles scaling - try multiple selectors */
-  .landing-page .landing-card-title,
+  /* Card titles scaling - more specific selectors */
   .landing-page span.landing-card-title {
     font-size: 42px !important;
     line-height: 41px !important;
+    font-family: "Google Sans" !important;
   }
   
-  /* Card descriptions scaling - try multiple selectors */
-  .landing-page .landing-card-description,
+  /* Card descriptions scaling - more specific selectors */
   .landing-page span.landing-card-description {
     font-size: 36px !important;
     line-height: 42px !important;
+    font-family: "Google Sans" !important;
   }
   
   /* Footer text scaling */
