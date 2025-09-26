@@ -18,7 +18,7 @@ export function PageTitle({ title, subtitle, className = "" }: PageTitleProps) {
     >
       <h1
         style={{
-          fontSize: '118px',
+          fontSize: '98px',
           fontWeight: '500',
           lineHeight: '1',
           margin: '0px',

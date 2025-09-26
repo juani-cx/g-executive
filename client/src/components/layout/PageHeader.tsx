@@ -17,7 +17,7 @@ export function PageHeader({
       style={{ 
         height: 'auto',
         backgroundColor: background,
-        padding: `calc(var(--space-md) * 2) var(--space-xl) calc(var(--space-md) * 2)`,
+        padding: '70px 80px 0',
         position: 'relative',
         zIndex: 50
       }}

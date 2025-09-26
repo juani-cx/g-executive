@@ -240,18 +240,18 @@ body {
 }
 
 .landing-card-title {
-  font-size: 88px;
+  font-size: 64px;
   line-height: 1;
 }
 
 .landing-card-description {
   line-height: 1;
   font-weight: 400;
-  font-size: 67px;
+  font-size: 50px;
 }
 
 .landing-card-title {
-  font-size: 88px;
+  font-size: 64px;
   line-height: 1;
   font-weight: 500;
   padding-bottom: 24px;
@@ -262,7 +262,7 @@ body {
 .landing-card-description {
   line-height: 1;
   font-weight: 400;
-  font-size: 67px;
+  font-size: 50px;
 }
 
 .landing-card-image {
