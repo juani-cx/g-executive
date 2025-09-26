@@ -17,7 +17,8 @@ export function PageFooter({
       style={{ 
         height: '100%',
         backgroundColor: background,
-        fontSize: 'var(--font-size-sm)'
+        fontSize: '64px',
+        paddingBottom: 'var(--space-2xl)'
       }}
     >
       {children}

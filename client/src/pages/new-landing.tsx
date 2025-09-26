@@ -115,10 +115,11 @@ export default function NewLanding() {
 
           <div className="flex items-center justify-center" style={{ gap: 'var(--space-lg)' }}>
             <Button
-              className="landing-button button-large bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold rounded-full"
+              className="landing-button button-large bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full"
               style={{
                 lineHeight: "1",
                 height: "auto",
+                fontWeight: "200",
               }}
               onClick={handleStartNow}
               data-testid="button-start-now"
