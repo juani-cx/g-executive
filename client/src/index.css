@@ -384,22 +384,37 @@ body {
   
   /* Footer text styling for large screens */
   .footer-text {
-    width: 100vw;
-    text-align: center;
-    font-size: clamp(16px, 2vw, 28px);
+    width: 100vw !important;
+    text-align: center !important;
+    font-size: clamp(16px, 2vw, 28px) !important;
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
   }
   
-  /* More aggressive header scaling - target all header elements */
-  nav *, header *, .top-navigation *, 
-  [class*="navigation"] *, [class*="header"] * {
-    font-size: clamp(28px, 5vw, 72px) !important;
+  /* ULTRA aggressive header scaling - target everything including inline styles */
+  .w-full.flex.justify-between.items-center,
+  .w-full.flex.justify-between.items-center *,
+  [class*="logo"] *, [class*="Logo"] *,
+  [data-testid="button-how-it-works"] {
+    font-size: clamp(40px, 8vw, 120px) !important;
   }
   
-  /* Specific Google Cloud logo and navigation items */
-  nav a, header a, .top-navigation a,
-  nav span, header span, .top-navigation span,
-  nav div, header div, .top-navigation div {
-    font-size: clamp(32px, 6vw, 80px) !important;
+  /* Override any text-[size] Tailwind classes */
+  .text-\[20px\] {
+    font-size: clamp(40px, 8vw, 120px) !important;
+  }
+  
+  /* Scale the settings icon */
+  .w-\[25px\].h-\[25px\] {
+    width: clamp(40px, 6vw, 80px) !important;
+    height: clamp(40px, 6vw, 80px) !important;
+  }
+  
+  /* Scale background SVGs 2x */
+  .absolute svg, [class*="absolute"] svg {
+    transform: scale(2) !important;
+    transform-origin: center !important;
   }
 }
 
