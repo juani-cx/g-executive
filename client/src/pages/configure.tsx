@@ -101,7 +101,7 @@ function VirtualKeyboard() {
   ];
 
   return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9998] ${
+    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[50] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: 'calc(2rem - 35px)' }}>
       <div className="p-6" style={{ width: '900px' }}>
