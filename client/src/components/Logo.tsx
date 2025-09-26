@@ -17,12 +17,13 @@ export default function Logo({ size = "medium", className = "" }: LogoProps) {
 
   return (
     <div className={className}>
-      <img 
-        src="/images/logo.svg" 
-        alt="Google Cloud" 
-        className={getSizeClasses()}
-        data-testid="logo-image"
-      />
+      <div 
+        className={`${getSizeClasses()} flex items-center text-gray-800 font-semibold tracking-tight`}
+        data-testid="logo-text"
+        style={{ fontFamily: 'Google Sans, sans-serif' }}
+      >
+        <span className="text-2xl lg:text-3xl">Campaign AI Gen</span>
+      </div>
     </div>
   );
 }
