@@ -53,7 +53,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               How it works
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl w-full p-6">
+          <DialogContent className="max-w-4xl w-full p-6 bg-white z-[10001]" style={{ zIndex: 10001 }}>
             <DialogHeader>
               <DialogTitle className="text-2xl font-semibold text-center mb-4">
                 How Campaign AI Gen Works
@@ -65,6 +65,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
                 alt="Campaign AI Gen Workflow" 
                 className="w-full h-auto max-w-full rounded-lg shadow-lg"
                 style={{ maxHeight: '70vh', objectFit: 'contain' }}
+                onError={(e) => console.log('Image load error:', e)}
+                onLoad={() => console.log('Image loaded successfully')}
               />
             </div>
           </DialogContent>

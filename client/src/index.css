@@ -411,7 +411,16 @@ body {
 }
 
 /* Ensure dialog modals appear above all other elements */
-[data-radix-dialog-overlay] { 
+[data-radix-dialog-overlay] {
+  z-index: 9999 !important;
+}
+
+[data-radix-dialog-content] {
+  z-index: 10000 !important;
+}
+
+/* Fix modal visibility on all screens */
+.dialog-overlay { 
   z-index: 70 !important; 
   position: fixed; 
   inset: 0; 
