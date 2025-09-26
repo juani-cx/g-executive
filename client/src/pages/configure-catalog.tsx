@@ -219,7 +219,8 @@ export default function ConfigureCatalog() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 'clamp(1rem, 3vw, 3.5rem) clamp(1rem, 4vw, 4rem)',
+        padding: '24px 56px',
+        paddingTop: '0',
         boxSizing: 'border-box'
       }}>
         <div className="hidden">
@@ -240,7 +241,7 @@ export default function ConfigureCatalog() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: 'clamp(1rem, 2vw, 2rem)',
+          padding: '0',
           boxSizing: 'border-box',
           maxWidth: '1400px',
           margin: '0 auto'
@@ -259,7 +260,7 @@ export default function ConfigureCatalog() {
             width: '100%',
             maxWidth: '1808px',
             padding: '0',
-            marginBottom: '32px'
+            marginBottom: '16px'
           }}>
             <h1 style={{
               color: '#000',
