@@ -269,8 +269,8 @@ body {
 }
 
 .landing-card-title {
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 28px;
+  line-height: 27.5px;
   font-weight: 500;
   padding-bottom: 24px;
   margin-bottom: 16px;
@@ -278,8 +278,8 @@ body {
 }
 
 .landing-card-description {
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 24px;
+  line-height: 28px;
   font-weight: 400;
 }
 
@@ -307,18 +307,33 @@ body {
   font-weight: 600;
 }
 
-/* ONLY card text scaling for very large screens 3500px+ */
+/* 4K+ scaling - use different approach */
 @media screen and (min-width: 3500px) {
   .landing-page .landing-card-title {
-    font-size: 28px !important;
-    font-weight: 500 !important;
-    line-height: 27.5px !important;
+    font-size: 42px !important;
+    line-height: 41px !important;
   }
   
   .landing-page .landing-card-description {
-    font-size: 24px !important;
-    font-weight: 400 !important;
-    line-height: 28px !important;
+    font-size: 36px !important;
+    line-height: 42px !important;
+  }
+  
+  .landing-page .hero-title {
+    font-size: 240px !important;
+  }
+  
+  .landing-page .hero-subtitle {
+    font-size: 64px !important;
+  }
+  
+  .landing-page [data-testid="button-how-it-works"] {
+    font-size: 40px !important;
+    padding: 32px 96px !important;
+  }
+  
+  .landing-page .w-64 {
+    width: 32rem !important;
   }
 }
 
