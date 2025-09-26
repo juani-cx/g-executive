@@ -60,7 +60,7 @@ export default function Loading() {
           color: "#5f6368",
           textAlign: "center",
           fontFamily: "Google Sans",
-          fontSize: "202px",
+          fontSize: "20px",
           fontWeight: "200",
           lineHeight: "24px",
           margin: 0,
