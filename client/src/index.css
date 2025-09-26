@@ -307,53 +307,18 @@ body {
   font-weight: 600;
 }
 
-/* Exact 2x scaling ONLY for very large screens 3500px+ - LANDING PAGES ONLY */
-@media screen and (min-width: 1200px) {
-  /* Homepage title and subtitle - exact 2x scaling */
-  .landing-page h1 {
-    font-size: 96px !important; /* 2x of 48px */
-  }
-  
-  .landing-page h1 + p {
-    font-size: 48px !important; /* 2x of 24px */
-  }
-  
-  /* Card titles - exact styling for large screens */
+/* ONLY card text scaling for very large screens 3500px+ */
+@media screen and (min-width: 3500px) {
   .landing-page .landing-card-title {
     font-size: 28px !important;
     font-weight: 500 !important;
     line-height: 27.5px !important;
-    padding-bottom: 24px !important;
-    margin-bottom: 16px !important;
-    border-bottom: 1.5px solid #000 !important;
   }
   
-  /* Card descriptions - exact styling for large screens */
   .landing-page .landing-card-description {
     font-size: 24px !important;
     font-weight: 400 !important;
     line-height: 28px !important;
-  }
-  
-  /* Footer text - exact 2x scaling */
-  .landing-page [data-testid="text-footer-cta"] {
-    font-size: 48px !important; /* 2x of 24px */
-  }
-  
-  /* Navigation elements - exact 2x scaling */
-  .landing-page [data-testid="button-how-it-works"] {
-    font-size: 40px !important; /* 2x of 20px */
-    padding: 32px 96px !important; /* 2x of 16px 48px */
-  }
-  
-  .landing-page .w-\[25px\].h-\[25px\] {
-    width: 50px !important; /* 2x of 25px */
-    height: 50px !important; /* 2x of 25px */
-  }
-  
-  /* Logo 2x scaling */
-  .landing-page .w-64 {
-    width: 32rem !important; /* 2x of w-64 (16rem) */
   }
 }
 
