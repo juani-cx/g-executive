@@ -211,22 +211,9 @@ export default function ConfigureCatalog() {
   };
 
   return (
-    <div className="dotted-background overflow-y-auto" style={{ minHeight: '100vh' }}>
-      {/* Top Navigation */}
+    <div className="dotted-background" style={{ minHeight: '100vh' }}>
       <TopNavigation />
       
-      <div className="hidden">
-        <Button 
-          variant="outline" 
-          className="text-gray-600 border-gray-300 hover:bg-gray-50"
-          onClick={() => navigate('/upload-catalog')}
-          data-testid="button-back-to-upload"
-        >
-          Back to home
-        </Button>
-      </div>
-
-      {/* Main Content */}
       <div style={{
         width: '100%',
         height: '100%',
@@ -235,12 +222,74 @@ export default function ConfigureCatalog() {
         alignItems: 'center',
         padding: '24px 56px',
         boxSizing: 'border-box',
-        paddingTop: '0'
+        paddingTop: '0',
+        transform: 'scale(1.15)',
+        transformOrigin: 'top center'
       }}>
+        <div className="hidden">
+          <Button 
+            variant="outline" 
+            className="text-gray-600 border-gray-300 hover:bg-gray-50"
+            onClick={() => navigate('/upload-catalog')}
+            data-testid="button-back-to-upload"
+          >
+            Back to home
+          </Button>
+        </div>
+
+        {/* Main Content - Scaled and Centered */}
         <div style={{
           width: '100%',
-          textAlign: 'center'
+          minHeight: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '32px',
+          boxSizing: 'border-box',
+          transform: 'scale(1.2)',
+          transformOrigin: 'top center',
+          maxWidth: '1400px',
+          margin: '0 auto'
         }}>
+          <div style={{
+            width: '100%',
+            textAlign: 'center'
+          }}>
+          {/* Header */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '16px',
+            width: '100%',
+            maxWidth: '1808px',
+            padding: '0',
+            marginBottom: '32px'
+          }}>
+            <h1 style={{
+              color: '#000',
+              textAlign: 'center',
+              fontFamily: 'Google Sans',
+              fontSize: '48px',
+              fontWeight: '500',
+              lineHeight: '36px',
+              margin: 0
+            }} data-testid="text-main-title">
+              Configure Catalog
+            </h1>
+            <p style={{
+              color: '#5c5c5c',
+              textAlign: 'center',
+              fontFamily: 'Google Sans',
+              fontSize: '24px',
+              fontWeight: '400',
+              lineHeight: '28px',
+              margin: 0
+            }} data-testid="text-subtitle">
+              Define your catalog targets
+            </p>
+          </div>
           {/* Header */}
           <div style={{
             display: 'flex',
@@ -370,14 +419,13 @@ export default function ConfigureCatalog() {
                 </Button>
               </div>
             </div>
-            </div>
           </div>
           </div>
         </div>
+        
+        {/* Virtual Keyboard */}
+        <VirtualKeyboard />
       </div>
-      
-      {/* Virtual Keyboard */}
-      <VirtualKeyboard />
     </div>
   );
 }

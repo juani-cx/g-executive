@@ -205,24 +205,36 @@ body {
   height: calc(100vh - 120px);
 }
 
-/* 4K Transform Scaling - commented out for now
+/* Enhanced scaling for large screens */
+@media (min-width: 2560px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 3440px) {
+  body {
+    font-size: 22px;
+  }
+}
+
+/* 4K Transform Scaling */
 @media (min-width: 3500px) {
   #root {
-    transform: scale(2.0);
+    transform: scale(1.8);
     transform-origin: top left;
-    width: 50%;
-    height: 50%;
+    width: 55.5%;
+    height: 55.5%;
   }
   
   .virtual-keyboard {
-    --tw-scale-x: 0.5;
-    --tw-scale-y: 0.5;
+    --tw-scale-x: 0.55;
+    --tw-scale-y: 0.55;
     transform-origin: center bottom !important;
     bottom: 1rem !important;
     z-index: 9999 !important;
   }
 }
-*/
 
 /* Custom animations */
 @keyframes fade-in {
