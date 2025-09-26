@@ -137,7 +137,7 @@ export default function Landing() {
               {/* Card Header */}
               <div
                 style={{
-                  borderBottom: "1.5px solid #000",
+
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -230,7 +230,7 @@ export default function Landing() {
               {/* Card Header */}
               <div
                 style={{
-                  borderBottom: "1.5px solid #000",
+
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
