@@ -19,7 +19,7 @@ export function ExportQRModal({
 }: ExportQRModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg bg-white p-8 z-[80]">
+      <DialogContent className="max-w-lg bg-white p-8" style={{ zIndex: 10001 }}>
         <DialogHeader>
           <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
             {title}

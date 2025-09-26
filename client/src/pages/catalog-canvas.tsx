@@ -18,7 +18,7 @@ function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
   ];
 
   return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-50 ${
+    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[9998] ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     }`} style={{ bottom: 'calc(2rem - 35px)' }}>
       <div className="p-6" style={{ width: '900px' }}>
@@ -478,7 +478,7 @@ export default function CatalogCanvas() {
 
       {/* Image Modal */}
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
-        <DialogContent className="max-w-4xl bg-white p-4 z-[80]">
+        <DialogContent className="max-w-4xl bg-white p-4" style={{ zIndex: 10001 }}>
           <DialogHeader>
             <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
               Product Image
