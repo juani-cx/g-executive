@@ -289,13 +289,13 @@ body {
 }
 
 .hero-title {
-  font-size: 80px;
+  font-size: 64px;
   line-height: 1.1;
   font-weight: 500;
 }
 
 .hero-subtitle {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.3;
 }
 
@@ -341,11 +341,11 @@ body {
   
   /* New-landing page scaling */
   .landing-page .hero-title {
-    font-size: 160px !important; /* 2x of 80px */
+    font-size: 128px !important; /* 2x of 64px */
   }
   
   .landing-page .hero-subtitle {
-    font-size: 48px !important; /* 2x of 24px */
+    font-size: 36px !important; /* 2x of 18px */
   }
   
   /* New-landing "Start now" button scaling */
