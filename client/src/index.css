@@ -248,13 +248,46 @@ body {
     font-size: clamp(16px, 1.3vw, 24px);
     padding: clamp(0.75rem, 1.5vw, 2rem) clamp(1rem, 2vw, 3rem);
   }
+}
+
+/* Aggressive scaling for very large screens 3600px+ */
+@media (width >= 3600px) {
+  html {
+    font-size: 28px !important;
+  }
+  
+  body {
+    font-size: 32px !important;
+  }
+  
+  /* Scale the entire root element for massive screens */
+  #root {
+    transform: scale(2.4) !important;
+    transform-origin: top center !important;
+    width: 42% !important;
+    margin: 0 auto !important;
+  }
+  
+  /* Force larger text sizes */
+  h1 { font-size: 56px !important; }
+  h2 { font-size: 44px !important; }
+  h3 { font-size: 36px !important; }
+  p, span, div { font-size: 24px !important; }
+  
+  /* Force larger interactive elements */
+  button, input, select, textarea {
+    font-size: 24px !important;
+    padding: 20px 32px !important;
+    min-height: 60px !important;
+  }
+}
+
 .virtual-keyboard {
     --tw-scale-x: 0.55;
     --tw-scale-y: 0.55;
     transform-origin: center bottom !important;
     bottom: 1rem !important;
     z-index: 9999 !important;
-  }
 }
 
 /* Custom animations */
