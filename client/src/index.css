@@ -207,24 +207,24 @@ body {
 
 /* Removed - scaling now handled only in landing page specific media query */
 
-/* Fluid Design System - Reasonable scaling for normal screens */
+/* Fixed Design System - NO scaling for normal screens */
 :root {
-  /* Base sizes that scale reasonably */
-  --size-xs: clamp(12px, 1.2vw, 18px);
-  --size-sm: clamp(16px, 1.6vw, 24px);
-  --size-base: clamp(20px, 2vw, 32px);
-  --size-lg: clamp(24px, 2.4vw, 36px);
-  --size-xl: clamp(32px, 3.2vw, 48px);
-  --size-2xl: clamp(40px, 4vw, 60px);
-  --size-3xl: clamp(48px, 4.8vw, 72px);
+  /* Fixed base sizes - no viewport scaling */
+  --size-xs: 14px;
+  --size-sm: 16px;
+  --size-base: 20px;
+  --size-lg: 24px;
+  --size-xl: 32px;
+  --size-2xl: 40px;
+  --size-3xl: 48px;
   
-  /* Spacing that scales reasonably */
-  --space-xs: clamp(8px, 0.8vw, 12px);
-  --space-sm: clamp(12px, 1.2vw, 18px);
-  --space-md: clamp(16px, 1.6vw, 24px);
-  --space-lg: clamp(24px, 2.4vw, 36px);
-  --space-xl: clamp(32px, 3.2vw, 48px);
-  --space-2xl: clamp(48px, 4.8vw, 72px);
+  /* Fixed spacing - no viewport scaling */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
   
   /* Container widths */
   --container-sm: min(600px, 90vw);
