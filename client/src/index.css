@@ -269,15 +269,15 @@ body {
 }
 
 .landing-card-title {
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 28px;
+  line-height: 27.5px;
   font-weight: 500;
   padding-bottom: var(--space-lg);
 }
 
 .landing-card-description {
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 24px;
+  line-height: 28px;
   font-weight: 400;
 }
 
@@ -306,7 +306,7 @@ body {
 }
 
 /* Exact 2x scaling ONLY for very large screens 3500px+ - LANDING PAGES ONLY */
-@media (width >= 3500px) {
+@media screen and (min-width: 3500px) {
   /* Homepage title and subtitle - exact 2x scaling */
   .landing-page h1 {
     font-size: 96px !important; /* 2x of 48px */
@@ -317,14 +317,14 @@ body {
   }
   
   /* Card titles - exact styling for large screens */
-  .landing-page .landing-card-title {
+  .landing-page .landing-card .landing-card-title {
     font-size: 28px !important;
     font-weight: 500 !important;
     line-height: 27.5px !important;
   }
   
   /* Card descriptions - exact styling for large screens */
-  .landing-page .landing-card-description {
+  .landing-page .landing-card .landing-card-description {
     font-size: 24px !important;
     font-weight: 400 !important;
     line-height: 28px !important;
