@@ -300,7 +300,7 @@ body {
 }
 
 .button-large {
-  font-size: 18px;
+  font-size: 30px;
   padding: 16px 32px;
   border-radius: 35px;
   min-height: 50px;
@@ -350,7 +350,7 @@ body {
   
   /* New-landing "Start now" button scaling */
   .landing-page .button-large {
-    font-size: 36px !important; /* 2x of 18px */
+    font-size: 60px !important; /* 2x of 30px */
     padding: 32px 64px !important; /* 2x of 16px 32px */
     min-height: 100px !important; /* 2x of 50px */
   }
