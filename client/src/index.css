@@ -205,7 +205,7 @@ body {
 /* Fluid Typography Classes */
 /* Footer text styling for normal screens */
 .footer-text {
-  font-size: var(--font-size-base);
+  font-size: 64px;
   font-weight: 400;
 }
 

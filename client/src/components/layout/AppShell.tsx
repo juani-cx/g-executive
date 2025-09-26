@@ -26,7 +26,7 @@ export function AppShell({ children, header, footer, className = "" }: AppShellP
       {footer && (
         <footer 
           className="shrink-0" 
-          style={{ height: 'var(--footer-height)' }}
+          style={{ height: 'auto' }}
         >
           {footer}
         </footer>
