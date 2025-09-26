@@ -10,20 +10,23 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { useTimeoutSettings } from "@/contexts/TimeoutContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import howItWorksImage from "@assets/Screenshot 2025-09-26 at 14.13.25_1758906819756.png";
 
 interface TopNavigationProps {
   isLandingPage?: boolean;
 }
 
 export default function TopNavigation({ isLandingPage = false }: TopNavigationProps) {
-  const { timeoutEnabled, setTimeoutEnabled } = useTimeoutSettings();
+  const [timeoutEnabled, setTimeoutEnabled] = useState(true);
   const [guidedVersion, setGuidedVersion] = useState(false);
   const [keyboardEnabled, setKeyboardEnabled] = useState(true);
-
-  const handleHowItWorks = () => {
-    console.log('How it works clicked');
-  };
 
   return (
     <div className="w-full flex justify-between items-center" style={{
@@ -36,18 +39,36 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
       
       {/* Right side - How it works button and settings */}
       <div className="flex items-center gap-5">
-        <Button 
-          variant="outline"
-          className="rounded-full border text-[20px] font-normal leading-[24px] text-[#1f2937]"
-          style={{
-            borderColor: '#bec6d1b3',
-            padding: '16px 48px'
-          }}
-          onClick={handleHowItWorks}
-          data-testid="button-how-it-works"
-        >
-          How it works
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button 
+              variant="outline"
+              className="rounded-full border text-[20px] font-normal leading-[24px] text-[#1f2937]"
+              style={{
+                borderColor: '#bec6d1b3',
+                padding: '16px 48px'
+              }}
+              data-testid="button-how-it-works"
+            >
+              How it works
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-4xl w-full p-6">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-semibold text-center mb-4">
+                How Campaign AI Gen Works
+              </DialogTitle>
+            </DialogHeader>
+            <div className="flex justify-center">
+              <img 
+                src={howItWorksImage} 
+                alt="Campaign AI Gen Workflow" 
+                className="w-full h-auto max-w-full rounded-lg shadow-lg"
+                style={{ maxHeight: '70vh', objectFit: 'contain' }}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Settings Dropdown */}
         <DropdownMenu>
