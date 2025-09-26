@@ -275,8 +275,8 @@ export default function UploadImage() {
       <div className="flex items-center justify-center p-8" style={{ minHeight: 'calc(100vh - 120px)', height: 'auto' }}>
         <div className="text-center w-full" style={{ maxWidth: '72rem' }}>
           <PageTitle
-            title="Upload your image"
-            subtitle="Executive campaign AI builder for executive people"
+            title="Select an image"
+            subtitle="Choose the mood of your campaign for AI inspiration"
             className="mb-16"
           />
 

@@ -8,6 +8,9 @@ import { type Campaign } from "@shared/schema";
 import { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode";
 import { useToast } from "@/hooks/use-toast";
+import TopNavigation from "@/components/TopNavigation";
+import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageTitle } from "@/components/PageTitle";
 
 export default function OutputHub() {
   const { campaignId } = useParams();
@@ -23,23 +26,71 @@ export default function OutputHub() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-on-surface-variant">Loading campaign...</p>
-        </div>
-      </div>
+      <AppShell
+        className="dotted-background"
+        style={{
+          fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}
+        header={
+          <PageHeader>
+            <TopNavigation />
+          </PageHeader>
+        }
+        footer={
+          <PageFooter>
+            <p className="footer-text text-gray-600">
+              Create multi-channel assets in an instant
+            </p>
+          </PageFooter>
+        }
+      >
+        <PageBody>
+          <div className="flex flex-col items-center justify-center h-full">
+            <PageTitle
+              title="Loading Campaign"
+              subtitle="Please wait while we fetch your campaign data"
+              className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-12"
+            />
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-on-surface-variant">Loading campaign...</p>
+            </div>
+          </div>
+        </PageBody>
+      </AppShell>
     );
   }
 
   if (!campaign) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-on-surface mb-2">Campaign not found</h2>
-          <p className="text-on-surface-variant">The requested campaign could not be found.</p>
-        </div>
-      </div>
+      <AppShell
+        className="dotted-background"
+        style={{
+          fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}
+        header={
+          <PageHeader>
+            <TopNavigation />
+          </PageHeader>
+        }
+        footer={
+          <PageFooter>
+            <p className="footer-text text-gray-600">
+              Create multi-channel assets in an instant
+            </p>
+          </PageFooter>
+        }
+      >
+        <PageBody>
+          <div className="flex flex-col items-center justify-center h-full">
+            <PageTitle
+              title="Campaign Not Found"
+              subtitle="The requested campaign could not be found"
+              className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
+            />
+          </div>
+        </PageBody>
+      </AppShell>
     );
   }
 
@@ -147,27 +198,49 @@ export default function OutputHub() {
   };
 
   const socialMediaAssets = campaign?.generatedAssets?.filter(asset => 
-    ['Instagram', 'TikTok', 'Facebook', 'Twitter'].includes(asset.platform)
+    asset.platform && ['Instagram', 'TikTok', 'Facebook', 'Twitter'].includes(asset.platform)
   ) || [];
 
   const marketingCopyAssets = campaign?.generatedAssets?.filter(asset => 
-    ['LinkedIn', 'Email'].includes(asset.platform) || asset.type === 'copy'
+    (asset.platform && ['LinkedIn', 'Email'].includes(asset.platform)) || asset.type === 'copy'
   ) || [];
 
   return (
-    <div className="min-h-screen dotted-background">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        
-        {/* Success Header */}
-        <div className="text-center mb-12">
-          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="text-green-600 w-12 h-12" />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Campaign Generated Successfully!</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Your AI-powered marketing campaign "{campaign?.name}" is ready. Download individual assets or share the complete campaign with your team.
+    <AppShell
+      className="dotted-background"
+      style={{
+        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+      header={
+        <PageHeader>
+          <TopNavigation />
+        </PageHeader>
+      }
+      footer={
+        <PageFooter>
+          <p className="footer-text text-gray-600">
+            Create multi-channel assets in an instant
           </p>
-        </div>
+        </PageFooter>
+      }
+    >
+      <PageBody>
+        <div className="flex flex-col items-center w-full">
+          <PageTitle
+            title="Campaign Results"
+            subtitle={`Your AI-powered marketing campaign "${campaign?.name || 'Campaign'}" is ready`}
+            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-12"
+          />
+          
+          {/* Success Icon */}
+          <div className="text-center mb-12">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="text-green-600 w-12 h-12" />
+            </div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Download individual assets or share the complete campaign with your team.
+            </p>
+          </div>
 
         {/* Action Buttons */}
         <div className="flex justify-center space-x-4 mb-12">
@@ -379,7 +452,8 @@ export default function OutputHub() {
             </div>
           </CardContent>
         </Card>
-      </div>
-    </div>
+        </div>
+      </PageBody>
+    </AppShell>
   );
 }
