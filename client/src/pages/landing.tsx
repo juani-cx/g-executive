@@ -76,7 +76,6 @@ export default function Landing() {
             alignItems: "center",
             gap: "52px",
             width: "100%",
-            maxWidth: "1006px",
             flex: 1,
           }}
         >
@@ -103,7 +102,7 @@ export default function Landing() {
                 alignItems: "flex-start",
                 width: "100%",
                 cursor: "pointer",
-                maxWidth: "none",
+                maxWidth: "25vw",
                 height: "100%",
               }}
               onClick={() => handleOptionSelect("marketing")}
@@ -197,7 +196,7 @@ export default function Landing() {
                 alignItems: "flex-start",
                 width: "100%",
                 cursor: "pointer",
-                maxWidth: "none",
+                maxWidth: "25vw",
                 height: "100%",
               }}
               onClick={() => handleOptionSelect("catalog")}
