@@ -94,7 +94,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <TimeoutProvider>
-          <div className="h-screen max-h-screen w-full overflow-hidden">
+          <div className="h-screen max-h-screen overflow-hidden">
             <AuthenticatedRouter />
             <Toaster />
           </div>
