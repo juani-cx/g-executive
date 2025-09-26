@@ -360,6 +360,12 @@ body {
     font-size: 40px !important; /* 2x of 20px */
   }
   
+  /* Vertical centering for content pages on 4K */
+  .landing-page > div:first-of-type {
+    min-height: calc(100vh - 120px) !important;
+    justify-content: center !important;
+  }
+  
   /* Navigation scaling */
   .landing-page [data-testid="button-how-it-works"] {
     font-size: 40px !important;
