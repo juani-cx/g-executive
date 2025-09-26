@@ -210,13 +210,13 @@ body {
 /* Fixed Design System - NO scaling for normal screens */
 :root {
   /* Fixed base sizes - no viewport scaling */
-  --size-xs: 14px;
-  --size-sm: 16px;
-  --size-base: 20px;
-  --size-lg: 24px;
-  --size-xl: 32px;
-  --size-2xl: 40px;
-  --size-3xl: 48px;
+  --size-xs: 12px;
+  --size-sm: 14px;
+  --size-base: 16px;
+  --size-lg: 18px;
+  --size-xl: 20px;
+  --size-2xl: 24px;
+  --size-3xl: 30px;
   
   /* Fixed spacing - no viewport scaling */
   --space-xs: 8px;
@@ -282,14 +282,14 @@ body {
 }
 
 .hero-title {
-  font-size: var(--size-3xl);
-  line-height: 1.2;
+  font-size: 32px;
+  line-height: 1.1;
   font-weight: 500;
 }
 
 .hero-subtitle {
-  font-size: var(--size-lg);
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.3;
 }
 
 .button-large {
