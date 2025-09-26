@@ -381,6 +381,26 @@ body {
     min-height: clamp(80px, 10vw, 160px);
     border-radius: clamp(65px, 8vw, 120px);
   }
+  
+  /* Footer text styling for large screens */
+  .footer-text {
+    width: 100vw;
+    text-align: center;
+    font-size: clamp(16px, 2vw, 28px);
+  }
+  
+  /* More aggressive header scaling - target all header elements */
+  nav *, header *, .top-navigation *, 
+  [class*="navigation"] *, [class*="header"] * {
+    font-size: clamp(28px, 5vw, 72px) !important;
+  }
+  
+  /* Specific Google Cloud logo and navigation items */
+  nav a, header a, .top-navigation a,
+  nav span, header span, .top-navigation span,
+  nav div, header div, .top-navigation div {
+    font-size: clamp(32px, 6vw, 80px) !important;
+  }
 }
 
 .virtual-keyboard {
