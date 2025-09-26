@@ -118,7 +118,6 @@ export default function CatalogCanvas() {
     }}>
       {/* Top Navigation */}
       <TopNavigation />
-      
       {/* Main Content */}
       <div style={{
         width: '100%',
@@ -260,13 +259,15 @@ export default function CatalogCanvas() {
                 </div>
 
                 {/* Ad Preview */}
-                <div style={{
-                  marginTop: '20px',
-                  padding: '16px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px'
-                }}>
+                <div
+                  style={{
+                    marginTop: '20px',
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '8px'
+                  }}
+                  className="text-left">
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -464,10 +465,8 @@ export default function CatalogCanvas() {
           </div>
         </div>
       </div>
-
       {/* Virtual Keyboard */}
       <VirtualKeyboard isVisible={showKeyboard} />
-      
       {/* Export Modal */}
       <ExportQRModal
         isOpen={isExportModalOpen}
@@ -475,7 +474,6 @@ export default function CatalogCanvas() {
         qrUrl="https://example.com/download-catalog-assets"
         description="Scan to download your catalog assets"
       />
-
       {/* Image Modal */}
       <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
         <DialogContent className="max-w-4xl bg-white p-4" style={{ zIndex: 10001 }}>
