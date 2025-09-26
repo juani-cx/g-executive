@@ -457,6 +457,10 @@ body {
   z-index: 10000 !important;
 }
 
+.virtual-keyboard {
+  z-index: 10003 !important;
+}
+
 
 /* Simple loading animation from CodePen */
 .loading-circle {
