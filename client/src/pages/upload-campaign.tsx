@@ -312,17 +312,21 @@ export default function UploadCampaign() {
           />
 
           {/* Category Tabs - Always reserve consistent space */}
-          <div className="flex justify-center mb-8 h-16">
-            <div className={`flex items-center bg-white rounded-full shadow-lg px-2 py-1 relative z-20 ${activeTab === 'predefined' ? 'block' : 'hidden'}`}>
+          <div className="flex justify-center" style={{ height: 'auto', marginTop: '24px', marginBottom: '98px' }}>
+            <div className={`flex items-center bg-white rounded-full shadow-lg relative z-20 ${activeTab === 'predefined' ? 'block' : 'hidden'}`} style={{ padding: '22px', height: 'auto' }}>
               {campaignCategories.map((category) => (
                 <Button
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className={`rounded-full text-sm font-medium transition-colors px-6 py-1 ${
+                  className={`rounded-full font-medium transition-colors px-6 py-1 ${
                     selectedCategory === category.id
                       ? "bg-blue-600 text-white shadow-sm"
                       : "text-gray-600"
                   }`}
+                  style={{
+                    fontSize: '32px',
+                    lineHeight: '2'
+                  }}
                   onClick={() => handleCategorySwitch(category.id as 'digital' | 'physical' | 'service')}
                   disabled={isTransitioning}
                   data-testid={`tab-${category.id}`}
@@ -462,14 +466,18 @@ export default function UploadCampaign() {
           </div>
           
           {/* Bottom Action Tabs - Fixed to bottom */}
-          <div className="relative flex justify-center items-center gap-6 pb-5 mt-5">
+          <div className="relative flex justify-center items-center gap-6" style={{ height: 'auto', marginTop: '24px', marginBottom: '98px', padding: '22px' }}>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'computer'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('computer')}
               data-testid="tab-upload"
             >
@@ -478,11 +486,15 @@ export default function UploadCampaign() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'ai'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('ai')}
               data-testid="tab-ai"
             >
@@ -491,11 +503,15 @@ export default function UploadCampaign() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'predefined'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('predefined')}
               data-testid="tab-preselected"
             >

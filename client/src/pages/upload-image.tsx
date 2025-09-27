@@ -539,7 +539,7 @@ export default function UploadImage() {
           )}
 
           {/* Bottom buttons */}
-          <div className="flex items-center justify-center gap-12">
+          <div className="flex items-center justify-center gap-12" style={{ height: 'auto', marginTop: '24px', marginBottom: '98px', padding: '22px' }}>
             <Button
               variant="ghost"
               size="lg"
@@ -549,6 +549,10 @@ export default function UploadImage() {
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               data-testid="button-toggle-upload"
             >
               <Upload className={`w-16 h-16 ${
@@ -565,6 +569,10 @@ export default function UploadImage() {
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               data-testid="button-camera-capture"
             >
               <Camera className={`w-16 h-16 text-gray-600`} />
@@ -579,6 +587,10 @@ export default function UploadImage() {
                   ? 'bg-[#4285F4] hover:bg-[#3367D6] shadow-lg scale-110' 
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               data-testid="button-ai-generate"
             >
               <Sparkles className={`w-16 h-16 ${

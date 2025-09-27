@@ -277,14 +277,18 @@ export default function UploadCatalog() {
           </div>
           
           {/* Bottom Action Tabs - Fixed to bottom */}
-          <div className="relative flex justify-center items-center gap-6 pb-5 mt-5">
+          <div className="relative flex justify-center items-center gap-6" style={{ height: 'auto', marginTop: '24px', marginBottom: '98px', padding: '22px' }}>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'computer'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('computer')}
               data-testid="tab-upload"
             >
@@ -293,11 +297,15 @@ export default function UploadCatalog() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'ai'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('ai')}
               data-testid="tab-ai"
             >
@@ -306,11 +314,15 @@ export default function UploadCatalog() {
             </Button>
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-2 px-6 py-4 text-lg font-medium transition-colors w-48 ${
+              className={`flex flex-col items-center gap-2 px-6 py-4 font-medium transition-colors w-48 ${
                 activeTab === 'predefined'
                   ? 'text-blue-600'
                   : 'text-gray-600'
               }`}
+              style={{
+                fontSize: '32px',
+                lineHeight: '2'
+              }}
               onClick={() => setActiveTab('predefined')}
               data-testid="tab-preselected"
             >
