@@ -129,13 +129,13 @@ export default function Configure() {
           <PageTitle
             title="Configure"
             subtitle="Set up your campaign details"
-            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
+            className="flex flex-col justify-center items-center gap-4 w-full"
           />
 
           {/* Content Area */}
-          <div className="max-w-6xl mx-auto">
+          <div className="w-full mx-auto">
             {/* White card container */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto max-w-6xl">
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
