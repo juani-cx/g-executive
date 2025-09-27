@@ -256,7 +256,7 @@ export default function UploadImage() {
     >
 
       {/* Main Content */}
-      <div className="text-center w-full">
+      <div className="text-center w-full h-full">
           <PageTitle
             title="Select an image"
             subtitle="Choose the mood of your campaign for AI inspiration"
@@ -267,15 +267,15 @@ export default function UploadImage() {
             <div className="mb-12">
               {/* Image Upload Area - Clickable to upload */}
               <div 
-                className="w-96 mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200 flex items-center justify-center"
-                style={{ height: '400px' }}
+                className="mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200 flex items-center justify-center"
+                style={{ height: '800px', width: '800px' }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
                 <div className="bg-white p-6 rounded-2xl">
                   <QRCode 
                     value={window.location.href} 
-                    size={200}
+                    size={800}
                     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                   />
                 </div>
@@ -486,13 +486,13 @@ export default function UploadImage() {
                       }`}
                       data-testid={`card-video-${currentCardIndex + index}`}
                     >
-                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '400px' }}>
+                      <div className="bg-white rounded-3xl shadow-lg overflow-hidden" style={{ height: '590px' }}>
                         {/* Video Area */}
-                        <div className="w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative overflow-hidden" style={{ height: '280px' }}>
+                        <div className="w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 relative overflow-hidden" style={{ height: '420px' }}>
                         </div>
                         
                         {/* Card Content */}
-                        <div className="p-4 flex flex-col justify-center" style={{ height: '120px' }}>
+                        <div className="p-4 flex flex-col justify-center" style={{ height: '170px' }}>
                           <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontWeight: '475' }}>
                             {card.title}
                           </h3>
