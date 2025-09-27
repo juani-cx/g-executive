@@ -155,7 +155,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${card.type === 'Social Post' ? 'max-w-3xl' : 'max-w-4xl'} w-full h-[520px] p-0 overflow-visible top-[2%] translate-y-0`} style={{ marginTop: '110px', zIndex: 10001 }}>
+      <DialogContent className="max-w-[80vw] w-full h-[520px] p-0 overflow-visible top-[2%] translate-y-0 mx-auto" style={{ marginTop: '110px', zIndex: 10001 }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
@@ -502,8 +502,8 @@ export default function Canvas() {
           </div>
 
           {/* Cards Grid */}
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+          <div className="w-[70vw] mx-auto flex flex-col items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center w-full">
               {cards.map((card) => (
                 <AssetCardComponent
                   key={card.id}
