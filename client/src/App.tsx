@@ -32,6 +32,28 @@ function AuthenticatedRouter() {
   const [displayLocation, setDisplayLocation] = useState(location);
   const timeoutSettings = useTimeoutSettings();
   
+  // Check for workflow type and redirect to configure/canvas by default
+  useEffect(() => {
+    if (location === '/' || location === '/homepage') {
+      const workflowType = localStorage.getItem('workflowType');
+      const hasUploadedImage = localStorage.getItem('uploadedImage');
+      
+      // If user has uploaded an image, redirect to configure
+      if (hasUploadedImage && workflowType) {
+        setLocation(workflowType === 'catalog' ? '/configure-catalog' : '/configure');
+      }
+      // If user has campaign config, redirect to canvas
+      else if (localStorage.getItem('campaignConfig')) {
+        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+        if (config.workflowType === 'catalog') {
+          setLocation('/catalog-canvas');
+        } else {
+          setLocation('/canvas');
+        }
+      }
+    }
+  }, [location, setLocation]);
+  
   const handleTimeout = () => {
     setLocation('/');
   };

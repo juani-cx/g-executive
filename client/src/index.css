@@ -1089,5 +1089,52 @@ body,
 
 /* Height override for larger image display */
 .h-72 {
-  height: 34rem;
+  height: var(--image-card-height);
+}
+
+/* 4K-responsive component utilities */
+.card-responsive {
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+.button-responsive {
+  min-height: var(--button-height);
+  padding: calc(var(--space-sm) * 0.5) var(--space-md);
+  font-size: var(--font-size-base);
+}
+
+.input-responsive {
+  min-height: var(--input-height);
+  padding: calc(var(--space-sm) * 0.5) var(--space-md);
+  font-size: var(--font-size-base);
+}
+
+.modal-responsive {
+  max-width: var(--modal-width);
+  min-height: 50vh;
+}
+
+.container-responsive {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Hero section 4K scaling */
+.hero-section {
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: var(--font-size-4xl);
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-section p {
+  font-size: var(--font-size-xl);
+  line-height: 1.4;
+  margin-bottom: var(--space-xl);
 }

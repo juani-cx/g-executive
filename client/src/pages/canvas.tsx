@@ -14,45 +14,7 @@ import { ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
 import { AppShell, PageHeader, PageBody } from "@/components/layout";
 import { PageShell } from "@/components/PageShell";
-
-// Virtual Keyboard Component
-function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
-  const keyboardKeys = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '@'],
-    ['↑', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', '⌫'],
-    ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
-  ];
-
-  return createPortal(
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out ${
-      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    }`} style={{ bottom: '2rem' }}>
-      <div className="p-6" style={{ width: '900px' }}>
-        <div className="space-y-3">
-          {keyboardKeys.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-3">
-              {row.map((key, keyIndex) => (
-                <div
-                  key={keyIndex}
-                  className={`
-                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer transition-colors border border-gray-200
-                    ${key === '⎵' ? 'px-20 py-4' : key === '123?' || key === '🔍' ? 'px-6 py-4' : 'w-14 h-14'}
-                    ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
-                  `}
-                  data-testid={`key-${key}`}
-                >
-                  {key}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>,
-    document.body
-  );
-}
+import { VirtualKeyboard } from "@/components/VirtualKeyboard";
 
 // Asset Card Component
 interface AssetCard {

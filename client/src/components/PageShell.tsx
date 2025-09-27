@@ -34,6 +34,7 @@ export function PageShell({
   const baseClassName = "dotted-background";
   const baseStyle = {
     fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    fontSize: 'var(--font-size-base)',
     ...style
   };
 
