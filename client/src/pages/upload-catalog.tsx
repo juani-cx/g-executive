@@ -159,7 +159,7 @@ export default function UploadCatalog() {
       {/* Predefined Images Tab Content */}
       <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="relative mb-8">
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-4 gap-6 transition-opacity duration-300 opacity-100">
             {moodImages.map((image) => (
               <div
                 key={image.id}
