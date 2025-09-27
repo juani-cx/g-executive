@@ -8,6 +8,7 @@ interface PageShellProps {
   subtitle?: string;
   showNavigation?: boolean;
   showFooter?: boolean;
+  footerContent?: ReactNode;
   centerContent?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -22,6 +23,7 @@ export function PageShell({
   subtitle,
   showNavigation = true,
   showFooter = true,
+  footerContent,
   centerContent = false,
   className = "",
   style = {},
@@ -49,9 +51,11 @@ export function PageShell({
       footer={
         showFooter ? (
           <PageFooter>
-            <p className="footer-text text-gray-600">
-              Create multi-channel assets in an instant
-            </p>
+            {footerContent || (
+              <p className="footer-text text-gray-600">
+                Create multi-channel assets in an instant
+              </p>
+            )}
           </PageFooter>
         ) : undefined
       }

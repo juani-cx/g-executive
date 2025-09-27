@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import TopNavigation from "@/components/TopNavigation";
-import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
@@ -251,29 +250,13 @@ export default function UploadImage() {
   };
 
   return (
-    <AppShell
-      className="dotted-background"
-      style={{
-        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-      }}
-      header={
-        <PageHeader>
-          <TopNavigation />
-        </PageHeader>
-      }
-      footer={
-        <PageFooter>
-          <p className="footer-text text-gray-600">
-            Create multi-channel assets in an instant
-          </p>
-        </PageFooter>
-      }
+    <PageShell 
+      centerContent={true}
+      pageBodyClassName="flex items-center justify-center"
     >
-      <PageBody>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center">
-        <div className="text-center w-full">
+      <div className="text-center w-full">
           <PageTitle
             title="Select an image"
             subtitle="Choose the mood of your campaign for AI inspiration"
@@ -599,8 +582,6 @@ export default function UploadImage() {
             </Button>
           </div>
         </div>
-      </div>
-      </PageBody>
-    </AppShell>
+    </PageShell>
   );
 }

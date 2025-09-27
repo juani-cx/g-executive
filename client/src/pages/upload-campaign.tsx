@@ -1,10 +1,10 @@
 import { useState, useMemo, useEffect, useCallback, useRef, startTransition } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight, XCircle } from "lucide-react";
 import { PageTitle } from "@/components/PageTitle";
+import { PageShell } from "@/components/PageShell";
 
 // Type for card data
 interface CardData {
@@ -285,25 +285,17 @@ export default function UploadCampaign() {
   const visibleCards = currentCards.slice(startIndex, startIndex + 4);
 
   return (
-    <div className="dotted-background" style={{ 
-      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      minHeight: '100vh'
-    }}>
-      {/* Top Navigation */}
-      <TopNavigation />
-      
-      {/* Main Content */}
-      <div style={{
-        width: '100%',
+    <PageShell 
+      centerContent={false}
+      pageBodyClassName="flex flex-col items-center"
+      pageBodyStyle={{
         minHeight: 'calc(100vh - 120px)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
         padding: '24px 56px',
-        boxSizing: 'border-box',
         paddingTop: '0'
-      }}>
-        <div className="w-full text-center flex flex-col items-center">
+      }}
+    >
+      {/* Main Content */}
+      <div className="w-full text-center flex flex-col items-center">
           {/* Header */}
           <PageTitle
             title="Select an image"
@@ -521,6 +513,6 @@ export default function UploadCampaign() {
           </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }
