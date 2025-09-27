@@ -1,4 +1,4 @@
-import logoImage from '@assets/logoGcloud_1758920769431.png';
+import logoImage from '@assets/logoGcloud_1758931118526.png';
 
 interface LogoProps {
   size?: "small" | "medium" | "large" | "xlarge";
