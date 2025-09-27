@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import TopNavigation from "@/components/TopNavigation";
 import { Input } from "@/components/ui/input";
 import { Upload, Camera, Sparkles, Loader2, ChevronLeft, ChevronRight, XCircle } from "lucide-react";
+import { PageTitle } from "@/components/PageTitle";
 
 // Type for card data
 interface CardData {
@@ -174,14 +175,11 @@ export default function UploadCatalog() {
       }}>
         <div className="w-full text-center flex flex-col items-center">
           {/* Header */}
-          <div className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8 mx-auto">
-            <h1 className="text-black text-center text-5xl font-medium leading-9 m-0" data-testid="text-main-title">
-              Select an image
-            </h1>
-            <p className="text-gray-600 text-center text-2xl font-normal leading-7 m-0">
-              Choose the product type you want to promote
-            </p>
-          </div>
+          <PageTitle
+            title="Select an image"
+            subtitle="Choose the product type you want to promote"
+            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8"
+          />
 
 
           {/* Content Area - Fade transitions with image preloading */}
