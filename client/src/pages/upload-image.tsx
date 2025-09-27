@@ -272,8 +272,8 @@ export default function UploadImage() {
       <PageBody>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center p-8" style={{ minHeight: 'calc(100vh - 120px)', height: 'auto' }}>
-        <div className="text-center w-full" style={{ maxWidth: '72rem' }}>
+      <div className="flex items-center justify-center">
+        <div className="text-center w-full">
           <PageTitle
             title="Select an image"
             subtitle="Choose the mood of your campaign for AI inspiration"
