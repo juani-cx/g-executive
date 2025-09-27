@@ -27,7 +27,7 @@ export function PageBody({
         backgroundColor: 'transparent', 
         paddingTop: 0, 
         paddingBottom: 0,
-        justifyContent: 'flex-start',
+        ...(centerContent ? {} : { justifyContent: 'flex-start' }),
         ...style 
       }}
     >

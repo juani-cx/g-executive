@@ -62,7 +62,6 @@ export default function Landing() {
               gap: "52px",
               width: "100%",
               justifyContent: "center",
-              height: "100%",
             }}
           >
             {/* Marketing Campaign Card */}
@@ -77,7 +76,6 @@ export default function Landing() {
                 width: "100%",
                 cursor: "pointer",
                 maxWidth: "25vw",
-                height: "100%",
               }}
               onClick={() => handleOptionSelect("marketing")}
               data-testid="card-marketing-option"
@@ -171,7 +169,6 @@ export default function Landing() {
                 width: "100%",
                 cursor: "pointer",
                 maxWidth: "25vw",
-                height: "100%",
               }}
               onClick={() => handleOptionSelect("catalog")}
               data-testid="card-catalog-option"
