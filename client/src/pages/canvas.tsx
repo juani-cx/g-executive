@@ -156,12 +156,12 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[80vw] w-full h-[520px] p-0 overflow-visible top-[2%] translate-y-0 mx-auto" style={{ marginTop: '110px', zIndex: 10001 }}>
+      <DialogContent className="max-w-[80vw] w-full h-[80vh] p-0 overflow-visible top-[50%] translate-y-[-50%] mx-auto" style={{ zIndex: 10001 }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
             onClick={() => onNavigate('prev')}
-            className="absolute left-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center  hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
+            className="absolute left-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-prev-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -364,29 +364,27 @@ function EditModal({
 
             {/* Action Buttons */}
             <div className="flex gap-2 mt-4 pt-3 border-t flex-shrink-0">
-              <Button
-                variant="outline"
+              <InternalButton
                 onClick={onClose}
-                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
+                className="text-gray-600 border-gray-300 border bg-white hover:bg-gray-50"
                 data-testid="button-back"
               >
                 Back
-              </Button>
-              <Button
-                variant="outline"
+              </InternalButton>
+              <InternalButton
                 onClick={handleRandomize}
-                className="text-gray-600 border-gray-300 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
+                className="text-gray-600 border-gray-300 border bg-white hover:bg-gray-50"
                 data-testid="button-randomize"
               >
                 Randomize
-              </Button>
-              <Button
+              </InternalButton>
+              <InternalButton
                 onClick={handleSave}
-                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1 text-sm py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
+                className="bg-[#4285F4] hover:bg-[#3367D6] text-white flex-1"
                 data-testid="button-export-assets"
               >
                 Export assets
-              </Button>
+              </InternalButton>
             </div>
           </div>
         </div>

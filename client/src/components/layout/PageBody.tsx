@@ -17,7 +17,7 @@ export function PageBody({
   background = "transparent",
   style = {}
 }: PageBodyProps) {
-  const paddingClass = padding ? `px-[var(--space-xl)] py-[var(--space-md)]` : "";
+  const paddingClass = padding ? `px-[var(--space-xl)]` : "";
   const centerClass = centerContent ? "flex items-start justify-center" : "";
   
   return (
@@ -26,6 +26,7 @@ export function PageBody({
       style={{ 
         backgroundColor: 'transparent', 
         paddingTop: 0, 
+        paddingBottom: 0,
         justifyContent: 'flex-start',
         ...style 
       }}
