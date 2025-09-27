@@ -167,14 +167,11 @@ export default function OutputHub() {
   ) || [];
 
   return (
-    <PageShell>
+    <PageShell
+      title="Campaign Results"
+      subtitle={`Your AI-powered marketing campaign "${campaign?.name || 'Campaign'}" is ready`}
+    >
         <div className="flex flex-col items-center w-full">
-          <PageTitle
-            title="Campaign Results"
-            subtitle={`Your AI-powered marketing campaign "${campaign?.name || 'Campaign'}" is ready`}
-            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-12"
-          />
-          
           {/* Success Icon */}
           <div className="text-center mb-12">
             <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">

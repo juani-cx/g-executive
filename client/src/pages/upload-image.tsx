@@ -252,6 +252,8 @@ export default function UploadImage() {
 
   return (
     <PageShell 
+      title="Select an image"
+      subtitle="Choose the mood of your campaign for AI inspiration"
       centerContent={true}
       pageBodyClassName="flex items-center justify-center h-full"
       pageBodyStyle={{ padding: '0', height: '100%' }}
@@ -259,12 +261,6 @@ export default function UploadImage() {
 
       {/* Main Content */}
       <div className="text-center w-full h-full" style={{ padding: 'var(--space-md)' }}>
-          <PageTitle
-            title="Select an image"
-            subtitle="Choose the mood of your campaign for AI inspiration"
-            className="mb-16"
-          />
-
           {activeTab === 'qr' ? (
             <div className="mb-12" style={{ minHeight: '900px' }}>
               {/* Image Upload Area - Clickable to upload */}

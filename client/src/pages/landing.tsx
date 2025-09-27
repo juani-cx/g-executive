@@ -27,6 +27,8 @@ export default function Landing() {
 
   return (
     <PageShell
+      title="The Gemini launchpad: Campaigns and Products"
+      subtitle="Campaign and product listings, built instantly from a single image"
       className="landing-page"
       isLandingPage={true}
     >
@@ -41,13 +43,6 @@ export default function Landing() {
           alignItems: "center",
         }}
       >
-        {/* Title Section - Using PageTitle component */}
-        <PageTitle
-          title="The Gemini launchpad: Campaigns and Products"
-          subtitle="Campaign and product listings, built instantly from a single image"
-          className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
-        />
-
         {/* Content Section */}
         <div
           style={{

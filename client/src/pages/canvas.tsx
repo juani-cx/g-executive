@@ -32,15 +32,15 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
   return (
     <div 
       className="bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
-      style={{ width: 'calc(var(--space-2xl) * 7)' }}
+      style={{ width: 'calc(var(--space-2xl) * 10)' }}
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
       {/* Edit Button - Removed hover state for touchscreen */}
 
-      <div className="p-6">
+      <div className="p-8">
         {/* Image or Video */}
-        <div className="w-full bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center" style={{ height: 'calc(var(--space-2xl) * 4)' }}>
+        <div className="w-full bg-gray-100 rounded-xl overflow-hidden mb-4 flex items-center justify-center" style={{ height: 'calc(var(--space-2xl) * 6)' }}>
           {card.image ? (
             card.isVideo ? (
               <video 
@@ -68,12 +68,12 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
         </div>
         
         {/* Title */}
-        <h3 className="text-2xl text-gray-800 mb-3 text-left" style={{ fontWeight: '500' }}>
+        <h3 className="text-3xl text-gray-800 mb-4 text-left" style={{ fontWeight: '500' }}>
           {card.title}
         </h3>
         
         {/* Description */}
-        <p className="text-lg text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
+        <p className="text-xl text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
           {card.description}
         </p>
       </div>
@@ -475,6 +475,8 @@ export default function Canvas() {
 
   return (
     <PageShell 
+      title="Export your assets"
+      subtitle="Review, edit and download your assets"
       centerContent={true}
       pageBodyClassName="flex flex-col items-center"
       showFooter={false}
@@ -483,13 +485,6 @@ export default function Canvas() {
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Header - Using PageTitle component */}
-          <PageTitle
-            title="Export your assets"
-            subtitle="Review, edit and download your assets"
-            className="flex flex-col justify-center items-center gap-4 w-full mb-8"
-          />
-
           {/* Export Button */}
           <div className="mb-8">
             <Button

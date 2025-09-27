@@ -97,7 +97,10 @@ export default function Configure() {
   };
 
   return (
-    <PageShell>
+    <PageShell
+      title="Configure"
+      subtitle="Set up your campaign details"
+    >
       
       <div className="hidden">
         <Button 
@@ -125,13 +128,6 @@ export default function Configure() {
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Header - Using PageTitle component */}
-          <PageTitle
-            title="Configure"
-            subtitle="Set up your campaign details"
-            className="flex flex-col justify-center items-center gap-4 w-full"
-          />
-
           {/* Content Area */}
           <div className="w-full mx-auto">
             {/* White card container */}

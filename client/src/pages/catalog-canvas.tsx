@@ -79,6 +79,8 @@ export default function CatalogCanvas() {
 
   return (
     <PageShell 
+      title="Export your assets"
+      subtitle="Review, edit and download your assets"
       centerContent={true}
       pageBodyClassName="flex flex-col items-center"
       showFooter={false}
@@ -87,13 +89,6 @@ export default function CatalogCanvas() {
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Header - Using PageTitle component */}
-          <PageTitle
-            title="Export your assets"
-            subtitle="Review, edit and download your assets"
-            className="flex flex-col justify-center items-center gap-4 w-full mb-8"
-          />
-
           {/* Main Canvas Area - More compact layout */}
           <div className="max-w-7xl mx-auto">
             <div style={{

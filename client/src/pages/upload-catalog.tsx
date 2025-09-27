@@ -156,6 +156,8 @@ export default function UploadCatalog() {
 
   return (
     <PageShell 
+      title="Select an image"
+      subtitle="Choose the product type you want to promote"
       centerContent={false}
       pageBodyClassName="flex flex-col items-center"
       pageBodyStyle={{
@@ -166,14 +168,6 @@ export default function UploadCatalog() {
     >
       {/* Main Content */}
       <div className="w-full text-center flex flex-col items-center">
-          {/* Header */}
-          <PageTitle
-            title="Select an image"
-            subtitle="Choose the product type you want to promote"
-            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-8"
-          />
-
-
           {/* Content Area - Fade transitions with image preloading */}
           <div className="relative w-full flex justify-center" style={{ height: '620px', marginTop: '-28px' }}>
             

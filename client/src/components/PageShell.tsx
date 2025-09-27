@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 import TopNavigation from "@/components/TopNavigation";
+import { PageTitle } from "@/components/PageTitle";
 
 interface PageShellProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ interface PageShellProps {
   pageBodyClassName?: string;
   pageBodyStyle?: React.CSSProperties;
   isLandingPage?: boolean;
+  pageTitleClassName?: string;
 }
 
 export function PageShell({ 
@@ -29,7 +31,8 @@ export function PageShell({
   style = {},
   pageBodyClassName = "",
   pageBodyStyle = {},
-  isLandingPage = false
+  isLandingPage = false,
+  pageTitleClassName = ""
 }: PageShellProps) {
   const baseClassName = "dotted-background";
   const baseStyle = {
@@ -61,9 +64,20 @@ export function PageShell({
         ) : undefined
       }
     >
+      {/* Title Section - positioned at top touching header */}
+      {title && (
+        <div className="w-full text-center py-8 border-b border-gray-100">
+          <PageTitle
+            title={title}
+            subtitle={subtitle}
+            className={`flex flex-col justify-center items-center gap-4 w-full ${pageTitleClassName}`}
+          />
+        </div>
+      )}
+      
       <PageBody 
         centerContent={centerContent}
-        className={pageBodyClassName}
+        className={`flex-1 ${pageBodyClassName}`}
         style={pageBodyStyle}
       >
         {children}
