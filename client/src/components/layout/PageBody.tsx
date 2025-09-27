@@ -23,7 +23,12 @@ export function PageBody({
   return (
     <div 
       className={`flex-1 ${paddingClass} ${centerClass} ${className}`}
-      style={{ backgroundColor: background, ...style }}
+      style={{ 
+        backgroundColor: 'transparent', 
+        paddingTop: 0, 
+        justifyContent: 'flex-start',
+        ...style 
+      }}
     >
       {children}
     </div>
