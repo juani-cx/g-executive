@@ -43,11 +43,11 @@ export default function Loading() {
           color: "#5f6368",
           textAlign: "center",
           fontFamily: "Google Sans",
-          fontSize: "32px",
+          fontSize: "64px",
           fontWeight: "400",
-          lineHeight: "40px",
+          lineHeight: "80px",
           margin: 0,
-          maxWidth: "600px",
+          maxWidth: "1200px",
         }}
       >
         Working on it... you'll see results shortly.
@@ -57,12 +57,12 @@ export default function Loading() {
           color: "#5f6368",
           textAlign: "center",
           fontFamily: "Google Sans",
-          fontSize: "20px",
+          fontSize: "40px",
           fontWeight: "200",
-          lineHeight: "32px",
+          lineHeight: "64px",
           margin: 0,
-          maxWidth: "600px",
-          marginTop: "16px",
+          maxWidth: "1200px",
+          marginTop: "32px",
         }}
       >
         AI results can be imperfect or may fail.
