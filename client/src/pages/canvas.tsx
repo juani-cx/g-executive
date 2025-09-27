@@ -156,7 +156,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[80vw] w-full h-[80vh] p-0 overflow-visible top-[50%] translate-y-[-50%] mx-auto" style={{ zIndex: 10001 }}>
+      <DialogContent className="w-[60vw] h-[50vh] p-0 overflow-visible top-[50%] translate-y-[-50%] mx-auto" style={{ marginTop: '-100px', zIndex: 10001 }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
@@ -183,7 +183,7 @@ function EditModal({
         <div className="flex h-full bg-white rounded-lg overflow-hidden">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
-            <div className="p-3 h-full flex flex-col justify-center">
+            <div className="p-3 h-full flex flex-col">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
                 <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(0.85)' }}>
@@ -274,7 +274,7 @@ function EditModal({
                 /* Simple Preview for Other Assets */
                 <div className="bg-white rounded-lg shadow-sm p-4 max-w-md mx-auto w-full">
                   {card.image ? (
-                    <div className="bg-white overflow-hidden rounded-lg mb-4" style={{ aspectRatio: card.type === 'Vertical Video' ? '9/16' : card.type === 'Ad Banner' ? '16/9' : '4/3' }}>
+                    <div className="bg-white overflow-hidden rounded-lg flex-1 mb-4">
                       {card.isVideo ? (
                         <video 
                           src={card.image}
@@ -295,19 +295,19 @@ function EditModal({
                       )}
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mb-4" style={{ aspectRatio: card.type === 'Vertical Video' ? '9/16' : card.type === 'Ad Banner' ? '16/9' : '4/3' }}>
+                    <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-1 mb-4">
                       <div className="text-4xl">🎨</div>
                     </div>
                   )}
                   
                   {/* Simple Content Preview */}
                   <div className="text-left">
-                    <h3 className="font-semibold text-gray-900 mb-2">{title || card.title}</h3>
+                    <h3 className="font-semibold text-gray-900 mb-2 text-2xl">{title || card.title}</h3>
                     {description && (
-                      <p className="text-gray-600 text-sm mb-2">{description}</p>
+                      <p className="text-gray-600 text-lg mb-2">{description}</p>
                     )}
                     {(cta || card.cta) && (
-                      <p className="text-blue-600 text-sm font-medium">{cta || card.cta}</p>
+                      <p className="text-blue-600 text-lg font-medium">{cta || card.cta}</p>
                     )}
                   </div>
                 </div>
