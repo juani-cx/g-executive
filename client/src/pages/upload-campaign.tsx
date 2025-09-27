@@ -437,7 +437,7 @@ export default function UploadCampaign() {
         {/* Content Area - Fade transitions with image preloading */}
         <div
           className="relative w-full flex justify-center"
-          style={{ height: "620px", marginTop: "-70px" }}
+          style={{ height: "900px", marginTop: "-70px" }}
         >
           {/* QR Tab Content */}
           <div
@@ -445,7 +445,7 @@ export default function UploadCampaign() {
           >
             <div
               className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl"
-              style={{ width: "800px", height: "474px", padding: "24px" }}
+              style={{ width: "800px", height: "800px", padding: "24px" }}
             >
               <div
                 className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat"
@@ -602,16 +602,16 @@ export default function UploadCampaign() {
               activeTab === "computer" ? "text-blue-600" : "text-gray-600"
             }`}
             style={{
-              fontSize: "42px",
+              fontSize: "52px",
               lineHeight: "2",
-              width: "100%",
+              width: "320px",
             }}
             onClick={() => setActiveTab("computer")}
             data-testid="tab-upload"
           >
             <Upload
               className="w-12 h-12"
-              style={{ width: "36px", height: "36px" }}
+              style={{ width: "76px", height: "auto" }}
             />
             Upload your images
           </Button>
@@ -621,15 +621,16 @@ export default function UploadCampaign() {
               activeTab === "ai" ? "text-blue-600" : "text-gray-600"
             }`}
             style={{
-              fontSize: "32px",
+              fontSize: "52px",
               lineHeight: "2",
+              width: "320px",
             }}
             onClick={() => setActiveTab("ai")}
             data-testid="tab-ai"
           >
             <Camera
               className="w-12 h-12"
-              style={{ width: "36px", height: "36px" }}
+              style={{ width: "76px", height: "auto" }}
             />
             Take a photo
           </Button>
@@ -639,15 +640,16 @@ export default function UploadCampaign() {
               activeTab === "predefined" ? "text-blue-600" : "text-gray-600"
             }`}
             style={{
-              fontSize: "32px",
+              fontSize: "52px",
               lineHeight: "2",
+              width: "320px",
             }}
             onClick={() => setActiveTab("predefined")}
             data-testid="tab-preselected"
           >
             <XCircle
               className="w-12 h-12"
-              style={{ width: "36px", height: "36px" }}
+              style={{ width: "76px", height: "auto" }}
             />
             I don't want to use my photos
           </Button>
