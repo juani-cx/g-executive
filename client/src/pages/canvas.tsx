@@ -479,7 +479,7 @@ export default function Canvas() {
       title="Export your assets"
       subtitle="Review, edit and download your assets"
       centerContent={true}
-      pageBodyClassName="flex flex-col items-center"
+      pageBodyClassName="flex flex-col items-start"
       showFooter={false}
     >
         <div style={{
