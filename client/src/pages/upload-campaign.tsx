@@ -557,11 +557,17 @@ export default function UploadCampaign() {
                 size="lg"
                 onClick={handlePredefinedContinue}
                 disabled={!selectedImage}
-                className={`px-8 py-3 rounded-full text-base font-medium shadow-lg transition-colors ${
+                className={`rounded-full font-medium shadow-lg transition-colors ${
                   selectedImage
                     ? "bg-blue-600 hover:bg-blue-700 text-white"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
+                style={{
+                  fontSize: "34px",
+                  lineHeight: "2",
+                  height: "auto",
+                  padding: "14px 60px",
+                }}
                 data-testid="button-continue-predefined"
               >
                 Continue with this selection
