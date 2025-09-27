@@ -32,7 +32,7 @@ interface AssetCard {
 function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () => void }) {
   return (
     <div 
-      className="bg-white shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group w-full max-w-sm"
+      className="bg-white shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group w-full"
       style={{ borderRadius: '2rem' }}
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
@@ -498,14 +498,13 @@ export default function Canvas() {
 
           {/* Cards Grid */}
           <div className="w-[70vw] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full items-start">
               {cards.map((card) => (
-                <div key={card.id} className="flex justify-center">
-                  <AssetCardComponent
-                    card={card}
-                    onClick={() => handleCardClick(card)}
-                  />
-                </div>
+                <AssetCardComponent
+                  key={card.id}
+                  card={card}
+                  onClick={() => handleCardClick(card)}
+                />
               ))}
             </div>
           </div>
