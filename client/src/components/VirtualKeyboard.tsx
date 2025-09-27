@@ -37,8 +37,8 @@ export function VirtualKeyboard({
     ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
   ];
 
-  // Calculate responsive keyboard width - 4K first design
-  const keyboardWidth = 'clamp(600px, 25vw, 1400px)';
+  // Calculate responsive keyboard width - 4K first design with larger scale
+  const keyboardWidth = 'clamp(800px, 35vw, 1800px)';
   
   const keyboardElement = (
     <div 
@@ -47,10 +47,10 @@ export function VirtualKeyboard({
       }`} 
       style={{ bottom }}
     >
-      <div className="p-6" style={{ width: keyboardWidth }}>
-        <div className="space-y-3">
+      <div className="p-8" style={{ width: keyboardWidth }}>
+        <div className="space-y-4">
           {keyboardKeys.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-3">
+            <div key={rowIndex} className="flex justify-center gap-4">
               {row.map((key, keyIndex) => (
                 <div
                   key={keyIndex}
@@ -60,12 +60,12 @@ export function VirtualKeyboard({
                     ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
                   `}
                   style={{
-                    fontSize: 'clamp(14px, 1.2vw, 24px)',
-                    width: key === '⎵' ? 'auto' : 'clamp(40px, 3.5vw, 70px)',
-                    height: key === '⎵' || key === '123?' || key === '🔍' ? 'auto' : 'clamp(40px, 3.5vw, 70px)',
-                    padding: key === '⎵' ? 'clamp(12px, 1vw, 20px) clamp(60px, 5vw, 120px)' : 
-                            key === '123?' || key === '🔍' ? 'clamp(12px, 1vw, 20px) clamp(20px, 1.5vw, 35px)' : 
-                            'clamp(12px, 1vw, 20px)'
+                    fontSize: 'clamp(18px, 1.8vw, 32px)',
+                    width: key === '⎵' ? 'auto' : 'clamp(60px, 5vw, 100px)',
+                    height: key === '⎵' || key === '123?' || key === '🔍' ? 'auto' : 'clamp(60px, 5vw, 100px)',
+                    padding: key === '⎵' ? 'clamp(16px, 1.5vw, 28px) clamp(80px, 8vw, 160px)' : 
+                            key === '123?' || key === '🔍' ? 'clamp(16px, 1.5vw, 28px) clamp(30px, 2.5vw, 50px)' : 
+                            'clamp(16px, 1.5vw, 28px)'
                   }}
                   data-testid={`key-${key}`}
                 >
