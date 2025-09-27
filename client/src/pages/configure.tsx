@@ -131,7 +131,7 @@ export default function Configure() {
           {/* Content Area */}
           <div className="w-full mx-auto">
             {/* White card container */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full">
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full" style={{ height: '840px' }}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column - Image */}
               <div className="flex justify-center">
@@ -194,7 +194,13 @@ export default function Configure() {
                   type="button"
                   variant="outline"
                   onClick={() => navigate('/upload-' + workflowType)}
-                  className="text-gray-600 border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full"
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full"
+                  style={{
+                    fontSize: '28px',
+                    fontWeight: '500',
+                    padding: '0 36px',
+                    height: 'auto'
+                  }}
                   data-testid="button-back"
                 >
                   Back
@@ -204,7 +210,13 @@ export default function Configure() {
                   type="button"
                   variant="outline"
                   onClick={handleRandomizeAll}
-                  className="text-gray-600 border-gray-300 hover:bg-gray-50 px-6 py-2 rounded-full"
+                  className="text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full"
+                  style={{
+                    fontSize: '28px',
+                    fontWeight: '500',
+                    padding: '0 36px',
+                    height: 'auto'
+                  }}
                   data-testid="button-randomize-all"
                 >
                   Randomize
@@ -213,7 +225,13 @@ export default function Configure() {
                 <Button
                   onClick={handleCreateCampaign}
                   disabled={!targetAudience || !campaignType || !campaignKind || !toneOfVoice}
-                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-semibold px-8 py-2 rounded-full transition-all duration-200"
+                  className="bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full transition-all duration-200"
+                  style={{
+                    fontSize: '28px',
+                    fontWeight: '500',
+                    padding: '0 36px',
+                    height: 'auto'
+                  }}
                   data-testid="button-create-campaign"
                 >
                   Create campaign
