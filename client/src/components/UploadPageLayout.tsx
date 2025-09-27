@@ -146,7 +146,7 @@ export function UploadPageLayout({
         <div
           className="relative flex justify-center items-center gap-6"
           style={{
-            height: "auto",
+            height: "290px",
             marginTop: "24px",
             marginBottom: "98px",
             padding: "22px",
