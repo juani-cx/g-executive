@@ -16,6 +16,7 @@ import { AppShell, PageHeader, PageBody } from "@/components/layout";
 import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 import { VirtualKeyboard } from "@/components/VirtualKeyboard";
+import { InternalButton } from "@/components/ui/internal-button";
 
 // Asset Card Component
 interface AssetCard {
@@ -486,14 +487,13 @@ export default function Canvas() {
           textAlign: 'center'
         }}>
           {/* Export Button */}
-          <div className="mb-8">
-            <Button
+          <div className="mb-4">
+            <InternalButton
               onClick={handleExportAll}
-              className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
               data-testid="button-export-all"
             >
               Export assets
-            </Button>
+            </InternalButton>
           </div>
 
           {/* Cards Grid */}
