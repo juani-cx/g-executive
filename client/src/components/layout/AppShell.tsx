@@ -10,7 +10,7 @@ interface AppShellProps {
 
 export function AppShell({ children, header, footer, className = "", style = {} }: AppShellProps) {
   return (
-    <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100dvh', ...style }}>
+    <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100vh', ...style }}>
       {header && (
         <header 
           className="shrink-0 relative z-50" 
@@ -20,7 +20,7 @@ export function AppShell({ children, header, footer, className = "", style = {} 
         </header>
       )}
       
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col">
         {children}
       </main>
       

@@ -22,7 +22,7 @@ export function PageBody({
   
   return (
     <div 
-      className={`flex-1 overflow-auto ${paddingClass} ${centerClass} ${className}`}
+      className={`flex-1 ${paddingClass} ${centerClass} ${className}`}
       style={{ backgroundColor: background, ...style }}
     >
       {children}

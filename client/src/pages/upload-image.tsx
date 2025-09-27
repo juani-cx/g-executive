@@ -21,19 +21,7 @@ export default function UploadImage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [qrSize, setQrSize] = useState(800);
-  
-  // Update QR size based on viewport width
-  useEffect(() => {
-    const updateQrSize = () => {
-      const newSize = Math.min(800, Math.floor(window.innerWidth * 0.8));
-      setQrSize(newSize);
-    };
-    
-    updateQrSize();
-    window.addEventListener('resize', updateQrSize);
-    return () => window.removeEventListener('resize', updateQrSize);
-  }, []);
+  // Remove responsive QR sizing - force to 800px
   
   // Get workflow type from localStorage
   const workflowType = localStorage.getItem('workflowType') as 'campaign' | 'catalog' || 'campaign';
@@ -265,11 +253,12 @@ export default function UploadImage() {
   return (
     <PageShell 
       centerContent={true}
-      pageBodyClassName="flex items-center justify-center"
+      pageBodyClassName="flex items-center justify-center h-full"
+      pageBodyStyle={{ padding: '0', height: '100%' }}
     >
 
       {/* Main Content */}
-      <div className="text-center w-full h-full">
+      <div className="text-center w-full h-full" style={{ padding: 'var(--space-md)' }}>
           <PageTitle
             title="Select an image"
             subtitle="Choose the mood of your campaign for AI inspiration"
@@ -282,17 +271,30 @@ export default function UploadImage() {
               <div 
                 className="mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200 flex items-center justify-center"
                 style={{ 
-                  height: '800px', 
-                  width: '800px'
+                  height: '800px !important', 
+                  width: '800px !important',
+                  minHeight: '800px',
+                  minWidth: '800px',
+                  maxHeight: '800px',
+                  maxWidth: '800px'
                 }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
               >
-                <div className="bg-white p-6 rounded-2xl">
+                <div 
+                  className="bg-white p-6 rounded-2xl" 
+                  style={{ 
+                    width: '800px', 
+                    height: '800px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
                   <QRCode 
                     value={window.location.href} 
                     size={800}
-                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                    style={{ height: "800px", width: "800px" }}
                   />
                 </div>
               </div>
