@@ -156,7 +156,7 @@ function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[60vw] h-[50vh] p-0 overflow-visible top-[50%] translate-y-[-50%] mx-auto" style={{ marginTop: '-100px', zIndex: 10001 }}>
+      <DialogContent className="h-[50vh] p-0 overflow-visible top-[50%] translate-y-[-50%] mx-auto" style={{ width: '1800px', maxWidth: 'none', marginTop: '-100px', zIndex: 10001 }}>
         {/* Navigation Arrows - positioned outside dialog content but within viewport */}
         {cards && currentIndex > 0 && (
           <button
