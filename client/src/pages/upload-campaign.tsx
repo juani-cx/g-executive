@@ -375,7 +375,6 @@ export default function UploadCampaign() {
                     ? "ring-4 ring-blue-500 shadow-2xl transform scale-105"
                     : "hover:scale-102 hover:shadow-lg"
                 } ${isTransitioning ? "pointer-events-none" : ""}`}
-                style={{ height: '380px', maxHeight: '380px' }}
                 onClick={() =>
                   !isTransitioning && handleImageSelect(image.id, image.src)
                 }
