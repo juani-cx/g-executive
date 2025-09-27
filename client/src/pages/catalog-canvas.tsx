@@ -89,24 +89,17 @@ export default function CatalogCanvas() {
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Main Canvas Area - More compact layout */}
-          <div className="max-w-7xl mx-auto">
-            <div style={{
-              display: 'flex',
-              gap: '32px',
-              flex: 1,
-              maxWidth: '1400px',
-              margin: '0 auto',
-              width: '100%'
-            }}>
-              {/* Left Side - SEO Attributes with Image and some fields */}
-              <div style={{
-                flex: '1',
-                backgroundColor: '#fff',
-                borderRadius: '12px',
-                padding: '24px',
-                border: '1px solid #e5e7eb'
-              }}>
+          {/* Content Area - Matching campaign card layout */}
+          <div className="mx-auto" style={{ width: "2000px", maxWidth: "80%" }}>
+            {/* White card container */}
+            <div
+              className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full"
+              style={{ height: "840px" }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              {/* Left Column - SEO Attributes with Image */}
+              <div className="flex justify-center">
+                <div className="w-full bg-gray-100 rounded-2xl overflow-hidden flex flex-col p-6" style={{ height: "100%" }}>
                 <div style={{ marginBottom: '24px' }}>
                   <h2 style={{
                     fontSize: '24px',
@@ -230,18 +223,13 @@ export default function CatalogCanvas() {
                     {productDescription || 'Product description will appear here...'}
                   </p>
                 </div>
+                </div>
               </div>
 
-              {/* Right Side - Form Fields and Actions */}
-              <div style={{
-                flex: '1',
-                backgroundColor: '#fff',
-                borderRadius: '12px',
-                padding: '32px',
-                border: '1px solid #e5e7eb'
-              }}>
-                {/* Form Fields */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {/* Right Column - Configuration */}
+              <div className="space-y-2">
+                {/* Form Fields - Passed as children */}
+                <div>
                   {/* Product Title - Moved to right column */}
                   <div>
                     <label className="text-gray-600 mb-2 text-left block" style={{
@@ -419,6 +407,7 @@ export default function CatalogCanvas() {
                     </Button>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
