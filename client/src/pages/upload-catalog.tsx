@@ -163,12 +163,12 @@ export default function UploadCatalog() {
             {moodImages.map((image) => (
               <div
                 key={image.id}
-                className={`h-72 rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden ${
                   selectedImage === image.src
                     ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                     : 'hover:scale-102 hover:shadow-lg'
                 }`}
-                style={{ maxWidth: '380px' }}
+                style={{ height: '380px', maxHeight: '380px' }}
                 onClick={() => handleImageSelect(image.id, image.src)}
                 data-testid={`image-${image.id}`}
               >

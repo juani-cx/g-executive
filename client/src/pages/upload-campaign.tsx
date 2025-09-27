@@ -306,7 +306,7 @@ export default function UploadCampaign() {
       >
         <div
           className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl"
-          style={{ width: "800px", height: "800px", padding: "24px" }}
+          style={{ width: '460px', height: '474px', padding: '24px' }}
         >
           <div
             className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat"
@@ -370,11 +370,12 @@ export default function UploadCampaign() {
             {displayImages.map((image) => (
               <div
                 key={`${selectedCategory}-${image.id}`}
-                className={`h-72 rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden ${
                   selectedImage === image.src
                     ? "ring-4 ring-blue-500 shadow-2xl transform scale-105"
                     : "hover:scale-102 hover:shadow-lg"
                 } ${isTransitioning ? "pointer-events-none" : ""}`}
+                style={{ height: '380px', maxHeight: '380px' }}
                 onClick={() =>
                   !isTransitioning && handleImageSelect(image.id, image.src)
                 }
