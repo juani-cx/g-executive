@@ -32,7 +32,7 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
   return (
     <div 
       className="bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
-      style={{ width: 'calc(var(--space-2xl) * 5)' }}
+      style={{ width: 'calc(var(--space-2xl) * 7)' }}
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
@@ -68,12 +68,12 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
         </div>
         
         {/* Title */}
-        <h3 className="text-xl text-gray-800 mb-3 text-left" style={{ fontWeight: '500' }}>
+        <h3 className="text-2xl text-gray-800 mb-3 text-left" style={{ fontWeight: '500' }}>
           {card.title}
         </h3>
         
         {/* Description */}
-        <p className="text-sm text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
+        <p className="text-lg text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
           {card.description}
         </p>
       </div>
@@ -317,7 +317,7 @@ function EditModal({
           {/* Right Side - Edit Form */}
           <div className="w-1/2 p-4 flex flex-col h-full">
             <DialogHeader className="mb-4">
-              <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>{card.type}</DialogTitle>
+              <DialogTitle style={{ fontSize: '32px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px' }}>{card.type}</DialogTitle>
             </DialogHeader>
 
             <div className="flex-1 space-y-4 py-2 min-h-0">
