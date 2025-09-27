@@ -244,13 +244,11 @@ export default function CatalogCanvas() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {/* Product Title - Moved to right column */}
                   <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '4px',
-                      textAlign: 'left'
+                    <label className="text-gray-600 mb-2 text-left block" style={{
+                      fontSize: '26px',
+                      lineHeight: '2',
+                      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontWeight: '400'
                     }}>
                       Product title
                     </label>
@@ -260,19 +258,24 @@ export default function CatalogCanvas() {
                       onFocus={handleInputFocus}
                       placeholder="Enter product title"
                       className="w-full"
+                      style={{
+                        fontSize: '26px',
+                        lineHeight: '2',
+                        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontWeight: '400',
+                        height: '60px'
+                      }}
                       data-testid="input-product-title"
                     />
                   </div>
 
                   {/* Description */}
                   <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '4px',
-                      textAlign: 'left'
+                    <label className="text-gray-600 mb-2 text-left block" style={{
+                      fontSize: '26px',
+                      lineHeight: '2',
+                      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontWeight: '400'
                     }}>
                       Description
                     </label>
@@ -283,19 +286,24 @@ export default function CatalogCanvas() {
                       placeholder="Enter product description"
                       rows={2}
                       className="w-full"
+                      style={{
+                        fontSize: '26px',
+                        lineHeight: '2',
+                        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontWeight: '400',
+                        minHeight: '60px'
+                      }}
                       data-testid="textarea-description"
                     />
                   </div>
 
                   {/* SEO Metadata */}
                   <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '4px',
-                      textAlign: 'left'
+                    <label className="text-gray-600 mb-2 text-left block" style={{
+                      fontSize: '26px',
+                      lineHeight: '2',
+                      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontWeight: '400'
                     }}>
                       SEO metadata
                     </label>
@@ -305,19 +313,24 @@ export default function CatalogCanvas() {
                       onFocus={handleInputFocus}
                       placeholder="keywords, tags, categories"
                       className="w-full"
+                      style={{
+                        fontSize: '26px',
+                        lineHeight: '2',
+                        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontWeight: '400',
+                        height: '60px'
+                      }}
                       data-testid="input-seo-metadata"
                     />
                   </div>
 
                   {/* Alt Image Text - Moved from left column */}
                   <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '4px',
-                      textAlign: 'left'
+                    <label className="text-gray-600 mb-2 text-left block" style={{
+                      fontSize: '26px',
+                      lineHeight: '2',
+                      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontWeight: '400'
                     }}>
                       Alt image text
                     </label>
@@ -327,19 +340,24 @@ export default function CatalogCanvas() {
                       onFocus={handleInputFocus}
                       placeholder="Describe the image for accessibility"
                       className="w-full"
+                      style={{
+                        fontSize: '26px',
+                        lineHeight: '2',
+                        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontWeight: '400',
+                        height: '60px'
+                      }}
                       data-testid="input-alt-text"
                     />
                   </div>
 
                   {/* Attributes */}
                   <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      color: '#374151',
-                      marginBottom: '4px',
-                      textAlign: 'left'
+                    <label className="text-gray-600 mb-2 text-left block" style={{
+                      fontSize: '26px',
+                      lineHeight: '2',
+                      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontWeight: '400'
                     }}>
                       Attributes
                     </label>
@@ -349,6 +367,13 @@ export default function CatalogCanvas() {
                       onFocus={handleInputFocus}
                       placeholder="color, size, material, brand"
                       className="w-full"
+                      style={{
+                        fontSize: '26px',
+                        lineHeight: '2',
+                        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontWeight: '400',
+                        height: '60px'
+                      }}
                       data-testid="input-attributes"
                     />
                   </div>
@@ -365,6 +390,13 @@ export default function CatalogCanvas() {
                       variant="outline"
                       onClick={handleRandomize}
                       className="flex items-center gap-2 text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full"
+                      style={{
+                        fontSize: "28px",
+                        fontWeight: "500",
+                        padding: "16px 36px",
+                        height: "auto",
+                        lineHeight: "1.2",
+                      }}
                       data-testid="button-randomize"
                     >
                       <Settings size={16} />
@@ -373,7 +405,14 @@ export default function CatalogCanvas() {
                     
                     <Button
                       onClick={handleExport}
-                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full flex items-center gap-2"
+                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full flex items-center gap-2 transition-all duration-200"
+                      style={{
+                        fontSize: "28px",
+                        fontWeight: "500",
+                        padding: "16px 36px",
+                        height: "auto",
+                        lineHeight: "1.2",
+                      }}
                       data-testid="button-export-all"
                     >
                       Export assets
@@ -418,7 +457,14 @@ export default function CatalogCanvas() {
             
             <Button
               onClick={() => setIsImageModalOpen(false)}
-              className="mt-6 bg-[#4285F4] hover:bg-[#3367D6] text-white px-6 py-2 rounded-full"
+              className="mt-6 bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full transition-all duration-200"
+              style={{
+                fontSize: "28px",
+                fontWeight: "500",
+                padding: "16px 36px",
+                height: "auto",
+                lineHeight: "1.2",
+              }}
               data-testid="button-close-image-modal"
             >
               Close
