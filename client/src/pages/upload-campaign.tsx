@@ -442,6 +442,7 @@ export default function UploadCampaign() {
           {/* QR Tab Content */}
           <div
             className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === "computer" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+            style={{ height: "100%" }}
           >
             <div
               className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl"
