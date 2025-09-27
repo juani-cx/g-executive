@@ -30,7 +30,7 @@ export default function Landing() {
       title="The Gemini launchpad: Campaigns and Products"
       subtitle="Campaign and product listings, built instantly from a single image"
       className="landing-page"
-      isLandingPage={true}
+      isLandingPage={false}
     >
 
       {/* Main Container - Using standardized layout */}
