@@ -168,6 +168,7 @@ export default function UploadCatalog() {
                     ? 'ring-4 ring-blue-500 shadow-2xl transform scale-105'
                     : 'hover:scale-102 hover:shadow-lg'
                 }`}
+                style={{ maxWidth: '380px' }}
                 onClick={() => handleImageSelect(image.id, image.src)}
                 data-testid={`image-${image.id}`}
               >
