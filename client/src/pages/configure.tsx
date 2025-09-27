@@ -129,7 +129,7 @@ export default function Configure() {
           textAlign: 'center'
         }}>
           {/* Content Area */}
-          <div className="w-full mx-auto">
+          <div className="mx-auto" style={{ width: '2000px', maxWidth: '80%' }}>
             {/* White card container */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full" style={{ height: '840px' }}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -198,8 +198,9 @@ export default function Configure() {
                   style={{
                     fontSize: '28px',
                     fontWeight: '500',
-                    padding: '0 36px',
-                    height: 'auto'
+                    padding: '16px 36px',
+                    height: 'auto',
+                    lineHeight: '1.2'
                   }}
                   data-testid="button-back"
                 >
@@ -214,8 +215,9 @@ export default function Configure() {
                   style={{
                     fontSize: '28px',
                     fontWeight: '500',
-                    padding: '0 36px',
-                    height: 'auto'
+                    padding: '16px 36px',
+                    height: 'auto',
+                    lineHeight: '1.2'
                   }}
                   data-testid="button-randomize-all"
                 >
@@ -229,8 +231,9 @@ export default function Configure() {
                   style={{
                     fontSize: '28px',
                     fontWeight: '500',
-                    padding: '0 36px',
-                    height: 'auto'
+                    padding: '16px 36px',
+                    height: 'auto',
+                    lineHeight: '1.2'
                   }}
                   data-testid="button-create-campaign"
                 >
