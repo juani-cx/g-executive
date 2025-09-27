@@ -6,9 +6,10 @@ interface AppShellProps {
   footer?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  mainStyle?: React.CSSProperties;
 }
 
-export function AppShell({ children, header, footer, className = "", style = {} }: AppShellProps) {
+export function AppShell({ children, header, footer, className = "", style = {}, mainStyle = {} }: AppShellProps) {
   return (
     <div className={`min-h-screen flex flex-col ${className}`} style={{ height: '100vh', ...style }}>
       {header && (
@@ -20,7 +21,7 @@ export function AppShell({ children, header, footer, className = "", style = {} 
         </header>
       )}
       
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col" style={mainStyle}>
         {children}
       </main>
       
