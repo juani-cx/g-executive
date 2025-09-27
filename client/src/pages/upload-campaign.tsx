@@ -605,7 +605,7 @@ export default function UploadCampaign() {
             style={{
               fontSize: "52px",
               lineHeight: "2",
-              width: "320px",
+              width: "520px",
             }}
             onClick={() => setActiveTab("computer")}
             data-testid="tab-upload"
@@ -624,7 +624,7 @@ export default function UploadCampaign() {
             style={{
               fontSize: "52px",
               lineHeight: "2",
-              width: "320px",
+              width: "520px",
             }}
             onClick={() => setActiveTab("ai")}
             data-testid="tab-ai"
@@ -643,7 +643,7 @@ export default function UploadCampaign() {
             style={{
               fontSize: "52px",
               lineHeight: "2",
-              width: "320px",
+              width: "520px",
             }}
             onClick={() => setActiveTab("predefined")}
             data-testid="tab-preselected"
