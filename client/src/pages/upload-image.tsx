@@ -277,15 +277,13 @@ export default function UploadImage() {
           />
 
           {activeTab === 'qr' ? (
-            <div className="mb-12">
+            <div className="mb-12" style={{ minHeight: '900px' }}>
               {/* Image Upload Area - Clickable to upload */}
               <div 
                 className="mx-auto bg-gradient-to-br from-[#4285F4] to-[#3367D6] rounded-3xl mb-8 cursor-pointer hover:from-[#3367D6] hover:to-[#2C5CC5] transition-all duration-200 flex items-center justify-center"
                 style={{ 
-                  height: 'min(800px, 90vw)', 
-                  width: 'min(800px, 90vw)',
-                  maxWidth: '800px',
-                  maxHeight: '800px'
+                  height: '800px', 
+                  width: '800px'
                 }}
                 onClick={() => document.getElementById('qr-file-upload')?.click()}
                 data-testid="qr-code-upload"
@@ -293,7 +291,7 @@ export default function UploadImage() {
                 <div className="bg-white p-6 rounded-2xl">
                   <QRCode 
                     value={window.location.href} 
-                    size={qrSize}
+                    size={800}
                     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                   />
                 </div>
