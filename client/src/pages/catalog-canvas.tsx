@@ -7,44 +7,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import TopNavigation from "@/components/TopNavigation";
 import { ChevronLeft, Settings, Download, ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
+import { PageShell } from "@/components/PageShell";
+import { PageTitle } from "@/components/PageTitle";
+import { VirtualKeyboard } from "@/components/VirtualKeyboard";
 
-// Virtual Keyboard Component
-function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
-  const keyboardKeys = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '@'],
-    ['↑', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', '⌫'],
-    ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
-  ];
-
-  return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[50] ${
-      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    }`} style={{ bottom: 'calc(2rem - 35px)' }}>
-      <div className="p-6" style={{ width: '900px' }}>
-        <div className="space-y-3">
-          {keyboardKeys.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-3">
-              {row.map((key, keyIndex) => (
-                <div
-                  key={keyIndex}
-                  className={`
-                    flex items-center justify-center h-12 bg-white border border-gray-300 rounded-lg
-                    text-lg font-medium text-gray-800 shadow-sm hover:bg-gray-50 cursor-pointer
-                    transition-colors
-                    ${key === '⎵' ? 'w-32' : key === '123?' ? 'w-16' : 'w-12'}
-                  `}
-                >
-                  {key === '⎵' ? 'space' : key}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function CatalogCanvas() {
   const [, navigate] = useLocation();
@@ -112,62 +78,21 @@ export default function CatalogCanvas() {
   };
 
   return (
-    <div className="dotted-background overflow-hidden" style={{ 
-      fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      height: '100vh'
-    }}>
-      {/* Top Navigation */}
-      <TopNavigation />
-      {/* Main Content */}
-      <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '24px 56px',
-        boxSizing: 'border-box',
-        paddingTop: '0'
-      }}>
+    <PageShell 
+      centerContent={true}
+      pageBodyClassName="flex flex-col items-center"
+      showFooter={false}
+    >
         <div style={{
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Header - Exact match to canvas.tsx */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '16px',
-            width: '100%',
-            maxWidth: '1808px',
-            padding: '0',
-            marginBottom: '32px'
-          }}>
-            <h1 style={{
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '48px',
-              fontWeight: '500',
-              lineHeight: '36px',
-              margin: 0
-            }} data-testid="text-main-title">
-              Export your assets
-            </h1>
-            <p style={{
-              color: '#5c5c5c',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: '24px',
-              fontWeight: '400',
-              lineHeight: '28px',
-              margin: 0
-            }}>
-              Review, edit and download your assets
-            </p>
-          </div>
+          {/* Header - Using PageTitle component */}
+          <PageTitle
+            title="Export your assets"
+            subtitle="Review, edit and download your assets"
+            className="flex flex-col justify-center items-center gap-4 w-full mb-8"
+          />
 
           {/* Main Canvas Area - More compact layout */}
           <div className="max-w-7xl mx-auto">
@@ -464,9 +389,9 @@ export default function CatalogCanvas() {
             </div>
           </div>
         </div>
-      </div>
+      
       {/* Virtual Keyboard */}
-      <VirtualKeyboard isVisible={showKeyboard} />
+      <VirtualKeyboard isVisible={showKeyboard} usePortal={true} />
       {/* Export Modal */}
       <ExportQRModal
         isOpen={isExportModalOpen}
@@ -506,6 +431,6 @@ export default function CatalogCanvas() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </PageShell>
   );
 }

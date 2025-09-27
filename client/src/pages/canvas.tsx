@@ -14,6 +14,7 @@ import { ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
 import { AppShell, PageHeader, PageBody } from "@/components/layout";
 import { PageShell } from "@/components/PageShell";
+import { PageTitle } from "@/components/PageTitle";
 import { VirtualKeyboard } from "@/components/VirtualKeyboard";
 
 // Asset Card Component
@@ -482,41 +483,12 @@ export default function Canvas() {
           width: '100%',
           textAlign: 'center'
         }}>
-          {/* Header */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 'var(--space-md)',
-            width: '100%',
-            maxWidth: 'var(--container-xl)',
-            padding: '0',
-            marginBottom: '32px'
-          }}>
-            <h1 style={{
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: 'var(--font-size-3xl)',
-              fontWeight: '500',
-              lineHeight: '1.2',
-              margin: 0
-            }} data-testid="text-main-title">
-              Export your assets
-            </h1>
-            <p style={{
-              color: '#5c5c5c',
-              textAlign: 'center',
-              fontFamily: 'Google Sans',
-              fontSize: 'var(--font-size-xl)',
-              fontWeight: '400',
-              lineHeight: '1.4',
-              margin: 0
-            }}>
-              Review, edit and download your assets
-            </p>
-          </div>
+          {/* Header - Using PageTitle component */}
+          <PageTitle
+            title="Export your assets"
+            subtitle="Review, edit and download your assets"
+            className="flex flex-col justify-center items-center gap-4 w-full mb-8"
+          />
 
           {/* Export Button */}
           <div className="mb-8">
