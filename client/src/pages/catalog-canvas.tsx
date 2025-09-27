@@ -102,10 +102,10 @@ export default function CatalogCanvas() {
                 <div className="w-full bg-gray-100 rounded-2xl overflow-hidden flex flex-col p-6" style={{ height: "100%" }}>
                 <div style={{ marginBottom: '24px' }}>
                   <h2 style={{
-                    fontSize: '24px',
+                    fontSize: '48px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px',
+                    marginBottom: '16px',
                     fontFamily: 'Google Sans',
                     textAlign: 'left'
                   }}>
@@ -113,9 +113,10 @@ export default function CatalogCanvas() {
                   </h2>
                   <p style={{
                     color: '#6b7280',
-                    fontSize: '14px',
+                    fontSize: '28px',
                     margin: 0,
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    lineHeight: '1.4'
                   }}>
                     Optimize your product for search engines and better discoverability
                   </p>
@@ -125,9 +126,9 @@ export default function CatalogCanvas() {
                 <div style={{
                   position: 'relative',
                   width: '100%',
-                  height: '240px',
+                  height: '300px',
                   borderRadius: '8px',
-                  marginBottom: '16px',
+                  marginBottom: '20px',
                   overflow: 'hidden'
                 }}>
                   <img
@@ -188,34 +189,34 @@ export default function CatalogCanvas() {
                     gap: '6px'
                   }}>
                     <span style={{
-                      fontSize: '12px',
+                      fontSize: '24px',
                       fontWeight: '500',
                       color: '#fff',
                       backgroundColor: '#4285F4',
-                      padding: '2px 6px',
-                      borderRadius: '4px'
+                      padding: '4px 12px',
+                      borderRadius: '8px'
                     }}>
                       Ad
                     </span>
                     <span style={{
-                      fontSize: '12px',
+                      fontSize: '24px',
                       color: '#6b7280'
                     }}>
                       example.com
                     </span>
                   </div>
                   <h3 style={{
-                    fontSize: '16px',
+                    fontSize: '32px',
                     fontWeight: '500',
                     color: '#4285F4',
-                    marginBottom: '4px',
+                    marginBottom: '8px',
                     textDecoration: 'underline',
                     cursor: 'pointer'
                   }}>
                     {productTitle || 'Product Title'}
                   </h3>
                   <p style={{
-                    fontSize: '14px',
+                    fontSize: '28px',
                     color: '#6b7280',
                     margin: 0,
                     lineHeight: '1.4'
@@ -414,7 +415,7 @@ export default function CatalogCanvas() {
         </div>
       
       {/* Virtual Keyboard */}
-      <VirtualKeyboard isVisible={showKeyboard} usePortal={true} />
+      <VirtualKeyboard isVisible={true} usePortal={true} />
       {/* Export Modal */}
       <ExportQRModal
         isOpen={isExportModalOpen}
