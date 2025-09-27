@@ -1071,3 +1071,8 @@ body,
 .font-bold {
   font-weight: 700;
 }
+
+/* Height override for larger image display */
+.h-72 {
+  height: 34rem;
+}
