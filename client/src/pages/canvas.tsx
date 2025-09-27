@@ -32,8 +32,8 @@ interface AssetCard {
 function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () => void }) {
   return (
     <div 
-      className="bg-white rounded-2xl shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group"
-      style={{ width: 'calc(var(--space-2xl) * 10)' }}
+      className="bg-white shadow-lg border border-gray-200 cursor-pointer transition-all duration-200 relative group w-full max-w-sm"
+      style={{ borderRadius: '2rem' }}
       onClick={onClick}
       data-testid={`card-${card.type.toLowerCase().replace(' ', '-')}`}
     >
@@ -161,7 +161,7 @@ function EditModal({
         {cards && currentIndex > 0 && (
           <button
             onClick={() => onNavigate('prev')}
-            className="absolute left-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
+            className="absolute left-[-70px] top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center  hover:bg-gray-50 transition-colors z-[60] focus:outline-none focus:ring-0 focus-visible:ring-0"
             data-testid="button-prev-asset"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -497,14 +497,15 @@ export default function Canvas() {
           </div>
 
           {/* Cards Grid */}
-          <div className="w-[70vw] mx-auto flex flex-col items-start">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center w-full">
+          <div className="w-[70vw] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
               {cards.map((card) => (
-                <AssetCardComponent
-                  key={card.id}
-                  card={card}
-                  onClick={() => handleCardClick(card)}
-                />
+                <div key={card.id} className="flex justify-center">
+                  <AssetCardComponent
+                    card={card}
+                    onClick={() => handleCardClick(card)}
+                  />
+                </div>
               ))}
             </div>
           </div>
