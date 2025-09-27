@@ -18,7 +18,7 @@ export function PageBody({
   style = {}
 }: PageBodyProps) {
   const paddingClass = padding ? `px-[var(--space-xl)] py-[var(--space-md)]` : "";
-  const centerClass = centerContent ? "flex items-center justify-center" : "";
+  const centerClass = centerContent ? "flex items-start justify-center" : "";
   
   return (
     <div 

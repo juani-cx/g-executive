@@ -487,7 +487,7 @@ export default function Canvas() {
           textAlign: 'center'
         }}>
           {/* Export Button */}
-          <div className="mb-4">
+          <div className="mb-8">
             <InternalButton
               onClick={handleExportAll}
               data-testid="button-export-all"
