@@ -597,7 +597,7 @@ export default function Canvas() {
       />
       
       {/* Virtual Keyboard */}
-      <VirtualKeyboard isVisible={showKeyboard} />
+      {showKeyboard && <VirtualKeyboard isVisible={showKeyboard} usePortal={true} bottom="2rem" />}
       
       {/* Export Modal */}
       <ExportQRModal

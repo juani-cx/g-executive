@@ -22,7 +22,7 @@ export function PageShell({
   title,
   subtitle,
   showNavigation = true,
-  showFooter = true,
+  showFooter = false,
   footerContent,
   centerContent = false,
   className = "",

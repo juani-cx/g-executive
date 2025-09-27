@@ -315,6 +315,21 @@ body {
   /* Layout dimensions */
   --header-height: clamp(60px, 8vh, 120px);
   --footer-height: clamp(40px, 5vh, 80px);
+  
+  /* Component sizing for 4K displays */
+  --card-width: clamp(240px, 20vw, 480px);
+  --card-height: clamp(320px, 25vh, 640px);
+  --button-height: clamp(44px, 5vh, 88px);
+  --input-height: clamp(40px, 4vh, 80px);
+  --keyboard-width: clamp(600px, 25vw, 1400px);
+  --modal-width: clamp(800px, 60vw, 1600px);
+  --image-card-height: clamp(400px, 30vh, 800px);
+  
+  /* Container widths */
+  --container-sm: clamp(640px, 90vw, 1280px);
+  --container-md: clamp(768px, 90vw, 1536px);
+  --container-lg: clamp(1024px, 90vw, 2048px);
+  --container-xl: clamp(1280px, 90vw, 2560px);
 }
 
 /* Responsive font-size adjustments for smaller screens */

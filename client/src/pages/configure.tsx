@@ -7,60 +7,11 @@ import { Input } from "@/components/ui/input";
 import { FormInput } from "@/components/ui/form-input";
 import { FormLabel } from "@/components/ui/form-label";
 import { FormComboInput } from "@/components/ui/form-combo-input";
+import { VirtualKeyboard } from "@/components/VirtualKeyboard";
 // Textarea removed - no longer needed
 import { Label } from "@/components/ui/label";
 // Note: Select imports removed as we now use InlineComboInput
 import { Shuffle, ChevronDown } from "lucide-react";
-
-
-// Virtual Keyboard Component
-function VirtualKeyboard() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Slide in keyboard after component mounts
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const keyboardKeys = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '@'],
-    ['↑', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', '⌫'],
-    ['123?', '◀', '▶', '⎵', '-', '_', '🔍']
-  ];
-
-  return (
-    <div className={`virtual-keyboard fixed left-1/2 transform -translate-x-1/2 transition-all duration-700 ease-out z-[50] ${
-      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    }`} style={{ bottom: 'calc(2rem - 35px)' }}>
-      <div className="p-6" style={{ width: '900px' }}>
-        <div className="space-y-3">
-          {keyboardKeys.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-3">
-              {row.map((key, keyIndex) => (
-                <div
-                  key={keyIndex}
-                  className={`
-                    bg-white rounded-lg flex items-center justify-center text-gray-700 font-medium cursor-pointer hover:bg-gray-50 transition-colors border border-gray-200
-                    ${key === '⎵' ? 'px-20 py-4' : key === '123?' || key === '🔍' ? 'px-6 py-4' : 'w-14 h-14'}
-                    ${key === '↑' || key === '⌫' ? 'text-xl' : 'text-lg'}
-                  `}
-                  data-testid={`key-${key}`}
-                >
-                  {key}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function Configure() {
   const [, navigate] = useLocation();
@@ -280,7 +231,7 @@ export default function Configure() {
       </div>
       
       {/* Virtual Keyboard */}
-      <VirtualKeyboard />
+      <VirtualKeyboard autoShow={true} autoShowDelay={800} bottom="calc(2rem - 35px)" />
     </PageShell>
   );
 }
