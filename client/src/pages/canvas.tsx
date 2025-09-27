@@ -13,6 +13,7 @@ import { useLocation } from "wouter";
 import { ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
 import { AppShell, PageHeader, PageBody } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 
 // Virtual Keyboard Component
 function VirtualKeyboard({ isVisible }: { isVisible: boolean }) {
@@ -510,17 +511,11 @@ export default function Canvas() {
   };
 
   return (
-    <AppShell
-      className="dotted-background"
-      header={
-        <PageHeader>
-          <TopNavigation />
-        </PageHeader>
-      }
+    <PageShell 
+      centerContent={true}
+      pageBodyClassName="flex flex-col items-center"
+      showFooter={false}
     >
-      <PageBody centerContent={true} className="flex flex-col items-center" style={{
-        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-      }}>
         <div style={{
           width: '100%',
           textAlign: 'center'
@@ -585,7 +580,6 @@ export default function Canvas() {
             </div>
           </div>
         </div>
-      </PageBody>
 
       {/* Edit Modal */}
       <EditModal
@@ -612,6 +606,6 @@ export default function Canvas() {
         qrUrl="https://example.com/download-campaign-assets"
         description="Scan to download your campaign assets"
       />
-    </AppShell>
+    </PageShell>
   );
 }
