@@ -8,8 +8,7 @@ import { type Campaign } from "@shared/schema";
 import { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode";
 import { useToast } from "@/hooks/use-toast";
-import TopNavigation from "@/components/TopNavigation";
-import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 
 export default function OutputHub() {
@@ -26,71 +25,33 @@ export default function OutputHub() {
 
   if (isLoading) {
     return (
-      <AppShell
-        className="dotted-background"
-        style={{
-          fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-        }}
-        header={
-          <PageHeader>
-            <TopNavigation />
-          </PageHeader>
-        }
-        footer={
-          <PageFooter>
-            <p className="footer-text text-gray-600">
-              Create multi-channel assets in an instant
-            </p>
-          </PageFooter>
-        }
-      >
-        <PageBody>
-          <div className="flex flex-col items-center justify-center h-full">
-            <PageTitle
-              title="Loading Campaign"
-              subtitle="Please wait while we fetch your campaign data"
-              className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-12"
-            />
-            <div className="text-center">
-              <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-on-surface-variant">Loading campaign...</p>
-            </div>
+      <PageShell centerContent={true}>
+        <div className="flex flex-col items-center justify-center h-full">
+          <PageTitle
+            title="Loading Campaign"
+            subtitle="Please wait while we fetch your campaign data"
+            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl mb-12"
+          />
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-on-surface-variant">Loading campaign...</p>
           </div>
-        </PageBody>
-      </AppShell>
+        </div>
+      </PageShell>
     );
   }
 
   if (!campaign) {
     return (
-      <AppShell
-        className="dotted-background"
-        style={{
-          fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-        }}
-        header={
-          <PageHeader>
-            <TopNavigation />
-          </PageHeader>
-        }
-        footer={
-          <PageFooter>
-            <p className="footer-text text-gray-600">
-              Create multi-channel assets in an instant
-            </p>
-          </PageFooter>
-        }
-      >
-        <PageBody>
-          <div className="flex flex-col items-center justify-center h-full">
-            <PageTitle
-              title="Campaign Not Found"
-              subtitle="The requested campaign could not be found"
-              className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
-            />
-          </div>
-        </PageBody>
-      </AppShell>
+      <PageShell centerContent={true}>
+        <div className="flex flex-col items-center justify-center h-full">
+          <PageTitle
+            title="Campaign Not Found"
+            subtitle="The requested campaign could not be found"
+            className="flex flex-col justify-center items-center gap-4 w-full max-w-7xl"
+          />
+        </div>
+      </PageShell>
     );
   }
 
@@ -206,25 +167,7 @@ export default function OutputHub() {
   ) || [];
 
   return (
-    <AppShell
-      className="dotted-background"
-      style={{
-        fontFamily: 'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-      }}
-      header={
-        <PageHeader>
-          <TopNavigation />
-        </PageHeader>
-      }
-      footer={
-        <PageFooter>
-          <p className="footer-text text-gray-600">
-            Create multi-channel assets in an instant
-          </p>
-        </PageFooter>
-      }
-    >
-      <PageBody>
+    <PageShell>
         <div className="flex flex-col items-center w-full">
           <PageTitle
             title="Campaign Results"
@@ -453,7 +396,6 @@ export default function OutputHub() {
           </CardContent>
         </Card>
         </div>
-      </PageBody>
-    </AppShell>
+    </PageShell>
   );
 }

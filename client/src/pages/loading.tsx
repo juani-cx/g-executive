@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import GoogleLogoAnimation from "@/components/GoogleLogoAnimation";
+import { PageShell } from "@/components/PageShell";
 
 export default function Loading() {
   const [, navigate] = useLocation();
@@ -20,18 +21,14 @@ export default function Loading() {
   }, [navigate]);
 
   return (
-    <div
+    <PageShell 
+      showNavigation={false}
+      showFooter={false}
+      centerContent={true}
       className="loading-page"
       style={{
-        fontFamily:
-          'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        height: "100vh",
-        width: "100%",
         backgroundColor: "#f5f5f5",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        height: "100vh",
         position: "relative",
         overflowX: "hidden",
         overflowY: "auto",
@@ -109,6 +106,6 @@ export default function Loading() {
           }}
         />
       </div>
-    </div>
+    </PageShell>
   );
 }

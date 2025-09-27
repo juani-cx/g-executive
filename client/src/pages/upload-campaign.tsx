@@ -512,7 +512,6 @@ export default function UploadCampaign() {
             </Button>
           </div>
         </div>
-      </div>
     </PageShell>
   );
 }

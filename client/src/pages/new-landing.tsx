@@ -1,7 +1,6 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import TopNavigation from "@/components/TopNavigation";
-import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 
 export default function NewLanding() {
   const [, navigate] = useLocation();
@@ -11,20 +10,12 @@ export default function NewLanding() {
   };
 
   return (
-    <AppShell
-      className="landing-page dotted-background"
-      header={
-        <PageHeader>
-          <TopNavigation isLandingPage={true} />
-        </PageHeader>
-      }
-      footer={
-        <PageFooter>
-          <p className="footer-text text-gray-600">
-            Create multi-channel assets in an instant
-          </p>
-        </PageFooter>
-      }
+    <PageShell 
+      className="landing-page"
+      isLandingPage={true}
+      centerContent={true}
+      pageBodyClassName="relative z-10"
+      pageBodyStyle={{ padding: 'var(--space-md)' }}
     >
       {/* Animated SVG Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -85,7 +76,6 @@ export default function NewLanding() {
         </div>
       </div>
 
-      <PageBody centerContent={true} padding={false} className="relative z-10">
         <div className="landing-content text-center w-full" style={{ padding: 'var(--space-md)' }}>
           <h1
             className="landing-title hero-title text-gray-800 tracking-tight leading-none"
@@ -128,7 +118,6 @@ export default function NewLanding() {
             </Button>
           </div>
         </div>
-      </PageBody>
-    </AppShell>
+    </PageShell>
   );
 }

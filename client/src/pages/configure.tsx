@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import TopNavigation from "@/components/TopNavigation";
-import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 import { Input } from "@/components/ui/input";
 import { FormInput } from "@/components/ui/form-input";
@@ -147,22 +146,7 @@ export default function Configure() {
   };
 
   return (
-    <AppShell
-      className="dotted-background"
-      header={
-        <PageHeader>
-          <TopNavigation />
-        </PageHeader>
-      }
-      footer={
-        <PageFooter>
-          <p className="footer-text text-gray-600">
-            Create multi-channel assets in an instant
-          </p>
-        </PageFooter>
-      }
-    >
-      <PageBody>
+    <PageShell>
       
       <div className="hidden">
         <Button 
@@ -297,7 +281,6 @@ export default function Configure() {
       
       {/* Virtual Keyboard */}
       <VirtualKeyboard />
-      </PageBody>
-    </AppShell>
+    </PageShell>
   );
 }

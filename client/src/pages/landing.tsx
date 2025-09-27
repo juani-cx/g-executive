@@ -2,8 +2,7 @@ import { useLocation } from "wouter";
 // Use images from public folder
 const campaignImage = "/images/cards-campaign.png";
 const catalogImage = "/images/cards-catalog.png";
-import TopNavigation from "@/components/TopNavigation";
-import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
+import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 
 export default function Landing() {
@@ -27,26 +26,10 @@ export default function Landing() {
   };
 
   return (
-    <AppShell
-      className="landing-page dotted-background"
-      style={{
-        fontFamily:
-          'Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      }}
-      header={
-        <PageHeader>
-          <TopNavigation isLandingPage={true} />
-        </PageHeader>
-      }
-      footer={
-        <PageFooter>
-          <p className="footer-text text-gray-600">
-            Create multi-channel assets in an instant
-          </p>
-        </PageFooter>
-      }
+    <PageShell
+      className="landing-page"
+      isLandingPage={true}
     >
-      <PageBody>
 
       {/* Main Container - Using standardized layout */}
       <div
@@ -277,7 +260,6 @@ export default function Landing() {
 
         </div>
       </div>
-      </PageBody>
-    </AppShell>
+    </PageShell>
   );
 }

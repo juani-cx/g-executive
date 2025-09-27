@@ -323,7 +323,6 @@ export default function UploadCatalog() {
             </Button>
           </div>
         </div>
-      </div>
     </PageShell>
   );
 }
