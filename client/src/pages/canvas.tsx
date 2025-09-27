@@ -3,6 +3,9 @@ import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { FormInput } from "@/components/ui/form-input";
+import { FormLabel } from "@/components/ui/form-label";
+import { FormTextarea } from "@/components/ui/form-textarea";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import TopNavigation from "@/components/TopNavigation";
@@ -355,43 +358,40 @@ function EditModal({
 
             <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
-                <Label htmlFor="title" className="text-sm font-medium text-gray-700">
+                <FormLabel htmlFor="title">
                   {card.type === 'Social Post' ? 'Caption body' : card.type === 'Ad Banner' ? 'Headline' : 'Title'}
-                </Label>
-                <Input
+                </FormLabel>
+                <FormInput
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-title"
                 />
               </div>
 
               <div>
-                <Label htmlFor="description" className="text-sm font-medium text-gray-700">
+                <FormLabel htmlFor="description">
                   {card.type === 'Social Post' ? 'Engagement Prompt' : 'Description'}
-                </Label>
-                <Textarea
+                </FormLabel>
+                <FormTextarea
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
                   placeholder={card.type === 'Social Post' ? 'What color would you choose?' : 'Describe your content...'}
-                  className="mt-1 resize-none text-sm focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="textarea-description"
                 />
               </div>
 
               <div>
-                <Label htmlFor="cta" className="text-sm font-medium text-gray-700">
+                <FormLabel htmlFor="cta">
                   {card.type === 'Social Post' ? 'Suggested hashtags' : 'Call-to-action'}
-                </Label>
-                <Input
+                </FormLabel>
+                <FormInput
                   id="cta"
                   value={cta}
                   onChange={(e) => setCta(e.target.value)}
                   placeholder={card.type === 'Social Post' ? '#product, #brand, #lifestyle, #tech' : 'Learn More'}
-                  className="mt-1 focus:outline-none focus:ring-0 focus-visible:ring-0"
                   data-testid="input-cta"
                 />
               </div>

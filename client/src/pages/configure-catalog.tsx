@@ -5,80 +5,12 @@ import TopNavigation from "@/components/TopNavigation";
 import { AppShell, PageHeader, PageBody, PageFooter } from "@/components/layout";
 import { PageTitle } from "@/components/PageTitle";
 import { Input } from "@/components/ui/input";
+import { FormInput } from "@/components/ui/form-input";
+import { FormLabel } from "@/components/ui/form-label";
+import { FormComboInput } from "@/components/ui/form-combo-input";
 import { Label } from "@/components/ui/label";
 import { Shuffle, ChevronDown } from "lucide-react";
 
-// Inline Combo Input Component - labels on left, inputs on right for compact layout
-function InlineComboInput({ label, value, onChange, options, placeholder = "", testId }: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: string[];
-  placeholder?: string;
-  testId?: string;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
-
-  useEffect(() => {
-    setInputValue(value);
-  }, [value]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInputValue(newValue);
-    onChange(newValue);
-    setIsOpen(true);
-  };
-
-  const handleOptionSelect = (option: string) => {
-    setInputValue(option);
-    onChange(option);
-    setIsOpen(false);
-  };
-
-  const filteredOptions = options.filter(option => 
-    option.toLowerCase().includes(inputValue.toLowerCase())
-  );
-
-  return (
-    <div className="flex flex-col mb-4">
-      <Label className="text-sm text-gray-600 mb-2 text-left">
-        {label}
-      </Label>
-      <div className="relative">
-        <Input
-          value={inputValue}
-          onChange={handleInputChange}
-          onFocus={() => setIsOpen(true)}
-          onBlur={() => setTimeout(() => setIsOpen(false), 150)}
-          placeholder={placeholder}
-          className="text-sm h-10 bg-gray-50 pr-8"
-          data-testid={testId}
-        />
-        <ChevronDown 
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
-          data-testid={`chevron-${testId}`}
-        />
-        {isOpen && filteredOptions.length > 0 && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-48 overflow-y-auto">
-            {filteredOptions.map((option, index) => (
-              <div
-                key={index}
-                className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-left"
-                onMouseDown={() => handleOptionSelect(option)}
-                data-testid={`option-${testId}-${index}`}
-              >
-                {option}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 // Virtual Keyboard Component
 function VirtualKeyboard() {
@@ -301,7 +233,7 @@ export default function ConfigureCatalog() {
             <div className="space-y-2">
               {/* Form Fields - Inline Layout */}
               <div>
-                <InlineComboInput
+                <FormComboInput
                   label="Target product"
                   value={targetProduct}
                   onChange={setTargetProduct}
@@ -309,7 +241,7 @@ export default function ConfigureCatalog() {
                   testId="combo-target-product"
                 />
                 
-                <InlineComboInput
+                <FormComboInput
                   label="Target audience"
                   value={targetAudience}
                   onChange={setTargetAudience}
@@ -317,7 +249,7 @@ export default function ConfigureCatalog() {
                   testId="combo-target-audience"
                 />
                 
-                <InlineComboInput
+                <FormComboInput
                   label="Tone of voice"
                   value={toneOfVoice}
                   onChange={setToneOfVoice}
@@ -325,7 +257,7 @@ export default function ConfigureCatalog() {
                   testId="combo-tone-of-voice"
                 />
                 
-                <InlineComboInput
+                <FormComboInput
                   label="Photography type"
                   value={catalogType}
                   onChange={setCatalogType}
