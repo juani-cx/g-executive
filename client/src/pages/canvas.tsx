@@ -183,7 +183,7 @@ function EditModal({
         <div className="flex h-full bg-white rounded-lg overflow-hidden">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
-            <div className="p-3 h-full flex flex-col">
+            <div className="p-3 h-full flex flex-col justify-start items-center">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
                 <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(1.2)' }}>
