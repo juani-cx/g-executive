@@ -34,39 +34,51 @@ export default function Loading() {
         overflowY: "auto",
       }}
     >
-      {/* Simple Loading Animation */}
-      <GoogleLogoAnimation size={120} />
+      {/* Centered content container */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          padding: "0 40px",
+          gap: "40px",
+        }}
+      >
+        {/* Simple Loading Animation */}
+        <GoogleLogoAnimation size={120} />
 
-      {/* Loading Text */}
-      <h1
-        style={{
-          color: "#5f6368",
-          textAlign: "center",
-          fontFamily: "Google Sans",
-          fontSize: "64px",
-          fontWeight: "400",
-          lineHeight: "80px",
-          margin: 0,
-          maxWidth: "1200px",
-        }}
-      >
-        Working on it... you'll see results shortly.
-      </h1>
-      <h3
-        style={{
-          color: "#5f6368",
-          textAlign: "center",
-          fontFamily: "Google Sans",
-          fontSize: "40px",
-          fontWeight: "200",
-          lineHeight: "64px",
-          margin: 0,
-          maxWidth: "1200px",
-          marginTop: "32px",
-        }}
-      >
-        AI results can be imperfect or may fail.
-      </h3>
+        {/* Loading Text */}
+        <h1
+          style={{
+            color: "#5f6368",
+            textAlign: "center",
+            fontFamily: "Google Sans",
+            fontSize: "64px",
+            fontWeight: "400",
+            lineHeight: "80px",
+            margin: 0,
+            maxWidth: "1200px",
+          }}
+        >
+          Working on it... you'll see results shortly.
+        </h1>
+        <h3
+          style={{
+            color: "#5f6368",
+            textAlign: "center",
+            fontFamily: "Google Sans",
+            fontSize: "40px",
+            fontWeight: "200",
+            lineHeight: "64px",
+            margin: 0,
+            maxWidth: "1200px",
+          }}
+        >
+          AI results can be imperfect or may fail.
+        </h3>
+      </div>
 
       {/* Decorative Shapes */}
       <div
