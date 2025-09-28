@@ -24,6 +24,7 @@ import OutputHub from "@/pages/output-hub";
 import ExecutiveView from "@/pages/executive-view";
 import NotFound from "@/pages/not-found";
 import { TimeoutProvider, useTimeoutSettings } from "@/contexts/TimeoutContext";
+import { KeyboardProvider } from "@/contexts/KeyboardContext";
 import { useTimeout } from "@/hooks/useTimeout";
 import TimeoutModal from "@/components/TimeoutModal";
 
@@ -96,10 +97,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <TimeoutProvider>
-          <div className="h-screen max-h-screen overflow-hidden">
-            <AuthenticatedRouter />
-            <Toaster />
-          </div>
+          <KeyboardProvider>
+            <div className="h-screen max-h-screen overflow-hidden">
+              <AuthenticatedRouter />
+              <Toaster />
+            </div>
+          </KeyboardProvider>
         </TimeoutProvider>
       </TooltipProvider>
     </QueryClientProvider>

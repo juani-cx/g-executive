@@ -4,10 +4,12 @@ import { FormInput } from "@/components/ui/form-input";
 import { FormLabel } from "@/components/ui/form-label";
 import { FormComboInput } from "@/components/ui/form-combo-input";
 import { VirtualKeyboard } from "@/components/VirtualKeyboard";
+import { useKeyboard } from "@/contexts/KeyboardContext";
 import { ConfigurePageLayout } from "@/components/ConfigurePageLayout";
 
 export default function Configure() {
   const [, navigate] = useLocation();
+  const { keyboardEnabled } = useKeyboard();
   const [uploadedImage, setUploadedImage] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
 
@@ -199,11 +201,13 @@ export default function Configure() {
     </ConfigurePageLayout>
 
     {/* Virtual Keyboard */}
-    <VirtualKeyboard
-      autoShow={true}
-      autoShowDelay={800}
-      bottom="calc(2rem - 35px)"
-    />
+    {keyboardEnabled && (
+      <VirtualKeyboard
+        autoShow={true}
+        autoShowDelay={800}
+        bottom="2rem"
+      />
+    )}
     </>
   );
 }
