@@ -186,7 +186,7 @@ function EditModal({
             <div className="p-3 h-full flex flex-col">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
-                <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(0.85)' }}>
+                <div className="bg-white rounded-lg max-w-lg mx-auto w-full" style={{ transform: 'scale(1.7)' }}>
                   {/* Instagram Header */}
                   <div className="flex items-center justify-between p-3 border-b border-gray-100">
                     <div className="flex items-center gap-3">
@@ -195,7 +195,7 @@ function EditModal({
                           <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
                         </div>
                       </div>
-                      <span className="font-semibold text-sm">Your Company</span>
+                      <span className="font-semibold text-lg">Your Company</span>
                     </div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
                       <circle cx="12" cy="12" r="1" fill="black"/>
@@ -253,7 +253,7 @@ function EditModal({
 
                     {/* Instagram Caption */}
                     <div className="text-left">
-                      <div className="text-sm mb-2">
+                      <div className="text-lg mb-2">
                         <span className="font-semibold text-black">Your Company</span>
                         <span className="text-gray-800 ml-1">{title || card.title}</span>
                         {description && (
@@ -263,7 +263,7 @@ function EditModal({
                       
                       {/* Hashtags in blue */}
                       {(cta || card.cta) && (
-                        <div className="text-sm">
+                        <div className="text-lg">
                           <span className="text-blue-600">{cta || card.cta}</span>
                         </div>
                       )}
