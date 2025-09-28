@@ -22,9 +22,10 @@ import { InternalButton } from "@/components/ui/internal-button";
 interface AssetCard {
   id: string;
   type: string;
-  title: string;
-  description: string;
-  cta?: string;
+  onScreenText: string;
+  audio: string;
+  caption: string;
+  hashtags: string;
   image?: string;
   isVideo?: boolean;
 }
@@ -70,12 +71,12 @@ function AssetCardComponent({ card, onClick }: { card: AssetCard; onClick: () =>
         
         {/* Title */}
         <h3 className="text-3xl text-gray-800 mb-4 text-left" style={{ fontWeight: '500' }}>
-          {card.title}
+          {card.onScreenText}
         </h3>
         
         {/* Description */}
         <p className="text-xl text-gray-600 text-left line-clamp-2" style={{ fontWeight: '400' }}>
-          {card.description}
+          {card.caption}
         </p>
       </div>
     </div>
@@ -102,15 +103,17 @@ function EditModal({
   onNavigate: (direction: 'prev' | 'next') => void;
   setShowKeyboard: (show: boolean) => void;
 }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [cta, setCta] = useState("");
+  const [onScreenText, setOnScreenText] = useState("");
+  const [audio, setAudio] = useState("");
+  const [caption, setCaption] = useState("");
+  const [hashtags, setHashtags] = useState("");
 
   useEffect(() => {
     if (card) {
-      setTitle(card.title);
-      setDescription(card.description);
-      setCta(card.cta || "");
+      setOnScreenText(card.onScreenText);
+      setAudio(card.audio);
+      setCaption(card.caption);
+      setHashtags(card.hashtags);
     }
   }, [card]);
 
@@ -118,9 +121,10 @@ function EditModal({
     if (card) {
       onSave({
         ...card,
-        title,
-        description,
-        cta
+        onScreenText,
+        audio,
+        caption,
+        hashtags
       });
       onClose();
     }
@@ -128,28 +132,35 @@ function EditModal({
 
   const handleRandomize = () => {
     // Randomize the content
-    const randomTitles = [
+    const randomOnScreenTexts = [
       "Campaign Launch 50% OFF",
       "Professional Campaign Platform",
       "Discover Our Solutions",
       "Transform Your Business"
     ];
-    const randomDescriptions = [
+    const randomAudios = [
+      "Upbeat music with voiceover",
+      "Ambient background audio",
+      "Professional narration",
+      "Energetic soundtrack"
+    ];
+    const randomCaptions = [
       "Eye-catching advertising banner with meta description for great conversions.",
       "High-converting campaign content designed for maximum engagement.",
       "Professional marketing content with compelling call-to-action.",
       "Engaging content optimized for your target audience."
     ];
-    const randomCTAs = [
-      "Discover",
-      "Learn More", 
-      "Get Started",
-      "Shop Now"
+    const randomHashtags = [
+      "#marketing #business #growth",
+      "#campaign #advertising #success", 
+      "#brand #content #engagement",
+      "#digital #strategy #results"
     ];
 
-    setTitle(randomTitles[Math.floor(Math.random() * randomTitles.length)]);
-    setDescription(randomDescriptions[Math.floor(Math.random() * randomDescriptions.length)]);
-    setCta(randomCTAs[Math.floor(Math.random() * randomCTAs.length)]);
+    setOnScreenText(randomOnScreenTexts[Math.floor(Math.random() * randomOnScreenTexts.length)]);
+    setAudio(randomAudios[Math.floor(Math.random() * randomAudios.length)]);
+    setCaption(randomCaptions[Math.floor(Math.random() * randomCaptions.length)]);
+    setHashtags(randomHashtags[Math.floor(Math.random() * randomHashtags.length)]);
   };
 
   if (!card) return null;
@@ -255,16 +266,16 @@ function EditModal({
                     <div className="text-left">
                       <div className="text-lg mb-2">
                         <span className="font-semibold text-black">Your Company</span>
-                        <span className="text-gray-800 ml-1">{title || card.title}</span>
-                        {description && (
-                          <span className="text-gray-800 ml-1">{description}</span>
+                        <span className="text-gray-800 ml-1">{onScreenText || card.onScreenText}</span>
+                        {caption && (
+                          <span className="text-gray-800 ml-1">{caption}</span>
                         )}
                       </div>
                       
                       {/* Hashtags in blue */}
-                      {(cta || card.cta) && (
+                      {(hashtags || card.hashtags) && (
                         <div className="text-lg">
-                          <span className="text-blue-600">{cta || card.cta}</span>
+                          <span className="text-blue-600">{hashtags || card.hashtags}</span>
                         </div>
                       )}
                     </div>
@@ -302,12 +313,12 @@ function EditModal({
                   
                   {/* Simple Content Preview */}
                   <div className="text-left">
-                    <h3 className="font-semibold text-gray-900 mb-2 text-2xl">{title || card.title}</h3>
-                    {description && (
-                      <p className="text-gray-600 text-lg mb-2">{description}</p>
+                    <h3 className="font-semibold text-gray-900 mb-2 text-2xl">{onScreenText || card.onScreenText}</h3>
+                    {caption && (
+                      <p className="text-gray-600 text-lg mb-2">{caption}</p>
                     )}
-                    {(cta || card.cta) && (
-                      <p className="text-blue-600 text-lg font-medium">{cta || card.cta}</p>
+                    {(hashtags || card.hashtags) && (
+                      <p className="text-blue-600 text-lg font-medium">{hashtags || card.hashtags}</p>
                     )}
                   </div>
                 </div>
@@ -323,41 +334,54 @@ function EditModal({
 
             <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
-                <FormLabel htmlFor="title">
-                  {card.type === 'Social Post' ? 'Caption body' : card.type === 'Ad Banner' ? 'Headline' : 'Title'}
+                <FormLabel htmlFor="onScreenText">
+                  On screen text
                 </FormLabel>
                 <FormInput
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  data-testid="input-title"
+                  id="onScreenText"
+                  value={onScreenText}
+                  onChange={(e) => setOnScreenText(e.target.value)}
+                  data-testid="input-onscreentext"
                 />
               </div>
 
               <div>
-                <FormLabel htmlFor="description">
-                  {card.type === 'Social Post' ? 'Engagement Prompt' : 'Description'}
+                <FormLabel htmlFor="audio">
+                  Audio
+                </FormLabel>
+                <FormInput
+                  id="audio"
+                  value={audio}
+                  onChange={(e) => setAudio(e.target.value)}
+                  placeholder="Describe the audio content..."
+                  data-testid="input-audio"
+                />
+              </div>
+
+              <div>
+                <FormLabel htmlFor="caption">
+                  Caption
                 </FormLabel>
                 <FormTextarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  id="caption"
+                  value={caption}
+                  onChange={(e) => setCaption(e.target.value)}
                   rows={2}
-                  placeholder={card.type === 'Social Post' ? 'What color would you choose?' : 'Describe your content...'}
-                  data-testid="textarea-description"
+                  placeholder="Enter caption text..."
+                  data-testid="textarea-caption"
                 />
               </div>
 
               <div>
-                <FormLabel htmlFor="cta">
-                  {card.type === 'Social Post' ? 'Suggested hashtags' : 'Call-to-action'}
+                <FormLabel htmlFor="hashtags">
+                  Hashtags
                 </FormLabel>
                 <FormInput
-                  id="cta"
-                  value={cta}
-                  onChange={(e) => setCta(e.target.value)}
-                  placeholder={card.type === 'Social Post' ? '#product, #brand, #lifestyle, #tech' : 'Learn More'}
-                  data-testid="input-cta"
+                  id="hashtags"
+                  value={hashtags}
+                  onChange={(e) => setHashtags(e.target.value)}
+                  placeholder="#example #hashtags #here"
+                  data-testid="input-hashtags"
                 />
               </div>
             </div>
@@ -407,33 +431,37 @@ export default function Canvas() {
     {
       id: "1",
       type: "Landing Page",
-      title: "Landing Page",
-      description: "High-converting landing page hero section with meta description",
-      cta: "#landingpage, #conversion, #marketing, #business",
+      onScreenText: "Landing Page",
+      audio: "Professional background music",
+      caption: "High-converting landing page hero section with meta description",
+      hashtags: "#landingpage, #conversion, #marketing, #business",
       image: "/landing-page.png"
     },
     {
       id: "2", 
       type: "Ad Banner",
-      title: "Ad Banner",
-      description: "Eye-catching advertising banner with meta description",
-      cta: "#advertising, #banner, #promotion, #campaign",
+      onScreenText: "Ad Banner",
+      audio: "Upbeat promotional audio",
+      caption: "Eye-catching advertising banner with meta description",
+      hashtags: "#advertising, #banner, #promotion, #campaign",
       image: "/ad-banner.png"
     },
     {
       id: "3",
       type: "Social Post", 
-      title: "Social Post",
-      description: "Professional social media post with meta description",
-      cta: "#socialmedia, #content, #engagement, #brand",
+      onScreenText: "Social Post",
+      audio: "Ambient social media audio",
+      caption: "Professional social media post with meta description",
+      hashtags: "#socialmedia, #content, #engagement, #brand",
       image: "/social-post.png"
     },
     {
       id: "4",
       type: "Vertical Video",
-      title: "Vertical Video", 
-      description: "Engaging vertical video content with meta description",
-      cta: "#video, #vertical, #content, #storytelling",
+      onScreenText: "Vertical Video", 
+      audio: "Dynamic video soundtrack",
+      caption: "Engaging vertical video content with meta description",
+      hashtags: "#video, #vertical, #content, #storytelling",
       image: "/mood-video.mp4",
       isVideo: true
     }
