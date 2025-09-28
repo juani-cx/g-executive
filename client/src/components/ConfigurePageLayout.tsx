@@ -74,12 +74,12 @@ export function ConfigurePageLayout({
           <div className="mx-auto" style={{ width: "2000px", maxWidth: "80%" }}>
             {/* White card container */}
             <div
-              className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full"
+              className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full overflow-hidden"
               style={{ height: "840px" }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start overflow-hidden">
                 {/* Left Column - Image */}
-                <div className="flex justify-center">
+                <div className="flex justify-center overflow-hidden">
                   <div
                     className="w-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center"
                     style={{ height: "100%" }}
