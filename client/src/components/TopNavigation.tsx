@@ -160,8 +160,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               {/* TimeOut Control */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-white font-medium">TimeOut</div>
-                  <div className="text-gray-300 text-xs">Auto-timeout enabled</div>
+                  <div className="text-white font-medium text-2xl">TimeOut</div>
+                  <div className="text-gray-300 text-xl">Auto-timeout enabled</div>
                 </div>
                 <Switch
                   checked={timeoutEnabled}
@@ -177,8 +177,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               {/* Guided Mode Control */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-white font-medium">Guided Mode</div>
-                  <div className="text-gray-300 text-xs">Step-by-step guidance</div>
+                  <div className="text-white font-medium text-2xl">Guided Mode</div>
+                  <div className="text-gray-300 text-xl">Step-by-step guidance</div>
                 </div>
                 <Switch
                   checked={guidedVersion}
@@ -194,8 +194,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               {/* Keyboard Control */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-white font-medium">Keyboard</div>
-                  <div className="text-gray-300 text-xs">Virtual keyboard enabled</div>
+                  <div className="text-white font-medium text-2xl">Keyboard</div>
+                  <div className="text-gray-300 text-xl">Virtual keyboard enabled</div>
                 </div>
                 <Switch
                   checked={keyboardEnabled}
