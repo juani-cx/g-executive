@@ -96,7 +96,7 @@ export default function CatalogCanvas() {
               className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mx-auto w-full"
               style={{ height: "840px" }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start h-full overflow-hidden">
               {/* Left Column - SEO Attributes with Image */}
               <div className="flex justify-center">
                 <div className="w-full bg-gray-100 rounded-2xl overflow-hidden flex flex-col p-6" style={{ height: "100%" }}>
@@ -228,7 +228,7 @@ export default function CatalogCanvas() {
               </div>
 
               {/* Right Column - Configuration */}
-              <div className="space-y-2">
+              <div className="space-y-2 overflow-y-auto max-h-full pr-2">
                 {/* Form Fields - Passed as children */}
                 <div>
                   {/* Product Title - Moved to right column */}
