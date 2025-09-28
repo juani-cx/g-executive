@@ -153,8 +153,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
           </DropdownMenuTrigger>
           <DropdownMenuContent 
             align="end" 
-            className="w-64 bg-gray-800 border-gray-700 text-white shadow-xl"
-            style={{ backgroundColor: '#4a4a4a' }}
+            className="bg-gray-800 border-gray-700 text-white shadow-xl"
+            style={{ backgroundColor: '#4a4a4a', width: '470px' }}
           >
             <div className="p-4 space-y-4">
               {/* TimeOut Control */}
