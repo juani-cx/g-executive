@@ -91,7 +91,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
             </DialogHeader>
             
             {/* Content Area */}
-            <div className="flex-1 overflow-hidden px-6 pb-6 flex flex-col items-start justify-start">
+            <div className="flex-1 overflow-hidden px-6 pb-6 flex flex-col items-center justify-center">
               {/* Campaign Tab Content */}
               <div className={`h-full transition-opacity duration-200 ${
                 activeHowItWorksTab === 'campaign' ? 'opacity-100' : 'opacity-0 absolute'
@@ -100,8 +100,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
                   <img 
                     src={howItWorksImage} 
                     alt="Campaign AI Gen Workflow" 
-                    className="w-auto h-auto rounded-lg shadow-lg object-contain"
-                    style={{ width: '200%', maxHeight: 'calc(80vh - 180px)' }}
+                    className="w-auto h-auto rounded-lg object-contain"
+                    style={{ width: '300%', maxHeight: 'calc(80vh - 180px)' }}
                     onError={(e) => console.log('Image load error:', e)}
                     onLoad={() => console.log('Image loaded successfully')}
                   />
@@ -112,7 +112,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               <div className={`h-full transition-opacity duration-200 ${
                 activeHowItWorksTab === 'catalog' ? 'opacity-100' : 'opacity-0 absolute'
               }`}>
-                <div className="flex flex-col items-center justify-start h-full text-center p-8">
+                <div className="flex flex-col items-center justify-center h-full text-center p-8">
                   <h3 className="text-4xl font-semibold mb-8 text-gray-800">
                     Catalog Enhancement Workflow
                   </h3>
