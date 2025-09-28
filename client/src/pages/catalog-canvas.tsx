@@ -10,6 +10,7 @@ import { ExportQRModal } from "@/components/ExportQRModal";
 import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
 import { VirtualKeyboard } from "@/components/VirtualKeyboard";
+import { InternalButton } from "@/components/ui/internal-button";
 
 
 export default function CatalogCanvas() {
@@ -89,6 +90,16 @@ export default function CatalogCanvas() {
           width: '100%',
           textAlign: 'center'
         }}>
+          {/* Export Button */}
+          <div className="mb-8">
+            <InternalButton
+              onClick={handleExport}
+              data-testid="button-export-assets"
+            >
+              Export assets
+            </InternalButton>
+          </div>
+
           {/* Content Area - Matching campaign card layout */}
           <div className="mx-auto" style={{ width: "2000px", maxWidth: "80%" }}>
             {/* White card container */}
