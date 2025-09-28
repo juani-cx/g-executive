@@ -126,7 +126,7 @@ export default function UploadCatalog() {
       contentHeight="max(1000px, 80vh)"
     >
       {/* QR Tab Content */}
-      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'computer' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: 'calc(100vh - 360px)' }}>
+      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'computer' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: '100%' }}>
         <div className="bg-gray-100 border-white border-8 rounded-2xl flex justify-center items-center shadow-xl" style={{ width: '460px', height: '474px', padding: '24px' }}>
           <div className="w-full h-full bg-gray-300 rounded-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/QR_code.svg)' }} />
         </div>
@@ -136,7 +136,7 @@ export default function UploadCatalog() {
       </div>
 
       {/* Camera Tab Content */}
-      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'ai' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: 'calc(100vh - 360px)' }}>
+      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'ai' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: '100%' }}>
         <div className="bg-white rounded-3xl p-12 shadow-lg">
           <div className="mb-6">
             <Camera className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -156,7 +156,7 @@ export default function UploadCatalog() {
       </div>
 
       {/* Predefined Images Tab Content */}
-      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: 'calc(100vh - 360px)' }}>
+      <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'predefined' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: '100%' }}>
         <div className="relative mb-8">
           <div className="grid grid-cols-4 gap-6 transition-opacity duration-300 opacity-100">
             {moodImages.map((image) => (

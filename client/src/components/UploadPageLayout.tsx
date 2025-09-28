@@ -67,7 +67,7 @@ export function UploadPageLayout({
       }}
     >
       {/* Main Content */}
-      <div className="w-full text-center flex flex-col items-center">
+      <div className="w-full text-center flex flex-col items-center" style={{ height: "70%" }}>
         {/* Header */}
         <PageTitle
           title={title}
