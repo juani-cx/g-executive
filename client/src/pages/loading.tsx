@@ -43,11 +43,11 @@ export default function Loading() {
           justifyContent: "center",
           height: "100vh",
           padding: "0 40px",
-          gap: "40px",
+          gap: "80px",
         }}
       >
         {/* Simple Loading Animation */}
-        <GoogleLogoAnimation size={120} />
+        <GoogleLogoAnimation size={240} />
 
         {/* Loading Text */}
         <h1
@@ -55,11 +55,11 @@ export default function Loading() {
             color: "#5f6368",
             textAlign: "center",
             fontFamily: "Google Sans",
-            fontSize: "64px",
+            fontSize: "128px",
             fontWeight: "400",
-            lineHeight: "80px",
+            lineHeight: "160px",
             margin: 0,
-            maxWidth: "1200px",
+            maxWidth: "2400px",
           }}
         >
           Working on it... you'll see results shortly.
@@ -69,11 +69,11 @@ export default function Loading() {
             color: "#5f6368",
             textAlign: "center",
             fontFamily: "Google Sans",
-            fontSize: "40px",
+            fontSize: "80px",
             fontWeight: "200",
-            lineHeight: "64px",
+            lineHeight: "128px",
             margin: 0,
-            maxWidth: "1200px",
+            maxWidth: "2400px",
           }}
         >
           AI results can be imperfect or may fail.
