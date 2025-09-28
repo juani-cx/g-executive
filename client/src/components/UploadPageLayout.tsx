@@ -59,8 +59,9 @@ export function UploadPageLayout({
   return (
     <PageShell
       centerContent={false}
-      pageBodyClassName="flex flex-col items-center min-h-screen"
+      pageBodyClassName="flex flex-col items-center"
       pageBodyStyle={{
+        minHeight: "calc(100vh - 290px)",
         padding: "24px 56px",
         paddingTop: "0",
       }}
