@@ -81,8 +81,8 @@ export default function CatalogCanvas() {
     <PageShell 
       title="Export your assets"
       subtitle="Review, edit and download your assets"
-      centerContent={true}
-      pageBodyClassName="flex flex-col items-center"
+      centerContent={false}
+      pageBodyClassName="flex flex-col items-start"
       showFooter={false}
     >
         <div style={{
@@ -415,7 +415,7 @@ export default function CatalogCanvas() {
         </div>
       
       {/* Virtual Keyboard */}
-      <VirtualKeyboard isVisible={true} usePortal={true} />
+      <VirtualKeyboard isVisible={showKeyboard} usePortal={true} bottom="2rem" />
       {/* Export Modal */}
       <ExportQRModal
         isOpen={isExportModalOpen}

@@ -101,8 +101,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
                     src={howItWorksImage} 
                     alt="Campaign AI Gen Workflow" 
                     className="w-auto h-auto rounded-lg shadow-lg object-contain"
-                    style={{ width: '200%' }}
-                    style={{ maxHeight: 'calc(80vh - 180px)' }}
+                    style={{ width: '200%', maxHeight: 'calc(80vh - 180px)' }}
                     onError={(e) => console.log('Image load error:', e)}
                     onLoad={() => console.log('Image loaded successfully')}
                   />
