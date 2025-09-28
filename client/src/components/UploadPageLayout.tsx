@@ -61,7 +61,7 @@ export function UploadPageLayout({
       centerContent={false}
       pageBodyClassName="flex flex-col items-center"
       pageBodyStyle={{
-        minHeight: "calc(100vh - 290px)",
+        minHeight: "calc(100vh - 340px)",
         padding: "24px 56px",
         paddingTop: "0",
       }}
