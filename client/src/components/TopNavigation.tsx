@@ -60,37 +60,43 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               </DialogTitle>
               
               {/* Tabs */}
-              <div className="flex justify-center mb-4 gap-6">
-                <Button
-                  variant="ghost"
-                  className={`font-medium transition-colors px-6 py-4 ${
-                    activeHowItWorksTab === 'campaign' ? "text-blue-600" : "text-gray-600"
-                  }`}
-                  style={{
-                    fontSize: "52px",
-                    lineHeight: "2",
-                    width: "520px",
-                  }}
-                  onClick={() => setActiveHowItWorksTab('campaign')}
-                  data-testid="tab-campaign"
-                >
-                  Campaign
-                </Button>
-                <Button
-                  variant="ghost"
-                  className={`font-medium transition-colors px-6 py-4 ${
-                    activeHowItWorksTab === 'catalog' ? "text-blue-600" : "text-gray-600"
-                  }`}
-                  style={{
-                    fontSize: "52px",
-                    lineHeight: "2",
-                    width: "520px",
-                  }}
-                  onClick={() => setActiveHowItWorksTab('catalog')}
-                  data-testid="tab-catalog"
-                >
-                  Catalog
-                </Button>
+              <div className="flex justify-center mb-6">
+                <div className="flex items-center bg-gray-100 rounded-full p-2" style={{ gap: '8px' }}>
+                  <Button
+                    variant="ghost"
+                    className={`rounded-full font-medium transition-all duration-200 px-8 py-3 ${
+                      activeHowItWorksTab === 'campaign'
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-gray-800"
+                    }`}
+                    style={{
+                      fontSize: "24px",
+                      lineHeight: "1.4",
+                      minWidth: "140px",
+                    }}
+                    onClick={() => setActiveHowItWorksTab('campaign')}
+                    data-testid="tab-campaign"
+                  >
+                    Campaign
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className={`rounded-full font-medium transition-all duration-200 px-8 py-3 ${
+                      activeHowItWorksTab === 'catalog'
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-gray-800"
+                    }`}
+                    style={{
+                      fontSize: "24px",
+                      lineHeight: "1.4",
+                      minWidth: "140px",
+                    }}
+                    onClick={() => setActiveHowItWorksTab('catalog')}
+                    data-testid="tab-catalog"
+                  >
+                    Catalog
+                  </Button>
+                </div>
               </div>
             </DialogHeader>
             
