@@ -123,7 +123,6 @@ export default function UploadCatalog() {
       continueDisabled={!selectedImage}
       onContinue={handlePredefinedContinue}
       continueText="Continue with this selection"
-      contentHeight="max(1000px, 80vh)"
     >
       {/* QR Tab Content */}
       <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-200 ${activeTab === 'computer' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{ height: '100%' }}>

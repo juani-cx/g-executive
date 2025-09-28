@@ -298,7 +298,6 @@ export default function UploadCampaign() {
       continueDisabled={!selectedImage}
       onContinue={handlePredefinedContinue}
       continueText="Continue with this selection"
-      contentHeight="max(1000px, 80vh)"
     >
       {/* QR Tab Content */}
       <div

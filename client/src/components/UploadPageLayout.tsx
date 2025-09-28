@@ -59,15 +59,14 @@ export function UploadPageLayout({
   return (
     <PageShell
       centerContent={false}
-      pageBodyClassName="flex flex-col items-center"
+      pageBodyClassName="flex flex-col items-center min-h-screen"
       pageBodyStyle={{
-        minHeight: "calc(100vh - 120px)",
         padding: "24px 56px",
         paddingTop: "0",
       }}
     >
       {/* Main Content */}
-      <div className="w-full text-center flex flex-col items-center">
+      <div className="w-full text-center flex flex-col items-center flex-1">
         {/* Header */}
         <PageTitle
           title={title}
@@ -111,8 +110,8 @@ export function UploadPageLayout({
 
         {/* Content Area */}
         <div
-          className="relative w-full flex justify-center"
-          style={{ height: contentHeight, marginTop: contentMarginTop }}
+          className="relative w-full flex justify-center flex-1"
+          style={{ minHeight: 0, marginTop: contentMarginTop }}
         >
           {children}
         </div>
