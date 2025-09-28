@@ -82,7 +82,7 @@ export function ConfigurePageLayout({
                 <div className="flex justify-center overflow-hidden">
                   <div
                     className="w-full bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center"
-                    style={{ height: "100%" }}
+                    style={{ height: "760px", maxHeight: "100%" }}
                   >
                     {uploadedImage ? (
                       <img
