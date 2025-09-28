@@ -476,7 +476,7 @@ export default function Canvas() {
     <PageShell 
       title="Export your assets"
       subtitle="Review, edit and download your assets"
-      centerContent={true}
+      centerContent={false}
       pageBodyClassName="flex flex-col items-start"
       showFooter={false}
     >
