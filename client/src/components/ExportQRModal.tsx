@@ -19,9 +19,9 @@ export function ExportQRModal({
 }: ExportQRModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
+          <DialogTitle style={{ fontSize: '48px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
             {title}
           </DialogTitle>
         </DialogHeader>
@@ -31,19 +31,19 @@ export function ExportQRModal({
           <div style={{
             boxSizing: 'border-box',
             background: '#e6ebf2',
-            border: '27px solid #fff',
-            borderRadius: '15px',
+            border: '54px solid #fff',
+            borderRadius: '30px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '4px',
-            width: '400px',
-            height: '340px',
-            margin: '16px 0'
+            gap: '8px',
+            width: '800px',
+            height: '680px',
+            margin: '32px 0'
           }}>
             <QRCode
               value={qrUrl}
-              size={200}
+              size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               viewBox="0 0 256 256"
             />
@@ -51,8 +51,8 @@ export function ExportQRModal({
 
           <p style={{
             color: '#5c5c5c',
-            fontSize: '18px',
-            marginBottom: '12px',
+            fontSize: '36px',
+            marginBottom: '24px',
             fontFamily: 'Google Sans',
             fontWeight: 400
           }}>
