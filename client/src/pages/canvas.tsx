@@ -186,7 +186,7 @@ function EditModal({
             <div className="p-3 h-full flex flex-col">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
-                <div className="bg-white rounded-lg max-w-lg mx-auto w-full" style={{ transform: 'scale(1.7)' }}>
+                <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(1.2)' }}>
                   {/* Instagram Header */}
                   <div className="flex items-center justify-between p-3 border-b border-gray-100">
                     <div className="flex items-center gap-3">
