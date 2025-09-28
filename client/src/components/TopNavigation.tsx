@@ -54,7 +54,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-7xl w-full bg-white z-[10001] flex flex-col" style={{ zIndex: 10001, height: '80vh', maxHeight: '80vh' }}>
-            <DialogHeader className="pb-4 px-6 pt-6">
+            <DialogHeader className="pb-4 px-6 pt-6" style={{ zIndex: 99, position: 'relative' }}>
               <DialogTitle className="text-2xl font-semibold text-center mb-4">
                 How Campaign AI Gen Works
               </DialogTitle>
@@ -104,8 +104,8 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
             <div className="flex-1 overflow-hidden px-6 pb-6 flex flex-col items-center justify-center">
               {/* Campaign Tab Content */}
               <div className={`h-full transition-opacity duration-200 ${
-                activeHowItWorksTab === 'campaign' ? 'opacity-100' : 'opacity-0 absolute'
-              }`}>
+                activeHowItWorksTab === 'campaign' ? 'opacity-100' : 'opacity-0 absolute inset-0'
+              }`} style={{ zIndex: 1 }}>
                 <div className="flex justify-center h-full">
                   <img 
                     src={howItWorksImage} 
@@ -121,7 +121,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               {/* Catalog Tab Content */}
               <div className={`h-full transition-opacity duration-200 ${
                 activeHowItWorksTab === 'catalog' ? 'opacity-100' : 'opacity-0 absolute inset-0'
-              }`}>
+              }`} style={{ zIndex: 1 }}>
                 <div className="flex flex-col items-center justify-center h-full text-center p-8">
                   <h3 className="text-4xl font-semibold mb-8 text-gray-800">
                     Catalog Enhancement Workflow
