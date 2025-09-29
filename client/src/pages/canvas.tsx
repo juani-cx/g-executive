@@ -515,7 +515,7 @@ export default function Canvas() {
       audio: "Ambient social media audio",
       caption: "Professional social media post with meta description",
       hashtags: "#socialmedia, #content, #engagement, #brand",
-      image: "/social-post.png"
+      image: "/instagram-post.png"
     },
     {
       id: "4",
