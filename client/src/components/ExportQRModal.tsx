@@ -61,7 +61,13 @@ export function ExportQRModal({
 
           <Button
             onClick={onClose}
-            className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-2 rounded-full"
+            className="mt-4 bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0"
+            style={{
+              fontSize: '32px',
+              lineHeight: '2',
+              height: 'auto',
+              padding: '0 34px'
+            }}
             data-testid="button-close-export-modal"
           >
             Close
