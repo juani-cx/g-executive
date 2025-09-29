@@ -11,6 +11,8 @@ interface TimeoutModalProps {
 
 export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: TimeoutModalProps) {
   const [countdown, setCountdown] = useState(10);
+  
+  console.log('🕒 [Timeout Debug] TimeoutModal render - isOpen:', isOpen);
 
   // Reset countdown when modal opens
   useEffect(() => {
