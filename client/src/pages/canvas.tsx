@@ -103,64 +103,124 @@ function EditModal({
   onNavigate: (direction: 'prev' | 'next') => void;
   setShowKeyboard: (show: boolean) => void;
 }) {
-  const [onScreenText, setOnScreenText] = useState("");
-  const [audio, setAudio] = useState("");
-  const [caption, setCaption] = useState("");
-  const [hashtags, setHashtags] = useState("");
+  const [field1, setField1] = useState("");
+  const [field2, setField2] = useState("");
+  const [field3, setField3] = useState("");
+  const [field4, setField4] = useState("");
 
   useEffect(() => {
     if (card) {
-      setOnScreenText(card.onScreenText);
-      setAudio(card.audio);
-      setCaption(card.caption);
-      setHashtags(card.hashtags);
+      setField1(card.onScreenText);
+      setField2(card.audio);
+      setField3(card.caption);
+      setField4(card.hashtags);
     }
   }, [card]);
+
+  // Get field configuration based on asset type
+  const getFieldConfig = (type: string) => {
+    switch (type) {
+      case 'Landing Page':
+        return {
+          field1: { label: 'Title', placeholder: 'Enter page title...' },
+          field2: { label: 'Description', placeholder: 'Enter page description...' },
+          field3: { label: 'CTA', placeholder: 'Enter call-to-action...' },
+          field4: { label: 'Meta tags', placeholder: 'Enter meta tags...' }
+        };
+      case 'Ad Banner':
+        return {
+          field1: { label: 'Headline', placeholder: 'Enter ad headline...' },
+          field2: { label: 'Description', placeholder: 'Enter ad description...' },
+          field3: { label: 'CTA', placeholder: 'Enter call-to-action...' },
+          field4: { label: 'Keywords', placeholder: 'Enter keywords...' }
+        };
+      case 'Social Post':
+        return {
+          field1: { label: 'Caption body', placeholder: 'Enter caption text...' },
+          field2: { label: 'Engagement prompt', placeholder: 'Enter engagement prompt...' },
+          field3: { label: 'Additional content', placeholder: 'Enter additional content...' },
+          field4: { label: 'Tags', placeholder: 'Enter tags...' }
+        };
+      case 'Vertical Video':
+      default:
+        return {
+          field1: { label: 'On screen text', placeholder: 'Enter on-screen text...' },
+          field2: { label: 'Audio', placeholder: 'Describe the audio content...' },
+          field3: { label: 'Caption', placeholder: 'Enter caption text...' },
+          field4: { label: 'Hashtags', placeholder: '#example #hashtags #here' }
+        };
+    }
+  };
+
+  const fieldConfig = card ? getFieldConfig(card.type) : getFieldConfig('Vertical Video');
 
   const handleSave = () => {
     if (card) {
       onSave({
         ...card,
-        onScreenText,
-        audio,
-        caption,
-        hashtags
+        onScreenText: field1,
+        audio: field2,
+        caption: field3,
+        hashtags: field4
       });
       onClose();
     }
   };
 
   const handleRandomize = () => {
-    // Randomize the content
-    const randomOnScreenTexts = [
-      "Campaign Launch 50% OFF",
-      "Professional Campaign Platform",
-      "Discover Our Solutions",
-      "Transform Your Business"
-    ];
-    const randomAudios = [
-      "Upbeat music with voiceover",
-      "Ambient background audio",
-      "Professional narration",
-      "Energetic soundtrack"
-    ];
-    const randomCaptions = [
-      "Eye-catching advertising banner with meta description for great conversions.",
-      "High-converting campaign content designed for maximum engagement.",
-      "Professional marketing content with compelling call-to-action.",
-      "Engaging content optimized for your target audience."
-    ];
-    const randomHashtags = [
-      "#marketing #business #growth",
-      "#campaign #advertising #success", 
-      "#brand #content #engagement",
-      "#digital #strategy #results"
-    ];
-
-    setOnScreenText(randomOnScreenTexts[Math.floor(Math.random() * randomOnScreenTexts.length)]);
-    setAudio(randomAudios[Math.floor(Math.random() * randomAudios.length)]);
-    setCaption(randomCaptions[Math.floor(Math.random() * randomCaptions.length)]);
-    setHashtags(randomHashtags[Math.floor(Math.random() * randomHashtags.length)]);
+    // Randomize the content based on asset type
+    if (!card) return;
+    
+    switch (card.type) {
+      case 'Landing Page':
+        const landingTitles = ["Revolutionary Product Launch", "Transform Your Business", "Innovative Solutions", "Premium Experience"];
+        const landingDescriptions = ["Discover cutting-edge features that will revolutionize your workflow", "Experience unprecedented quality and performance", "Join thousands of satisfied customers worldwide", "Unlock your potential with our premium platform"];
+        const landingCTAs = ["Start Free Trial", "Get Started Today", "Learn More", "Join Now"];
+        const landingTags = ["innovation, technology, business", "premium, quality, success", "transformation, growth, results", "efficiency, productivity, solutions"];
+        
+        setField1(landingTitles[Math.floor(Math.random() * landingTitles.length)]);
+        setField2(landingDescriptions[Math.floor(Math.random() * landingDescriptions.length)]);
+        setField3(landingCTAs[Math.floor(Math.random() * landingCTAs.length)]);
+        setField4(landingTags[Math.floor(Math.random() * landingTags.length)]);
+        break;
+        
+      case 'Ad Banner':
+        const adHeadlines = ["50% OFF Everything!", "Limited Time Offer", "New Arrivals", "Exclusive Deal"];
+        const adDescriptions = ["Don't miss this incredible savings opportunity", "Premium products at unbeatable prices", "Discover our latest collection", "Special pricing for valued customers"];
+        const adCTAs = ["Shop Now", "Save Today", "Explore Collection", "Claim Offer"];
+        const adKeywords = ["sale, discount, savings", "premium, quality, value", "new, trending, collection", "exclusive, limited, special"];
+        
+        setField1(adHeadlines[Math.floor(Math.random() * adHeadlines.length)]);
+        setField2(adDescriptions[Math.floor(Math.random() * adDescriptions.length)]);
+        setField3(adCTAs[Math.floor(Math.random() * adCTAs.length)]);
+        setField4(adKeywords[Math.floor(Math.random() * adKeywords.length)]);
+        break;
+        
+      case 'Social Post':
+        const socialCaptions = ["Excited to share our latest innovation with you!", "Behind the scenes of our creative process", "Customer success stories that inspire us daily", "Breaking: Something amazing is coming soon"];
+        const socialPrompts = ["What's your experience with this?", "Tag someone who needs to see this!", "Share your thoughts in the comments", "Which option do you prefer?"];
+        const socialContent = ["Swipe to see more details →", "Link in bio for full story", "Save this post for later", "Follow for daily updates"];
+        const socialTags = ["#innovation #inspiration #community", "#behindthescenes #creative #process", "#customerlove #success #testimonials", "#comingsoon #exciting #announcement"];
+        
+        setField1(socialCaptions[Math.floor(Math.random() * socialCaptions.length)]);
+        setField2(socialPrompts[Math.floor(Math.random() * socialPrompts.length)]);
+        setField3(socialContent[Math.floor(Math.random() * socialContent.length)]);
+        setField4(socialTags[Math.floor(Math.random() * socialTags.length)]);
+        break;
+        
+      case 'Vertical Video':
+      default:
+        const videoTexts = ["Campaign Launch 50% OFF", "New Product Alert!", "Limited Time Offer", "Breaking News Update"];
+        const videoAudios = ["Upbeat music with voiceover", "Ambient background audio", "Professional narration", "Energetic soundtrack"];
+        const videoCaptions = ["Don't miss out on this incredible opportunity to save big!", "Join thousands of satisfied customers who have already discovered the benefits.", "Transform your lifestyle with our premium quality products.", "Experience the difference that quality makes in your daily routine."];
+        const videoHashtags = ["#sale #discount #shopping #deals", "#newproduct #innovation #lifestyle #trending", "#limitedtime #exclusive #premium #quality", "#breaking #news #update #important"];
+        
+        setField1(videoTexts[Math.floor(Math.random() * videoTexts.length)]);
+        setField2(videoAudios[Math.floor(Math.random() * videoAudios.length)]);
+        setField3(videoCaptions[Math.floor(Math.random() * videoCaptions.length)]);
+        setField4(videoHashtags[Math.floor(Math.random() * videoHashtags.length)]);
+        break;
+    }
   };
 
   if (!card) return null;
@@ -266,16 +326,16 @@ function EditModal({
                     <div className="text-left">
                       <div className="text-lg mb-2">
                         <span className="font-semibold text-black">Your Company</span>
-                        <span className="text-gray-800 ml-1">{onScreenText || card.onScreenText}</span>
-                        {caption && (
-                          <span className="text-gray-800 ml-1">{caption}</span>
+                        <span className="text-gray-800 ml-1">{field1 || card.onScreenText}</span>
+                        {field3 && (
+                          <span className="text-gray-800 ml-1">{field3}</span>
                         )}
                       </div>
                       
                       {/* Hashtags in blue */}
-                      {(hashtags || card.hashtags) && (
+                      {(field4 || card.hashtags) && (
                         <div className="text-lg">
-                          <span className="text-blue-600">{hashtags || card.hashtags}</span>
+                          <span className="text-blue-600">{field4 || card.hashtags}</span>
                         </div>
                       )}
                     </div>
@@ -313,12 +373,12 @@ function EditModal({
                   
                   {/* Simple Content Preview */}
                   <div className="text-left">
-                    <h3 className="font-semibold text-gray-900 mb-2 text-2xl">{onScreenText || card.onScreenText}</h3>
-                    {caption && (
-                      <p className="text-gray-600 text-lg mb-2">{caption}</p>
+                    <h3 className="font-semibold text-gray-900 mb-2 text-2xl">{field1 || card.onScreenText}</h3>
+                    {field3 && (
+                      <p className="text-gray-600 text-lg mb-2">{field3}</p>
                     )}
-                    {(hashtags || card.hashtags) && (
-                      <p className="text-blue-600 text-lg font-medium">{hashtags || card.hashtags}</p>
+                    {(field4 || card.hashtags) && (
+                      <p className="text-blue-600 text-lg font-medium">{field4 || card.hashtags}</p>
                     )}
                   </div>
                 </div>
@@ -334,54 +394,55 @@ function EditModal({
 
             <div className="flex-1 space-y-4 py-2 min-h-0">
               <div>
-                <FormLabel htmlFor="onScreenText">
-                  On screen text
+                <FormLabel htmlFor="field1">
+                  {fieldConfig.field1.label}
                 </FormLabel>
                 <FormInput
-                  id="onScreenText"
-                  value={onScreenText}
-                  onChange={(e) => setOnScreenText(e.target.value)}
-                  data-testid="input-onscreentext"
+                  id="field1"
+                  value={field1}
+                  onChange={(e) => setField1(e.target.value)}
+                  placeholder={fieldConfig.field1.placeholder}
+                  data-testid="input-field1"
                 />
               </div>
 
               <div>
-                <FormLabel htmlFor="audio">
-                  Audio
+                <FormLabel htmlFor="field2">
+                  {fieldConfig.field2.label}
                 </FormLabel>
                 <FormInput
-                  id="audio"
-                  value={audio}
-                  onChange={(e) => setAudio(e.target.value)}
-                  placeholder="Describe the audio content..."
-                  data-testid="input-audio"
+                  id="field2"
+                  value={field2}
+                  onChange={(e) => setField2(e.target.value)}
+                  placeholder={fieldConfig.field2.placeholder}
+                  data-testid="input-field2"
                 />
               </div>
 
               <div>
-                <FormLabel htmlFor="caption">
-                  Caption
+                <FormLabel htmlFor="field3">
+                  {fieldConfig.field3.label}
                 </FormLabel>
                 <FormTextarea
-                  id="caption"
-                  value={caption}
-                  onChange={(e) => setCaption(e.target.value)}
+                  id="field3"
+                  value={field3}
+                  onChange={(e) => setField3(e.target.value)}
                   rows={2}
-                  placeholder="Enter caption text..."
-                  data-testid="textarea-caption"
+                  placeholder={fieldConfig.field3.placeholder}
+                  data-testid="textarea-field3"
                 />
               </div>
 
               <div>
-                <FormLabel htmlFor="hashtags">
-                  Hashtags
+                <FormLabel htmlFor="field4">
+                  {fieldConfig.field4.label}
                 </FormLabel>
                 <FormInput
-                  id="hashtags"
-                  value={hashtags}
-                  onChange={(e) => setHashtags(e.target.value)}
-                  placeholder="#example #hashtags #here"
-                  data-testid="input-hashtags"
+                  id="field4"
+                  value={field4}
+                  onChange={(e) => setField4(e.target.value)}
+                  placeholder={fieldConfig.field4.placeholder}
+                  data-testid="input-field4"
                 />
               </div>
             </div>
