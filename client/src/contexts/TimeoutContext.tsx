@@ -4,7 +4,7 @@ import { TimeoutSettings } from '@/hooks/useTimeout';
 const TimeoutContext = createContext<TimeoutSettings | undefined>(undefined);
 
 export function TimeoutProvider({ children }: { children: ReactNode }) {
-  const [timeoutEnabled, setTimeoutEnabled] = useState(false);
+  const [timeoutEnabled, setTimeoutEnabled] = useState(true);
 
   return (
     <TimeoutContext.Provider value={{ timeoutEnabled, setTimeoutEnabled }}>

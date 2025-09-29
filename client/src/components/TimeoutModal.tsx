@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 interface TimeoutModalProps {
   isOpen: boolean;
@@ -9,6 +10,32 @@ interface TimeoutModalProps {
 }
 
 export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: TimeoutModalProps) {
+  const [countdown, setCountdown] = useState(10);
+
+  // Reset countdown when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setCountdown(10);
+    }
+  }, [isOpen]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isOpen]);
+
   const handleStayHere = () => {
     onStayHere();
     onClose();
@@ -116,9 +143,13 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
               <p className="text-lg text-gray-700 mb-2">
                 We haven't seen any activity for a while.
               </p>
-              <p className="text-base text-gray-600">
+              <p className="text-base text-gray-600 mb-4">
                 Would you like to continue working on your project?
               </p>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-gray-600 mb-2">Auto-redirect in:</p>
+                <div className="text-4xl font-bold text-red-600">{countdown} seconds</div>
+              </div>
             </div>
             
             <div className="flex gap-4 w-full justify-center">
@@ -141,7 +172,7 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
             </div>
             
             <p className="text-sm text-gray-500 text-center">
-              If no response is given, you'll be automatically redirected to the homepage.
+              You will be automatically redirected to the homepage when the timer reaches zero.
             </p>
           </div>
         </div>

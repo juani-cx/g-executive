@@ -3,6 +3,7 @@ import { Settings } from "lucide-react";
 import { useState } from "react";
 import Logo from "@/components/Logo";
 import { useKeyboard } from "@/contexts/KeyboardContext";
+import { useTimeoutSettings } from "@/contexts/TimeoutContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +26,7 @@ interface TopNavigationProps {
 }
 
 export default function TopNavigation({ isLandingPage = false }: TopNavigationProps) {
-  const [timeoutEnabled, setTimeoutEnabled] = useState(true);
+  const { timeoutEnabled, setTimeoutEnabled } = useTimeoutSettings();
   const [guidedVersion, setGuidedVersion] = useState(false);
   const { keyboardEnabled, setKeyboardEnabled } = useKeyboard();
   const [activeHowItWorksTab, setActiveHowItWorksTab] = useState<'campaign' | 'catalog'>('campaign');
