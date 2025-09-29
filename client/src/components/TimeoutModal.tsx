@@ -43,7 +43,7 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] opacity-100 relative overflow-hidden">
+      <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] relative overflow-hidden">
         <DialogDescription className="sr-only">
           Timeout warning dialog with countdown timer
         </DialogDescription>
