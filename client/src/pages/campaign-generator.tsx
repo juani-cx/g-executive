@@ -8,7 +8,7 @@ import {
   Sparkles, 
   ArrowLeft,
   ArrowRight,
-  Shuffle,
+  Wand2,
   Paperclip,
   X,
   Brain
@@ -183,7 +183,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-name"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Input
@@ -205,7 +205,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-description"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Textarea
@@ -227,7 +227,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-tone"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Select value={config.brandTone} onValueChange={(value) => setConfig(prev => ({...prev, brandTone: value}))}>
@@ -255,7 +255,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-budget"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Select value={config.budget} onValueChange={(value) => setConfig(prev => ({...prev, budget: value}))}>
@@ -282,7 +282,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-timeline"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Select value={config.timeline} onValueChange={(value) => setConfig(prev => ({...prev, timeline: value}))}>
@@ -320,7 +320,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-audience"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <Input
@@ -342,7 +342,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-goals"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -375,7 +375,7 @@ export default function CampaignGenerator() {
                     className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50"
                     data-testid="button-randomize-platforms"
                   >
-                    <Shuffle className="w-4 h-4" />
+                    <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                   </Button>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
@@ -627,7 +627,7 @@ export default function CampaignGenerator() {
                 
                 data-testid="button-randomize-all"
               >
-                <Shuffle className="w-4 h-4 mr-2" />
+                <Wand2 className="w-4 h-4 mr-2" strokeWidth={1.5} />
                 Randomize All
               </Button>
             </div>

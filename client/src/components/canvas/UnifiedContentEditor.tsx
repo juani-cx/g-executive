@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Plus, Trash2, MoveUp, MoveDown, Sparkles, Save } from "lucide-react";
+import { Plus, Trash2, MoveUp, MoveDown, Wand2, Save } from "lucide-react";
 import { CanvasCard, CardType } from "@/types/canvas";
 
 interface UnifiedContentEditorProps {
@@ -178,7 +178,7 @@ export default function UnifiedContentEditor({ card, onSave, onApplyAI }: Unifie
             className="absolute right-2 top-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={() => toggleAIField(id)}
           >
-            <Sparkles className="w-3 h-3 text-violet-600" />
+            <Wand2 className="w-3 h-3 text-violet-600" strokeWidth={1.5} />
           </Button>
         </div>
         
@@ -196,7 +196,7 @@ export default function UnifiedContentEditor({ card, onSave, onApplyAI }: Unifie
               size="sm"
               className="bg-violet-600 hover:bg-violet-700 text-white"
             >
-              <Sparkles className="w-3 h-3" />
+              <Wand2 className="w-3 h-3" strokeWidth={1.5} />
             </Button>
           </div>
         )}

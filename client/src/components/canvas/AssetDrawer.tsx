@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { InternalButton } from "@/components/ui/internal-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -148,8 +149,8 @@ export default function AssetDrawer({
           </TabsContent>
 
 
-          <TabsContent value="comments" className="space-y-4 mt-6">
-            <div className="space-y-4">
+          <TabsContent value="comments" className="space-y-4 mt-6 flex flex-col h-full">
+            <div className="flex-1 space-y-4">
               <div className="flex items-center space-x-2">
                 <MessageCircle className="w-4 h-4 text-gray-600" />
                 <span className="text-sm font-medium text-gray-700">
@@ -157,26 +158,8 @@ export default function AssetDrawer({
                 </span>
               </div>
 
-              {/* Comment Input */}
-              <div className="space-y-2">
-                <Textarea
-                  placeholder="Add a comment..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
-                  rows={3}
-                />
-                <Button 
-                  size="sm"
-                  disabled={!comment.trim()}
-                  className="bg-violet-600 hover:bg-violet-700 text-white"
-                >
-                  Post Comment
-                </Button>
-              </div>
-
               {/* Existing Comments */}
-              <div className="space-y-3">
+              <div className="space-y-3 flex-1">
                 {Array.from({ length: (card.counts?.comments || 0) }, (_, i) => (
                   <div key={i} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                     <div className="flex items-center space-x-2 mb-2">
@@ -192,6 +175,25 @@ export default function AssetDrawer({
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Comment Input at bottom */}
+            <div className="border-t border-gray-200 pt-4 mt-4">
+              <div className="space-y-3">
+                <Textarea
+                  placeholder="Add a comment..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
+                  rows={3}
+                />
+                <InternalButton 
+                  onClick={() => {/* Post comment logic */}}
+                  disabled={!comment.trim()}
+                >
+                  Post Comment
+                </InternalButton>
               </div>
             </div>
           </TabsContent>

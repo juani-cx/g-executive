@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import TopNavigation from "@/components/TopNavigation";
-import { ChevronLeft, Settings, Download, ZoomIn } from "lucide-react";
+import { ChevronLeft, Wand2, Download, ZoomIn } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
 import { PageShell } from "@/components/PageShell";
 import { PageTitle } from "@/components/PageTitle";
@@ -399,7 +399,7 @@ export default function CatalogCanvas() {
                       }}
                       data-testid="button-randomize"
                     >
-                      <Settings size={16} />
+                      <Wand2 className="w-4 h-4" strokeWidth={1.5} />
                       Randomize
                     </Button>
                     

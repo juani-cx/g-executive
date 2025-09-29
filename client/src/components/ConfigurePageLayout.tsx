@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/PageShell";
+import { Wand2 } from "lucide-react";
 
 interface ConfigurePageLayoutProps {
   children: ReactNode;
@@ -130,7 +131,7 @@ export function ConfigurePageLayout({
                       type="button"
                       variant="outline"
                       onClick={onRandomize}
-                      className="text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full"
+                      className="text-gray-600 border-gray-300 hover:bg-gray-50 rounded-full flex items-center gap-2"
                       style={{
                         fontSize: "28px",
                         fontWeight: "500",
@@ -140,6 +141,7 @@ export function ConfigurePageLayout({
                       }}
                       data-testid="button-randomize-all"
                     >
+                      <Wand2 className="w-6 h-6" strokeWidth={1.5} />
                       Randomize
                     </Button>
 

@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import TopNavigation from "@/components/TopNavigation";
 import { useLocation } from "wouter";
-import { ZoomIn } from "lucide-react";
+import { ZoomIn, Wand2 } from "lucide-react";
 import { ExportQRModal } from "@/components/ExportQRModal";
 import { AppShell, PageHeader, PageBody } from "@/components/layout";
 import { PageShell } from "@/components/PageShell";
@@ -397,9 +397,10 @@ function EditModal({
               </InternalButton>
               <InternalButton
                 onClick={handleRandomize}
-                className="text-gray-600 border-gray-300 border bg-white hover:bg-gray-50"
+                className="text-gray-600 border-gray-300 border bg-white hover:bg-gray-50 flex items-center gap-2"
                 data-testid="button-randomize"
               >
+                <Wand2 className="w-6 h-6" strokeWidth={1.5} />
                 Randomize
               </InternalButton>
               <InternalButton
