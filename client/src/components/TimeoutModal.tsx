@@ -1,6 +1,6 @@
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface TimeoutModalProps {
   isOpen: boolean;
@@ -11,40 +11,6 @@ interface TimeoutModalProps {
 
 export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: TimeoutModalProps) {
   const [countdown, setCountdown] = useState(10);
-  
-  console.log('🚨 [Debug] TimeoutModal render - isOpen:', isOpen);
-  
-  // Add a debug div to verify the component is rendering
-  useEffect(() => {
-    if (isOpen) {
-      console.log('🚨 [Debug] Modal should be visible now!');
-      // Add a direct DOM element as backup
-      const debugDiv = document.createElement('div');
-      debugDiv.innerHTML = 'TIMEOUT MODAL DEBUG - THIS SHOULD BE VISIBLE';
-      debugDiv.style.cssText = `
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        z-index: 999999 !important;
-        background: red !important;
-        color: white !important;
-        padding: 20px !important;
-        border: 5px solid yellow !important;
-        font-size: 24px !important;
-        font-weight: bold !important;
-      `;
-      debugDiv.id = 'timeout-debug';
-      document.body.appendChild(debugDiv);
-      
-      return () => {
-        const existingDebug = document.getElementById('timeout-debug');
-        if (existingDebug) {
-          existingDebug.remove();
-        }
-      };
-    }
-  }, [isOpen]);
 
   // Reset countdown when modal opens
   useEffect(() => {
@@ -75,145 +41,78 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
     onClose();
   };
 
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg bg-white border-2 border-red-500 relative overflow-visible shadow-2xl" style={{ zIndex: 99999 }}>
-        <DialogDescription className="sr-only">
-          Timeout warning dialog with countdown timer
-        </DialogDescription>
-        {/* Animated Triangle Background */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-          <div className="absolute top-4 left-4 w-32 h-28">
-            <svg width="100%" height="100%" viewBox="0 0 780 675" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path 
-                d="M721.688 641.5H58.3125L390 66.999L721.688 641.5Z" 
-                stroke="#69AD6E" 
-                strokeWidth="67" 
-                className="triangle-animate"
-              />
-              <style dangerouslySetInnerHTML={{
-                __html: `.triangle-animate{
-                  stroke-dasharray:1991 1993;
-                  stroke-dashoffset:1992;
-                  animation:triangle-draw 6900ms ease-in-out 0ms infinite, triangle-fade 6900ms linear 0ms infinite;
-                }
-                @keyframes triangle-draw{
-                  2.898550724637681%{stroke-dashoffset: 1992}
-                  68.11594202898551%{ stroke-dashoffset: 0;}
-                  100%{ stroke-dashoffset: 0;}
-                }
-                @keyframes triangle-fade{
-                  0%{stroke-opacity:0.3;}
-                  97.10144927536231%{stroke-opacity:0.3;}
-                  100%{stroke-opacity:0;}
-                }`
-              }} />
-            </svg>
-          </div>
-          
-          {/* Additional floating triangles */}
-          <div className="absolute top-16 right-8 w-24 h-20 transform rotate-45">
-            <svg width="100%" height="100%" viewBox="0 0 780 675" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path 
-                d="M721.688 641.5H58.3125L390 66.999L721.688 641.5Z" 
-                stroke="#D96756" 
-                strokeWidth="67" 
-                className="triangle-animate-2"
-              />
-              <style dangerouslySetInnerHTML={{
-                __html: `.triangle-animate-2{
-                  stroke-dasharray:1991 1993;
-                  stroke-dashoffset:1992;
-                  animation:triangle-draw-2 8400ms ease-in-out 1500ms infinite, triangle-fade-2 8400ms linear 1500ms infinite;
-                }
-                @keyframes triangle-draw-2{
-                  2.898550724637681%{stroke-dashoffset: 1992}
-                  68.11594202898551%{ stroke-dashoffset: 0;}
-                  100%{ stroke-dashoffset: 0;}
-                }
-                @keyframes triangle-fade-2{
-                  0%{stroke-opacity:0.2;}
-                  97.10144927536231%{stroke-opacity:0.2;}
-                  100%{stroke-opacity:0;}
-                }`
-              }} />
-            </svg>
-          </div>
-          
-          <div className="absolute bottom-8 left-12 w-20 h-16 transform -rotate-12">
-            <svg width="100%" height="100%" viewBox="0 0 780 675" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path 
-                d="M721.688 641.5H58.3125L390 66.999L721.688 641.5Z" 
-                stroke="#69AD6E" 
-                strokeWidth="67" 
-                className="triangle-animate-3"
-              />
-              <style dangerouslySetInnerHTML={{
-                __html: `.triangle-animate-3{
-                  stroke-dasharray:1991 1993;
-                  stroke-dashoffset:1992;
-                  animation:triangle-draw-3 7800ms ease-in-out 3000ms infinite, triangle-fade-3 7800ms linear 3000ms infinite;
-                }
-                @keyframes triangle-draw-3{
-                  2.898550724637681%{stroke-dashoffset: 1992}
-                  68.11594202898551%{ stroke-dashoffset: 0;}
-                  100%{ stroke-dashoffset: 0;}
-                }
-                @keyframes triangle-fade-3{
-                  0%{stroke-opacity:0.15;}
-                  97.10144927536231%{stroke-opacity:0.15;}
-                  100%{stroke-opacity:0;}
-                }`
-              }} />
-            </svg>
-          </div>
-        </div>
+  if (!isOpen) return null;
 
-        {/* Main Content */}
-        <div className="relative z-10">
-          <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', textAlign: 'center', color: '#1f2937' }}>
+  return createPortal(
+    <>
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-black/20 backdrop-blur-sm"
+        style={{ zIndex: 99998 }}
+        onClick={onClose}
+      />
+      
+      {/* Modal Content */}
+      <div 
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 max-w-lg w-full mx-4"
+        style={{ zIndex: 99999 }}
+      >
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h2 
+            className="text-2xl font-medium text-gray-900 mb-2"
+            style={{ fontFamily: 'Google Sans', fontSize: '28px', lineHeight: 1.2, fontWeight: 500 }}
+          >
             Are you still there?
-          </DialogTitle>
-          
-          <div className="flex flex-col items-center space-y-6">
-            <div className="text-center">
-              <p className="text-lg text-gray-700 mb-2">
-                We haven't seen any activity for a while.
-              </p>
-              <p className="text-base text-gray-600 mb-4">
-                Would you like to continue working on your project?
-              </p>
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                <p className="text-sm text-gray-600 mb-2">Auto-redirect in:</p>
-                <div className="text-4xl font-bold text-red-600">{countdown} seconds</div>
-              </div>
-            </div>
-            
-            <div className="flex gap-4 w-full justify-center">
-              <Button
-                onClick={handleStayHere}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all"
-                data-testid="button-stay-here"
-              >
-                Yes, I'm here!
-              </Button>
-              
-              <Button
-                onClick={onGoHome}
-                variant="outline"
-                className="border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-3 rounded-full text-lg font-medium transition-all"
-                data-testid="button-go-home"
-              >
-                Take me home
-              </Button>
-            </div>
-            
-            <p className="text-sm text-gray-500 text-center">
-              You will be automatically redirected to the homepage when the timer reaches zero.
-            </p>
+          </h2>
+          <p className="text-gray-600 mb-1" style={{ fontFamily: 'Google Sans', fontSize: '18px' }}>
+            We haven't seen any activity for a while.
+          </p>
+          <p className="text-gray-600 mb-4" style={{ fontFamily: 'Google Sans', fontSize: '16px' }}>
+            Would you like to continue working on your project?
+          </p>
+        </div>
+        
+        {/* Countdown */}
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6 text-center">
+          <p className="text-sm text-gray-600 mb-2" style={{ fontFamily: 'Google Sans' }}>
+            Auto-redirect in:
+          </p>
+          <div 
+            className="text-5xl font-bold text-red-600"
+            style={{ fontFamily: 'Google Sans', fontSize: '48px', lineHeight: 1 }}
+          >
+            {countdown} seconds
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+        
+        {/* Buttons */}
+        <div className="flex gap-4 justify-center mb-4">
+          <Button
+            onClick={handleStayHere}
+            className="bg-[#4285F4] hover:bg-[#3367D6] text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all"
+            style={{ fontFamily: 'Google Sans', fontSize: '16px', fontWeight: 400 }}
+            data-testid="button-stay-here"
+          >
+            Yes, I'm here!
+          </Button>
+          
+          <Button
+            onClick={onGoHome}
+            variant="outline"
+            className="border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-3 rounded-full text-lg font-medium transition-all"
+            style={{ fontFamily: 'Google Sans', fontSize: '16px', fontWeight: 400 }}
+            data-testid="button-go-home"
+          >
+            Take me home
+          </Button>
+        </div>
+        
+        <p className="text-sm text-gray-500 text-center" style={{ fontFamily: 'Google Sans', fontSize: '14px' }}>
+          You will be automatically redirected to the homepage when the timer reaches zero.
+        </p>
+      </div>
+    </>,
+    document.body
   );
 }
