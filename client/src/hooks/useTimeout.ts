@@ -95,7 +95,7 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
       return;
     }
     
-    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+    const events = ['mousedown', 'keypress', 'scroll', 'touchstart', 'click'];
     
     console.log('🕒 [Timeout Debug] Adding event listeners for:', events);
     
