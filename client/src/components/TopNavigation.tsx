@@ -238,27 +238,39 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
 
       {/* Exit Confirmation Modal */}
       <Dialog open={showExitModal} onOpenChange={setShowExitModal}>
-        <DialogContent className="max-w-md mx-auto" style={{ zIndex: 10002 }}>
+        <DialogContent className="max-w-2xl mx-auto" style={{ zIndex: 10002 }}>
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-center mb-2">
+            <DialogTitle style={{ fontSize: '48px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', fontFamily: 'Google Sans', textAlign: 'center' }}>
               Leave Current Flow?
             </DialogTitle>
-            <DialogDescription className="text-center text-gray-600">
+            <DialogDescription className="text-center" style={{ fontSize: '24px', color: '#5c5c5c', fontFamily: 'Google Sans', fontWeight: 400, margin: '16px 0' }}>
               Are you sure you want to drop the current flow and return to the landing page? Any unsaved progress will be lost.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="flex gap-3 mt-6">
+          <div className="flex gap-6 mt-8">
             <Button 
               variant="outline" 
-              className="flex-1" 
+              className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full text-lg font-medium transition-all" 
+              style={{
+                fontSize: '24px',
+                lineHeight: '2',
+                height: 'auto',
+                padding: '12px 24px'
+              }}
               onClick={() => setShowExitModal(false)}
               data-testid="button-cancel-exit"
             >
               Cancel
             </Button>
             <Button 
-              className="flex-1 bg-red-500 hover:bg-red-600 text-white" 
+              className="flex-1 bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-full focus:outline-none focus:ring-0 focus-visible:ring-0 text-lg font-medium transition-all" 
+              style={{
+                fontSize: '24px',
+                lineHeight: '2',
+                height: 'auto',
+                padding: '12px 24px'
+              }}
               onClick={handleExitToLanding}
               data-testid="button-confirm-exit"
             >
