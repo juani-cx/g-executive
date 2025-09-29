@@ -55,7 +55,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               How it works
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-7xl w-full bg-white z-[10001] flex flex-col" style={{ zIndex: 10001, height: '80vh', maxHeight: '80vh' }}>
+          <DialogContent className="max-w-7xl w-full bg-white z-[10001] flex flex-col" style={{ zIndex: 10001, height: '60vh', maxHeight: '60vh' }}>
             <DialogHeader className="pb-4 px-6 pt-6" style={{ zIndex: 99, position: 'relative' }}>
               <DialogTitle className="text-2xl font-semibold text-center mb-4">
                 How Campaign AI Gen Works
@@ -113,7 +113,7 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
                     src={howItWorksImage} 
                     alt="Campaign AI Gen Workflow" 
                     className="w-auto h-auto rounded-lg object-contain"
-                    style={{ width: '300%', maxHeight: 'calc(80vh - 180px)' }}
+                    style={{ width: '300%', maxHeight: 'calc(60vh - 140px)' }}
                     onError={(e) => console.log('Image load error:', e)}
                     onLoad={() => console.log('Image loaded successfully')}
                   />
@@ -124,26 +124,26 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
               <div className={`h-full transition-opacity duration-200 ${
                 activeHowItWorksTab === 'catalog' ? 'opacity-100' : 'opacity-0 absolute inset-0'
               }`} style={{ zIndex: 1 }}>
-                <div className="flex flex-col items-center justify-center h-full text-center p-8">
-                  <h3 className="text-4xl font-semibold mb-8 text-gray-800">
+                <div className="flex flex-col h-full text-center p-4 overflow-y-auto">
+                  <h3 className="text-3xl font-semibold mb-4 text-gray-800">
                     Catalog Enhancement Workflow
                   </h3>
-                  <div className="space-y-8 text-gray-600 max-w-4xl">
-                    <div className="bg-blue-50 p-8 rounded-lg">
-                      <h4 className="font-medium text-blue-800 mb-4 text-2xl">1. Upload Product Images</h4>
-                      <p className="text-lg">Upload your e-commerce product photos for AI analysis</p>
+                  <div className="space-y-4 text-gray-600 max-w-3xl mx-auto">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-blue-800 mb-2 text-lg">1. Upload Product Images</h4>
+                      <p className="text-sm">Upload your e-commerce product photos for AI analysis</p>
                     </div>
-                    <div className="bg-green-50 p-8 rounded-lg">
-                      <h4 className="font-medium text-green-800 mb-4 text-2xl">2. AI Enhancement</h4>
-                      <p className="text-lg">Our AI analyzes images and generates optimized product descriptions, titles, and metadata</p>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-green-800 mb-2 text-lg">2. AI Enhancement</h4>
+                      <p className="text-sm">Our AI analyzes images and generates optimized product descriptions, titles, and metadata</p>
                     </div>
-                    <div className="bg-purple-50 p-8 rounded-lg">
-                      <h4 className="font-medium text-purple-800 mb-4 text-2xl">3. SEO Optimization</h4>
-                      <p className="text-lg">Get SEO-optimized content, keywords, and enhanced product features for better visibility</p>
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-purple-800 mb-2 text-lg">3. SEO Optimization</h4>
+                      <p className="text-sm">Get SEO-optimized content, keywords, and enhanced product features for better visibility</p>
                     </div>
-                    <div className="bg-orange-50 p-8 rounded-lg">
-                      <h4 className="font-medium text-orange-800 mb-4 text-2xl">4. Export & Implement</h4>
-                      <p className="text-lg">Download enhanced content and integrate into your e-commerce platform</p>
+                    <div className="bg-orange-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-orange-800 mb-2 text-lg">4. Export & Implement</h4>
+                      <p className="text-sm">Download enhanced content and integrate into your e-commerce platform</p>
                     </div>
                   </div>
                 </div>
