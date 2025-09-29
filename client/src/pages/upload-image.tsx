@@ -289,13 +289,13 @@ export default function UploadImage() {
                 >
                   <QRCode 
                     value={window.location.href} 
-                    size={800}
-                    style={{ height: "800px", width: "800px" }}
+                    size={600}
+                    style={{ height: "600px", width: "600px" }}
                   />
                 </div>
               </div>
               
-              <h2 className="text-3xl text-gray-800 mb-4" style={{ fontWeight: '475' }}>
+              <h2 className="text-gray-800 mb-4" style={{ fontWeight: '475', fontSize: '72px' }}>
                 Scan this code<br />to upload your image
               </h2>
               

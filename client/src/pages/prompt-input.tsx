@@ -146,21 +146,21 @@ export default function PromptInput() {
                       <Upload className="w-5 h-5 text-gray-500" />
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] opacity-100">
+                  <DialogContent className="max-w-4xl bg-white border border-[#cbcbcb] opacity-100">
                     <DialogHeader>
                       <DialogTitle style={{ fontSize: '24px', lineHeight: 1, fontWeight: 500, margin: '16px 0 8px', textAlign: 'center' }}>Scan this code to upload your image</DialogTitle>
                     </DialogHeader>
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="bg-white p-6 rounded-lg border border-[#cbcbcb]">
+                    <div className="flex flex-col items-center space-y-8">
+                      <div className="bg-white p-12 rounded-lg border border-[#cbcbcb]">
                         <QRCode 
                           value={`${window.location.origin}/prompt-input`} 
-                          size={200}
+                          size={600}
                           style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                           bgColor="#FFFFFF"
                           fgColor="#000000"
                         />
                       </div>
-                      <p className="text-center text-gray-600">Scan the QR code to visit our upload service</p>
+                      <p className="text-center text-gray-600" style={{ fontSize: '72px' }}>Scan the QR code to visit our upload service</p>
                     </div>
                   </DialogContent>
                 </Dialog>

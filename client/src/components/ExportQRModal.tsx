@@ -43,7 +43,7 @@ export function ExportQRModal({
           }}>
             <QRCode
               value={qrUrl}
-              size={400}
+              size={600}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               viewBox="0 0 256 256"
             />
@@ -51,7 +51,7 @@ export function ExportQRModal({
 
           <p style={{
             color: '#5c5c5c',
-            fontSize: '36px',
+            fontSize: '72px',
             marginBottom: '24px',
             fontFamily: 'Google Sans',
             fontWeight: 400
