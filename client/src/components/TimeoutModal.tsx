@@ -11,6 +11,40 @@ interface TimeoutModalProps {
 
 export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: TimeoutModalProps) {
   const [countdown, setCountdown] = useState(10);
+  
+  console.log('🚨 [Debug] TimeoutModal render - isOpen:', isOpen);
+  
+  // Add a debug div to verify the component is rendering
+  useEffect(() => {
+    if (isOpen) {
+      console.log('🚨 [Debug] Modal should be visible now!');
+      // Add a direct DOM element as backup
+      const debugDiv = document.createElement('div');
+      debugDiv.innerHTML = 'TIMEOUT MODAL DEBUG - THIS SHOULD BE VISIBLE';
+      debugDiv.style.cssText = `
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 999999 !important;
+        background: red !important;
+        color: white !important;
+        padding: 20px !important;
+        border: 5px solid yellow !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+      `;
+      debugDiv.id = 'timeout-debug';
+      document.body.appendChild(debugDiv);
+      
+      return () => {
+        const existingDebug = document.getElementById('timeout-debug');
+        if (existingDebug) {
+          existingDebug.remove();
+        }
+      };
+    }
+  }, [isOpen]);
 
   // Reset countdown when modal opens
   useEffect(() => {
@@ -43,7 +77,7 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] relative overflow-hidden">
+      <DialogContent className="sm:max-w-lg bg-white border-2 border-red-500 relative overflow-visible shadow-2xl" style={{ zIndex: 99999 }}>
         <DialogDescription className="sr-only">
           Timeout warning dialog with countdown timer
         </DialogDescription>
