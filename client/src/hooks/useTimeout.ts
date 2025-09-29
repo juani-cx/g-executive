@@ -108,7 +108,7 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
         modalTimeoutRef.current = null;
       }
     };
-  }, [timeoutSettings.timeoutEnabled, resetTimeout]);
+  }, [timeoutSettings.timeoutEnabled]); // Removed resetTimeout dependency to prevent infinite loop
 
   return {
     showTimeoutModal,
