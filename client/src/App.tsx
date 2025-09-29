@@ -33,7 +33,12 @@ function AuthenticatedRouter() {
   const [displayLocation, setDisplayLocation] = useState(location);
   const timeoutSettings = useTimeoutSettings();
   
-  // Removed automatic redirection to allow users to stay on landing page
+  // Disable timeout on loading page
+  const isLoadingPage = location === '/loading';
+  const modifiedTimeoutSettings = {
+    ...timeoutSettings,
+    timeoutEnabled: timeoutSettings.timeoutEnabled && !isLoadingPage
+  };
   
   const handleTimeout = () => {
     setLocation('/');
@@ -44,7 +49,7 @@ function AuthenticatedRouter() {
     handleStayHere,
     handleGoHome,
     handleModalClose
-  } = useTimeout(timeoutSettings, handleTimeout);
+  } = useTimeout(modifiedTimeoutSettings, handleTimeout);
   
   return (
     <div className="relative">

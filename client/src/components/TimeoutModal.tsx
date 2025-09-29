@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -44,6 +44,9 @@ export default function TimeoutModal({ isOpen, onClose, onStayHere, onGoHome }: 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md bg-white border border-[#cbcbcb] opacity-100 relative overflow-hidden">
+        <DialogDescription className="sr-only">
+          Timeout warning dialog with countdown timer
+        </DialogDescription>
         {/* Animated Triangle Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
           <div className="absolute top-4 left-4 w-32 h-28">

@@ -36,7 +36,7 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
           }
           onTimeout();
         }, 10000);
-      }, 15000); // 15 seconds
+      }, 8000); // 8 seconds
     }
   }, [timeoutSettings.timeoutEnabled, onTimeout]);
 
