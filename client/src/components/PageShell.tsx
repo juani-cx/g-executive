@@ -45,7 +45,7 @@ export function PageShell({
     <AppShell
       className={`${baseClassName} ${className}`}
       style={baseStyle}
-      mainStyle={isLandingPage ? { paddingTop: '8%' } : {}}
+      mainStyle={isLandingPage ? { paddingTop: '10%' } : {}}
       header={
         showNavigation ? (
           <PageHeader>
