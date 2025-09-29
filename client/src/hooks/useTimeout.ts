@@ -11,16 +11,12 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
   const modalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const resetTimeout = useCallback(() => {
-    console.log('🕒 [Timeout Debug] resetTimeout called, timeoutEnabled:', timeoutSettings.timeoutEnabled);
-    
     if (timeoutRef.current) {
-      console.log('🕒 [Timeout Debug] Clearing existing timeout');
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
     
     if (modalTimeoutRef.current) {
-      console.log('🕒 [Timeout Debug] Clearing existing modal timeout');
       clearTimeout(modalTimeoutRef.current);
       modalTimeoutRef.current = null;
     }
@@ -28,13 +24,10 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
     setShowTimeoutModal(false);
     
     if (timeoutSettings.timeoutEnabled) {
-      console.log('🕒 [Timeout Debug] Starting new 8-second timeout');
       timeoutRef.current = setTimeout(() => {
-        console.log('🕒 [Timeout Debug] 8 seconds elapsed - showing modal');
         setShowTimeoutModal(true);
         // Auto redirect to home after additional 10 seconds if no response
         modalTimeoutRef.current = setTimeout(() => {
-          console.log('🕒 [Timeout Debug] 10 seconds elapsed in modal - redirecting');
           // Clear modal state before redirecting
           setShowTimeoutModal(false);
           if (timeoutRef.current) {
@@ -44,8 +37,6 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
           onTimeout();
         }, 10000);
       }, 8000); // 8 seconds
-    } else {
-      console.log('🕒 [Timeout Debug] Timeout disabled - not starting timer');
     }
   }, [timeoutSettings.timeoutEnabled, onTimeout]);
 
@@ -79,32 +70,22 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
 
   // Activity event handlers
   const handleActivity = useCallback(() => {
-    console.log('🕒 [Timeout Debug] Activity detected - timeoutEnabled:', timeoutSettings.timeoutEnabled, 'showTimeoutModal:', showTimeoutModal);
     if (timeoutSettings.timeoutEnabled && !showTimeoutModal) {
-      console.log('🕒 [Timeout Debug] Resetting timeout due to activity');
       resetTimeout();
     }
   }, [timeoutSettings.timeoutEnabled, showTimeoutModal, resetTimeout]);
 
   // Set up activity listeners
   useEffect(() => {
-    console.log('🕒 [Timeout Debug] Setting up activity listeners, timeoutEnabled:', timeoutSettings.timeoutEnabled);
-    
-    if (!timeoutSettings.timeoutEnabled) {
-      console.log('🕒 [Timeout Debug] Timeout disabled - not adding listeners');
-      return;
-    }
+    if (!timeoutSettings.timeoutEnabled) return;
     
     const events = ['mousedown', 'keypress', 'scroll', 'touchstart', 'click'];
-    
-    console.log('🕒 [Timeout Debug] Adding event listeners for:', events);
     
     events.forEach(event => {
       document.addEventListener(event, handleActivity, { passive: true });
     });
     
     return () => {
-      console.log('🕒 [Timeout Debug] Removing event listeners');
       events.forEach(event => {
         document.removeEventListener(event, handleActivity);
       });
@@ -113,15 +94,11 @@ export function useTimeout(timeoutSettings: TimeoutSettings, onTimeout: () => vo
 
   // Initialize timeout when enabled
   useEffect(() => {
-    console.log('🕒 [Timeout Debug] Initialize timeout effect - timeoutEnabled:', timeoutSettings.timeoutEnabled);
-    
     if (timeoutSettings.timeoutEnabled) {
-      console.log('🕒 [Timeout Debug] Initializing timeout on mount/enable');
       resetTimeout();
     }
     
     return () => {
-      console.log('🕒 [Timeout Debug] Cleanup timeouts on unmount/disable');
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
