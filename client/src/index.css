@@ -100,6 +100,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide any unwanted emoji or colored heart icons in Instagram preview */
+.instagram-post-preview {
+  /* Hide any elements that might contain emoji hearts or counts */
+}
+.instagram-post-preview [data-testid*="heart"],
+.instagram-post-preview [class*="heart"],
+.instagram-post-preview [class*="like"],
+.instagram-post-preview .emoji-icons,
+.instagram-post-preview .colored-icons {
+  display: none !important;
+}
+
 /* Text Flip Animation - Based on CodePen */
 .text-flip {
   display: inline-block;

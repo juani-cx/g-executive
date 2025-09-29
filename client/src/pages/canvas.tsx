@@ -257,7 +257,7 @@ function EditModal({
             <div className="p-3 h-full flex flex-col overflow-hidden">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
-                <div className="bg-white rounded-lg mx-auto w-full h-full flex flex-col" style={{ maxWidth: '480px' }}>
+                <div className="bg-white rounded-lg mx-auto w-full h-full flex flex-col instagram-post-preview" style={{ maxWidth: '560px' }}>
                   {/* Instagram Header */}
                   <div className="flex items-center justify-between p-4 border-b border-gray-100 flex-shrink-0">
                     <div className="flex items-center gap-3">
@@ -305,7 +305,7 @@ function EditModal({
 
                   {/* Instagram Interaction Icons */}
                   <div className="p-4 flex-shrink-0">
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
                           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -323,7 +323,7 @@ function EditModal({
                     </div>
 
                     {/* Instagram Caption */}
-                    <div className="text-left">
+                    <div className="text-left mt-3">
                       <div className="text-xl mb-3">
                         <span className="font-semibold text-black">Your Company</span>
                         <span className="text-gray-800 ml-2">{field1 || card.onScreenText}</span>
