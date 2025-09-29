@@ -26,7 +26,8 @@ interface AssetCard {
   audio: string;
   caption: string;
   hashtags: string;
-  image?: string;
+  image?: string;          // Used for card preview
+  detailImage?: string;    // Used for modal detail view
   isVideo?: boolean;
 }
 
@@ -280,7 +281,7 @@ function EditModal({
                     <div className="flex-1 bg-white overflow-hidden" style={{ aspectRatio: '1/1' }}>
                       {card.isVideo ? (
                         <video 
-                          src={card.image}
+                          src={card.detailImage || card.image}
                           className="w-full h-full object-cover"
                           autoPlay
                           muted
@@ -290,7 +291,7 @@ function EditModal({
                         />
                       ) : (
                         <img 
-                          src={card.image}
+                          src={card.detailImage || card.image}
                           alt={card.type}
                           className="w-full h-full object-cover"
                           data-testid="img-modal-preview"
@@ -515,7 +516,8 @@ export default function Canvas() {
       audio: "Ambient social media audio",
       caption: "Professional social media post with meta description",
       hashtags: "#socialmedia, #content, #engagement, #brand",
-      image: "/social-post-updated.png"
+      image: "/images/postpreview.png",       // Card preview image
+      detailImage: "/images/postdetail.png"   // Modal detail image
     },
     {
       id: "4",
