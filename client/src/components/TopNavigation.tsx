@@ -4,6 +4,7 @@ import { useState } from "react";
 import Logo from "@/components/Logo";
 import { useKeyboard } from "@/contexts/KeyboardContext";
 import { useTimeoutSettings } from "@/contexts/TimeoutContext";
+import { useLocation } from "wouter";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import howItWorksImage from "@assets/Screenshot 2025-09-26 at 14.13.25_1758906819756.png";
 
@@ -30,12 +32,25 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
   const [guidedVersion, setGuidedVersion] = useState(false);
   const { keyboardEnabled, setKeyboardEnabled } = useKeyboard();
   const [activeHowItWorksTab, setActiveHowItWorksTab] = useState<'campaign' | 'catalog'>('campaign');
+  const [showExitModal, setShowExitModal] = useState(false);
+  const [, navigate] = useLocation();
+
+  const handleLogoClick = () => {
+    setShowExitModal(true);
+  };
+
+  const handleExitToLanding = () => {
+    setShowExitModal(false);
+    navigate('/');
+  };
 
   return (
     <div className="w-full flex justify-between items-center h-full">
       {/* Left side - Logo */}
       <div className="flex items-center">
-        <Logo size={isLandingPage ? "xlarge" : "large"} />
+        <div onClick={handleLogoClick} className="cursor-pointer" data-testid="logo-clickable">
+          <Logo size={isLandingPage ? "xlarge" : "large"} />
+        </div>
       </div>
       
       {/* Right side - How it works button and settings */}
@@ -220,6 +235,38 @@ export default function TopNavigation({ isLandingPage = false }: TopNavigationPr
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      {/* Exit Confirmation Modal */}
+      <Dialog open={showExitModal} onOpenChange={setShowExitModal}>
+        <DialogContent className="max-w-md mx-auto" style={{ zIndex: 10002 }}>
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-center mb-2">
+              Leave Current Flow?
+            </DialogTitle>
+            <DialogDescription className="text-center text-gray-600">
+              Are you sure you want to drop the current flow and return to the landing page? Any unsaved progress will be lost.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex gap-3 mt-6">
+            <Button 
+              variant="outline" 
+              className="flex-1" 
+              onClick={() => setShowExitModal(false)}
+              data-testid="button-cancel-exit"
+            >
+              Cancel
+            </Button>
+            <Button 
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white" 
+              onClick={handleExitToLanding}
+              data-testid="button-confirm-exit"
+            >
+              Yes, Exit
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
