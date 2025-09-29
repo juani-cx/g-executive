@@ -254,21 +254,21 @@ function EditModal({
         <div className="flex h-full bg-white rounded-lg overflow-hidden">
           {/* Left Side - Image Preview */}
           <div className="w-1/2 bg-gray-50 flex flex-col">
-            <div className="p-3 h-full flex flex-col justify-center items-center overflow-hidden">
+            <div className="p-3 h-full flex flex-col overflow-hidden">
               {card.type === 'Social Post' ? (
                 /* Instagram Style Preview for Social Post */
-                <div className="bg-white rounded-lg max-w-sm mx-auto w-full" style={{ transform: 'scale(1.0)', marginTop: '20px' }}>
+                <div className="bg-white rounded-lg mx-auto w-full h-full flex flex-col" style={{ maxWidth: '480px' }}>
                   {/* Instagram Header */}
-                  <div className="flex items-center justify-between p-3 border-b border-gray-100">
+                  <div className="flex items-center justify-between p-4 border-b border-gray-100 flex-shrink-0">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full p-0.5">
+                      <div className="w-10 h-10 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full p-0.5">
                         <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                          <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+                          <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
                         </div>
                       </div>
-                      <span className="font-semibold text-lg">Your Company</span>
+                      <span className="font-semibold text-xl">Your Company</span>
                     </div>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
                       <circle cx="12" cy="12" r="1" fill="black"/>
                       <circle cx="19" cy="12" r="1" fill="black"/>
                       <circle cx="5" cy="12" r="1" fill="black"/>
@@ -277,7 +277,7 @@ function EditModal({
 
                   {/* Instagram Image */}
                   {card.image ? (
-                    <div className="aspect-square bg-white overflow-hidden">
+                    <div className="flex-1 bg-white overflow-hidden" style={{ aspectRatio: '1/1' }}>
                       {card.isVideo ? (
                         <video 
                           src={card.image}
@@ -298,13 +298,13 @@ function EditModal({
                       )}
                     </div>
                   ) : (
-                    <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                      <div className="text-4xl">🎨</div>
+                    <div className="flex-1 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center" style={{ aspectRatio: '1/1' }}>
+                      <div className="text-6xl">🎨</div>
                     </div>
                   )}
 
                   {/* Instagram Interaction Icons */}
-                  <div className="p-3">
+                  <div className="p-4 flex-shrink-0">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-4">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="cursor-pointer">
@@ -324,17 +324,17 @@ function EditModal({
 
                     {/* Instagram Caption */}
                     <div className="text-left">
-                      <div className="text-lg mb-2">
+                      <div className="text-xl mb-3">
                         <span className="font-semibold text-black">Your Company</span>
-                        <span className="text-gray-800 ml-1">{field1 || card.onScreenText}</span>
+                        <span className="text-gray-800 ml-2">{field1 || card.onScreenText}</span>
                         {field3 && (
-                          <span className="text-gray-800 ml-1">{field3}</span>
+                          <span className="text-gray-800 ml-2">{field3}</span>
                         )}
                       </div>
                       
                       {/* Hashtags in blue */}
                       {(field4 || card.hashtags) && (
-                        <div className="text-lg">
+                        <div className="text-xl">
                           <span className="text-blue-600">{field4 || card.hashtags}</span>
                         </div>
                       )}
