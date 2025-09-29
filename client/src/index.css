@@ -383,7 +383,7 @@ body {
 /* Dotted Pattern Background */
 .dotted-background {
   background-color: #f8f9fa;
-  background-image: radial-gradient(circle, #bcc2c9 1.5px, transparent 1px);
+  background-image: radial-gradient(circle, #bcc2c9 3px, transparent 1px);
   background-size: 40px 40px;
 }
 
